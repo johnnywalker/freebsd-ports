@@ -1,20 +1,18 @@
 # Ports collection makefile for:    netatalk
-# Date created:         23 Jul 1997
-# Whom:                 stb
+# Date created:         4 Jul 2011
+# Whom:                 jdw
 #
 # $FreeBSD$
 #
 
 PORTNAME=	netatalk
-PORTVERSION=	2.1.5
+PORTVERSION=	2.2-beta4
 PORTEPOCH=	1
 CATEGORIES=	net print
 MASTER_SITES=	SF
 
-MAINTAINER=	marcus@FreeBSD.org
+MAINTAINER=	kallous@gmail.com
 COMMENT=	File server for Mac OS X
-
-LIB_DEPENDS=	gcrypt:${PORTSDIR}/security/libgcrypt
 
 USE_AUTOTOOLS=	libtool
 USE_BDB=	46+
@@ -25,75 +23,39 @@ USE_GMAKE=	yes
 USE_PERL5=	yes
 USE_RC_SUBR=	netatalk
 
-CONFIGURE_ARGS+=	--with-tcp-wrappers \
-			--with-pkgconfdir=${PREFIX}/etc \
-			--with-libiconv=${LOCALBASE} \
-			--with-libgcrypt-dir=${LOCALBASE} \
-			--with-uams-path=${LOCALBASE}/libexec/netatalk-uams \
-			--with-bdb=${LOCALBASE}
 
-OPTIONS=	APPLETALK	"Enable AppleTalk protocol support" on \
-		SRVLOC		"Enable Service Location Protocol support" off \
-		PAM		"Enable PAM support" off \
-		TIMELORD	"Enable Timelord network time service" off \
-		KRB5		"Enable Kerberos V UAM" off
+LIB_DEPENDS=	gcrypt.>=15::security/libgcrypt \
+		avahi::net/avahi \
+		dbus-1::devel/dbus
+
+CONFIGURE_ARGS+=	--with-pkgconfdir=${PREFIX}/etc
+CONFIGURE_ARGS+=	--with-libiconv=${LOCALBASE}
+CONFIGURE_ARGS+=	--with-libgcrypt-dir=${LOCALBASE}
+CONFIGURE_ARGS+=	--with-uams-path=${PREFIX}/libexec/netatalk-uams
+CONFIGURE_ARGS+=	--with-bdb=${LOCALBASE}
+CONFIGURE_ARGS+=	--enable-shared
+CONFIGURE_ARGS+=	--with-ssl-dir=/usr
+CONFIGURE_ARGS+=	--disable-overwrite
+CONFIGURE_ARGS+=	--disable-cups
 
 FILES=		AppleVolumes.default AppleVolumes.system afpd.conf \
-		atalkd.conf papd.conf netatalk.conf
+	        netatalk.conf
 LINKS=		unbin unhex unsingle hqx2bin single2bin macbinary \
 		binheader nadheader
-MAN1=		achfile.1 ad.1 aecho.1 afile.1 afppasswd.1 apple_cp.1 \
-		apple_dump.1 apple_mv.1 apple_rm.1 asip-status.pl.1 dbd.1 \
-		getzones.1 hqx2bin.1 macbinary.1 megatron.1 nbp.1 nbplkup.1 \
-		nbprgstr.1 nbpunrgstr.1 netatalk-config.1 pap.1 papstatus.1 \
-		psorder.1 single2bin.1 unbin.1 unhex.1 uniconv.1 unsingle.1
-MAN3=		atalk_aton.3 nbp_name.3
-MAN4=		atalk.4
+MAN1=		ad.1 afpldaptest.1 afppasswd.1 \
+		apple_dump.1 asip-status.pl.1 dbd.1 \
+		hqx2bin.1 macbinary.1 megatron.1 \
+		netatalk-config.1 \
+		single2bin.1 unbin.1 unhex.1 uniconv.1 unsingle.1
 MAN5=		AppleVolumes.5 AppleVolumes.default.5 \
 		AppleVolumes.system.5 afp_ldap.conf.5 afp_signature.conf.5 \
-		afpd.conf.5 atalkd.conf.5 netatalk.conf.5 papd.conf.5
-MAN8=		afp_acls.8 afpd.8 atalkd.8 cnid_dbd.8 cnid_metad.8 papd.8 \
-		papstatus.8 psf.8 timelord.8
+		afpd.conf.5 netatalk.conf.5
+MAN8=		afpd.8 cnid_dbd.8 cnid_metad.8 \
+		timelord.8
 
 CONFLICTS=	bigloo-2.* cap-6.0.* tct-1.* netatalk-1* yudit-[0-9]*
 
 .include <bsd.port.pre.mk>
-
-.if defined(WITH_KRB5)
-CONFIGURE_ARGS+=	--enable-krbV-uam
-PLIST_SUB+=		NETATALKKRB5=""
-.else
-PLIST_SUB+=		NETATALKKRB5="@comment "
-.endif
-
-.if defined(WITH_APPLETALK)
-CONFIGURE_ARGS+=	--with-ddp
-.else
-CONFIGURE_ARGS+=	--without-ddp
-.endif
-
-.if defined(WITH_PAM)
-CONFIGURE_ARGS+=	--with-pam
-PLIST_SUB+=		NETATALKPAM=""
-.else
-CONFIGURE_ARGS+=	--without-pam
-PLIST_SUB+=		NETATALKPAM="@comment "
-.endif
-
-.if defined(WITH_SRVLOC)
-CONFIGURE_ARGS+=	--enable-srvloc=${LOCALBASE}
-LIB_DEPENDS+=		slp.1:${PORTSDIR}/net/openslp
-SUB_LIST+=		SRVLOC="slpd"
-.else
-SUB_LIST+=		SRVLOC=""
-.endif
-
-.if defined (WITH_TIMELORD)
-CONFIGURE_ARGS+=	--enable-timelord
-PLIST_SUB+=		TIMELORD=""
-.else
-PLIST_SUB+=		TIMELORD="@comment "
-.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|%%DB_NAME%%|${BDB_INCLUDE_DIR:T}| ; \
