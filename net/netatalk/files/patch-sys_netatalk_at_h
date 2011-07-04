@@ -1,0 +1,20 @@
+$OpenBSD: patch-sys_netatalk_at_h,v 1.1 2011/04/05 23:43:10 yamaga Exp $
+--- sys/netatalk/at.h.orig	Mon Mar 21 21:01:54 2011
++++ sys/netatalk/at.h	Wed Apr  6 08:41:51 2011
+@@ -24,6 +24,16 @@
+ #include <sys/types.h>
+ #include <netinet/in.h> /* so that we can deal with sun's s_net #define */
+ 
++#ifdef __OpenBSD__
++typedef unsigned char  u_char;
++typedef unsigned short u_short;
++typedef unsigned int   u_int;
++typedef unsigned long  u_long;
++
++#include <sys/select.h>
++#include <sys/uio.h>
++#endif /* __OpenBSD__ */
++
+ #ifdef MACOSX_SERVER
+ #include <netat/appletalk.h>
+ #endif /* MACOSX_SERVER */
