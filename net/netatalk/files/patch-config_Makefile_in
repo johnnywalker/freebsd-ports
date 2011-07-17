@@ -1,0 +1,11 @@
+--- config/Makefile.in.orig	2011-07-10 12:14:54.000000000 -0500
++++ config/Makefile.in	2011-07-16 13:30:59.000000000 -0500
+@@ -701,6 +701,8 @@
+ install-config-files: $(CONFFILES) $(GENFILES)
+ 	$(mkinstalldirs) $(DESTDIR)$(pkgconfdir)
+ 	for f in $(CONFFILES) $(GENFILES); do \
++                echo "$(INSTALL_DATA) $$f $(DESTDIR)$(pkgconfdir)/$$f.dist"; \
++                $(INSTALL_DATA) $$f $(DESTDIR)$(pkgconfdir)/$$f.dist; \
+ 		if test "x$(OVERWRITE_CONFIG)" = "xyes" -o ! -f $(DESTDIR)$(pkgconfdir)/$$f; then \
+ 			echo "$(INSTALL_DATA) $$f $(DESTDIR)$(pkgconfdir)"; \
+ 			$(INSTALL_DATA) $$f $(DESTDIR)$(pkgconfdir); \
