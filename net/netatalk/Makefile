@@ -40,6 +40,8 @@ CONFIGURE_ARGS+=	--with-ssl-dir=/usr
 CONFIGURE_ARGS+=	--disable-overwrite
 CONFIGURE_ARGS+=	--disable-cups
 
+CONFIGURE_ENV+=         CFLAGS="-g -pg" LIBS="-lc_p"
+
 MAN1=		ad.1 afpldaptest.1 afppasswd.1 \
 		apple_dump.1 asip-status.pl.1 dbd.1 \
 		hqx2bin.1 macbinary.1 megatron.1 \

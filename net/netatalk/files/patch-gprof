@@ -1,0 +1,1099 @@
+diff -ruN etc/Makefile.am.orig etc/Makefile.am
+--- etc/Makefile.am.orig	2011-07-04 11:19:25.000000000 -0500
++++ etc/Makefile.am	2011-07-17 15:33:10.000000000 -0500
+@@ -1,6 +1,6 @@
+ # Makefile.am for etc/
+ 
+-SUBDIRS = afpd cnid_dbd uams
++SUBDIRS = uams afpd cnid_dbd
+ 
+ if USE_APPLETALK
+ SUBDIRS += atalkd papd psf
+diff -ruN etc/Makefile.in.orig etc/Makefile.in
+--- etc/Makefile.in.orig	2011-07-10 12:14:54.000000000 -0500
++++ etc/Makefile.in	2011-07-18 21:48:12.000000000 -0500
+@@ -87,7 +87,7 @@
+ 	distdir
+ ETAGS = etags
+ CTAGS = ctags
+-DIST_SUBDIRS = afpd cnid_dbd uams atalkd papd psf
++DIST_SUBDIRS = uams afpd cnid_dbd atalkd papd psf
+ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+ am__relativize = \
+   dir0=`pwd`; \
+@@ -302,7 +302,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = afpd cnid_dbd uams $(am__append_1)
++SUBDIRS = uams afpd cnid_dbd $(am__append_1)
+ all: all-recursive
+ 
+ .SUFFIXES:
+diff -ruN etc/afpd/Makefile.am.orig etc/afpd/Makefile.am
+--- etc/afpd/Makefile.am.orig	2011-07-09 10:22:54.000000000 -0500
++++ etc/afpd/Makefile.am	2011-07-17 17:53:20.000000000 -0500
+@@ -46,7 +46,9 @@
+ afpd_LDADD =  \
+ 	$(top_builddir)/libatalk/cnid/libcnid.la \
+ 	$(top_builddir)/libatalk/libatalk.la \
+-	@LIBGCRYPT_LIBS@ @ZEROCONF_LIBS@ @QUOTA_LIBS@ @SLP_LIBS@ @WRAP_LIBS@ @LIBADD_DL@ @ACL_LIBS@ @PTHREAD_LIBS@
++	@LIBGCRYPT_LIBS@ @ZEROCONF_LIBS@ @QUOTA_LIBS@ @SLP_LIBS@ @WRAP_LIBS@ @LIBADD_DL@ @ACL_LIBS@ @PTHREAD_LIBS@ \
++        -lc_p \
++        $(top_builddir)/etc/uams/libuams.la
+ 
+ afpd_LDFLAGS = -export-dynamic 
+ 
+@@ -63,7 +65,8 @@
+ 	-D_PATH_AFPDSIGCONF=\"$(pkgconfdir)/afp_signature.conf\" \
+ 	-D_PATH_AFPDUAMPATH=\"$(UAMS_PATH)/\" \
+ 	-D_PATH_ACL_LDAPCONF=\"$(pkgconfdir)/afp_ldap.conf\" \
+-	-D_PATH_AFPDUUIDCONF=\"$(pkgconfdir)/afp_voluuid.conf\"
++	-D_PATH_AFPDUUIDCONF=\"$(pkgconfdir)/afp_voluuid.conf\" \
++        -ggdb -g -pg
+ 
+ if HAVE_ACLS
+ afpd_SOURCES += acls.c
+diff -ruN etc/afpd/Makefile.in.orig etc/afpd/Makefile.in
+--- etc/afpd/Makefile.in.orig	2011-07-10 12:14:55.000000000 -0500
++++ etc/afpd/Makefile.in	2011-07-18 21:48:13.000000000 -0500
+@@ -104,7 +104,8 @@
+ 	afpd-unix.$(OBJEXT) afpd-volume.$(OBJEXT) $(am__objects_1)
+ afpd_OBJECTS = $(am_afpd_OBJECTS)
+ afpd_DEPENDENCIES = $(top_builddir)/libatalk/cnid/libcnid.la \
+-	$(top_builddir)/libatalk/libatalk.la
++	$(top_builddir)/libatalk/libatalk.la \
++	$(top_builddir)/etc/uams/libuams.la
+ afpd_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ 	--mode=link $(CCLD) $(afpd_CFLAGS) $(CFLAGS) $(afpd_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+@@ -338,7 +339,9 @@
+ afpd_LDADD = \
+ 	$(top_builddir)/libatalk/cnid/libcnid.la \
+ 	$(top_builddir)/libatalk/libatalk.la \
+-	@LIBGCRYPT_LIBS@ @ZEROCONF_LIBS@ @QUOTA_LIBS@ @SLP_LIBS@ @WRAP_LIBS@ @LIBADD_DL@ @ACL_LIBS@ @PTHREAD_LIBS@
++	@LIBGCRYPT_LIBS@ @ZEROCONF_LIBS@ @QUOTA_LIBS@ @SLP_LIBS@ @WRAP_LIBS@ @LIBADD_DL@ @ACL_LIBS@ @PTHREAD_LIBS@ \
++        -lc_p \
++        $(top_builddir)/etc/uams/libuams.la
+ 
+ afpd_LDFLAGS = -export-dynamic 
+ afpd_CFLAGS = \
+@@ -354,7 +357,8 @@
+ 	-D_PATH_AFPDSIGCONF=\"$(pkgconfdir)/afp_signature.conf\" \
+ 	-D_PATH_AFPDUAMPATH=\"$(UAMS_PATH)/\" \
+ 	-D_PATH_ACL_LDAPCONF=\"$(pkgconfdir)/afp_ldap.conf\" \
+-	-D_PATH_AFPDUUIDCONF=\"$(pkgconfdir)/afp_voluuid.conf\"
++	-D_PATH_AFPDUUIDCONF=\"$(pkgconfdir)/afp_voluuid.conf\" \
++        -ggdb -g -pg
+ 
+ noinst_HEADERS = auth.h afp_config.h desktop.h directory.h fce_api_internal.h file.h \
+ 	 filedir.h fork.h globals.h icon.h mangle.h misc.h status.h switch.h \
+diff -ruN etc/afpd/auth.c.orig etc/afpd/auth.c
+--- etc/afpd/auth.c.orig	2011-07-09 10:22:54.000000000 -0500
++++ etc/afpd/auth.c	2011-07-17 16:36:51.000000000 -0500
+@@ -1158,15 +1158,11 @@
+         /*
+           if ((stat(name, &st) == 0) && (mod = uam_load(name, p))) {
+         */
+-        if (stat(name, &st) == 0) {
+-            if ((mod = uam_load(name, p))) {
+-                uam_attach(&uam_modules, mod);
+-                LOG(log_debug, logtype_afpd, "uam: %s loaded", p);
+-            } else {
+-                LOG(log_error, logtype_afpd, "uam: %s load failure",p);
+-            }
++        if ((mod = uam_load(name, p))) {
++            uam_attach(&uam_modules, mod);
++            LOG(log_debug, logtype_afpd, "uam: %s loaded", p);
+         } else {
+-            LOG(log_info, logtype_afpd, "uam: uam not found (status=%d)", stat(name, &st));
++            LOG(log_error, logtype_afpd, "uam: %s load failure",p);
+         }
+         p = strtok(NULL, ",");
+     }
+diff -ruN etc/afpd/uam.c.orig etc/afpd/uam.c
+--- etc/afpd/uam.c.orig	2011-07-04 11:19:25.000000000 -0500
++++ etc/afpd/uam.c	2011-07-17 15:25:28.000000000 -0500
+@@ -65,6 +65,8 @@
+ #include <signal.h>
+ #endif /* TRU64 */
+ 
++#include "../uams/uams.h"
++
+ /* --- server uam functions -- */
+ 
+ /* uam_load. uams must have a uam_setup function. */
+@@ -72,11 +74,18 @@
+ {
+     char buf[MAXPATHLEN + 1], *p;
+     struct uam_mod *mod;
+-    void *module;
+-
+-    if ((module = mod_open(path)) == NULL) {
+-        LOG(log_error, logtype_afpd, "uam_load(%s): failed to load: %s", name, mod_error());
+-        return NULL;
++    void *module = NULL;
++    struct uam_export *static_mod = NULL;
++    int static_i;
++
++    /* try to find a static mod first */
++    static_mod = uam_static_mod_get(name);
++
++    if (!static_mod) {
++        if ((module = mod_open(path)) == NULL) {
++            LOG(log_error, logtype_afpd, "uam_load(%s): failed to load: %s", name, mod_error());
++            return NULL;
++        }
+     }
+ 
+     if ((mod = (struct uam_mod *) malloc(sizeof(struct uam_mod))) == NULL) {
+@@ -88,11 +97,15 @@
+     if ((p = strchr(buf, '.')))
+         *p = '\0';
+ 
+-    if ((mod->uam_fcn = mod_symbol(module, buf)) == NULL) {
+-        LOG(log_error, logtype_afpd, "uam_load(%s): mod_symbol error for symbol %s",
+-            name,
+-            buf);
+-        goto uam_load_err;
++    if (static_mod) {
++        mod->uam_fcn = static_mod;
++    } else {
++        if ((mod->uam_fcn = mod_symbol(module, buf)) == NULL) {
++            LOG(log_error, logtype_afpd, "uam_load(%s): mod_symbol error for symbol %s",
++                name,
++                buf);
++            goto uam_load_err;
++        }
+     }
+ 
+     if (mod->uam_fcn->uam_type != UAM_MODULE_SERVER) {
+@@ -115,7 +128,8 @@
+ uam_load_err:
+     free(mod);
+ uam_load_fail:
+-    mod_close(module);
++    if (module)
++        mod_close(module);
+     return NULL;
+ }
+ 
+@@ -127,7 +141,8 @@
+     if (mod->uam_fcn->uam_cleanup)
+         (*mod->uam_fcn->uam_cleanup)();
+ 
+-    mod_close(mod->uam_module);
++    if (mod->uam_module)
++        mod_close(mod->uam_module);
+     free(mod);
+ }
+ 
+diff -ruN etc/uams/Makefile.am.orig etc/uams/Makefile.am
+--- etc/uams/Makefile.am.orig	2011-07-03 23:27:36.000000000 -0500
++++ etc/uams/Makefile.am	2011-07-18 21:47:07.000000000 -0500
+@@ -6,40 +6,24 @@
+ # conditionally build some modules
+ #
+ 
+-UAMS_GENERIC = uams_guest.la uams_passwd.la
+-uams_LINKS = uams_clrtxt.so
+-dhx_exec_hook = echo
+-dhx2_exec_hook = echo
++UAMS_GENERIC = libuams_guest.la libuams_passwd.la
+ 
+ # these are complex: check if DHX and DHX2 module should be build
+ 
+ if USE_DHX
+ if HAVE_OPENSSL
+-uams_LINKS += uams_dhx.so
+-UAMS_DHX = uams_dhx_passwd.la
++UAMS_DHX = libuams_dhx_passwd.la
+ if BUILD_PAM
+-UAMS_DHX_PAM = uams_dhx_pam.la
++UAMS_DHX_PAM = libuams_dhx_pam.la
+ endif
+-if USE_PAM_SO
+-dhx_exec_hook += && $(LN_S) uams_dhx_pam.so uams_dhx.so
+-else
+-dhx_exec_hook += && $(LN_S) uams_dhx_passwd.so uams_dhx.so
+-endif
+-
+ endif
+ endif
+ 
+ if USE_DHX2
+ if HAVE_LIBGCRYPT
+-uams_LINKS += uams_dhx2.so
+-UAMS_DHX2 = uams_dhx2_passwd.la
++UAMS_DHX2 = libuams_dhx2_passwd.la
+ if BUILD_PAM
+-UAMS_DHX2_PAM = uams_dhx2_pam.la
+-endif
+-if USE_PAM_SO
+-dhx2_exec_hook += && $(LN_S) uams_dhx2_pam.so uams_dhx2.so
+-else
+-dhx2_exec_hook += && $(LN_S) uams_dhx2_passwd.so uams_dhx2.so
++UAMS_DHX2_PAM = libuams_dhx2_pam.la
+ endif
+ endif
+ endif
+@@ -47,43 +31,37 @@
+ # these are simple, though some the last three depend on OpenSSL
+ 
+ if BUILD_PAM
+-UAMS_PAM = uams_pam.la
++UAMS_PAM = libuams_pam.la
+ endif
+ 
+ if USE_RANDNUM
+-UAMS_RANDNUM = uams_randnum.la
++UAMS_RANDNUM = libuams_randnum.la
+ endif
+ 
+ if USE_PGP
+-UAMS_PGP = uams_pgp.la
++UAMS_PGP = libuams_pgp.la
+ endif
+ 
+ if USE_GSSAPI
+-UAMS_GSSAPI = uams_gss.la
++UAMS_GSSAPI = libuams_gss.la
+ endif
+ 
+ # links
+ 
+-if USE_PAM_SO
+-UAMS_CLRTXT_LINK = uams_pam.so
+-else
+-UAMS_CLRTXT_LINK = uams_passwd.so
+-endif
+-
+ #
+ # source files
+ #
+ 
+-uams_guest_la_SOURCES      = uams_guest.c
+-uams_randnum_la_SOURCES    = uams_randnum.c
+-uams_passwd_la_SOURCES     = uams_passwd.c
+-uams_pam_la_SOURCES        = uams_pam.c
+-uams_pgp_la_SOURCES        = uams_pgp.c
+-uams_dhx_passwd_la_SOURCES = uams_dhx_passwd.c
+-uams_dhx_pam_la_SOURCES    = uams_dhx_pam.c
+-uams_dhx2_passwd_la_SOURCES	= uams_dhx2_passwd.c
+-uams_dhx2_pam_la_SOURCES	= uams_dhx2_pam.c
+-uams_gss_la_SOURCES   = uams_gss.c
++libuams_guest_la_SOURCES      = uams_guest.c
++libuams_randnum_la_SOURCES    = uams_randnum.c
++libuams_passwd_la_SOURCES     = uams_passwd.c
++libuams_pam_la_SOURCES        = uams_pam.c
++libuams_pgp_la_SOURCES        = uams_pgp.c
++libuams_dhx_passwd_la_SOURCES = uams_dhx_passwd.c
++libuams_dhx_pam_la_SOURCES    = uams_dhx_pam.c uams.h
++libuams_dhx2_passwd_la_SOURCES	= uams_dhx2_passwd.c
++libuams_dhx2_pam_la_SOURCES	= uams_dhx2_pam.c uams.h
++libuams_gss_la_SOURCES   = uams_gss.c
+ 
+ #
+ # flags
+@@ -92,28 +70,28 @@
+ # these should be sorted out, applying both to AM_CFLAGS is senseless
+ AM_CFLAGS = @SSL_CFLAGS@ @LIBGCRYPT_CFLAGS@
+ 
+-uams_pam_la_CFLAGS         = @PAM_CFLAGS@
+-uams_dhx_pam_la_CFLAGS     = @SSL_CFLAGS@ @PAM_CFLAGS@
+-uams_dhx2_pam_la_CFLAGS    = @LIBGCRYPT_CFLAGS@ @PAM_CFLAGS@
+-uams_gss_la_CFLAGS   	   = @GSSAPI_CFLAGS@
+-
+-uams_guest_la_LDFLAGS      = -module -avoid-version
+-uams_randnum_la_LDFLAGS    = -module -avoid-version @SSL_LIBS@
+-uams_passwd_la_LDFLAGS     = -module -avoid-version @CRYPT_LIBS@
+-uams_pam_la_LDFLAGS        = -module -avoid-version @PAM_LIBS@
+-uams_pgp_la_LDFLAGS        = -module -avoid-version @SSL_LIBS@
+-uams_dhx_passwd_la_LDFLAGS = -module -avoid-version @CRYPT_LIBS@ @SSL_LIBS@
+-uams_dhx_pam_la_LDFLAGS		= -module -avoid-version @CRYPT_LIBS@ @SSL_LIBS@ @PAM_LIBS@
+-uams_dhx2_passwd_la_LDFLAGS	= -module -avoid-version @CRYPT_LIBS@ @LIBGCRYPT_LIBS@
+-uams_dhx2_pam_la_LDFLAGS	= -module -avoid-version @LIBGCRYPT_LIBS@ @PAM_LIBS@
+-uams_gss_la_LDFLAGS   	   = -module -avoid-version @GSSAPI_LIBS@ 
++libuams_pam_la_CFLAGS               = @PAM_CFLAGS@
++libuams_dhx_pam_la_CFLAGS           = @SSL_CFLAGS@ @PAM_CFLAGS@
++libuams_dhx2_pam_la_CFLAGS          = @LIBGCRYPT_CFLAGS@ @PAM_CFLAGS@
++libuams_gss_la_CFLAGS   	    = @GSSAPI_CFLAGS@
++
++libuams_guest_la_LDFLAGS            = -static
++libuams_randnum_la_LDFLAGS          = -static @SSL_LIBS@
++libuams_passwd_la_LDFLAGS           = -static @CRYPT_LIBS@
++libuams_pam_la_LDFLAGS              = -static @PAM_LIBS@
++libuams_pgp_la_LDFLAGS              = -static @SSL_LIBS@
++libuams_dhx_passwd_la_LDFLAGS       = -static @CRYPT_LIBS@ @SSL_LIBS@
++libuams_dhx_pam_la_LDFLAGS          = -static @CRYPT_LIBS@ @SSL_LIBS@ @PAM_LIBS@
++libuams_dhx2_passwd_la_LDFLAGS	    = -static @CRYPT_LIBS@ @LIBGCRYPT_LIBS@
++libuams_dhx2_pam_la_LDFLAGS	    = -static @LIBGCRYPT_LIBS@ @PAM_LIBS@
++libuams_gss_la_LDFLAGS   	    = -static @GSSAPI_LIBS@ 
+ 
+ #
+ # module compilation
+ #
+ 
+ uamsdir = @UAMS_PATH@
+-uams_LTLIBRARIES =		\
++noinst_LTLIBRARIES =		\
+ 	$(UAMS_GENERIC)		\
+ 	$(UAMS_PGP)		\
+ 	$(UAMS_PAM)		\
+@@ -122,23 +100,31 @@
+ 	$(UAMS_DHX_PAM)		\
+ 	$(UAMS_DHX2)		\
+ 	$(UAMS_DHX2_PAM)	\
+-	$(UAMS_GSSAPI)
+-
+-#
+-# link creation
+-#
++	$(UAMS_GSSAPI)          \
++        libuams.la
+ 
+-install-exec-hook:
+-	(cd $(DESTDIR)$(uamsdir)					&& \
+-		rm -f $(uams_LINKS)  					&& \
+-		$(LN_S) $(UAMS_CLRTXT_LINK) uams_clrtxt.so		&& \
+-		$(dhx_exec_hook)					&& \
+-		$(dhx2_exec_hook)					\
+-	)
++libuams_la_SOURCES = dummy.c
+ 
++libuams_la_LIBADD =             \
++	$(UAMS_GENERIC)		\
++	$(UAMS_PGP)		\
++	$(UAMS_PAM)		\
++	$(UAMS_RANDNUM)		\
++	$(UAMS_DHX)		\
++	$(UAMS_DHX_PAM)		\
++	$(UAMS_DHX2)		\
++	$(UAMS_DHX2_PAM)	\
++	$(UAMS_GSSAPI)          
+ 
++libuams_la_DEPENDENCIES =       \
++	$(UAMS_GENERIC)		\
++	$(UAMS_PGP)		\
++	$(UAMS_PAM)		\
++	$(UAMS_RANDNUM)		\
++	$(UAMS_DHX)		\
++	$(UAMS_DHX_PAM)		\
++	$(UAMS_DHX2)		\
++	$(UAMS_DHX2_PAM)	\
++	$(UAMS_GSSAPI)          
+ 
+-uninstall-hook:
+-	(cd $(DESTDIR)$(uamsdir)					&& \
+-		rm -f $(uams_LINKS)			   		\
+-	)
++libuams_la_LDFLAGS = -static
+diff -ruN etc/uams/Makefile.in.orig etc/uams/Makefile.in
+--- etc/uams/Makefile.in.orig	2011-07-10 12:14:55.000000000 -0500
++++ etc/uams/Makefile.in	2011-07-18 21:48:13.000000000 -0500
+@@ -37,14 +37,6 @@
+ build_triplet = @build@
+ host_triplet = @host@
+ target_triplet = @target@
+-
+-# these are complex: check if DHX and DHX2 module should be build
+-@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@am__append_1 = uams_dhx.so
+-@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@@USE_PAM_SO_TRUE@am__append_2 = && $(LN_S) uams_dhx_pam.so uams_dhx.so
+-@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@@USE_PAM_SO_FALSE@am__append_3 = && $(LN_S) uams_dhx_passwd.so uams_dhx.so
+-@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@am__append_4 = uams_dhx2.so
+-@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@@USE_PAM_SO_TRUE@am__append_5 = && $(LN_S) uams_dhx2_pam.so uams_dhx2.so
+-@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@@USE_PAM_SO_FALSE@am__append_6 = && $(LN_S) uams_dhx2_passwd.so uams_dhx2.so
+ subdir = etc/uams
+ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+@@ -79,103 +71,82 @@
+ CONFIG_HEADER = $(top_builddir)/config.h
+ CONFIG_CLEAN_FILES =
+ CONFIG_CLEAN_VPATH_FILES =
+-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+-am__vpath_adj = case $$p in \
+-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+-    *) f=$$p;; \
+-  esac;
+-am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
+-am__install_max = 40
+-am__nobase_strip_setup = \
+-  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
+-am__nobase_strip = \
+-  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
+-am__nobase_list = $(am__nobase_strip_setup); \
+-  for p in $$list; do echo "$$p $$p"; done | \
+-  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
+-  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
+-    if (++n[$$2] == $(am__install_max)) \
+-      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
+-    END { for (dir in files) print dir, files[dir] }'
+-am__base_list = \
+-  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
+-  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
+-am__installdirs = "$(DESTDIR)$(uamsdir)"
+-LTLIBRARIES = $(uams_LTLIBRARIES)
+-uams_dhx2_pam_la_LIBADD =
+-am_uams_dhx2_pam_la_OBJECTS = uams_dhx2_pam_la-uams_dhx2_pam.lo
+-uams_dhx2_pam_la_OBJECTS = $(am_uams_dhx2_pam_la_OBJECTS)
+-uams_dhx2_pam_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(uams_dhx2_pam_la_CFLAGS) \
+-	$(CFLAGS) $(uams_dhx2_pam_la_LDFLAGS) $(LDFLAGS) -o $@
+-@BUILD_PAM_TRUE@@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@am_uams_dhx2_pam_la_rpath =  \
+-@BUILD_PAM_TRUE@@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@	-rpath \
+-@BUILD_PAM_TRUE@@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@	$(uamsdir)
+-uams_dhx2_passwd_la_LIBADD =
+-am_uams_dhx2_passwd_la_OBJECTS = uams_dhx2_passwd.lo
+-uams_dhx2_passwd_la_OBJECTS = $(am_uams_dhx2_passwd_la_OBJECTS)
+-uams_dhx2_passwd_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++LTLIBRARIES = $(noinst_LTLIBRARIES)
++am_libuams_la_OBJECTS = dummy.lo
++libuams_la_OBJECTS = $(am_libuams_la_OBJECTS)
++libuams_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(uams_dhx2_passwd_la_LDFLAGS) $(LDFLAGS) -o $@
+-@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@am_uams_dhx2_passwd_la_rpath =  \
+-@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@	-rpath $(uamsdir)
+-uams_dhx_pam_la_LIBADD =
+-am_uams_dhx_pam_la_OBJECTS = uams_dhx_pam_la-uams_dhx_pam.lo
+-uams_dhx_pam_la_OBJECTS = $(am_uams_dhx_pam_la_OBJECTS)
+-uams_dhx_pam_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(uams_dhx_pam_la_CFLAGS) \
+-	$(CFLAGS) $(uams_dhx_pam_la_LDFLAGS) $(LDFLAGS) -o $@
+-@BUILD_PAM_TRUE@@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@am_uams_dhx_pam_la_rpath =  \
+-@BUILD_PAM_TRUE@@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@	-rpath \
+-@BUILD_PAM_TRUE@@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@	$(uamsdir)
+-uams_dhx_passwd_la_LIBADD =
+-am_uams_dhx_passwd_la_OBJECTS = uams_dhx_passwd.lo
+-uams_dhx_passwd_la_OBJECTS = $(am_uams_dhx_passwd_la_OBJECTS)
+-uams_dhx_passwd_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(libuams_la_LDFLAGS) $(LDFLAGS) -o $@
++libuams_dhx2_pam_la_LIBADD =
++am_libuams_dhx2_pam_la_OBJECTS = libuams_dhx2_pam_la-uams_dhx2_pam.lo
++libuams_dhx2_pam_la_OBJECTS = $(am_libuams_dhx2_pam_la_OBJECTS)
++libuams_dhx2_pam_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CCLD) \
++	$(libuams_dhx2_pam_la_CFLAGS) $(CFLAGS) \
++	$(libuams_dhx2_pam_la_LDFLAGS) $(LDFLAGS) -o $@
++@BUILD_PAM_TRUE@@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@am_libuams_dhx2_pam_la_rpath =
++libuams_dhx2_passwd_la_LIBADD =
++am_libuams_dhx2_passwd_la_OBJECTS = uams_dhx2_passwd.lo
++libuams_dhx2_passwd_la_OBJECTS = $(am_libuams_dhx2_passwd_la_OBJECTS)
++libuams_dhx2_passwd_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(uams_dhx_passwd_la_LDFLAGS) $(LDFLAGS) -o $@
+-@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@am_uams_dhx_passwd_la_rpath = -rpath \
+-@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@	$(uamsdir)
+-uams_gss_la_LIBADD =
+-am_uams_gss_la_OBJECTS = uams_gss_la-uams_gss.lo
+-uams_gss_la_OBJECTS = $(am_uams_gss_la_OBJECTS)
+-uams_gss_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(uams_gss_la_CFLAGS) \
+-	$(CFLAGS) $(uams_gss_la_LDFLAGS) $(LDFLAGS) -o $@
+-@USE_GSSAPI_TRUE@am_uams_gss_la_rpath = -rpath $(uamsdir)
+-uams_guest_la_LIBADD =
+-am_uams_guest_la_OBJECTS = uams_guest.lo
+-uams_guest_la_OBJECTS = $(am_uams_guest_la_OBJECTS)
+-uams_guest_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(libuams_dhx2_passwd_la_LDFLAGS) $(LDFLAGS) -o $@
++@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@am_libuams_dhx2_passwd_la_rpath =
++libuams_dhx_pam_la_LIBADD =
++am_libuams_dhx_pam_la_OBJECTS = libuams_dhx_pam_la-uams_dhx_pam.lo
++libuams_dhx_pam_la_OBJECTS = $(am_libuams_dhx_pam_la_OBJECTS)
++libuams_dhx_pam_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CCLD) \
++	$(libuams_dhx_pam_la_CFLAGS) $(CFLAGS) \
++	$(libuams_dhx_pam_la_LDFLAGS) $(LDFLAGS) -o $@
++@BUILD_PAM_TRUE@@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@am_libuams_dhx_pam_la_rpath =
++libuams_dhx_passwd_la_LIBADD =
++am_libuams_dhx_passwd_la_OBJECTS = uams_dhx_passwd.lo
++libuams_dhx_passwd_la_OBJECTS = $(am_libuams_dhx_passwd_la_OBJECTS)
++libuams_dhx_passwd_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(uams_guest_la_LDFLAGS) $(LDFLAGS) -o $@
+-uams_pam_la_LIBADD =
+-am_uams_pam_la_OBJECTS = uams_pam_la-uams_pam.lo
+-uams_pam_la_OBJECTS = $(am_uams_pam_la_OBJECTS)
+-uams_pam_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(uams_pam_la_CFLAGS) \
+-	$(CFLAGS) $(uams_pam_la_LDFLAGS) $(LDFLAGS) -o $@
+-@BUILD_PAM_TRUE@am_uams_pam_la_rpath = -rpath $(uamsdir)
+-uams_passwd_la_LIBADD =
+-am_uams_passwd_la_OBJECTS = uams_passwd.lo
+-uams_passwd_la_OBJECTS = $(am_uams_passwd_la_OBJECTS)
+-uams_passwd_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(libuams_dhx_passwd_la_LDFLAGS) $(LDFLAGS) -o $@
++@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@am_libuams_dhx_passwd_la_rpath =
++libuams_gss_la_LIBADD =
++am_libuams_gss_la_OBJECTS = libuams_gss_la-uams_gss.lo
++libuams_gss_la_OBJECTS = $(am_libuams_gss_la_OBJECTS)
++libuams_gss_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libuams_gss_la_CFLAGS) \
++	$(CFLAGS) $(libuams_gss_la_LDFLAGS) $(LDFLAGS) -o $@
++@USE_GSSAPI_TRUE@am_libuams_gss_la_rpath =
++libuams_guest_la_LIBADD =
++am_libuams_guest_la_OBJECTS = uams_guest.lo
++libuams_guest_la_OBJECTS = $(am_libuams_guest_la_OBJECTS)
++libuams_guest_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(uams_passwd_la_LDFLAGS) $(LDFLAGS) -o $@
+-uams_pgp_la_LIBADD =
+-am_uams_pgp_la_OBJECTS = uams_pgp.lo
+-uams_pgp_la_OBJECTS = $(am_uams_pgp_la_OBJECTS)
+-uams_pgp_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(libuams_guest_la_LDFLAGS) $(LDFLAGS) -o $@
++libuams_pam_la_LIBADD =
++am_libuams_pam_la_OBJECTS = libuams_pam_la-uams_pam.lo
++libuams_pam_la_OBJECTS = $(am_libuams_pam_la_OBJECTS)
++libuams_pam_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libuams_pam_la_CFLAGS) \
++	$(CFLAGS) $(libuams_pam_la_LDFLAGS) $(LDFLAGS) -o $@
++@BUILD_PAM_TRUE@am_libuams_pam_la_rpath =
++libuams_passwd_la_LIBADD =
++am_libuams_passwd_la_OBJECTS = uams_passwd.lo
++libuams_passwd_la_OBJECTS = $(am_libuams_passwd_la_OBJECTS)
++libuams_passwd_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(uams_pgp_la_LDFLAGS) $(LDFLAGS) -o $@
+-@USE_PGP_TRUE@am_uams_pgp_la_rpath = -rpath $(uamsdir)
+-uams_randnum_la_LIBADD =
+-am_uams_randnum_la_OBJECTS = uams_randnum.lo
+-uams_randnum_la_OBJECTS = $(am_uams_randnum_la_OBJECTS)
+-uams_randnum_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(libuams_passwd_la_LDFLAGS) $(LDFLAGS) -o $@
++libuams_pgp_la_LIBADD =
++am_libuams_pgp_la_OBJECTS = uams_pgp.lo
++libuams_pgp_la_OBJECTS = $(am_libuams_pgp_la_OBJECTS)
++libuams_pgp_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+-	$(uams_randnum_la_LDFLAGS) $(LDFLAGS) -o $@
+-@USE_RANDNUM_TRUE@am_uams_randnum_la_rpath = -rpath $(uamsdir)
++	$(libuams_pgp_la_LDFLAGS) $(LDFLAGS) -o $@
++@USE_PGP_TRUE@am_libuams_pgp_la_rpath =
++libuams_randnum_la_LIBADD =
++am_libuams_randnum_la_OBJECTS = uams_randnum.lo
++libuams_randnum_la_OBJECTS = $(am_libuams_randnum_la_OBJECTS)
++libuams_randnum_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
++	$(libuams_randnum_la_LDFLAGS) $(LDFLAGS) -o $@
++@USE_RANDNUM_TRUE@am_libuams_randnum_la_rpath =
+ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
+ depcomp = $(SHELL) $(top_srcdir)/depcomp
+ am__depfiles_maybe = depfiles
+@@ -189,17 +160,18 @@
+ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+ 	$(LDFLAGS) -o $@
+-SOURCES = $(uams_dhx2_pam_la_SOURCES) $(uams_dhx2_passwd_la_SOURCES) \
+-	$(uams_dhx_pam_la_SOURCES) $(uams_dhx_passwd_la_SOURCES) \
+-	$(uams_gss_la_SOURCES) $(uams_guest_la_SOURCES) \
+-	$(uams_pam_la_SOURCES) $(uams_passwd_la_SOURCES) \
+-	$(uams_pgp_la_SOURCES) $(uams_randnum_la_SOURCES)
+-DIST_SOURCES = $(uams_dhx2_pam_la_SOURCES) \
+-	$(uams_dhx2_passwd_la_SOURCES) $(uams_dhx_pam_la_SOURCES) \
+-	$(uams_dhx_passwd_la_SOURCES) $(uams_gss_la_SOURCES) \
+-	$(uams_guest_la_SOURCES) $(uams_pam_la_SOURCES) \
+-	$(uams_passwd_la_SOURCES) $(uams_pgp_la_SOURCES) \
+-	$(uams_randnum_la_SOURCES)
++SOURCES = $(libuams_la_SOURCES) $(libuams_dhx2_pam_la_SOURCES) \
++	$(libuams_dhx2_passwd_la_SOURCES) \
++	$(libuams_dhx_pam_la_SOURCES) $(libuams_dhx_passwd_la_SOURCES) \
++	$(libuams_gss_la_SOURCES) $(libuams_guest_la_SOURCES) \
++	$(libuams_pam_la_SOURCES) $(libuams_passwd_la_SOURCES) \
++	$(libuams_pgp_la_SOURCES) $(libuams_randnum_la_SOURCES)
++DIST_SOURCES = $(libuams_la_SOURCES) $(libuams_dhx2_pam_la_SOURCES) \
++	$(libuams_dhx2_passwd_la_SOURCES) \
++	$(libuams_dhx_pam_la_SOURCES) $(libuams_dhx_passwd_la_SOURCES) \
++	$(libuams_gss_la_SOURCES) $(libuams_guest_la_SOURCES) \
++	$(libuams_pam_la_SOURCES) $(libuams_passwd_la_SOURCES) \
++	$(libuams_pgp_la_SOURCES) $(libuams_randnum_la_SOURCES)
+ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+ 	html-recursive info-recursive install-data-recursive \
+ 	install-dvi-recursive install-exec-recursive \
+@@ -434,38 +406,35 @@
+ #
+ # conditionally build some modules
+ #
+-UAMS_GENERIC = uams_guest.la uams_passwd.la
+-uams_LINKS = uams_clrtxt.so $(am__append_1) $(am__append_4)
+-dhx_exec_hook = echo $(am__append_2) $(am__append_3)
+-dhx2_exec_hook = echo $(am__append_5) $(am__append_6)
+-@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@UAMS_DHX = uams_dhx_passwd.la
+-@BUILD_PAM_TRUE@@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@UAMS_DHX_PAM = uams_dhx_pam.la
+-@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@UAMS_DHX2 = uams_dhx2_passwd.la
+-@BUILD_PAM_TRUE@@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@UAMS_DHX2_PAM = uams_dhx2_pam.la
++UAMS_GENERIC = libuams_guest.la libuams_passwd.la
++
++# these are complex: check if DHX and DHX2 module should be build
++@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@UAMS_DHX = libuams_dhx_passwd.la
++@BUILD_PAM_TRUE@@HAVE_OPENSSL_TRUE@@USE_DHX_TRUE@UAMS_DHX_PAM = libuams_dhx_pam.la
++@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@UAMS_DHX2 = libuams_dhx2_passwd.la
++@BUILD_PAM_TRUE@@HAVE_LIBGCRYPT_TRUE@@USE_DHX2_TRUE@UAMS_DHX2_PAM = libuams_dhx2_pam.la
+ 
+ # these are simple, though some the last three depend on OpenSSL
+-@BUILD_PAM_TRUE@UAMS_PAM = uams_pam.la
+-@USE_RANDNUM_TRUE@UAMS_RANDNUM = uams_randnum.la
+-@USE_PGP_TRUE@UAMS_PGP = uams_pgp.la
+-@USE_GSSAPI_TRUE@UAMS_GSSAPI = uams_gss.la
+-@USE_PAM_SO_FALSE@UAMS_CLRTXT_LINK = uams_passwd.so
++@BUILD_PAM_TRUE@UAMS_PAM = libuams_pam.la
++@USE_RANDNUM_TRUE@UAMS_RANDNUM = libuams_randnum.la
++@USE_PGP_TRUE@UAMS_PGP = libuams_pgp.la
++@USE_GSSAPI_TRUE@UAMS_GSSAPI = libuams_gss.la
+ 
+ # links
+-@USE_PAM_SO_TRUE@UAMS_CLRTXT_LINK = uams_pam.so
+ 
+ #
+ # source files
+ #
+-uams_guest_la_SOURCES = uams_guest.c
+-uams_randnum_la_SOURCES = uams_randnum.c
+-uams_passwd_la_SOURCES = uams_passwd.c
+-uams_pam_la_SOURCES = uams_pam.c
+-uams_pgp_la_SOURCES = uams_pgp.c
+-uams_dhx_passwd_la_SOURCES = uams_dhx_passwd.c
+-uams_dhx_pam_la_SOURCES = uams_dhx_pam.c
+-uams_dhx2_passwd_la_SOURCES = uams_dhx2_passwd.c
+-uams_dhx2_pam_la_SOURCES = uams_dhx2_pam.c
+-uams_gss_la_SOURCES = uams_gss.c
++libuams_guest_la_SOURCES = uams_guest.c
++libuams_randnum_la_SOURCES = uams_randnum.c
++libuams_passwd_la_SOURCES = uams_passwd.c
++libuams_pam_la_SOURCES = uams_pam.c
++libuams_pgp_la_SOURCES = uams_pgp.c
++libuams_dhx_passwd_la_SOURCES = uams_dhx_passwd.c
++libuams_dhx_pam_la_SOURCES = uams_dhx_pam.c uams.h
++libuams_dhx2_passwd_la_SOURCES = uams_dhx2_passwd.c
++libuams_dhx2_pam_la_SOURCES = uams_dhx2_pam.c uams.h
++libuams_gss_la_SOURCES = uams_gss.c
+ 
+ #
+ # flags
+@@ -473,26 +442,50 @@
+ 
+ # these should be sorted out, applying both to AM_CFLAGS is senseless
+ AM_CFLAGS = @SSL_CFLAGS@ @LIBGCRYPT_CFLAGS@
+-uams_pam_la_CFLAGS = @PAM_CFLAGS@
+-uams_dhx_pam_la_CFLAGS = @SSL_CFLAGS@ @PAM_CFLAGS@
+-uams_dhx2_pam_la_CFLAGS = @LIBGCRYPT_CFLAGS@ @PAM_CFLAGS@
+-uams_gss_la_CFLAGS = @GSSAPI_CFLAGS@
+-uams_guest_la_LDFLAGS = -module -avoid-version
+-uams_randnum_la_LDFLAGS = -module -avoid-version @SSL_LIBS@
+-uams_passwd_la_LDFLAGS = -module -avoid-version @CRYPT_LIBS@
+-uams_pam_la_LDFLAGS = -module -avoid-version @PAM_LIBS@
+-uams_pgp_la_LDFLAGS = -module -avoid-version @SSL_LIBS@
+-uams_dhx_passwd_la_LDFLAGS = -module -avoid-version @CRYPT_LIBS@ @SSL_LIBS@
+-uams_dhx_pam_la_LDFLAGS = -module -avoid-version @CRYPT_LIBS@ @SSL_LIBS@ @PAM_LIBS@
+-uams_dhx2_passwd_la_LDFLAGS = -module -avoid-version @CRYPT_LIBS@ @LIBGCRYPT_LIBS@
+-uams_dhx2_pam_la_LDFLAGS = -module -avoid-version @LIBGCRYPT_LIBS@ @PAM_LIBS@
+-uams_gss_la_LDFLAGS = -module -avoid-version @GSSAPI_LIBS@ 
++libuams_pam_la_CFLAGS = @PAM_CFLAGS@
++libuams_dhx_pam_la_CFLAGS = @SSL_CFLAGS@ @PAM_CFLAGS@
++libuams_dhx2_pam_la_CFLAGS = @LIBGCRYPT_CFLAGS@ @PAM_CFLAGS@
++libuams_gss_la_CFLAGS = @GSSAPI_CFLAGS@
++libuams_guest_la_LDFLAGS = -static
++libuams_randnum_la_LDFLAGS = -static @SSL_LIBS@
++libuams_passwd_la_LDFLAGS = -static @CRYPT_LIBS@
++libuams_pam_la_LDFLAGS = -static @PAM_LIBS@
++libuams_pgp_la_LDFLAGS = -static @SSL_LIBS@
++libuams_dhx_passwd_la_LDFLAGS = -static @CRYPT_LIBS@ @SSL_LIBS@
++libuams_dhx_pam_la_LDFLAGS = -static @CRYPT_LIBS@ @SSL_LIBS@ @PAM_LIBS@
++libuams_dhx2_passwd_la_LDFLAGS = -static @CRYPT_LIBS@ @LIBGCRYPT_LIBS@
++libuams_dhx2_pam_la_LDFLAGS = -static @LIBGCRYPT_LIBS@ @PAM_LIBS@
++libuams_gss_la_LDFLAGS = -static @GSSAPI_LIBS@ 
+ 
+ #
+ # module compilation
+ #
+ uamsdir = @UAMS_PATH@
+-uams_LTLIBRARIES = \
++noinst_LTLIBRARIES = \
++	$(UAMS_GENERIC)		\
++	$(UAMS_PGP)		\
++	$(UAMS_PAM)		\
++	$(UAMS_RANDNUM)		\
++	$(UAMS_DHX)		\
++	$(UAMS_DHX_PAM)		\
++	$(UAMS_DHX2)		\
++	$(UAMS_DHX2_PAM)	\
++	$(UAMS_GSSAPI)          \
++        libuams.la
++
++libuams_la_SOURCES = dummy.c
++libuams_la_LIBADD = \
++	$(UAMS_GENERIC)		\
++	$(UAMS_PGP)		\
++	$(UAMS_PAM)		\
++	$(UAMS_RANDNUM)		\
++	$(UAMS_DHX)		\
++	$(UAMS_DHX_PAM)		\
++	$(UAMS_DHX2)		\
++	$(UAMS_DHX2_PAM)	\
++	$(UAMS_GSSAPI)          
++
++libuams_la_DEPENDENCIES = \
+ 	$(UAMS_GENERIC)		\
+ 	$(UAMS_PGP)		\
+ 	$(UAMS_PAM)		\
+@@ -501,8 +494,9 @@
+ 	$(UAMS_DHX_PAM)		\
+ 	$(UAMS_DHX2)		\
+ 	$(UAMS_DHX2_PAM)	\
+-	$(UAMS_GSSAPI)
++	$(UAMS_GSSAPI)          
+ 
++libuams_la_LDFLAGS = -static
+ all: all-recursive
+ 
+ .SUFFIXES:
+@@ -537,57 +531,37 @@
+ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
+ 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+ $(am__aclocal_m4_deps):
+-install-uamsLTLIBRARIES: $(uams_LTLIBRARIES)
+-	@$(NORMAL_INSTALL)
+-	test -z "$(uamsdir)" || $(MKDIR_P) "$(DESTDIR)$(uamsdir)"
+-	@list='$(uams_LTLIBRARIES)'; test -n "$(uamsdir)" || list=; \
+-	list2=; for p in $$list; do \
+-	  if test -f $$p; then \
+-	    list2="$$list2 $$p"; \
+-	  else :; fi; \
+-	done; \
+-	test -z "$$list2" || { \
+-	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 '$(DESTDIR)$(uamsdir)'"; \
+-	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$list2 "$(DESTDIR)$(uamsdir)"; \
+-	}
+-
+-uninstall-uamsLTLIBRARIES:
+-	@$(NORMAL_UNINSTALL)
+-	@list='$(uams_LTLIBRARIES)'; test -n "$(uamsdir)" || list=; \
+-	for p in $$list; do \
+-	  $(am__strip_dir) \
+-	  echo " $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=uninstall rm -f '$(DESTDIR)$(uamsdir)/$$f'"; \
+-	  $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=uninstall rm -f "$(DESTDIR)$(uamsdir)/$$f"; \
+-	done
+ 
+-clean-uamsLTLIBRARIES:
+-	-test -z "$(uams_LTLIBRARIES)" || rm -f $(uams_LTLIBRARIES)
+-	@list='$(uams_LTLIBRARIES)'; for p in $$list; do \
++clean-noinstLTLIBRARIES:
++	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
++	@list='$(noinst_LTLIBRARIES)'; for p in $$list; do \
+ 	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
+ 	  test "$$dir" != "$$p" || dir=.; \
+ 	  echo "rm -f \"$${dir}/so_locations\""; \
+ 	  rm -f "$${dir}/so_locations"; \
+ 	done
+-uams_dhx2_pam.la: $(uams_dhx2_pam_la_OBJECTS) $(uams_dhx2_pam_la_DEPENDENCIES) 
+-	$(uams_dhx2_pam_la_LINK) $(am_uams_dhx2_pam_la_rpath) $(uams_dhx2_pam_la_OBJECTS) $(uams_dhx2_pam_la_LIBADD) $(LIBS)
+-uams_dhx2_passwd.la: $(uams_dhx2_passwd_la_OBJECTS) $(uams_dhx2_passwd_la_DEPENDENCIES) 
+-	$(uams_dhx2_passwd_la_LINK) $(am_uams_dhx2_passwd_la_rpath) $(uams_dhx2_passwd_la_OBJECTS) $(uams_dhx2_passwd_la_LIBADD) $(LIBS)
+-uams_dhx_pam.la: $(uams_dhx_pam_la_OBJECTS) $(uams_dhx_pam_la_DEPENDENCIES) 
+-	$(uams_dhx_pam_la_LINK) $(am_uams_dhx_pam_la_rpath) $(uams_dhx_pam_la_OBJECTS) $(uams_dhx_pam_la_LIBADD) $(LIBS)
+-uams_dhx_passwd.la: $(uams_dhx_passwd_la_OBJECTS) $(uams_dhx_passwd_la_DEPENDENCIES) 
+-	$(uams_dhx_passwd_la_LINK) $(am_uams_dhx_passwd_la_rpath) $(uams_dhx_passwd_la_OBJECTS) $(uams_dhx_passwd_la_LIBADD) $(LIBS)
+-uams_gss.la: $(uams_gss_la_OBJECTS) $(uams_gss_la_DEPENDENCIES) 
+-	$(uams_gss_la_LINK) $(am_uams_gss_la_rpath) $(uams_gss_la_OBJECTS) $(uams_gss_la_LIBADD) $(LIBS)
+-uams_guest.la: $(uams_guest_la_OBJECTS) $(uams_guest_la_DEPENDENCIES) 
+-	$(uams_guest_la_LINK) -rpath $(uamsdir) $(uams_guest_la_OBJECTS) $(uams_guest_la_LIBADD) $(LIBS)
+-uams_pam.la: $(uams_pam_la_OBJECTS) $(uams_pam_la_DEPENDENCIES) 
+-	$(uams_pam_la_LINK) $(am_uams_pam_la_rpath) $(uams_pam_la_OBJECTS) $(uams_pam_la_LIBADD) $(LIBS)
+-uams_passwd.la: $(uams_passwd_la_OBJECTS) $(uams_passwd_la_DEPENDENCIES) 
+-	$(uams_passwd_la_LINK) -rpath $(uamsdir) $(uams_passwd_la_OBJECTS) $(uams_passwd_la_LIBADD) $(LIBS)
+-uams_pgp.la: $(uams_pgp_la_OBJECTS) $(uams_pgp_la_DEPENDENCIES) 
+-	$(uams_pgp_la_LINK) $(am_uams_pgp_la_rpath) $(uams_pgp_la_OBJECTS) $(uams_pgp_la_LIBADD) $(LIBS)
+-uams_randnum.la: $(uams_randnum_la_OBJECTS) $(uams_randnum_la_DEPENDENCIES) 
+-	$(uams_randnum_la_LINK) $(am_uams_randnum_la_rpath) $(uams_randnum_la_OBJECTS) $(uams_randnum_la_LIBADD) $(LIBS)
++libuams.la: $(libuams_la_OBJECTS) $(libuams_la_DEPENDENCIES) 
++	$(libuams_la_LINK)  $(libuams_la_OBJECTS) $(libuams_la_LIBADD) $(LIBS)
++libuams_dhx2_pam.la: $(libuams_dhx2_pam_la_OBJECTS) $(libuams_dhx2_pam_la_DEPENDENCIES) 
++	$(libuams_dhx2_pam_la_LINK) $(am_libuams_dhx2_pam_la_rpath) $(libuams_dhx2_pam_la_OBJECTS) $(libuams_dhx2_pam_la_LIBADD) $(LIBS)
++libuams_dhx2_passwd.la: $(libuams_dhx2_passwd_la_OBJECTS) $(libuams_dhx2_passwd_la_DEPENDENCIES) 
++	$(libuams_dhx2_passwd_la_LINK) $(am_libuams_dhx2_passwd_la_rpath) $(libuams_dhx2_passwd_la_OBJECTS) $(libuams_dhx2_passwd_la_LIBADD) $(LIBS)
++libuams_dhx_pam.la: $(libuams_dhx_pam_la_OBJECTS) $(libuams_dhx_pam_la_DEPENDENCIES) 
++	$(libuams_dhx_pam_la_LINK) $(am_libuams_dhx_pam_la_rpath) $(libuams_dhx_pam_la_OBJECTS) $(libuams_dhx_pam_la_LIBADD) $(LIBS)
++libuams_dhx_passwd.la: $(libuams_dhx_passwd_la_OBJECTS) $(libuams_dhx_passwd_la_DEPENDENCIES) 
++	$(libuams_dhx_passwd_la_LINK) $(am_libuams_dhx_passwd_la_rpath) $(libuams_dhx_passwd_la_OBJECTS) $(libuams_dhx_passwd_la_LIBADD) $(LIBS)
++libuams_gss.la: $(libuams_gss_la_OBJECTS) $(libuams_gss_la_DEPENDENCIES) 
++	$(libuams_gss_la_LINK) $(am_libuams_gss_la_rpath) $(libuams_gss_la_OBJECTS) $(libuams_gss_la_LIBADD) $(LIBS)
++libuams_guest.la: $(libuams_guest_la_OBJECTS) $(libuams_guest_la_DEPENDENCIES) 
++	$(libuams_guest_la_LINK)  $(libuams_guest_la_OBJECTS) $(libuams_guest_la_LIBADD) $(LIBS)
++libuams_pam.la: $(libuams_pam_la_OBJECTS) $(libuams_pam_la_DEPENDENCIES) 
++	$(libuams_pam_la_LINK) $(am_libuams_pam_la_rpath) $(libuams_pam_la_OBJECTS) $(libuams_pam_la_LIBADD) $(LIBS)
++libuams_passwd.la: $(libuams_passwd_la_OBJECTS) $(libuams_passwd_la_DEPENDENCIES) 
++	$(libuams_passwd_la_LINK)  $(libuams_passwd_la_OBJECTS) $(libuams_passwd_la_LIBADD) $(LIBS)
++libuams_pgp.la: $(libuams_pgp_la_OBJECTS) $(libuams_pgp_la_DEPENDENCIES) 
++	$(libuams_pgp_la_LINK) $(am_libuams_pgp_la_rpath) $(libuams_pgp_la_OBJECTS) $(libuams_pgp_la_LIBADD) $(LIBS)
++libuams_randnum.la: $(libuams_randnum_la_OBJECTS) $(libuams_randnum_la_DEPENDENCIES) 
++	$(libuams_randnum_la_LINK) $(am_libuams_randnum_la_rpath) $(libuams_randnum_la_OBJECTS) $(libuams_randnum_la_LIBADD) $(LIBS)
+ 
+ mostlyclean-compile:
+ 	-rm -f *.$(OBJEXT)
+@@ -595,13 +569,14 @@
+ distclean-compile:
+ 	-rm -f *.tab.c
+ 
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_dhx2_pam_la-uams_dhx2_pam.Plo@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Plo@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libuams_dhx2_pam_la-uams_dhx2_pam.Plo@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libuams_dhx_pam_la-uams_dhx_pam.Plo@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libuams_gss_la-uams_gss.Plo@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libuams_pam_la-uams_pam.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_dhx2_passwd.Plo@am__quote@
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_dhx_pam_la-uams_dhx_pam.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_dhx_passwd.Plo@am__quote@
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_gss_la-uams_gss.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_guest.Plo@am__quote@
+-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_pam_la-uams_pam.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_passwd.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_pgp.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uams_randnum.Plo@am__quote@
+@@ -627,33 +602,33 @@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+ 
+-uams_dhx2_pam_la-uams_dhx2_pam.lo: uams_dhx2_pam.c
+-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_dhx2_pam_la_CFLAGS) $(CFLAGS) -MT uams_dhx2_pam_la-uams_dhx2_pam.lo -MD -MP -MF $(DEPDIR)/uams_dhx2_pam_la-uams_dhx2_pam.Tpo -c -o uams_dhx2_pam_la-uams_dhx2_pam.lo `test -f 'uams_dhx2_pam.c' || echo '$(srcdir)/'`uams_dhx2_pam.c
+-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/uams_dhx2_pam_la-uams_dhx2_pam.Tpo $(DEPDIR)/uams_dhx2_pam_la-uams_dhx2_pam.Plo
+-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_dhx2_pam.c' object='uams_dhx2_pam_la-uams_dhx2_pam.lo' libtool=yes @AMDEPBACKSLASH@
++libuams_dhx2_pam_la-uams_dhx2_pam.lo: uams_dhx2_pam.c
++@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_dhx2_pam_la_CFLAGS) $(CFLAGS) -MT libuams_dhx2_pam_la-uams_dhx2_pam.lo -MD -MP -MF $(DEPDIR)/libuams_dhx2_pam_la-uams_dhx2_pam.Tpo -c -o libuams_dhx2_pam_la-uams_dhx2_pam.lo `test -f 'uams_dhx2_pam.c' || echo '$(srcdir)/'`uams_dhx2_pam.c
++@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libuams_dhx2_pam_la-uams_dhx2_pam.Tpo $(DEPDIR)/libuams_dhx2_pam_la-uams_dhx2_pam.Plo
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_dhx2_pam.c' object='libuams_dhx2_pam_la-uams_dhx2_pam.lo' libtool=yes @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_dhx2_pam_la_CFLAGS) $(CFLAGS) -c -o uams_dhx2_pam_la-uams_dhx2_pam.lo `test -f 'uams_dhx2_pam.c' || echo '$(srcdir)/'`uams_dhx2_pam.c
++@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_dhx2_pam_la_CFLAGS) $(CFLAGS) -c -o libuams_dhx2_pam_la-uams_dhx2_pam.lo `test -f 'uams_dhx2_pam.c' || echo '$(srcdir)/'`uams_dhx2_pam.c
+ 
+-uams_dhx_pam_la-uams_dhx_pam.lo: uams_dhx_pam.c
+-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_dhx_pam_la_CFLAGS) $(CFLAGS) -MT uams_dhx_pam_la-uams_dhx_pam.lo -MD -MP -MF $(DEPDIR)/uams_dhx_pam_la-uams_dhx_pam.Tpo -c -o uams_dhx_pam_la-uams_dhx_pam.lo `test -f 'uams_dhx_pam.c' || echo '$(srcdir)/'`uams_dhx_pam.c
+-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/uams_dhx_pam_la-uams_dhx_pam.Tpo $(DEPDIR)/uams_dhx_pam_la-uams_dhx_pam.Plo
+-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_dhx_pam.c' object='uams_dhx_pam_la-uams_dhx_pam.lo' libtool=yes @AMDEPBACKSLASH@
++libuams_dhx_pam_la-uams_dhx_pam.lo: uams_dhx_pam.c
++@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_dhx_pam_la_CFLAGS) $(CFLAGS) -MT libuams_dhx_pam_la-uams_dhx_pam.lo -MD -MP -MF $(DEPDIR)/libuams_dhx_pam_la-uams_dhx_pam.Tpo -c -o libuams_dhx_pam_la-uams_dhx_pam.lo `test -f 'uams_dhx_pam.c' || echo '$(srcdir)/'`uams_dhx_pam.c
++@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libuams_dhx_pam_la-uams_dhx_pam.Tpo $(DEPDIR)/libuams_dhx_pam_la-uams_dhx_pam.Plo
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_dhx_pam.c' object='libuams_dhx_pam_la-uams_dhx_pam.lo' libtool=yes @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_dhx_pam_la_CFLAGS) $(CFLAGS) -c -o uams_dhx_pam_la-uams_dhx_pam.lo `test -f 'uams_dhx_pam.c' || echo '$(srcdir)/'`uams_dhx_pam.c
++@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_dhx_pam_la_CFLAGS) $(CFLAGS) -c -o libuams_dhx_pam_la-uams_dhx_pam.lo `test -f 'uams_dhx_pam.c' || echo '$(srcdir)/'`uams_dhx_pam.c
+ 
+-uams_gss_la-uams_gss.lo: uams_gss.c
+-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_gss_la_CFLAGS) $(CFLAGS) -MT uams_gss_la-uams_gss.lo -MD -MP -MF $(DEPDIR)/uams_gss_la-uams_gss.Tpo -c -o uams_gss_la-uams_gss.lo `test -f 'uams_gss.c' || echo '$(srcdir)/'`uams_gss.c
+-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/uams_gss_la-uams_gss.Tpo $(DEPDIR)/uams_gss_la-uams_gss.Plo
+-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_gss.c' object='uams_gss_la-uams_gss.lo' libtool=yes @AMDEPBACKSLASH@
++libuams_gss_la-uams_gss.lo: uams_gss.c
++@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_gss_la_CFLAGS) $(CFLAGS) -MT libuams_gss_la-uams_gss.lo -MD -MP -MF $(DEPDIR)/libuams_gss_la-uams_gss.Tpo -c -o libuams_gss_la-uams_gss.lo `test -f 'uams_gss.c' || echo '$(srcdir)/'`uams_gss.c
++@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libuams_gss_la-uams_gss.Tpo $(DEPDIR)/libuams_gss_la-uams_gss.Plo
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_gss.c' object='libuams_gss_la-uams_gss.lo' libtool=yes @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_gss_la_CFLAGS) $(CFLAGS) -c -o uams_gss_la-uams_gss.lo `test -f 'uams_gss.c' || echo '$(srcdir)/'`uams_gss.c
++@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_gss_la_CFLAGS) $(CFLAGS) -c -o libuams_gss_la-uams_gss.lo `test -f 'uams_gss.c' || echo '$(srcdir)/'`uams_gss.c
+ 
+-uams_pam_la-uams_pam.lo: uams_pam.c
+-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_pam_la_CFLAGS) $(CFLAGS) -MT uams_pam_la-uams_pam.lo -MD -MP -MF $(DEPDIR)/uams_pam_la-uams_pam.Tpo -c -o uams_pam_la-uams_pam.lo `test -f 'uams_pam.c' || echo '$(srcdir)/'`uams_pam.c
+-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/uams_pam_la-uams_pam.Tpo $(DEPDIR)/uams_pam_la-uams_pam.Plo
+-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_pam.c' object='uams_pam_la-uams_pam.lo' libtool=yes @AMDEPBACKSLASH@
++libuams_pam_la-uams_pam.lo: uams_pam.c
++@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_pam_la_CFLAGS) $(CFLAGS) -MT libuams_pam_la-uams_pam.lo -MD -MP -MF $(DEPDIR)/libuams_pam_la-uams_pam.Tpo -c -o libuams_pam_la-uams_pam.lo `test -f 'uams_pam.c' || echo '$(srcdir)/'`uams_pam.c
++@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libuams_pam_la-uams_pam.Tpo $(DEPDIR)/libuams_pam_la-uams_pam.Plo
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='uams_pam.c' object='libuams_pam_la-uams_pam.lo' libtool=yes @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(uams_pam_la_CFLAGS) $(CFLAGS) -c -o uams_pam_la-uams_pam.lo `test -f 'uams_pam.c' || echo '$(srcdir)/'`uams_pam.c
++@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libuams_pam_la_CFLAGS) $(CFLAGS) -c -o libuams_pam_la-uams_pam.lo `test -f 'uams_pam.c' || echo '$(srcdir)/'`uams_pam.c
+ 
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+@@ -859,9 +834,6 @@
+ all-am: Makefile $(LTLIBRARIES)
+ installdirs: installdirs-recursive
+ installdirs-am:
+-	for dir in "$(DESTDIR)$(uamsdir)"; do \
+-	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+-	done
+ install: install-recursive
+ install-exec: install-exec-recursive
+ install-data: install-data-recursive
+@@ -889,7 +861,7 @@
+ 	@echo "it deletes files that may require special tools to rebuild."
+ clean: clean-recursive
+ 
+-clean-am: clean-generic clean-libtool clean-uamsLTLIBRARIES \
++clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
+ 	mostlyclean-am
+ 
+ distclean: distclean-recursive
+@@ -910,15 +882,14 @@
+ 
+ info-am:
+ 
+-install-data-am: install-uamsLTLIBRARIES
++install-data-am:
+ 
+ install-dvi: install-dvi-recursive
+ 
+ install-dvi-am:
+ 
+ install-exec-am:
+-	@$(NORMAL_INSTALL)
+-	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
++
+ install-html: install-html-recursive
+ 
+ install-html-am:
+@@ -957,46 +928,26 @@
+ 
+ ps-am:
+ 
+-uninstall-am: uninstall-uamsLTLIBRARIES
+-	@$(NORMAL_INSTALL)
+-	$(MAKE) $(AM_MAKEFLAGS) uninstall-hook
++uninstall-am:
++
+ .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) ctags-recursive \
+-	install-am install-exec-am install-strip tags-recursive \
+-	uninstall-am
++	install-am install-strip tags-recursive
+ 
+ .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
+ 	all all-am check check-am clean clean-generic clean-libtool \
+-	clean-uamsLTLIBRARIES ctags ctags-recursive distclean \
++	clean-noinstLTLIBRARIES ctags ctags-recursive distclean \
+ 	distclean-compile distclean-generic distclean-libtool \
+ 	distclean-tags distdir dvi dvi-am html html-am info info-am \
+ 	install install-am install-data install-data-am install-dvi \
+-	install-dvi-am install-exec install-exec-am install-exec-hook \
+-	install-html install-html-am install-info install-info-am \
+-	install-man install-pdf install-pdf-am install-ps \
+-	install-ps-am install-strip install-uamsLTLIBRARIES \
+-	installcheck installcheck-am installdirs installdirs-am \
+-	maintainer-clean maintainer-clean-generic mostlyclean \
+-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+-	pdf pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
+-	uninstall-hook uninstall-uamsLTLIBRARIES
+-
+-
+-#
+-# link creation
+-#
++	install-dvi-am install-exec install-exec-am install-html \
++	install-html-am install-info install-info-am install-man \
++	install-pdf install-pdf-am install-ps install-ps-am \
++	install-strip installcheck installcheck-am installdirs \
++	installdirs-am maintainer-clean maintainer-clean-generic \
++	mostlyclean mostlyclean-compile mostlyclean-generic \
++	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
++	uninstall uninstall-am
+ 
+-install-exec-hook:
+-	(cd $(DESTDIR)$(uamsdir)					&& \
+-		rm -f $(uams_LINKS)  					&& \
+-		$(LN_S) $(UAMS_CLRTXT_LINK) uams_clrtxt.so		&& \
+-		$(dhx_exec_hook)					&& \
+-		$(dhx2_exec_hook)					\
+-	)
+-
+-uninstall-hook:
+-	(cd $(DESTDIR)$(uamsdir)					&& \
+-		rm -f $(uams_LINKS)			   		\
+-	)
+ 
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+diff -ruN etc/uams/dummy.c.orig etc/uams/dummy.c
+--- etc/uams/dummy.c.orig	1969-12-31 18:00:00.000000000 -0600
++++ etc/uams/dummy.c	2011-07-18 22:00:20.729023194 -0500
+@@ -0,0 +1,2 @@
++
++
+diff -ruN etc/uams/uams.h.orig etc/uams/uams.h
+--- etc/uams/uams.h.orig	1969-12-31 18:00:00.000000000 -0600
++++ etc/uams/uams.h	2011-07-17 15:23:45.000000000 -0500
+@@ -0,0 +1,39 @@
++#ifndef UAMS_HEADER
++#define UAMS_HEADER
++
++struct uam_static_mod {
++    char *name;
++    struct uam_export *def;
++};
++
++#define UAMS_STATIC_MODS_COUNT  4
++extern struct uam_static_mod uam_static_mod_0;
++extern struct uam_static_mod uam_static_mod_1;
++extern struct uam_static_mod uam_static_mod_2;
++extern struct uam_static_mod uam_static_mod_3;
++
++#define UAM_STATIC_MOD(I, N, S) \
++        struct uam_static_mod _MOD_VAR(I) = { \
++            N, S \
++        };
++
++#define _MOD_VAR(I) uam_static_mod_ ## I
++
++#define UAMS_DHX        0
++#define UAMS_DHX_PAM    1
++#define UAMS_DHX2       2
++#define UAMS_DHX2_PAM   3
++
++#define uam_static_mod_get(N) ( \
++        !strcmp(N, uam_static_mod_0.name) ? uam_static_mod_0.def : ( \
++            !strcmp(N, uam_static_mod_1.name) ? uam_static_mod_1.def : ( \
++                !strcmp(N, uam_static_mod_2.name) ? uam_static_mod_2.def : ( \
++                    !strcmp(N, uam_static_mod_3.name) ? uam_static_mod_3.def : ( \
++                        NULL \
++                    ) \
++                ) \
++            ) \
++        ) \
++    )
++
++#endif
+diff -ruN etc/uams/uams_dhx2_pam.c.orig etc/uams/uams_dhx2_pam.c
+--- etc/uams/uams_dhx2_pam.c.orig	2011-07-04 11:19:25.000000000 -0500
++++ etc/uams/uams_dhx2_pam.c	2011-07-17 16:43:51.000000000 -0500
+@@ -34,6 +34,8 @@
+ #include <atalk/uam.h>
+ #include "../afpd/globals.h"
+ 
++#include "uams.h"
++
+ /* Number of bits for p which we generate. Everybode out there uses 512, so we beet them */
+ #define PRIMEBITS 1024
+ 
+@@ -896,7 +898,6 @@
+     gcry_mpi_release(g);
+ }
+ 
+-
+ UAM_MODULE_EXPORT struct uam_export uams_dhx2 = {
+     UAM_MODULE_SERVER,
+     UAM_MODULE_VERSION,
+@@ -910,4 +911,7 @@
+     uam_setup, uam_cleanup
+ };
+ 
++UAM_STATIC_MOD(UAMS_DHX2, "uams_dhx2.so", &uams_dhx2);
++UAM_STATIC_MOD(UAMS_DHX2_PAM, "uams_dhx2_pam.so", &uams_dhx2_pam);
++
+ #endif /* USE_PAM && UAM_DHX2 */
+diff -ruN etc/uams/uams_dhx_pam.c.orig etc/uams/uams_dhx_pam.c
+--- etc/uams/uams_dhx_pam.c.orig	2011-07-03 23:27:36.000000000 -0500
++++ etc/uams/uams_dhx_pam.c	2011-07-17 16:44:04.000000000 -0500
+@@ -45,6 +45,8 @@
+ #include <atalk/afp.h>
+ #include <atalk/uam.h>
+ 
++#include "uams.h"
++
+ #define KEYSIZE 16
+ #define PASSWDLEN 64
+ #define CRYPTBUFLEN  (KEYSIZE*2)
+@@ -752,5 +754,8 @@
+   uam_setup, uam_cleanup
+ };
+ 
++UAM_STATIC_MOD(UAMS_DHX, "uams_dhx.so", &uams_dhx)
++UAM_STATIC_MOD(UAMS_DHX_PAM, "uams_dhx_pam.so", &uams_dhx_pam)
++
+ #endif /* USE_PAM && UAM_DHX */
+ 
