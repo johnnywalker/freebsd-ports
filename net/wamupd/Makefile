@@ -6,11 +6,13 @@
 #
 
 PORTNAME=	wamupd
-PORTVERSION=	1.1
+PORTVERSION=	1.1.2
 CATEGORIES=	net
 
 MAINTAINER=	kallous@gmail.com
 COMMENT=	A Ruby program to update DNS-SD using Avahi & D-Bus
+
+GIT_URL=	git://github.com/johnnywalker/wamupd.git
 
 USE_RUBY=       yes
 RUBY_VER=       1.9
@@ -50,11 +52,11 @@ get-build-depends:
 .endif
 
 do-fetch:
-	@TMPGITDIR=`mktemp -d -t wamupd` && \
-	git clone git://github.com/johnnywalker/wamupd.git $${TMPGITDIR} && \
+	@TMPGITDIR=`mktemp -d -t ${PORTNAME}` && \
+	git clone ${GIT_URL} $${TMPGITDIR} && \
 	cd $${TMPGITDIR} && \
 	rake build && \
-	${CP} -f pkg/wamupd-1.0.gem ${_DISTDIR}/ && \
+	${CP} -f pkg/${PORTNAME}-${PORTVERSION}.gem ${_DISTDIR}/ && \
 	cd ${_DISTDIR} && \
 	${RM} -rf $${TMPGITDIR}
 
