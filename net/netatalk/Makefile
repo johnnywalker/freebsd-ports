@@ -6,11 +6,8 @@
 #
 
 PORTNAME=	netatalk
-PORTVERSION=	2.2
-DISTVERSION=    2.2-beta4
-PORTEPOCH=	1
+PORTVERSION=	2.2.0
 CATEGORIES=	net
-MASTER_SITES=	SF
 
 LIB_DEPENDS=	gcrypt:${PORTSDIR}/security/libgcrypt \
                 avahi:${PORTSDIR}/net/avahi \
@@ -35,6 +32,7 @@ CONFIGURE_ARGS+=	--with-libgcrypt-dir=${LOCALBASE}
 CONFIGURE_ARGS+=	--with-uams-path=${PREFIX}/libexec/netatalk-uams
 CONFIGURE_ARGS+=	--with-bdb=${LOCALBASE}
 CONFIGURE_ARGS+=	--with-pam
+CONFIGURE_ARGS+=	--with-acls
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-ssl-dir=/usr
 CONFIGURE_ARGS+=	--disable-overwrite
@@ -52,5 +50,23 @@ MAN8=		afpd.8 cnid_dbd.8 cnid_metad.8 \
 		timelord.8
 
 CONFLICTS=	bigloo-2.* cap-6.0.* tct-1.* netatalk-1* yudit-[0-9]*
+
+GIT_URL=	git://github.com/johnnywalker/netatalk.git
+GIT_BRANCH=	master-freebsd-with-acls
+
+do-fetch:
+	@true
+
+do-extract:
+	@${RM} -rf ${WRKDIR}
+	@${MKDIR} ${WRKDIR}
+	@cd ${WRKDIR}
+	@git clone ${GIT_URL} ${WRKSRC} && cd ${WRKSRC} && git checkout ${GIT_BRANCH} && ./bootstrap
+.if !defined(EXTRACT_PRESERVE_OWNERSHIP)
+	@if [ ${UID} = 0 ]; then \
+	    ${CHMOD} -R ug-s ${WRKDIR}; \
+	    ${CHOWN} -R 0:0 ${WRKDIR}; \
+	fi
+.endif
 
 .include <bsd.port.mk>
