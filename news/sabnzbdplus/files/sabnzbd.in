@@ -74,4 +74,5 @@ sabnzbd_check_dir() {
     fi
 }
 
-PATH=${PATH}:/usr/local/bin run_rc_command "$1"
+tmpdir="/tmp/sabnzbd"
+TMPDIR="$tmpdir" TMP="$tmpdir" TEMP="$tmpdir" PATH=${PATH}:/usr/local/bin run_rc_command "$1"
