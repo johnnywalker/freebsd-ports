@@ -91,5 +91,6 @@ post-install:
 	${MKDIR} ${PREFIX}/sabnzbd
 	${CHOWN} _sabnzbd:_sabnzbd ${PREFIX}/sabnzbd
 	@${CAT} ${WRKDIR}/pkg-message
+	@${CAT} ${MASTERDIR}/pkg-message
 
 .include <bsd.port.post.mk>
