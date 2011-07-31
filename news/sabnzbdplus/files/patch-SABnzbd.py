@@ -1,5 +1,19 @@
---- SABnzbd.py.orig	2011-09-10 05:04:42.000000000 -0400
-+++ SABnzbd.py	2011-09-14 23:17:08.387342710 -0400
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python -OO
++#!/usr/local/bin/python2.6 -OO
+ # Copyright 2008-2011 The SABnzbd-Team <team@sabnzbd.org>
+ #
+ # This program is free software; you can redistribute it and/or
+@@ -276,9 +276,6 @@
+ 
+     os.chdir(sabnzbd.DIR_PROG)
+     os.setsid()
+-    # Make sure I can read my own files and shut out others
+-    prev= os.umask(0)
+-    os.umask(prev and int('077',8))
+ 
+     try:
+         pid = os.fork()
 @@ -40,6 +40,9 @@
      print "The Python module Cheetah is required"
      sys.exit(1)
@@ -15,7 +29,7 @@
      sabnzbd.MY_FULLNAME = os.path.normpath(os.path.abspath(sabnzbd.MY_FULLNAME))
      sabnzbd.MY_NAME = os.path.basename(sabnzbd.MY_FULLNAME)
 -    sabnzbd.DIR_PROG = os.path.dirname(sabnzbd.MY_FULLNAME)
-+    sabnzbd.DIR_PROG = %%PREFIX%%
++    sabnzbd.DIR_PROG = '/usr/local/share/sabnzbdplus'
      sabnzbd.DIR_INTERFACES = real_path(sabnzbd.DIR_PROG, DEF_INTERFACES)
      sabnzbd.DIR_LANGUAGE = real_path(sabnzbd.DIR_PROG, DEF_LANGUAGE)
      org_dir = os.getcwd()
