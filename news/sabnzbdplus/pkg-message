@@ -1,8 +1,0 @@
-
-This patched version of SABnzbd uses /tmp/sabnzbd for its temp dir.
-Set all desired ACLs accordingly...
- - e.g. setfacl -m u:_sabnzbd:rwxp:fd:allow /tmp/sabnzbd
- - e.g. setfacl -m g:data_users:rwxpARo:fd:allow /tmp/sabnzbd
-
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
