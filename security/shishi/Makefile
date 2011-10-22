@@ -22,11 +22,10 @@ LIB_DEPENDS=	idn.17:${PORTSDIR}/dns/libidn \
 
 USE_AUTOTOOLS=	libtool
 USE_PERL5_BUILD=	yes
-USE_GNOME=	gnomehack gnometarget pkgconfig
+USE_GNOME=	gnomehack pkgconfig
 USE_ICONV=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" \
-		MAKEINFO="makeinfo --no-split"
+CONFIGURE_ENV=	MAKEINFO="makeinfo --no-split"
 CONFIGURE_ARGS=	--with-db-dir=/var/shishi
 USE_LDCONFIG=	yes
 
@@ -34,8 +33,8 @@ INFO=		shishi
 
 SUB_FILES=	pkg-message
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include "Makefile.man"
 .include <bsd.port.pre.mk>

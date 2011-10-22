@@ -22,7 +22,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $FreeBSD$
+ * $FreeBSD: ports/emulators/rtc/files/rtc_linux.c,v 1.4 2001/09/16 07:05:18 knu Exp $
  * $vmFreeBSD: vmware/vmnet-only/freebsd/vmnet_linux.c,v 1.5 2000/01/23 22:29:50 vsilyaev Exp $
  */
 
@@ -71,10 +71,18 @@ linux_ioctl_rtc(struct proc *p, struct linux_ioctl_args *args)
 	switch (args->cmd & 0xffff) {
 	case LINUX_RTC_PIE_ON:
 		args->cmd=RTCIO_PIE_ON;
+#if __FreeBSD_version >= 900044
+		return sys_ioctl(p, (struct ioctl_args*)args);
+#else
 		return ioctl(p, (struct ioctl_args*)args);	
+#endif
 	case LINUX_RTC_IRQP_SET:
 		args->cmd=RTCIO_IRQP_SET;
+#if __FreeBSD_version >= 900044
+		return sys_ioctl(p, (struct ioctl_args*)args);
+#else
 		return ioctl(p, (struct ioctl_args*)args);	
+#endif
 	}
 	return (ENOIOCTL);
 }

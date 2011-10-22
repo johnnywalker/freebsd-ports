@@ -12,7 +12,7 @@ CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_BERLIOS}
 MASTER_SITE_SUBDIR=	gimmix
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Gimmix is a graphical MPD client written in C using GTK+2
 
 LIB_DEPENDS=	mpd.3:${PORTSDIR}/audio/libmpd \
@@ -37,8 +37,8 @@ MAN1=		gimmix.1
 CONFIGURE_ENV=	DATADIRNAME=share
 
 .if !defined(WITHOUT_NLS)
-CONFIGURE_ENV+=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib -lintl"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib -lintl
 CONFIGURE_ARGS+=	--enable-nls
 USE_GETTEXT=	yes
 PLIST_SUB+=	NLS=""

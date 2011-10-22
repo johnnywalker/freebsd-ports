@@ -7,7 +7,7 @@
 
 PORTNAME=	mplayer
 PORTVERSION=	${MPLAYER_PORT_VERSION}
-PORTREVISION=	2
+PORTREVISION=	3
 COMMENT=	High performance media player supporting many formats
 
 .include "${.CURDIR}/Makefile.shared"
@@ -51,7 +51,7 @@ OPTIONS+=	SPEEX "Enable speex audio codec support" on
 OPTIONS+=	THEORA "Enable ogg theora video support" off
 OPTIONS+=	VPX "Enable VP8 video via libvpx" off
 OPTIONS+=	SCHROEDINGER "Dirac codec via libschroedinger" off
-OPTIONS+=	ASS "Enable ASS/SSA subtitle rendering" Off
+OPTIONS+=	ASS "Enable ASS/SSA subtitle rendering" on
 .if !defined(PACKAGE_BUILDING)
 OPTIONS+=	WIN32 "Enable win32 codec set on the IA32 arch" on
 .endif
@@ -74,12 +74,6 @@ SUB_FILES=	pkg-message
 
 CONFFILES=	example.conf input.conf menu.conf dvb-menu.conf
 
-# fix for bug when libass is installed, mplayer configure does not
-# uphold --disable-ass
-.if exists(${LOCALBASE}/lib/libass.so)
-WITH_ASS=	yes
-.endif
-
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == "sparc64"
@@ -89,6 +83,7 @@ BROKEN=		Does not compile on sparc64
 CONFIGURE_ARGS+=	--disable-ssse3 \
 			--disable-directfb \
 			--disable-faac \
+			--disable-faad \
 			--disable-libdca \
 			--disable-twolame \
 			--disable-x264 \
@@ -102,10 +97,10 @@ CONFIGURE_ARGS+=	--disable-ssse3 \
 
 .if defined(WITH_ASS)
 LIB_DEPENDS+=	ass.5:${PORTSDIR}/multimedia/libass
-USE_GNOME+=	pkgconfig
+BUILD_DEPENDS +=	pkg-config:${PORTSDIR}/devel/pkg-config
 LIBASS_PKGCONFIG_CFLAGS=	pkg-config --cflags --silence-errors libass
 .else
-CONFIGURE_ARGS+=	--disable-ass --disable-ass-internal
+CONFIGURE_ARGS+=	--disable-ass --disable-ass-internal --disable-enca
 LIBASS_PKGCONFIG_CFLAGS=	${ECHO_CMD}
 .endif
 

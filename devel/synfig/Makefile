@@ -25,12 +25,12 @@ LIB_DEPENDS=	glibmm-2.4.1:${PORTSDIR}/devel/glibmm \
 		IlmImf:${PORTSDIR}/graphics/OpenEXR \
 		xml\\+\\+-2.6:${PORTSDIR}/textproc/libxml++26
 
-USE_GNOME=	gnomehack gnometarget glib20
+USE_GNOME=	gnomehack glib20
 USE_GETTEXT=	yes
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 ALL_TARGET=	-j`${SYSCTL} -n hw.ncpu`
 
 post-patch:

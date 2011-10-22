@@ -21,14 +21,14 @@ RUN_DEPENDS=	${LOCALBASE}/lib/libgnomecups-1.0.a:${PORTSDIR}/print/libgnomecups 
 BUILD_DEPENDS=	${LOCALBASE}/lib/libgnomecups-1.0.a:${PORTSDIR}/print/libgnomecups \
 		${PYTHON_SITELIBDIR}/dbus/_dbus.py:${PORTSDIR}/devel/py-dbus
 
-USE_GNOME=	gnomehack gnometarget gnomeprefix pygnome2 pygnomedesktop pygnomeextras
+USE_GNOME=	gnomehack gnomeprefix pygnome2 pygnomedesktop pygnomeextras
 USE_GMAKE=	yes
 USE_PYTHON=	yes
 GCONF_SCHEMAS=	gimmie.schemas
 INSTALLS_ICONS=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if !defined(WITHOUT_NLS)
 USE_GETTEXT=	yes

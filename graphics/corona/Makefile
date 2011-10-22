@@ -18,12 +18,12 @@ LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png \
 		ungif.5:${PORTSDIR}/graphics/libungif
 
 USE_AUTOTOOLS=	libtool
-USE_GNOME=	gnometarget lthack
+USE_GNOME=	lthack
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		LIBS="${LIBS} -L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="${LIBS} -L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 post-patch:
 	@${REINPLACE_CMD} -e \

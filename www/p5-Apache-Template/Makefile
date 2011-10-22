@@ -17,7 +17,10 @@ COMMENT=	Apache::Template - Apache/mod_perl interface to the Template Toolkit
 
 BUILD_DEPENDS=	${SITE_PERL}/${PERL_ARCH}/Apache/Request.pm:${PORTSDIR}/www/p5-libapreq \
 		${SITE_PERL}/${PERL_ARCH}/Template.pm:${PORTSDIR}/www/p5-Template-Toolkit
-RUN_DEPENDS=	${BUILD_DEPENDS}
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+DEPRECATED=	depends on mod_perl
+EXPIRATION_DATE=	2011-11-01
 
 PERL_CONFIGURE=	yes
 

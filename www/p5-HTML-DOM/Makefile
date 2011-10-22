@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	HTML-DOM
-PORTVERSION=	0.048
+PORTVERSION=	0.049
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -20,7 +20,7 @@ RUN_DEPENDS=	p5-Hash-Util-FieldHash-Compat>=0:${PORTSDIR}/devel/p5-Hash-Util-Fie
 		p5-constant-lexical>0:${PORTSDIR}/devel/p5-constant-lexical
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
-PERL_CONFIGURE=	5.8.0+
+PERL_CONFIGURE=	yes
 
 .include <bsd.port.pre.mk>
 .include "${MASTERDIR}/Makefile.man"

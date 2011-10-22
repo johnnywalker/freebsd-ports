@@ -22,18 +22,17 @@ WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION:R}
 
 USE_BZIP2=	yes
 USE_GETTEXT=	yes
-USE_GNOME=	gnomehack gnomeprefix gnometarget intlhack libgnomeui
+USE_GNOME=	gnomehack gnomeprefix intlhack libgnomeui
 USE_GL=		gl
 USE_PYTHON=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 
 MAN1=		truevision.1
 
-CPPFLAGS=	-I${LOCALBASE}/include \
+CPPFLAGS+=	-I${LOCALBASE}/include \
 		`pkg-config --cflags gtkglext-1.0`
-LDFLAGS=	-L${LOCALBASE}/lib \
+LDFLAGS+=	-L${LOCALBASE}/lib \
 		`pkg-config --libs gtkglext-1.0`
 
 post-patch:

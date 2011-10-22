@@ -12,7 +12,7 @@ CATEGORIES=	net-p2p
 MASTER_SITES=	http://got.net/~brian/teknap/
 DISTNAME=	${PORTNAME}-${PORTVERSION:S/.g/g/}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	sam@cassiba.com
 COMMENT=	Console napster client
 
 .if defined(WITH_MP3)
@@ -32,8 +32,8 @@ WANT_GNOME=	yes
 GNU_CONFIGURE=	yes
 DOCSDIR=	${PREFIX}/share/doc/TekNap
 PORTDOCS=	*
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 .include <bsd.port.pre.mk>
 

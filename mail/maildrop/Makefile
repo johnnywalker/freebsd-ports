@@ -31,7 +31,6 @@ USE_BZIP2=	yes
 USE_PERL5=	yes
 GNU_CONFIGURE=	yes
 MAKE_JOBS_SAFE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--enable-syslog=1 \
 		--enable-use-flock=1 \
 		--with-etcdir="${PREFIX}/etc" \
@@ -54,7 +53,7 @@ MAILDROP_LOG_COLUMNS?=	72	# lenght of 'File:' line in log
 .include <bsd.port.pre.mk>
 
 .if defined(WITH_GDBM)
-LIB_DEPENDS+=		gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=		gdbm.4:${PORTSDIR}/databases/gdbm
 CONFIGURE_ARGS+=	--with-db=gdbm
 .else
 CONFIGURE_ARGS+=	--with-db=db

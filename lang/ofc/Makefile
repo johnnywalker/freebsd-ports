@@ -7,7 +7,7 @@
 
 PORTNAME=	ofc
 PORTVERSION=	0.8.1
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	lang
 MASTER_SITES=	http://ofc.dvoudheusden.net/download/
 
@@ -21,17 +21,17 @@ LIB_DEPENDS=	expat.6:${PORTSDIR}/textproc/expat2 \
 
 USE_SDL=	sdl
 USE_AUTOTOOLS=	libtool
-USE_GNOME=	gnomehack gnometarget
+USE_GNOME=	gnomehack
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include ${PTHREAD_CFLAGS}" \
-		LDFLAGS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 OPTIONS=	GDBM "Add gdbm support" off \
 		GMP "Add gmp support" off
 
 .if defined (WITH_GDBM)
-LIB_DEPENDS+=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=	gdbm.4:${PORTSDIR}/databases/gdbm
 .endif
 
 .if defined (WITH_GMP)

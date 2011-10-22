@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	uim
-PORTVERSION=	1.7.0
+PORTVERSION=	1.7.1
 CATEGORIES?=	textproc
 MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
 .if !defined(UIM_SLAVE) && defined(WITHOUT_X11)
@@ -19,7 +19,7 @@ COMMENT?=	Input method library
 USE_BZIP2=	yes
 USE_LDCONFIG=	yes
 WANT_GNOME=	yes
-USE_GNOME+=	gnometarget glib20 intltool
+USE_GNOME+=	glib20 intltool
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
 USE_GETTEXT=	yes
@@ -40,9 +40,9 @@ CONFIGURE_ARGS+=	--with-gtk2
 CONFIGURE_ARGS+=	--enable-emacs --with-sj3 --with-canna --with-prime
 .endif
 
-CONFIGURE_ENV?=	CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		CFLAGS="${CFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-I${LOCALBASE}/include
 
 .if !defined(UIM_SLAVE)
 .if !defined(WITHOUT_X11)

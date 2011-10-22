@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	thunderbird-i18n
-PORTVERSION=	5.0
+PORTVERSION=	6.0.2
 CATEGORIES=	mail
 MASTER_SITE_SUBDIR=	thunderbird/releases/${PORTVERSION}/linux-i686/xpi
 PKGNAMEPREFIX=
@@ -23,18 +23,17 @@ RUN_DEPENDS+=	xpi-quick-locale-switcher>=0:${PORTSDIR}/www/xpi-quick-locale-swit
 .endif
 
 NO_BUILD=	yes
-USE_THUNDERBIRD=	yes
-USE_XPI=	*thunderbird
+USE_THUNDERBIRD=	60
+USE_XPI=	thunderbird
 
-THUNDERBIRD_I18N_ALL=	ar bg br ca cs da de en-GB en-US es-AR es-ES et eu fi fr \
+THUNDERBIRD_I18N_ALL=	ar br ca cs da de en-GB en-US es-AR es-ES et eu fi fr \
 			fy-NL ga-IE gd gl he hu is it ja ko lt nb-NO nl nn-NO \
-			pa-IN pl pt-BR pt-PT rm ru si sk sl sq sv-SE ta-LK tr uk \
-			zh-TW
+			pl pt-BR pt-PT rm ru si sk sl sq sv-SE ta-LK tr uk zh-TW
 
 .ifdef PACKAGE_BUILDING
 THUNDERBIRD_I18N?=	all
 .else
-THUNDERBIRD_I18N?=	es-ES pt-BR ru ja de fr pa-IN ko it
+THUNDERBIRD_I18N?=	es-ES pt-BR ru ja de fr ko it
 .endif
 
 .if ${THUNDERBIRD_I18N} == all
@@ -59,8 +58,10 @@ do-extract:
 		then \
 			exit 1; \
 		fi; \
-		cd ${WRKSRC}/langpack-$$lang@thunderbird.mozilla.org/chrome; \
-		${LOCALBASE}/bin/zip -r $$lang.jar $$lang; \
+		cd ${WRKSRC}/langpack-$$lang@thunderbird.mozilla.org/chrome/$$lang; \
+		${LOCALBASE}/bin/zip -r ../$$lang.jar locale; \
+		cd ..; ${RM} -rf $$lang; cd ..; \
+		${REINPLACE_CMD} -i "" "s,chrome/$$lang,jar:chrome/$$lang.jar!," chrome.manifest; \
 	done
 
 do-install:

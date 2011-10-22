@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	firefox
-DISTVERSION=	5.0
+DISTVERSION=	6.0.2
 PORTEPOCH=	1
 CATEGORIES=	www ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA}
@@ -16,10 +16,12 @@ DISTNAME=	${PORTNAME}-${DISTVERSION}.source
 MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	Web browser based on the browser portion of Mozilla
 
-BUILD_DEPENDS=	nspr>=4.8.7:${PORTSDIR}/devel/nspr \
+BUILD_DEPENDS=	nspr>=4.8.8:${PORTSDIR}/devel/nspr \
 		cairo>=1.10.2_1,1:${PORTSDIR}/graphics/cairo
 LIB_DEPENDS=	execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		event-1.4:${PORTSDIR}/devel/libevent
+
+CONFLICTS_BUILD=	spidermonkey-*
 
 USE_AUTOTOOLS=	autoconf213
 USE_GECKO=	gecko
@@ -27,8 +29,6 @@ MOZ_PKGCONFIG_FILES=	# empty
 USE_MOZILLA=	-png -nss -dbm -jpeg -xft
 MOZILLA_NAME=	Firefox
 MOZ_TOOLKIT=	cairo-gtk2
-GECKO_PLIST_PRE_DIRS=	lib/${MOZILLA}/bin lib/${MOZILLA}/idl \
-			lib/${MOZILLA}/include lib/${MOZILLA}/lib
 
 MAKE_JOBS_SAFE=	yes
 WANT_GNOME=	yes
@@ -39,7 +39,6 @@ HAS_CONFIGURE=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 USE_GL=		gl
-MAKE_JOBS_SAFE=	yes
 NO_MOZPKGINSTALL=yes
 
 FIREFOX_ICON=		${MOZILLA}.png
@@ -53,14 +52,11 @@ MOZ_OPTIONS=	--program-transform-name='s/firefox/${MOZILLA}/' \
 		--with-system-libevent=${LOCALBASE}
 
 OPTIONS=	DBUS "Enable D-BUS support" on \
-		PGO "Enable Profile-Guided Optimization" off \
-		SMB "Enable smb:// URI support using gnomevfs" off
+		PGO "Enable Profile-Guided Optimization" off
 
 .include <bsd.port.pre.mk>
 
 WRKSRC:=	${WRKDIR}/mozilla-release
-
-GECKO_PTHREAD_LIBS!=${CC} -dumpspecs | ${GREP} -m 1 '%{\!pg: %{pthread:' | ${SED} -e 's|^.*%{\!pg: %{pthread:|| ; s|}.*$$||' || ${TRUE}
 
 .if ${HAVE_GNOME:Mlibgnomeui}!=""
 USE_GNOME+=	libgnomeui
@@ -73,7 +69,7 @@ MOZ_OPTIONS+=	--disable-gnomeui
 MOZ_OPTIONS+=	--disable-dbus --disable-libnotify
 .else
 LIB_DEPENDS+=	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-		notify.1:${PORTSDIR}/devel/libnotify
+		notify.4:${PORTSDIR}/devel/libnotify
 .endif
 
 .if defined(WITH_PGO)
@@ -104,7 +100,7 @@ pre-extract:
 	@sleep 10
 .endif
 
-post-extract::
+post-extract:
 	@${SED} -e 's|@FIREFOX_ICON@|${FIREFOX_ICON}|' -e 's|@MOZILLA@|${MOZILLA}|' \
 		-e 's|@MOZILLA_NAME@|${MOZILLA_NAME}|' \
 		<${FILESDIR}/firefox.desktop.in >${WRKDIR}/${MOZILLA}.desktop
@@ -113,7 +109,7 @@ post-patch:
 	@${GREP} -Flr \"/proc ${WRKSRC}/ipc/chromium/src/base | ${XARGS} ${REINPLACE_CMD} \
 		-e 's|/proc/self/fd|/dev/fd|' \
 		-e 's|/proc["/]|/compat/linux&|'
-	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS:C/-pthread/${GECKO_PTHREAD_LIBS}/}|' \
+	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS}|' \
 		${WRKSRC}/storage/build/Makefile.in \
 		${WRKSRC}/toolkit/library/Makefile.in \
 		${WRKSRC}/db/sqlite3/src/Makefile.in

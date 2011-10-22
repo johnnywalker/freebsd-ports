@@ -8,8 +8,7 @@
 PORTNAME=	mkvtoolnix
 PORTVERSION=	4.9.1
 CATEGORIES=	multimedia audio
-MASTER_SITES=	http://www.bunkus.org/videotools/mkvtoolnix/sources/ \
-		CRITICAL
+MASTER_SITES=	http://www.bunkus.org/videotools/mkvtoolnix/sources/
 
 MAINTAINER=	multimedia@FreeBSD.org
 COMMENT=	Tools to extract from/get info about/create Matroska media streams
@@ -33,8 +32,7 @@ USE_RAKE=	yes
 USE_RUBY=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}" \
-		ac_cv_path_PO4A=no
+CONFIGURE_ENV+=	ac_cv_path_PO4A=no
 CONFIGURE_ARGS=	--enable-lzo --enable-bz2 --disable-qt \
 		--with-boost=${LOCALBASE} \
 		--with-boost-filesystem=boost_filesystem \

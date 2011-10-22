@@ -6,18 +6,20 @@
 #
 
 PORTNAME=	xfce4-notifyd
-PORTVERSION=	0.2.1
-PORTREVISION=	2
+PORTVERSION=	0.2.2
+PORTREVISION=	1
 CATEGORIES=	deskutils xfce
-MASTER_SITES=	${MASTER_SITE_XFCE}
+MASTER_SITES=	XFCE
 MASTER_SITE_SUBDIR=	src/apps/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	Visually-appealing notification daemon for Xfce
 
+LICENSE=	GPLv3
+
 LIB_DEPENDS=	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-		notify.1:${PORTSDIR}/devel/libnotify
+		notify.4:${PORTSDIR}/devel/libnotify
 
 USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes
@@ -36,8 +38,6 @@ CONFLICTS=	notification-daemon-[0-9]* xfce4-notification-daemon-[0-9]* \
 OPTIONS=	NLS      "Enable Native Language Support"             on
 
 MAN1=	xfce4-notifyd-config.1
-
-LICENSE=	GPLv3
 
 .include <bsd.port.pre.mk>
 

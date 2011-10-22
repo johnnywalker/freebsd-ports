@@ -1,5 +1,5 @@
 #
-# $FreeBSD: ports/Mk/bsd.gnustep.mk,v 1.64 2011/03/13 20:35:12 dinoex Exp $
+# $FreeBSD: ports/Mk/bsd.gnustep.mk,v 1.65 2011/04/16 10:21:38 dinoex Exp $
 #
 # This file contains some variable definitions that are supposed to
 # make your life easier when dealing with ports related to the GNUstep.
@@ -452,6 +452,7 @@ do-configure:
 	@(cd ${CONFIGURE_WRKSRC}; . ${GNUSTEP_MAKEFILES}/GNUstep.sh; \
 	    if ! ${SETENV} CC="${CC}" CXX="${CXX}" \
 		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" \
+		CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" \
 		INSTALL="/usr/bin/install -c -o ${BINOWN} -g ${BINGRP}" \
 		INSTALL_DATA="${INSTALL} -c" \
 		INSTALL_PROGRAM="${INSTALL} -c" \

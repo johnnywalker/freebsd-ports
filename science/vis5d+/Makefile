@@ -22,20 +22,26 @@ LIB_DEPENDS=	netcdf.4:${PORTSDIR}/science/netcdf \
 		gtkgl.5:${PORTSDIR}/x11-toolkits/gtkglarea
 RUN_DEPENDS=	convert:${PORTSDIR}/graphics/ImageMagick
 
+# The following scope of brokenness for vis5d+ is approximate.  If you find
+# the following scope is inappropriate for you, please report to maintainer.
+.if OSVERSION<801000
+BROKEN=	Does not build on some FreeBSD versions (libtool error).
+.endif
+
 USE_FORTRAN=	yes
 USE_AUTOTOOLS=	libtool
 USE_GL=		yes
-USE_GNOME=	gnometarget gtk12
+USE_GNOME=	gtk12
 USE_ICONV=	yes
 GNU_CONFIGURE=	yes
 FFLAGS+=	-fno-range-check
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" LIBS="-lgfx"
+CONFIGURE_ENV+=	LIBS="-lgfx"
 CONFIGURE_ARGS=	--enable-gtk --enable-threads --with-netcdf \
 		--with-mixkit=${LOCALBASE}/lib/libmix.a --with-x
 USE_LDCONFIG=	yes
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 CFLAGS+=	-DMIX_ANSI_IOSTREAMS -fPIC -fpermissive
 

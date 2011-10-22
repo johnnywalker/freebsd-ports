@@ -33,6 +33,9 @@ COMMENT?=	The Apache 1.3 webserver with SSL/TLS functionality
 LIB_DEPENDS=	mm.14:${PORTSDIR}/devel/mm
 PATCH_DEPENDS=	${BUILD_DEPENDS}
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 LICENSE_COMB=	multi
 LICENSE=	ASL BSD
 CONFLICTS?=	apache+ipv6-1.* apache+ssl-1.* apache-1.* apache-2.* \
@@ -290,9 +293,7 @@ EXTRA_PATCHES+=	${FILESDIR}/logresolve.c.patch
 EXTRA_PATCHES+=	${FILESDIR}/rotatelogs.c.patch
 .endif
 
-CONFIGURE_ENV=	CFLAGS='${CFLAGS}' \
-		LDFLAGS='${LDFLAGS}' \
-		OPTIM='${OPTIM}' \
+CONFIGURE_ENV=	OPTIM='${OPTIM}' \
 		SSL_BASE='${OPENSSLBASE}' \
 		EAPI_MM='SYSTEM' \
 		PATH="${PREFIX}/bin:${PATH}"

@@ -9,7 +9,9 @@ PORTNAME=	vuze
 PORTVERSION=	4.3.1.4
 PORTREVISION=	2
 CATEGORIES=	net-p2p java
-MASTER_SITES=	SF/azureus/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+# Moved to x-obsolete, could do with an update
+#MASTER_SITES=	SF/azureus/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+MASTER_SITES=	SF/azureus/x_obsolete/${PORTNAME}-${PORTVERSION}
 DISTNAME=	Vuze_${PORTVERSION}_source
 
 MAINTAINER=	ports@FreeBSD.org

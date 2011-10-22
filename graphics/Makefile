@@ -16,6 +16,11 @@
     SUBDIR += ImageMagick-nox11
     SUBDIR += O2-tools
     SUBDIR += OpenEXR
+    SUBDIR += R-cran-RColorBrewer
+    SUBDIR += R-cran-colorspace
+    SUBDIR += R-cran-diagram
+    SUBDIR += R-cran-ggplot2
+    SUBDIR += R-cran-shape
     SUBDIR += SciPlot
     SUBDIR += a2png
     SUBDIR += aalib
@@ -132,6 +137,7 @@
     SUBDIR += enfle
     SUBDIR += eog
     SUBDIR += eog-plugins
+    SUBDIR += eos-movrec
     SUBDIR += epdfview
     SUBDIR += epeg
     SUBDIR += epix
@@ -316,6 +322,7 @@
     SUBDIR += gstreamer-plugins-libvisual
     SUBDIR += gstreamer-plugins-opencv
     SUBDIR += gthumb
+    SUBDIR += gtimelapse
     SUBDIR += gtk-update-icon-cache
     SUBDIR += gtkam
     SUBDIR += gtkdps
@@ -327,8 +334,8 @@
     SUBDIR += gx
     SUBDIR += hobbes-icons-xpm
     SUBDIR += hppsmtools
-    SUBDIR += hs-cairo
     SUBDIR += hs-HGL
+    SUBDIR += hs-cairo
     SUBDIR += hs-soegtk
     SUBDIR += hs-svgcairo
     SUBDIR += hsetroot
@@ -419,7 +426,7 @@
     SUBDIR += lcms2
     SUBDIR += leafpak
     SUBDIR += lensfun
-    SUBDIR += leptonlib
+    SUBDIR += leptonica
     SUBDIR += lfview
     SUBDIR += lib3ds
     SUBDIR += libGL
@@ -543,9 +550,9 @@
     SUBDIR += mirage
     SUBDIR += mmrecover
     SUBDIR += morpheus
-    SUBDIR += moth
     SUBDIR += mscgen
     SUBDIR += mtpaint
+    SUBDIR += multican
     SUBDIR += multivideo
     SUBDIR += mupdf
     SUBDIR += mxp
@@ -563,6 +570,7 @@
     SUBDIR += ocropus
     SUBDIR += ogre3d
     SUBDIR += openclipart
+    SUBDIR += opencsg
     SUBDIR += opencv
     SUBDIR += opencv-core
     SUBDIR += opendis
@@ -623,9 +631,11 @@
     SUBDIR += p5-Graphics-GnuplotIF
     SUBDIR += p5-Graphics-Primitive
     SUBDIR += p5-Graphics-Primitive-Driver-Cairo
+    SUBDIR += p5-Image-Base
     SUBDIR += p5-Image-Caa
     SUBDIR += p5-Image-Compare
     SUBDIR += p5-Image-ExifTool
+    SUBDIR += p5-Image-ExifTool-devel
     SUBDIR += p5-Image-Grab
     SUBDIR += p5-Image-Heatmap
     SUBDIR += p5-Image-IPTCInfo
@@ -756,7 +766,9 @@
     SUBDIR += pvmpov
     SUBDIR += py-PyX
     SUBDIR += py-aafigure
+    SUBDIR += py-actdiag
     SUBDIR += py-amanith
+    SUBDIR += py-blockdiag
     SUBDIR += py-cairo
     SUBDIR += py-cgkit
     SUBDIR += py-chart
@@ -779,6 +791,8 @@
     SUBDIR += py-gvgen
     SUBDIR += py-imaging
     SUBDIR += py-ming
+    SUBDIR += py-nwdiag
+    SUBDIR += py-opencv
     SUBDIR += py-openexr
     SUBDIR += py-opengl
     SUBDIR += py-paint
@@ -790,9 +804,11 @@
     SUBDIR += py-pyproj
     SUBDIR += py-qt4-svg
     SUBDIR += py-rabbyt
+    SUBDIR += py-seqdiag
     SUBDIR += py-sorl-thumbnail
     SUBDIR += py-soya3d
     SUBDIR += py-visual
+    SUBDIR += py-webcolors
     SUBDIR += pygts
     SUBDIR += pymorph
     SUBDIR += pyro
@@ -828,11 +844,9 @@
     SUBDIR += ruby-gd
     SUBDIR += ruby-gdk_pixbuf2
     SUBDIR += ruby-gnomecanvas2
-    SUBDIR += ruby-graph
     SUBDIR += ruby-image_size
     SUBDIR += ruby-imlib2
     SUBDIR += ruby-libart2
-    SUBDIR += ruby-libpng
     SUBDIR += ruby-ming
     SUBDIR += ruby-opengl
     SUBDIR += ruby-pgplot
@@ -848,8 +862,8 @@
     SUBDIR += rubygem-geokit
     SUBDIR += rubygem-graphviz
     SUBDIR += rubygem-gruff
-    SUBDIR += rubygem-imagesize
     SUBDIR += rubygem-image_science
+    SUBDIR += rubygem-imagesize
     SUBDIR += rubygem-objectdetect
     SUBDIR += rubygem-opengl
     SUBDIR += rubygem-pdfkit
@@ -979,7 +993,6 @@
     SUBDIR += xmms-gdancer
     SUBDIR += xmms-iris
     SUBDIR += xmms-jess
-    SUBDIR += xmms-msa
     SUBDIR += xmms-nebulus
     SUBDIR += xmms-paranormal
     SUBDIR += xmms-plazma

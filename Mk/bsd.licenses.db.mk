@@ -1,7 +1,7 @@
 #-*- mode: makefile; tab-width: 4; -*-
 # ex:ts=4
 #
-# $FreeBSD: ports/Mk/bsd.licenses.db.mk,v 1.13 2011/03/25 20:41:18 pav Exp $
+# $FreeBSD: ports/Mk/bsd.licenses.db.mk,v 1.15 2011/09/23 08:50:56 wen Exp $
 
 Licenses_db_Include_MAINTAINER=         portmgr@FreeBSD.org
 
@@ -38,7 +38,7 @@ Licenses_db_Include_MAINTAINER=         portmgr@FreeBSD.org
 
 _LICENSE_LIST= 	ART10 ART20 ASL BSD BSL CDDL EPL GFDL GPLv1 GPLv2 GPLv3 ISCL \
 		LGPL20 LGPL21 LGPL3 LPPL10 LPPL11 LPPL12 LPPL13 LPPL13a \
-		LPPL13b LPPL13c MIT MPL OWL PHP202 PHP30 PHP301 PSFL
+		LPPL13b LPPL13c MIT MPL OWL PHP202 PHP30 PHP301 PSFL ZPL21
 
 # List of groups (only names must be present)
 
@@ -47,6 +47,8 @@ _LICENSE_NAME_FSF=	Free Software Foundation Approved
 _LICENSE_NAME_GPL=	GPL Compatible
 
 _LICENSE_NAME_OSI=	OSI Approved
+
+_LICENSE_NAME_COPYFREE= Comply with Copyfree Standard Definition.
 
 # Default permissions for licenses here, if not defined
 
@@ -70,13 +72,13 @@ _LICENSE_NAME_ART20=	Artistic License version 2.0
 _LICENSE_GROUPS_ART20=	FSF GPL OSI
 
 _LICENSE_NAME_ASL=	Apache License
-_LICENSE_GROUPS_ASL=	FSF OSI
+_LICENSE_GROUPS_ASL=	FSF OSI COPYFREE
 
 _LICENSE_NAME_BSD=	BSD license
-_LICENSE_GROUPS_BSD=	FSF OSI
+_LICENSE_GROUPS_BSD=	FSF OSI COPYFREE
 
 _LICENSE_NAME_BSL=	Boost Software License
-_LICENSE_GROUPS_BSL=	FSF OSI
+_LICENSE_GROUPS_BSL=	FSF OSI COPYFREE
 
 _LICENSE_NAME_CDDL=	Common Development and Distribution License
 _LICENSE_GROUPS_CDDL=	FSF OSI
@@ -97,7 +99,7 @@ _LICENSE_NAME_GPLv3=	GNU General Public License version 3
 _LICENSE_GROUPS_GPLv3=	FSF GPL OSI
 
 _LICENSE_NAME_ISCL=	Internet Systems Consortium License
-_LICENSE_GROUPS_ISCL=	FSF GPL OSI
+_LICENSE_GROUPS_ISCL=	FSF GPL OSI COPYFREE
 
 _LICENSE_NAME_LGPL20=	GNU Library General Public License version 2.0
 _LICENSE_GROUPS_LGPL20=	FSF GPL OSI
@@ -137,13 +139,13 @@ _LICENSE_GROUPS_LPPL13c=	FSF OSI
 _LICENSE_PERMS_LPPL13c=	dist-mirror dist-sell
 
 _LICENSE_NAME_MIT=	MIT license / X11 license
-_LICENSE_GROUPS_MIT=	FSF GPL OSI
+_LICENSE_GROUPS_MIT=	FSF GPL OSI COPYFREE
 
 _LICENSE_NAME_MPL=	Mozilla Public License
 _LICENSE_GROUPS_MPL=	FSF OSI
 
 _LICENSE_NAME_OWL=	Open Works License (owl.apotheon.org)
-_LICENSE_GROUPS_OWL=
+_LICENSE_GROUPS_OWL=	COPYFREE
 
 _LICENSE_NAME_PHP202=	PHP License version 2.02
 _LICENSE_GROUPS_PHP202=	FSF OSI
@@ -156,6 +158,9 @@ _LICENSE_GROUPS_PHP301=	FSF OSI
 
 _LICENSE_NAME_PSFL=	Python Software Foundation License
 _LICENSE_GROUPS_PSFL=	FSF GPL OSI
+
+_LICENSE_NAME_ZPL21=	Zope Public License version 2.1
+_LICENSE_GROUPS_ZPL21=	GPL OSI
 
 # Set default permissions if not defined
 

@@ -1,4 +1,4 @@
-# $FreeBSD: ports/devel/cl-asdf/bsd.cl-asdf.mk,v 1.5 2010/10/19 20:11:34 olgeni Exp $
+# $FreeBSD: ports/devel/cl-asdf/bsd.cl-asdf.mk,v 1.6 2010/10/24 12:01:33 olgeni Exp $
 #
 # bsd.cl-asdf.mk - Common Lisp related macros
 #
@@ -57,10 +57,8 @@ RUN_DEPENDS+=	clisp:${PORTSDIR}/lang/clisp
 # Even if the Common Lisp compiler already has a bundled ASDF framework,
 # we still need the asdf-init file.
 
-BUILD_DEPENDS+=	${LOCALBASE}/${CL_LIBDIR_REL}/asdf/asdf.asd:${PORTSDIR}/devel/cl-asdf \
-		${LOCALBASE}/${CL_LIBDIR_REL}/asdf-binary-locations/asdf-binary-locations.asd:${PORTSDIR}/devel/cl-asdf-binary-locations
-RUN_DEPENDS+=	${LOCALBASE}/${CL_LIBDIR_REL}/asdf/asdf.asd:${PORTSDIR}/devel/cl-asdf \
-		${LOCALBASE}/${CL_LIBDIR_REL}/asdf-binary-locations/asdf-binary-locations.asd:${PORTSDIR}/devel/cl-asdf-binary-locations
+BUILD_DEPENDS+=	${LOCALBASE}/${CL_LIBDIR_REL}/asdf/asdf.asd:${PORTSDIR}/devel/cl-asdf
+RUN_DEPENDS+=	${LOCALBASE}/${CL_LIBDIR_REL}/asdf/asdf.asd:${PORTSDIR}/devel/cl-asdf
 
 .endif # defined(USE_ASDF)
 

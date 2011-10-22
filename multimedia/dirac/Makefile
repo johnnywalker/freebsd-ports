@@ -18,11 +18,11 @@ USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 MAKE_JOBS_SAFE=	yes
-USE_GNOME=	pkgconfig gnomehack gnometarget
+USE_GNOME=	pkgconfig gnomehack
 USE_LDCONFIG=	yes
 
-CONFIGURE_ENV?=	CPPFLAGS=-I${LOCALBASE}/include \
-		HAVE_LATEX=${FALSE} HAVE_DVIPDFM=${FALSE} \
+CONFIGURE_ENV?=	HAVE_LATEX=${FALSE} HAVE_DVIPDFM=${FALSE} \
 		HAVE_DOXYGEN=${FALSE} HAVE_DOT=${FALSE}
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 .include <bsd.port.mk>

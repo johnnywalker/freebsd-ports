@@ -16,6 +16,9 @@ DISTNAME=	${PORTNAME}-${PORTVERSION}-1.3.6
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	An Apache module that provides DAV capabilities
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 OPTIONS=	SYMLINK_PATCH	"Follow Symlinks" off \
@@ -28,7 +31,7 @@ SUB_LIST+=	APXS=${APXS} WWWOWN=${WWWOWN} WWWGRP=${WWWGRP}
 
 PLIST_FILES=	${APACHEETCDIR}/apache.conf.mod_dav ${APACHEMODDIR}/libdav.so
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--prefix=${LOCALBASE} \
 		--bindir=${LOCALBASE}/bin \

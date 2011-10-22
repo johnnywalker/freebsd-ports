@@ -6,15 +6,11 @@
 #
 
 PORTNAME=	sudo
-PORTVERSION=	1.8.1
-PORTREVISION=	5
+DISTVERSION=	1.8.2
 CATEGORIES=	security
 MASTER_SITES=	http://www.sudo.ws/sudo/dist/ \
-		http://www.signal42.com/mirrors/sudo_ftp/ \
-		http://ftp.cerias.purdue.edu/pub/tools/unix/sysutils/sudo/ \
 		http://ftp.arcane-networks.fr/pub/mirrors/sudo/ \
 		http://sudo.p8ra.de/sudo/dist/ \
-		http://www.very-clever.com/download/sudo/ \
 		http://sudo.cybermirror.org/ \
 		http://sudo-ftp.basemirror.de/ \
 		http://core.ring.gr.jp/archives/misc/sudo/ \
@@ -23,10 +19,7 @@ MASTER_SITES=	http://www.sudo.ws/sudo/dist/ \
 		ftp://ftp.sudo.ws/pub/sudo/ \
 		ftp://plier.ucar.edu/pub/sudo/ \
 		ftp://obsd.isc.org/pub/sudo/ \
-		ftp://ftp.tux.org/pub/security/sudo/ \
-		ftp://ftp.cerias.purdue.edu/pub/tools/unix/sysutils/sudo/ \
 		ftp://ftp.uwsg.indiana.edu/pub/security/sudo/ \
-		ftp://sudo.xmundo.net/pub/mirrors/sudo/ \
 		ftp://ftp.tuwien.ac.at/utils/admin-tools/sudo/ \
 		ftp://sunsite.ualberta.ca/pub/Mirror/sudo/ \
 		ftp://ftp.csc.cuhk.edu.hk/pub/packages/unix-tools/sudo/ \
@@ -43,7 +36,6 @@ MASTER_SITES=	http://www.sudo.ws/sudo/dist/ \
 		ftp://sunsite.icm.edu.pl/packages/sudo/ \
 		ftp://mirror.cdmon.com/pub/sudo/ \
 		ftp://ftp.twaren.net/Unix/Security/Sudo/
-DISTNAME=	${PORTNAME}-1.8.1p2
 
 MAINTAINER=	wxs@FreeBSD.org
 COMMENT=	Allow others to run commands as root
@@ -69,7 +61,17 @@ OPTIONS=	LDAP "With LDAP support" off \
 LOGFAC?=	local2
 CONFIGURE_ARGS+=	--with-logfac=${LOGFAC}
 
-.include <bsd.port.pre.mk>
+.include <bsd.port.options.mk>
+
+.if !defined(WITHOUT_NLS)
+USE_GETTEXT=	yes
+LDFLAGS+=	-L${LOCALBASE}/lib -lintl
+CFLAGS+=	-I${LOCALBASE}/include
+PLIST_SUB+=	NLS=""
+.else
+CONFIGURE_ARGS+=	--disable-nls
+PLIST_SUB+=	NLS="@comment "
+.endif
 
 # SUDO_SECURE_PATH is a PATH string that will override the user's PATH.
 # ex: make SUDO_SECURE_PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
@@ -90,7 +92,7 @@ CONFIGURE_ARGS+=	--with-ldap-conf-file=${PREFIX}/etc/${SUDO_LDAP_CONF}
 PLIST_SUB+=	LDAP=""
 MAN5+=	sudoers.ldap.5
 .else
-PLIST_SUB=	LDAP="@comment "
+PLIST_SUB+=	LDAP="@comment "
 .endif
 
 .if defined(WITH_DISABLE_ROOT_SUDO)
@@ -135,4 +137,4 @@ post-install:
 	fi
 	${TOUCH} ${PREFIX}/etc/sudoers.d/.keep-me
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

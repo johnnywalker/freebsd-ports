@@ -36,11 +36,9 @@
     SUBDIR += etoile-etoilemenus
     SUBDIR += etoile-iconkit
     SUBDIR += etoile-wildmenus
-    SUBDIR += fluxbox-sid-pack
     SUBDIR += fluxbox-tenr-styles-pack
     SUBDIR += fvwm-themes
     SUBDIR += geramik
-    SUBDIR += gnome-art
     SUBDIR += gnome-backgrounds
     SUBDIR += gnome-bluecurve-theme
     SUBDIR += gnome-icons
@@ -48,6 +46,7 @@
     SUBDIR += gnome-icons-crystal
     SUBDIR += gnome-icons-dropline-neu
     SUBDIR += gnome-icons-dropline-nou
+    SUBDIR += gnome-icons-elementary
     SUBDIR += gnome-icons-gentoo-test
     SUBDIR += gnome-icons-gion
     SUBDIR += gnome-icons-iris
@@ -62,7 +61,6 @@
     SUBDIR += gnome-icons-stylish
     SUBDIR += gnome-icons-ximian-south
     SUBDIR += gnome-look
-    SUBDIR += gnome-splashscreen-manager
     SUBDIR += gnome-themes
     SUBDIR += gnome-themes-extras
     SUBDIR += gtk-aluminumalloy-cryogenic-theme

@@ -6,13 +6,13 @@
 #
 
 PORTNAME=	subvertpy
-PORTVERSION=	0.8.2
+PORTVERSION=	0.8.7
 CATEGORIES=	devel
-MASTER_SITES=	https://launchpadlibrarian.net/73700574/ \
+MASTER_SITES=	https://launchpadlibrarian.net/80340610/ \
 		http://www.c-s.li/ports/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Python bindings for subversion
 
 LICENSE=	GPLv2

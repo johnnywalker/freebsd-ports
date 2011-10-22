@@ -11,7 +11,7 @@ PORTVERSION=	2.6.0
 CATEGORIES=	graphics
 MASTER_SITES=	SF/${PORTNAME:L}/${PORTNAME:L}/
 
-MAINTAINER=	aldis@bsdroot.lv
+MAINTAINER=	graudeejs@gmail.com
 COMMENT=	An alternative to the OpenGL Utility Toolkit (GLUT) library
 
 CONFLICTS=	libglut-[0-9].*
@@ -22,7 +22,8 @@ USE_LDCONFIG=	yes
 USE_XORG=	ice xi
 USE_GL=		glu
 CONFIGURE_ARGS=	--disable-warnings
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" LDFLAGS="-lusbhid"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-lusbhid
 USE_LDCONFIG=	yes
 
 DOCS=	download.html freeglut.html freeglut_logo.png		\

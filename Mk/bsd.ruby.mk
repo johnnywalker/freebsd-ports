@@ -3,7 +3,7 @@
 #
 # Created by: Akinori MUSHA <knu@FreeBSD.org>
 #
-# $FreeBSD: ports/Mk/bsd.ruby.mk,v 1.205 2011/05/11 05:41:15 stas Exp $
+# $FreeBSD: ports/Mk/bsd.ruby.mk,v 1.211 2011/09/13 01:43:10 swills Exp $
 #
 
 .if !defined(Ruby_Include)
@@ -44,8 +44,6 @@ Ruby_Include_MAINTAINER=	stas@FreeBSD.org
 #			  build.
 # RUBY_SETUP		- Set to the alternative name of setup.rb
 #			  (default: setup.rb).
-# USE_RUBY_AMSTD	- Says that the port uses amstd for building and
-#			  running.
 # USE_RUBY_RDTOOL	- Says that the port uses rdtool to generate documents.
 # USE_RUBY_RDOC		- Says that the port uses rdoc to generate documents.
 # USE_RUBY_FEATURES	- Says that the port requires some of the following
@@ -105,14 +103,12 @@ Ruby_Include_MAINTAINER=	stas@FreeBSD.org
 # RUBY_BASE_PORT	- Port path of base ruby without PORTSDIR, without
 #			  suffix except version.
 # RUBY_PORT		- Port path of ruby without PORTSDIR.
-# RUBY_AMSTD_PORT	- Port path of ruby-amstd without PORTSDIR.
 # RUBY_RDTOOL_PORT	- Port path of rdtool without PORTSDIR.
 # RUBY_RDOC_PORT	- Port path of rdoc without PORTSDIR.
 # RUBY_ICONV_PORT	- Port path of ruby-iconv without PORTSDIR.
 #
 # DEPEND_LIBRUBY	- LIB_DEPENDS entry for libruby.
 # DEPEND_RUBY		- BUILD_DEPENDS/RUN_DEPENDS entry for ruby.
-# DEPEND_RUBY_AMSTD	- BUILD_DEPENDS/RUN_DEPENDS entry for ruby-amstd.
 # DEPEND_RUBY_RDTOOL	- BUILD_DEPENDS entry for rdtool.
 # DEPEND_RUBY_RDOC	- BUILD_DEPENDS entry for rdoc.
 # DEPEND_RUBY_ICONV	- BUILD_DEPENDS/RUN_DEPENDS entry for ruby-iconv.
@@ -137,7 +133,7 @@ Ruby_Include_MAINTAINER=	stas@FreeBSD.org
 #
 
 RUBY_DEFAULT_VER?=	1.8
-RAKE_VER=	0.8.7
+RAKE_VER=	0.9.2
 
 RUBY_VER?=		${RUBY_DEFAULT_VER}
 
@@ -171,7 +167,7 @@ RUBY?=			${LOCALBASE}/bin/${RUBY_NAME}
 # Ruby 1.8
 #
 RUBY_RELVERSION=	1.8.7
-RUBY_PORTREVISION=	0
+RUBY_PORTREVISION=	2
 RUBY_PORTEPOCH=		1
 RUBY_PATCHLEVEL=	352
 
@@ -199,9 +195,9 @@ RUBY19=			"@comment "
 # Ruby 1.9
 #
 RUBY_RELVERSION=	1.9.2
-RUBY_PORTREVISION=	0
+RUBY_PORTREVISION=	2
 RUBY_PORTEPOCH=		1
-RUBY_PATCHLEVEL=	136
+RUBY_PATCHLEVEL=	290
 
 RUBY_VERSION?=		${RUBY_RELVERSION}.${RUBY_PATCHLEVEL}
 RUBY_DISTVERSION?=	${RUBY_RELVERSION}-p${RUBY_PATCHLEVEL}
@@ -267,12 +263,11 @@ RUBY_MODNAME?=		${PORTNAME}
 
 # Commands
 RUBY_RD2?=		${LOCALBASE}/bin/rd2
-RUBY_RDOC?=		${LOCALBASE}/bin/rdoc
+RUBY_RDOC?=		${LOCALBASE}/bin/rdoc${RUBY_VER:S/.//}
 
 # Ports
 RUBY_BASE_PORT?=	lang/ruby${RUBY_VER:S/.//}
 RUBY_PORT?=		${RUBY_BASE_PORT}
-RUBY_AMSTD_PORT?=	devel/ruby-amstd
 RUBY_RDTOOL_PORT?=	textproc/ruby-rdtool
 RUBY_RDOC_PORT?=	textproc/ruby-rdoc
 RUBY_ICONV_PORT?=	converters/ruby-iconv
@@ -280,7 +275,6 @@ RUBY_ICONV_PORT?=	converters/ruby-iconv
 # Depends
 DEPEND_LIBRUBY?=	${RUBY_NAME}.${RUBY_SHLIBVER}:${PORTSDIR}/${RUBY_PORT}
 DEPEND_RUBY?=		${RUBY}:${PORTSDIR}/${RUBY_PORT}
-DEPEND_RUBY_AMSTD?=	${RUBY_SITELIBDIR}/amstd/version.rb:${PORTSDIR}/${RUBY_AMSTD_PORT}
 DEPEND_RUBY_RDTOOL?=	${RUBY_RD2}:${PORTSDIR}/${RUBY_RDTOOL_PORT}
 DEPEND_RUBY_ICONV=	${RUBY_ARCHLIBDIR}/iconv.so:${PORTSDIR}/${RUBY_ICONV_PORT}
 
@@ -324,6 +318,10 @@ PLIST_SUB+=		${PLIST_RUBY_DIRS:C,DIR="(${LOCALBASE}|${PREFIX})/,DIR=",} \
 			RUBY_DEFAULT_SUFFIX="${RUBY_DEFAULT_SUFFIX}" \
 			RUBY18=${RUBY18} \
 			RUBY19=${RUBY19}
+
+.if defined(USE_RUBY_RDOC)
+MAKE_ENV+=	RUBY_RDOC=${RUBY_RDOC}
+.endif
 
 # require check
 .if defined(RUBY_REQUIRE)
@@ -382,10 +380,8 @@ RUBY_FLAGS+=	-d
 #
 .if defined(USE_RUBYGEMS)
 
-. if ${RUBY_VER} == 1.8
 BUILD_DEPENDS+=	${RUBYGEMBIN}:${PORTSDIR}/devel/ruby-gems
-RUN_DEPENDS+=	${BUILD_DEPENDS}
-. endif
+RUN_DEPENDS+=	${RUBYGEMBIN}:${PORTSDIR}/devel/ruby-gems
 
 PKGNAMEPREFIX?=	rubygem-
 EXTRACT_SUFX=	.gem
@@ -547,17 +543,8 @@ RUN_DEPENDS+=		${DEPEND_RUBY_ICONV}
 .endif
 
 .if defined(USE_RAKE)
-.if ${RUBY_VER} == 1.8
 BUILD_DEPENDS+=		${LOCALBASE}/bin/rake:${PORTSDIR}/devel/rubygem-rake
 RAKE_BIN=	${LOCALBASE}/bin/rake
-.else
-RAKE_BIN=	${LOCALBASE}/bin/rake${RUBY_VER:S/.//}
-.endif
-.endif
-
-.if defined(USE_RUBY_AMSTD)
-BUILD_DEPENDS+=		${DEPEND_RUBY_AMSTD}
-RUN_DEPENDS+=		${DEPEND_RUBY_AMSTD}
 .endif
 
 # documents

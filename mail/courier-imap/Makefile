@@ -7,6 +7,7 @@
 
 PORTNAME=	courier-imap
 PORTVERSION=	4.9.3
+PORTREVISION=	1
 PORTEPOCH=	2
 CATEGORIES=	mail ipv6
 MASTER_SITES=	SF/courier/imap/${PORTVERSION}
@@ -24,13 +25,10 @@ USE_GMAKE=	yes
 USE_RC_SUBR=	courier-imap-imapd courier-imap-imapd-ssl \
 		courier-imap-pop3d courier-imap-pop3d-ssl
 
-
 CPPFLAGS+=	-I${LOCALBASE}/include -I${PREFIX}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -L${PREFIX}/lib
-CONFIGURE_ENV=	REHASH=${SCRIPTDIR}/c_rehash \
-		CPPFLAGS='${CPPFLAGS}' \
-		CXXFLAGS='${CPPFLAGS}' \
-		LDFLAGS='${LDFLAGS}'
+CONFIGURE_ENV=	REHASH=${SCRIPTDIR}/c_rehash
+
 MAKE_ENV:=	${CONFIGURE_ENV}
 
 #
@@ -84,7 +82,7 @@ CONFIGURE_ARGS+=--with-syslog=${WITH_SYSLOG_FACILITY}
 .if defined(WITH_AUTH_USERDB)
 .if defined(WITH_GDBM)
 CONFIGURE_ARGS+=--with-db=gdbm --with-userdb=${USERDB}
-LIB_DEPENDS+=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=	gdbm.4:${PORTSDIR}/databases/gdbm
 .else
 CONFIGURE_ARGS+=--with-db=db  --with-userdb=${USERDB}
 .endif
@@ -99,8 +97,7 @@ CONFIGURE_ARGS+=--with-trashquota
 .endif
 
 .if defined(WITH_FAM)
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS}"
+CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 USE_FAM=	yes
 .endif

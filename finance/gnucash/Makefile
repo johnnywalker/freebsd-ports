@@ -8,11 +8,15 @@
 
 PORTNAME=	gnucash
 PORTVERSION=	2.4.7
+PORTREVISION=	2
 CATEGORIES=	finance gnome
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}%20%28stable%29/${PORTVERSION}
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Quicken-like money and finance manager
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	guile>=1.8.6:${PORTSDIR}/lang/guile \
     		${LOCALBASE}/share/guile/1.8/slibcat:${PORTSDIR}/lang/slib-guile
@@ -27,11 +31,9 @@ RUN_DEPENDS=	guile>=1.8.6:${PORTSDIR}/lang/guile \
 OPTIONS=	AQBANKING	"AqBanking support (HBCI/OpenHBCI)"	off \
 		OFX		"OFX support"				off \
 		DATABASE	"Enable SQL database backends"		off \
+		LOCALE_TAX	"Enable localized tax categories"	off \
 		WEBKIT		"Use webkit instead of gtkhtml for the HTML engine" off \
 		PYTHON		"Install Python bindings"		off
-
-LICENSE=	GPLv3
-LICENSE_FILE=	${WRKSRC}/COPYING
 
 USE_BZIP2=	yes
 USE_GETTEXT=	yes
@@ -42,8 +44,8 @@ INSTALLS_ICONS=	yes
 USE_GNOME=	gnomeprefix libglade2 libgnomeui
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--disable-error-on-warning \
 		--disable-doxygen
 
@@ -98,9 +100,13 @@ CONFIGURE_ARGS+=--disable-dbi
 PLIST_SUB+=	DATABASE="@comment "
 .endif
 
+.if defined(WITH_LOCALE_TAX)
+CONFIGURE_ARGS+=--enable-locale-specific-tax
+.endif
+
 .if defined(WITH_WEBKIT)
 CONFIGURE_ARGS+=--with-html-engine=webkit
-LIB_DEPENDS+=	webkit-1.0.13:${PORTSDIR}/www/webkit-gtk2
+LIB_DEPENDS+=	webkitgtk-1.0.0:${PORTSDIR}/www/webkit-gtk2
 .else
 USE_GNOME+=	gtkhtml3
 .endif

@@ -9,7 +9,7 @@
 PORTNAME=	filepp
 PORTVERSION=	1.8.0
 CATEGORIES=	textproc
-MASTER_SITES=	http://www.cabaret.demon.co.uk/filepp/
+MASTER_SITES=	http://www-users.york.ac.uk/~dm26/filepp/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A generic file preprocessor

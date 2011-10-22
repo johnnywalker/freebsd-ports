@@ -55,7 +55,6 @@
     SUBDIR += leocad
     SUBDIR += libgeda
     SUBDIR += linux-eagle5
-    SUBDIR += linux-gid
     SUBDIR += magic
     SUBDIR += mars
     SUBDIR += meshlab
@@ -63,7 +62,7 @@
     SUBDIR += ngspice_rework
     SUBDIR += opencascade
     SUBDIR += opencascade-tutorial
-    SUBDIR += oregano
+    SUBDIR += openscad
     SUBDIR += p5-GDS2
     SUBDIR += p5-Verilog-Perl
     SUBDIR += pcb

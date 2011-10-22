@@ -7,34 +7,17 @@
 
 PORTNAME=	libimg
 PORTVERSION=	1.2.4
-PORTREVISION=	7
+PORTREVISION=	8
 CATEGORIES?=	graphics tk
 MASTER_SITES=	SF/tkimg/tkimg/${PORTVERSION:R}
 DISTNAME=	img${PORTVERSION}
 
-MAINTAINER=	crees@FreeBSD.org
+MAINTAINER=	mi@aldan.algebra.com
 COMMENT=	A library of image format handlers for Tk4.1 and later
 
 LIB_DEPENDS=	png:${PORTSDIR}/graphics/png \
 		jpeg:${PORTSDIR}/graphics/jpeg \
 		tiff:${PORTSDIR}/graphics/tiff
-
-.if defined(USE_TK) && ${USE_TK} == 83
-PKGNAMESUFFIX=	-tk83
-USE_TK=		83
-USE_TK_BUILD=	83
-MAKEFILE=	${FILESDIR}/Makefile.bsd
-MAKE_ENV+=	TCL_VER=8.3
-PATCHDIR=
-EXTRA_PATCHES=	${FILESDIR}/pre-tk84-warnings
-CONFLICTS=	libimg-1.* libimg-tkstep-1.*
-.else
-USE_TK=		84
-USE_TK_BUILD=	84
-MAKEFILE=	${FILESDIR}/Makefile.bsd
-EXTRA_PATCHES=	${FILESDIR}/tk84-Tk_PhotoPutBlock ${FILESDIR}/tk84-warnings
-CONFLICTS=	libimg-tk83-1.* libimg-tkstep-1.*
-.endif
 
 DIR=		lib/Img1.2
 
@@ -45,6 +28,11 @@ PLIST_SUB+=	DIR="${DIR}" SHLIB_NAME="${SHLIB_NAME}" \
 		SHLIB_LINK="${SHLIB_LINK}"
 
 WRKSRC=		${WRKDIR}/img${PORTVERSION}
+MAKEFILE=	${FILESDIR}/Makefile.bsd
+USE_TK=		83+
+USE_TK_BUILD=	${USE_TK}
+MAKE_ENV+=	TCL_VER=${TCL_VER}
+MAKE_JOBS_SAFE=	yes
 
 # We don't need the bundled libraries:
 EXTRACT_AFTER_ARGS=	| ${TAR} -xf - --exclude '*/libz/*' \
@@ -64,4 +52,19 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/* ${DOCSDIR}
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${TCL_VER} == 8.3
+PKGNAMESUFFIX=	-tk83
+EXTRA_PATCHES=	${FILESDIR}/pre-tk84-warnings
+CONFLICTS=	libimg-1.* libimg-tkstep-1.*
+.elif ${TCL_VER} == 8.4
+PKGNAMESUFFIX=	-tk84
+EXTRA_PATCHES=	${FILESDIR}/tk84-Tk_PhotoPutBlock ${FILESDIR}/tk84-warnings
+CONFLICTS=	libimg-tk83-1.* libimg-tkstep-1.*
+.else
+EXTRA_PATCHES=	${FILESDIR}/tk85-Tk_PhotoPutBlock ${FILESDIR}/tk84-warnings
+CONFLICTS=	libimg-tk83-1.* libimg-tk84-1.* libimg-tkstep-1.*
+.endif
+
+.include <bsd.port.post.mk>

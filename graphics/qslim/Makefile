@@ -8,9 +8,10 @@
 
 PORTNAME=	qslim
 PORTVERSION=	2.1
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	graphics
-MASTER_SITES=	http://graphics.cs.uiuc.edu/~garland/dist/ CENKES
+MASTER_SITES=	http://mgarland.org/files/dist/ \
+		CENKES
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	SlimKit Surface Modeling Tools
@@ -18,25 +19,23 @@ COMMENT=	SlimKit Surface Modeling Tools
 LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png \
 		tiff.4:${PORTSDIR}/graphics/tiff \
 		gfx.0:${PORTSDIR}/graphics/libgfx \
-		forms.1:${PORTSDIR}/x11-toolkits/xforms
+		forms.2:${PORTSDIR}/x11-toolkits/xforms
 
 CONFIGURE_WRKSRC=	${WRKSRC}/mixkit
 BUILD_WRKSRC=		${WRKSRC}/mixkit/src
 
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-USE_GNOME=	gnometarget
 USE_GL=		glu
 USE_LDCONFIG=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 ALL_TARGET=	# none
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS} -DHAVE_BOOL
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS} -DHAVE_BOOL
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 CFLAGS+=	-DMIX_ANSI_IOSTREAMS -fpermissive -fPIC ${CPPFLAGS}
 MAKE_ARGS+=	CC="${CC}" CXX="${CXX}"
-MAKE_ENV+=	LDFLAGS="${LDFLAGS}" FLTKCONFIG="${LOCALBASE}/bin/fltk-config"
+MAKE_ENV+=	FLTKCONFIG="${LOCALBASE}/bin/fltk-config"
 
 post-extract:
 	@${RM} -rf ${WRKSRC}/libgfx/

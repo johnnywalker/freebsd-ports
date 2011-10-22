@@ -8,11 +8,16 @@
 PORTNAME=	noweb
 PORTVERSION=	2.11b
 CATEGORIES=	devel
-MASTER_SITES=	http://www.eecs.harvard.edu/~nr/noweb/dist/
+MASTER_SITES=	ftp://www.eecs.harvard.edu/pub/nr/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A simple, extensible literate-programming tool
+
+LICENSE=	noweb
+LICENSE_NAME=	noweb
+LICENSE_FILE=	${WRKSRC}/COPYRIGHT
+LICENSE_PERMS=	auto-accept		# no restrictions
 
 BUILD_DEPENDS=	icont:${PORTSDIR}/lang/icon
 RUN_DEPENDS=	iconx:${PORTSDIR}/lang/icon

@@ -6,12 +6,12 @@
 #
 
 PORTNAME=	mythes
-PORTVERSION=	2011.07.26
-PORTREVISION=	1
+PORTVERSION=	2011.09.18
 CATEGORIES=	textproc
-MASTER_SITES=	http://www.sk-spell.sk.cx/thesaurus/download/
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
 PKGNAMEPREFIX=	sk-
-DISTNAME=	OOo-Thesaurus2-sk_SK
+DISTNAME=	OOo-Thesaurus2-sk_SK-${PORTVERSION:C/\.//g}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Slovak thesaurus

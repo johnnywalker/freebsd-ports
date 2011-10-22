@@ -12,7 +12,7 @@ MASTER_SITES=	http://www.kipple.pe.kr/win/unalz/ \
 		http://www.c-s.li/ports/
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Extracts AlZip archives
 
 LICENSE_FILE=	${WRKSRC}/readme.txt
@@ -20,8 +20,8 @@ LICENSE_FILE=	${WRKSRC}/readme.txt
 USE_ICONV=	yes
 PLIST_FILES=	bin/unalz
 MAKEFILE=	Makefile.freebsd
-MAKE_ENV=	CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 WRKSRC=		${WRKDIR}/unalz
 
 pre-patch:

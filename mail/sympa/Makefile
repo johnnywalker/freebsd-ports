@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	sympa
-PORTVERSION=	6.1.5
-PORTREVISION=	1
+PORTVERSION=	6.1.7
 CATEGORIES=	mail
 MASTER_SITES=	http://www.sympa.org/distribution/ \
 		http://www.sympa.org/distribution/old/
@@ -48,7 +47,7 @@ USERS=		sympa
 GROUPS=		sympa
 GNU_CONFIGURE=	yes
 USE_PERL5=	yes
-USE_APACHE=	1.3+
+USE_APACHE=	13+
 ICONSDIR?=	www/icons
 CONFIGURE_ARGS+=--bindir=${PREFIX}/libexec/${PORTNAME}	\
 		--libexecdir=${PREFIX}/libexec/${PORTNAME} \
@@ -92,9 +91,9 @@ USE_MYSQL=	yes
 
 .if defined(WITH_FASTCGI)
 BUILD_DEPENDS+=	${LOCALBASE}/${APACHEMODDIR}/mod_fastcgi.so:${PORTSDIR}/www/mod_fastcgi \
-		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FastCGI
+		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FCGI
 RUN_DEPENDS+=	${LOCALBASE}/${APACHEMODDIR}/mod_fastcgi.so:${PORTSDIR}/www/mod_fastcgi \
-		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FastCGI
+		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FCGI
 .endif
 
 .if ${DB_TYPE:L} == "oracle"

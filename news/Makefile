@@ -3,10 +3,8 @@
 
     COMMENT = Network news
 
-    SUBDIR += PicMonger
     SUBDIR += atp
     SUBDIR += aub
-    SUBDIR += bgrab
     SUBDIR += brag
     SUBDIR += c-nocem
     SUBDIR += cg
@@ -40,7 +38,6 @@
     SUBDIR += husky-smapi-devel
     SUBDIR += husky-sqpack
     SUBDIR += ifmail
-    SUBDIR += ija
     SUBDIR += inn
     SUBDIR += klibido
     SUBDIR += knews
@@ -83,7 +80,6 @@
     SUBDIR += py-twistedNews
     SUBDIR += py-yenc
     SUBDIR += rawdog
-    SUBDIR += rkive
     SUBDIR += s-news
     SUBDIR += sabnzbdplus
     SUBDIR += slnr
@@ -97,7 +93,6 @@
     SUBDIR += trn
     SUBDIR += trn4
     SUBDIR += ubh
-    SUBDIR += xmitbin
     SUBDIR += xpn
     SUBDIR += xrn
     SUBDIR += yencode

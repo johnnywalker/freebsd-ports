@@ -8,31 +8,30 @@
 #
 
 PORTNAME=	gnome-web-photo
-PORTVERSION=	0.10.1
+PORTVERSION=	0.10.3
 CATEGORIES=	www
 MASTER_SITES=	GNOME
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Tool to generate full-size image files and thumbnails
-
-LIB_DEPENDS=	webkit-1.0.13:${PORTSDIR}/www/webkit-gtk2
 
 LICENSE=	LGPL21 LGPL3
 LICENSE_COMB=	dual
 
-USE_BZIP2=	yes
+LIB_DEPENDS=	webkitgtk-1.0.0:${PORTSDIR}/www/webkit-gtk2
+
+USE_XZ=		yes
 USE_GNOME=	gconf2 gnomehack gnomeprefix
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--disable-silent-rules \
 		--with-gtk=2.0
 
 GCONF_SCHEMAS=	thumbnailer.schemas
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 post-patch:
 	@${REINPLACE_CMD} -e '/test/s|==|=|g' ${WRKSRC}/configure

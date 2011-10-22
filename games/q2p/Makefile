@@ -1,6 +1,6 @@
 # New ports collection makefile for:	q2p
 # Date created:				2007-01-05
-# Whom:					alepulver
+# Whom:					Alejandro Pulver <alepulver@FreeBSD.org>
 #
 # $FreeBSD$
 #
@@ -12,8 +12,8 @@ CATEGORIES=	games
 MASTER_SITES=	http://qudos.quakedev.com/linux/quake2/engines/Q2P/
 DISTNAME=	Q2P-0.2-2006-12-31
 
-MAINTAINER=	ports@FreeBSD.org
-COMMENT=	Ehnaced OpenGL only Quake II engine
+MAINTAINER=	danfe@FreeBSD.org
+COMMENT=	Enhanced OpenGL only Quake II engine
 
 USE_BZIP2=	yes
 USE_XORG=	xxf86dga xext xxf86vm x11

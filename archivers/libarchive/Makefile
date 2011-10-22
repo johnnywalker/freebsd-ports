@@ -5,7 +5,7 @@
 # $FreeBSD$
 
 PORTNAME=	libarchive
-PORTVERSION=	2.8.3
+PORTVERSION=	2.8.4
 PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	archivers
@@ -16,7 +16,7 @@ COMMENT=	Library to create and read several streaming archive formats
 
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-USE_GNOME=	libxml2
+USE_GNOME=	gnomehack libxml2
 
 PLIST_FILES=	bin/bsdcpio \
 		bin/bsdtar \
@@ -26,8 +26,7 @@ PLIST_FILES=	bin/bsdcpio \
 		lib/libarchive.la \
 		lib/libarchive.so \
 		lib/libarchive.so.10 \
-		lib/pkgconfig/libarchive.pc
-PLIST_DIRS=	lib/pkgconfig
+		libdata/pkgconfig/libarchive.pc
 
 MANCOMPRESSED=	no
 MAN1=		bsdcpio.1 \
@@ -46,10 +45,8 @@ MAN5=		cpio.5 \
 		tar.5
 
 CFLAGS+=	"-I${LOCALBASE}/include"
-MAKE_ENV+=	LDFLAGS="-L${LOCALBASE}/lib" \
-		CPPFLAGS="-I${LOCALBASE}/include"
-CONFIGURE_ENV+=	LDFLAGS="-L${LOCALBASE}/lib" \
-		CPPFLAGS="-I${LOCALBASE}/include"
+CPPFLAGS+=	"-I${LOCALBASE}/include"
+LDFLAGS+=	"-L${LOCALBASE}/lib"
 
 check:
 	(cd ${WRKSRC}; ${SETENV} ${MAKE_ENV} ${MAKE} check)

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	thunderbird
-DISTVERSION=	3.1.11
+DISTVERSION=	3.1.14
 CATEGORIES=	mail ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA}
 MASTER_SITE_SUBDIR=	${PORTNAME}/releases/${DISTVERSION}/source
@@ -20,7 +20,6 @@ BUILD_DEPENDS=	nspr>=4.8:${PORTSDIR}/devel/nspr
 USE_AUTOTOOLS=	autoconf213
 LATEST_LINK=	thunderbird3
 USE_GECKO=	gecko
-CONFLICTS_INSTALL=	thunderbird-5.0*
 USE_MOZILLA=	-png -nss -dbm -jpeg -xft
 MOZ_TOOLKIT=	cairo-gtk2
 
@@ -35,7 +34,10 @@ USE_GMAKE=	yes
 
 MOZ_PROTOCOLS=	http,ftp,file,viewsource,res,data
 MOZ_GRAPHICS=	default,-xbm
-MOZ_OPTIONS=	--with-default-mozilla-five-home=${PREFIX}/lib/${MOZILLA} \
+MOZILLA_SUFX=	3
+MOZILLA=	${PORTNAME}${MOZILLA_SUFX}
+MOZ_OPTIONS=	--program-transform-name='s/thunderbird/${MOZILLA}/' \
+	--with-default-mozilla-five-home=${PREFIX}/lib/${MOZILLA} \
 	--enable-single-profile --disable-profilesharing \
 	--enable-application=mail --enable-official-branding \
 	--disable-updater --disable-necko-wifi
@@ -44,7 +46,7 @@ MOZ_EXPORT=		MOZ_THUNDERBIRD=1 MAIL_PKG_SHARED=1
 MOZILLA_PLIST_DIRS=	bin lib
 MOZ_PKGCONFIG_FILES=
 
-PORTNAME_ICON=	${PORTNAME}.png
+PORTNAME_ICON=	${MOZILLA}.png
 PORTNAME_ICON_SRC=	${PREFIX}/lib/${MOZILLA}/chrome/icons/default/default48.png
 
 SYSTEM_PREFS=	${FAKEDIR}/lib/${PORTNAME}/defaults/pref/${PORTNAME}.js
@@ -66,8 +68,6 @@ CFLAGS+=	-mminimal-toc
 .endif
 .endif
 
-GECKO_PTHREAD_LIBS!=${CC} -dumpspecs | ${GREP} -m 1 '%{\!pg: %{pthread:' | ${SED} -e 's|^.*%{\!pg: %{pthread:|| ; s|}.*$$||' || ${TRUE}
-
 .if ${HAVE_GNOME:Mlibgnomeui}!=""
 USE_GNOME+=	libgnomeui
 MOZ_OPTIONS+=	--enable-gnomeui
@@ -79,15 +79,15 @@ MOZ_OPTIONS+=	--disable-gnomeui
 MOZ_OPTIONS+=	--disable-dbus --disable-libnotify
 .else
 LIB_DEPENDS+=	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-		notify.1:${PORTSDIR}/devel/libnotify
+		notify.4:${PORTSDIR}/devel/libnotify
 .endif
 
-post-extract::
-	${SED} -e 's|@PORTNAME_ICON@|${PORTNAME_ICON}|' \
+post-extract:
+	${SED} -e 's|@PORTNAME_ICON@|${PORTNAME_ICON}|;s|@MOZILLA@|${MOZILLA}|' \
 		<${FILESDIR}/thunderbird.desktop.in >${WRKDIR}/${MOZILLA_EXEC_NAME}.desktop
 
 post-patch:
-	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS:C/-pthread/${GECKO_PTHREAD_LIBS}/}|' \
+	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS}|' \
 		${MOZSRC}/storage/build/Makefile.in \
 		${MOZSRC}/db/sqlite3/src/Makefile.in
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
@@ -106,10 +106,10 @@ pre-configure:
 	(cd ${MOZSRC}/js/src/ && ${AUTOCONF})
 
 port-pre-install:
-	${MKDIR} ${FAKEDIR}/lib/${PORTNAME}/defaults
+	${MKDIR} ${FAKEDIR}/lib/${MOZILLA}/defaults
 
 pre-install:
-	@${ECHO_CMD} 'share/applications/${PORTNAME}.desktop' >> ${PLIST}
+	@${ECHO_CMD} 'share/applications/${MOZILLA_EXEC_NAME}.desktop' >> ${PLIST}
 	@${ECHO_CMD} 'share/pixmaps/${PORTNAME_ICON}' >> ${PLIST}
 	@${ECHO_CMD} '@dirrmtry share/applications' >> ${PLIST}
 

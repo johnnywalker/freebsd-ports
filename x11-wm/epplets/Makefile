@@ -20,13 +20,13 @@ RUN_DEPENDS=	e16:${PORTSDIR}/x11-wm/e16 \
 		import:${PORTSDIR}/graphics/ImageMagick
 
 USE_XORG=	xext
-USE_GNOME=	esound gnometarget
+USE_GNOME=	esound
 USE_GL=		glut
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool autoconf
 USE_LDCONFIG=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--disable-auto-respawn
 
 .include <bsd.port.pre.mk>

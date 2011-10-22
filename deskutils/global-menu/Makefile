@@ -7,13 +7,14 @@
 
 PORTNAME=		gnome-globalmenu
 PORTVERSION=		0.7.10
+PORTREVISION=		1
 CATEGORIES=		deskutils
 MASTER_SITES=		http://gnome2-globalmenu.googlecode.com/files/
 
 MAINTAINER=		gustau.perez@gmail.com
 COMMENT=		Global menu for gnome
 
-LIB_DEPENDS=		notify.1:${PORTSDIR}/devel/libnotify
+LIB_DEPENDS=		notify.4:${PORTSDIR}/devel/libnotify
 
 USE_GNOME=		gnomepanel gnomedesktop
 
@@ -23,9 +24,8 @@ GNU_CONFIGURE=		yes
 USE_GMAKE=		yes
 USE_AUTOTOOLS=		libtool automake:env autoheader:env
 INSTALLS_ICONS=		yes
-CONFIGURE_ENV=		CPPFLAGS="-I${LOCALBASE}/include" \
-			LDFLAGS="-L${LOCALBASE}/lib"
-
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=		XFCE4_PANEL "Xfce panel applet" Off
 

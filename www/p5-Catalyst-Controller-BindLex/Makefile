@@ -9,7 +9,7 @@ PORTNAME=	Catalyst-Controller-BindLex
 PORTVERSION=	0.03
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	../by-authors/id/N/NU/NUFFIN
+MASTER_SITE_SUBDIR=	CPAN:NUFFIN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	fernan@iib.unsam.edu.ar
@@ -23,7 +23,7 @@ BUILD_DEPENDS=	${SITE_PERL}/Catalyst.pm:${PORTSDIR}/www/p5-Catalyst-Runtime \
 		${SITE_PERL}/Test/use/ok.pm:${PORTSDIR}/devel/p5-Test-use-ok
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
-PERL_MODBUILD=	5.8.1+
+PERL_MODBUILD=	yes
 
 MAN3=	Catalyst::Controller::BindLex.3
 

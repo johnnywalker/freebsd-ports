@@ -51,9 +51,10 @@ USE_RC_SUBR=	collectd collectdmon
 
 USE_LDCONFIG=	yes
 
-CPPFLAGS=	-I${LOCALBASE}/include
+CONFLICTS=	collectd-5.[0-9]*
 
-CONFIGURE_ENV=	LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 

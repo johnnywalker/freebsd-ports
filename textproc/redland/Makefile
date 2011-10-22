@@ -20,15 +20,14 @@ LIB_DEPENDS=	raptor.3:${PORTSDIR}/textproc/raptor \
 USE_BDB=	yes
 WITH_BDB_HIGHEST=	yes
 INVALID_BDB_VER=2
-USE_GNOME=	gnomehack gnometarget lthack pkgconfig libxml2
+USE_GNOME=	gnomehack lthack pkgconfig libxml2
 USE_AUTOTOOLS=	libltdl
 USE_OPENSSL=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
 
-CPPFLAGS=	-I${BDB_INCLUDE_DIR} -I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
+CPPFLAGS+=	-I${BDB_INCLUDE_DIR} -I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-raptor=system \
 		--with-threestore=no
 

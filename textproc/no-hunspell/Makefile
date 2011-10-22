@@ -12,6 +12,7 @@ CATEGORIES=	textproc
 MASTER_SITES=	https://alioth.debian.org/frs/download.php/2357/
 PKGNAMEPREFIX=	no-
 DISTNAME=	no_NO-pack2-${PORTVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Norwegian (Nynorsk and Bokmaal) hunspell dictionaries
@@ -26,8 +27,8 @@ PLIST_FILES=	%%DATADIR%%/nb_NO.aff \
 PLIST_DIRSTRY=	%%DATADIR%%
 
 post-extract:
-	@${EXTRACT_CMD} ${WRKDIR}/nb_NO.zip -d ${WRKSRC}
-	@${EXTRACT_CMD} ${WRKDIR}/nn_NO.zip -d ${WRKSRC}
+	@${EXTRACT_CMD} ${WRKDIR}/nb_NO.zip -d ${WRKSRC}/
+	@${EXTRACT_CMD} ${WRKDIR}/nn_NO.zip -d ${WRKSRC}/
 
 do-install:
 	${MKDIR} ${DATADIR}/

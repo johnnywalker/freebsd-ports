@@ -10,7 +10,7 @@ PORTNAME=	flounder
 PORTVERSION=	0.40
 PORTREVISION=	11
 CATEGORIES=	science
-MASTER_SITES=	http://www2.enel.ucalgary.ca/~vigmond/flounder/
+MASTER_SITES=	http://www.enel.ucalgary.ca/People/vigmond/flounder/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	ports@FreeBSD.org
@@ -22,14 +22,9 @@ LIB_DEPENDS=	fltk.1:${PORTSDIR}/x11-toolkits/fltk \
 
 USE_GL=		glut
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib ${PTHREAD_LIBS} -lstdc++"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS} -lstdc++
 USE_GMAKE=	yes
-
-.if !defined(WITHOUT_AVIFILE)
-LIB_DEPENDS+=	aviplay:${PORTSDIR}/multimedia/avifile
-CONFIGURE_ARGS+=	--enable-avifile
-.endif
 
 .if !defined(WITHOUT_PLOT)
 BUILD_DEPENDS+=	gnuplot:${PORTSDIR}/math/gnuplot

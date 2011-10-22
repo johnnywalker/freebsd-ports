@@ -67,6 +67,7 @@ PLIST_SUB+=	IF_DEFAULT="@comment "
 CFLAGS+=	-D__wchar_t=wchar_t
 
 .if !defined(WITHOUT_THREADS)
+PLIST_SUB+=	THREADS=""
 CONFIGURE_ARGS+=	--with-threads
 CFLAGS+=		${PTHREAD_CFLAGS}
 .if defined(WITHOUT_HUGE_STACK_SIZE)
@@ -74,12 +75,10 @@ CFLAGS+=		-DTHREAD_STACK_SIZE=0x20000
 .else
 CFLAGS+=		-DTHREAD_STACK_SIZE=0x100000
 .endif # defined(WITHOUT_HUGE_STACK_SIZE)
-CONFIGURE_ENV+=		LDFLAGS="${PTHREAD_LIBS} ${LDFLAGS}"
-.else
+LDFLAGS+=		${PTHREAD_LIBS}
+.else # defined(WITHOUT_THREADS)
+PLIST_SUB+=	THREADS="@comment "
 CONFIGURE_ARGS+=	--without-threads
-.if defined(LDFLAGS)
-CONFIGURE_ENV+=		LDFLAGS="${LDFLAGS}"
-.endif # defined(LDFLAGS)
 .endif # !defined(WITHOUT_THREADS)
 
 .if !defined(WITHOUT_UCS4) && !defined(WITH_UCS2)
@@ -94,8 +93,10 @@ CONFIGURE_ARGS+=	--without-pymalloc
 CFLAGS+=	-DPYTHON_DEFAULT_RECURSION_LIMIT=900
 .endif
 
-.if !exists(/usr/bin/ypcat) # the world with NO_NIS
+# See http://bugs.freebsd.org/115940
+.if !exists(/usr/bin/ypcat) || defined(WITHOUT_NIS) # the world with NO_NIS
 PLIST_SUB+=	NO_NIS="@comment "
+WITHOUT_NIS?=	detected
 .else
 PLIST_SUB+=	NO_NIS=""
 .endif
@@ -139,6 +140,13 @@ pre-patch:
 .if defined(WITH_FPECTL) && ${ARCH} == i386
 	${MKDIR} ${WRKSRC}/Modules
 	${ECHO} "fpectl fpectlmodule.c" >> ${WRKSRC}/Modules/Setup.dist
+.endif
+
+post-patch:
+.if defined(WITHOUT_NIS)
+	${REINPLACE_CMD} -e \
+	    's/disabled_module_list =[^]]*/&, "nis"/' \
+		${PATCH_WRKSRC}/setup.py
 .endif
 
 post-configure:

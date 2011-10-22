@@ -19,9 +19,9 @@ COMMENT=	Transparently handles automatic compression and decompression of files
 
 GNU_CONFIGURE=	yes
 USE_AUTOTOOLS=	libtool
-USE_GNOME=	gnomehack gnometarget pkgconfig
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib -lintl"
+USE_GNOME=	gnomehack pkgconfig
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib -lintl
 USE_LDCONFIG=	yes
 
 .if !defined(WITHOUT_NLS)

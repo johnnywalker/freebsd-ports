@@ -6,7 +6,8 @@
 #
 
 PORTNAME=	ninja
-PORTVERSION=	20110620
+PORTVERSION=	20110922
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/Roorback/ninja/tarball/${DISTVERSION}/
 DISTNAME=	Roorabck-${PORTNAME}-${DISTVERSION}-0-g${GITVERSION}
@@ -15,24 +16,25 @@ MAINTAINER=	magik@roorback.net
 COMMENT=	Ninja is a small build system closest in spirit to Make
 
 LICENSE=	ASL
+
 CONFLICTS=	irc/ninja-[0-9]*
 USE_PYTHON=	yes
 
-GITVERSION=	ed48ae5
+GITVERSION=	d342acd
 FETCH_ARGS=	-pRr
 WRKSRC=		${WRKDIR}/Roorback-${PORTNAME}-${GITVERSION}
 
 PLIST_FILES=	bin/ninja
-PORTDOCS=	COPYING HACKING README manual.asciidoc todo
+PORTDOCS=	COPYING HACKING README manual.asciidoc
 
 do-build:
-	@(cd ${WRKSRC}; ./bootstrap.sh)
+	@(cd ${WRKSRC}; CXX=${CXX} ./bootstrap.sh)
 
 do-install:
 	@${INSTALL} -m 755 ${WRKSRC}/ninja ${PREFIX}/bin
 .if !defined(NOPORTDOCS)
 	@${MKDIR} ${DOCSDIR}
-	@(cd ${WRKSRC}; ${INSTALL} -m 644 COPYING HACKING README todo ${DOCSDIR})
+	@(cd ${WRKSRC}; ${INSTALL} -m 644 COPYING HACKING README ${DOCSDIR})
 	@(cd ${WRKSRC}/doc; ${INSTALL} -m 644 manual.asciidoc ${DOCSDIR})
 .endif
 

@@ -7,6 +7,7 @@
 
 PORTNAME=	zsh
 PORTVERSION=	4.3.12
+PORTREVISION=	1
 CATEGORIES=	shells
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-dev/${PORTVERSION}:src \
 		SF/${PORTNAME}/${PORTNAME}-doc-dev/${PORTVERSION}:doc
@@ -30,7 +31,7 @@ USE_NCURSES=	yes
 USE_LDCONFIG=	${PREFIX}/lib/${PORTNAME}
 .endif
 
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib"
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-term-lib="ncursesw ncurses" --with-tcsetpgrp \
 		--enable-function-subdirs
 
@@ -65,7 +66,7 @@ SHELLS=		/etc/shells
 .include <bsd.port.pre.mk>
 
 .if defined(WITH_ZSH_GDBM)
-LIB_DEPENDS+=		gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=		gdbm.4:${PORTSDIR}/databases/gdbm
 PLIST_SUB+=		GDBM=""
 .else
 CONFIGURE_ARGS+=	--disable-gdbm
@@ -90,7 +91,7 @@ CONFIGURE_ARGS+=	--enable-maildir-support
 .endif
 
 .if defined(WITH_ZSH_STATIC)
-CONFIGURE_ENV=		LDFLAGS="${LDFLAGS} -static"
+LDFLAGS+=	-static
 CONFIGURE_ARGS+=	--disable-dynamic
 PLIST_SUB+=		SHARED="@comment "
 .else

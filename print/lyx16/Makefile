@@ -16,7 +16,7 @@ MASTER_SITES=	ftp://ftp.lyx.org/pub/lyx/stable/${MAJOR_VERSION}.x/ \
 		http://sunsite.icm.edu.pl/pub/unix/editors/lyx/stable/${MAJOR_VERSION}.x/ \
 		ftp://ftp.chg.ru/pub/X11/lyx/stable/${MAJOR_VERSION}.x/
 
-MAINTAINER=	kubito@gmail.com
+MAINTAINER=	rakuco@FreeBSD.org
 COMMENT=	Document processor interfaced with LaTeX (nearly WYSIWYG) (stable)
 
 LICENSE=	GPLv2
@@ -35,8 +35,8 @@ QT_COMPONENTS=	gui moc_build uic_build rcc_build
 USE_PYTHON=	yes
 USE_PERL=	yes
 GNU_CONFIGURE=	yes
-CPPFLAGS=	${PTHREAD_CFLAGS}
-CONFIGURE_ENV=	LDFLAGS="${PTHREAD_LIBS}"
+CPPFLAGS+=	${PTHREAD_CFLAGS}
+LDFLAGS+=	${PTHREAD_LIBS}
 CONFIGURE_ARGS=	--with-frontend=qt4 \
 		--without-included-boost \
 		--without-included-gettext \

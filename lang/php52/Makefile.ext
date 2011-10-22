@@ -192,7 +192,7 @@ CONFIGURE_ARGS+=--with-mhash=${LOCALBASE}
 .endif
 
 .if ${PHP_MODNAME} == "ming"
-LIB_DEPENDS+=	ming.4:${PORTSDIR}/graphics/ming
+LIB_DEPENDS+=	ming.5:${PORTSDIR}/graphics/ming
 
 CONFIGURE_ARGS+=--with-ming=${LOCALBASE}
 .endif
@@ -378,7 +378,7 @@ CONFIGURE_ARGS+=--with-snmp=${LOCALBASE} \
 		--with-openssl-dir=${OPENSSLBASE} \
 		--enable-ucd-snmp-hack
 
-LIB_DEPENDS+=   netsnmp.20:${PORTSDIR}/net-mgmt/net-snmp
+LIB_DEPENDS+=   netsnmp.30:${PORTSDIR}/net-mgmt/net-snmp
 LDFLAGS+=	-L${OPENSSLLIB} -lcrypto -lssl
 USE_OPENSSL=	yes
 .endif
@@ -526,7 +526,7 @@ USE_BDB=		40+
 WITH_BDB_HIGHEST=	yes
 .	endif
 .	if defined(WITH_GDBM)
-LIB_DEPENDS+=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=	gdbm.4:${PORTSDIR}/databases/gdbm
 
 CONFIGURE_ARGS+=--with-gdbm=${LOCALBASE}
 .	endif

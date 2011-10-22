@@ -8,7 +8,7 @@
 
 PORTNAME=	gnome-games
 PORTVERSION=	2.32.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	games gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome2
@@ -17,7 +17,7 @@ MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	The game applications package for the GNOME 2 Desktop Environment
 
 BUILD_DEPENDS=	g-ir-scanner:${PORTSDIR}/devel/gobject-introspection
-LIB_DEPENDS=	guile.20:${PORTSDIR}/lang/guile \
+LIB_DEPENDS=	guile.21:${PORTSDIR}/lang/guile \
 		clutter-gtk-0.10.0:${PORTSDIR}/graphics/clutter-gtk \
 		clutter-glx-1.0.0:${PORTSDIR}/graphics/clutter
 RUN_DEPENDS=	seed:${PORTSDIR}/devel/seed
@@ -34,8 +34,8 @@ USE_GSTREAMER=	vorbis ogg
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-sound=gstreamer \
 		--disable-tests
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 GCONF_SCHEMAS=	aisleriot.schemas glchess.schemas glines.schemas \
 		gnect.schemas gnibbles.schemas gnobots2.schemas \

@@ -18,11 +18,11 @@ LIB_DEPENDS=	id3-3.8.3:${PORTSDIR}/audio/id3lib \
 		curl.6:${PORTSDIR}/ftp/curl
 
 USE_XORG=	x11
-USE_GNOME=	gnomehack gnomeprefix gnometarget libgnomeui vte
+USE_GNOME=	gnomehack gnomeprefix libgnomeui vte
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=	CDPARANOIA "Ripper: Enable cdparanoia support" on \
 		CDDA2WAV "Ripper: cdda2wav: Install sysutils/cdrtools" off
@@ -33,8 +33,7 @@ OPTIONS+=	LAME "Encoder: lame: Install audio/lame" off \
 OPTIONS+=	LAME "Encoder: lame: Install audio/lame" on \
 		VORBIS "Encoder: oggenc: Install audio/vorbis-tools" off
 .endif
-OPTIONS+=	BLADEENC "Encoder: bladeenc: Install audio/bladeenc" off \
-		FAAC "Encoder: faac: Install audio/faac" off \
+OPTIONS+=	FAAC "Encoder: faac: Install audio/faac" off \
 		FLAC "Encoder: flac: Install audio/flac" off \
 		GOGO "Encoder: gogo: Install audio/gogo" off
 
@@ -57,10 +56,6 @@ CONFIGURE_ARGS+=	--disable-cdpar
 USE_CDRTOOLS=	yes
 .endif
 
-.if defined(WITH_BLADEENC)
-RUN_DEPENDS+=	bladeenc:${PORTSDIR}/audio/bladeenc
-.endif
-
 .if defined(WITH_FAAC)
 RUN_DEPENDS+=	faac:${PORTSDIR}/audio/faac
 .endif
@@ -75,10 +70,6 @@ RUN_DEPENDS+=	gogo:${PORTSDIR}/audio/gogo
 
 .if !defined(WITHOUT_LAME)
 RUN_DEPENDS+=	lame:${PORTSDIR}/audio/lame
-.endif
-
-.if defined(WITH_BLADEENC)
-RUN_DEPENDS+=	bladeenc:${PORTSDIR}/audio/bladeenc
 .endif
 
 .if defined(WITH_VORBIS)

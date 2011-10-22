@@ -22,11 +22,11 @@ INSTALLS_ICONS= yes
 USE_BZIP2=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget gtk20 intltool intlhack pkgconfig
+USE_GNOME=	gtk20 intltool intlhack pkgconfig
 USE_XFCE=	configenv libgui panel
 USE_XORG=	xext xrender xinerama xi xrandr xcursor xcomposite xdamage x11 \
 		xfixes
-CONFIGURE_ENV=	LDFLAGS="-L${LOCALBASE}/lib"
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=	BDB	"Enable BDB support"		off \
 		ICAL	"Enable libical support"	off
@@ -44,7 +44,7 @@ CONFIGURE_ARGS+=--with-bdb4=no
 
 .if defined(WITH_ICAL)
 LIB_DEPENDS+=	ical.44:${PORTSDIR}/devel/libical
-CONFIGURE_ENV+=	CFLAGS="${CLFAGS} -I${LOCALBASE}/include/libical"
+CFLAGS+=	-I${LOCALBASE}/include/libical
 PLIST_SUB+=	WITH_ICAL="@comment "
 .else
 CONFIGURE_ARGS+=--disable-libical

@@ -6,12 +6,12 @@
 #
 
 PORTNAME=	mythes
-PORTVERSION=	20101002
-PORTREVISION=	1
+PORTVERSION=	20110902
 CATEGORIES=	textproc
-MASTER_SITES=	http://openthes-es.berlios.de/download/
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
 PKGNAMEPREFIX=	es-
-DISTNAME=	OOo2-thes_es_ES
+DISTNAME=	OOo2-thes_es_ES-${PORTVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Spanish thesaurus

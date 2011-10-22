@@ -7,7 +7,7 @@
 
 PORTNAME=	pidgin
 PORTVERSION=	3.0
-PORTREVISION=	15
+PORTREVISION=	16
 CATEGORIES=	security
 MASTER_SITES=	SF/${PORTNAME}-encrypt/Releases/${PORTVERSION}
 PKGNAMESUFFIX=	-encryption
@@ -17,15 +17,15 @@ MAINTAINER=	perlfu@gmail.com
 COMMENT=	Encryption Plugin for the Pidgin instant messenger client
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/pidgin:${PORTSDIR}/net-im/pidgin
-LIB_DEPENDS=	purple.9:${PORTSDIR}/net-im/libpurple \
+LIB_DEPENDS=	purple.10:${PORTSDIR}/net-im/libpurple \
 		nss3:${PORTSDIR}/security/nss
 
 USE_GMAKE=	yes
 USE_GNOME=	gtk20
 GNU_CONFIGURE=	yes
 
-CONFIGURE_ENV=	CPPFLAGS="${PTHREAD_CFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CPPFLAGS+=	${PTHREAD_CFLAGS} -I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 CONFIGURE_ARGS=	--with-nspr-includes=${LOCALBASE}/include/nspr	\
 		--with-nspr-libs=${LOCALBASE}/lib	\
 		--with-nss-includes=${LOCALBASE}/include/nss/nss \

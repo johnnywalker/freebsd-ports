@@ -13,22 +13,24 @@ MASTER_SITES=	http://freebsd.dev-urandom.com/open-cobol/
 MAINTAINER=	gjb@FreeBSD.org
 COMMENT=	An open-source COBOL compiler
 
+BROKEN=		Does not fetch
+DEPRECATED=	No activity since 2007
+EXPIRATION_DATE=	2011-10-23
+
 LIB_DEPENDS=	gmp.10:${PORTSDIR}/math/gmp
 
 CONFLICTS=	open-cobol-1.[0]*
 
 LATEST_LINK=	open-cobol-devel
-USE_GNOME=	gnometarget
 USE_BDB=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 USE_LDCONFIG=	yes
 
 INFO=		open-cobol
 
-CPPFLAGS=	-I${BDB_INCLUDE_DIR} -I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${BDB_INCLUDE_DIR} -I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if defined(WITHOUT_NLS)
 CONFIGURE_ARGS+=	--disable-nls

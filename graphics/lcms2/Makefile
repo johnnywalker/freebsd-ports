@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	lcms2
-PORTVERSION=	2.1
+PORTVERSION=	2.2
 CATEGORIES=	graphics
 MASTER_SITES=	SF/lcms/lcms/${PORTVERSION} \
 		http://www.littlecms.com/
@@ -15,11 +15,11 @@ MASTER_SITES=	SF/lcms/lcms/${PORTVERSION} \
 MAINTAINER=	stas@FreeBSD.org
 COMMENT=	Light Color Management System -- a color management library
 
-USE_GNOME=	gnomehack gnometarget lthack
+USE_GNOME=	gnomehack lthack
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CFLAGS="${CFLAGS} -I${LOCALBASE}/include" \
-		CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-I${LOCALBASE}/include
 USE_LDCONFIG=	yes
 
 OPTIONS=	TIFFICC "Build color profile applier for TIFF" off \

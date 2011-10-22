@@ -10,7 +10,7 @@ PORTVERSION=	1.25
 PORTREVISION=	2
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	../by-authors/id/T/TM/TMTM
+MASTER_SITE_SUBDIR=	CPAN:TMTM
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	tobez@FreeBSD.org
@@ -26,7 +26,7 @@ BUILD_DEPENDS=	${SITE_PERL}/Tie/Array/Sorted.pm:${PORTSDIR}/devel/p5-Tie-Array-S
 		${SITE_PERL}/IO/Scalar.pm:${PORTSDIR}/devel/p5-IO-stringy
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
-PERL_CONFIGURE=	5.8.1+
+PERL_CONFIGURE=	yes
 
 MAN3=	Plucene.3 \
 	Plucene::Analysis::Analyzer.3 \

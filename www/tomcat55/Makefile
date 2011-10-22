@@ -7,7 +7,7 @@
 
 PORTNAME=	tomcat
 PORTVERSION=	5.5.33
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www java
 MASTER_SITES=	${MASTER_SITE_APACHE}
 MASTER_SITE_SUBDIR=	tomcat/tomcat-5/v${PORTVERSION}/bin
@@ -18,6 +18,9 @@ COMMENT=	Open-source Java web server by Apache, 5.5.x branch
 
 OPTIONS=	CRONOLOG "Use Cronolog for Log Processing" Off \
 		CRONOLOG_DEVEL "Use Cronlog-Devel for Log Processing" Off
+
+DEPRECATED=	EOL approaching, consider www/tomcat{6,7}
+EXPIRATION_DATE=2012-09-30
 
 USE_JAVA=	yes
 JAVA_VERSION?=	1.5+

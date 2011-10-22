@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	mpg123
-PORTVERSION=	1.13.3
+PORTVERSION=	1.13.4
 CATEGORIES=	audio ipv6
 MASTER_SITES=	SF \
 		http://www.mpg123.de/download/
@@ -25,8 +25,9 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-optimization=0 \
 		--with-audio=oss \
 		--with-default-audio=oss
-CONFIGURE_ENV=	CONFIG_SHELL=${SH} CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-	       	LDFLAGS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	CONFIG_SHELL=${SH}
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		mpg123.1
 

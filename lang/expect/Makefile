@@ -8,7 +8,7 @@ PORTNAME=	expect
 PORTVERSION=	5.43.0
 PORTREVISION=	3
 CATEGORIES=	lang tcl tk
-MASTER_SITES=	http://expect.nist.gov/src/
+MASTER_SITES=	http://mirror.amdmi3.ru/distfiles/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A sophisticated scripter based on tcl/tk

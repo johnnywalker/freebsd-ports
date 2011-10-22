@@ -12,7 +12,7 @@ CATEGORIES=	games
 MASTER_SITES=	SF \
 		http://www.c-s.li/ports/
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	A puzzle solver
 
 LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png \
@@ -25,8 +25,8 @@ USE_GL=		glu
 USE_GMAKE=	yes
 USE_GCC=	4.2+
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="`fltk-config --cxxflags`" \
-		LDFLAGS="`fltk-config --ldflags`"
+CPPFLAGS+=	`fltk-config --cxxflags`
+LDFLAGS+=	`fltk-config --ldflags`
 MAKE_JOBS_SAFE=	yes
 
 LICENSE=	GPLv3

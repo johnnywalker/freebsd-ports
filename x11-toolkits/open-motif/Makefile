@@ -29,7 +29,7 @@ USE_XORG=	xaw xbitmaps xft
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 MAKE_ENV=	LANG=C
-CPPFLAGS=	-DCSRG_BASED -DXUSE_MTSAFE_API -DXNO_MTSAFE_PWDAPI
+CPPFLAGS+=	-DCSRG_BASED -DXUSE_MTSAFE_API -DXNO_MTSAFE_PWDAPI
 USE_CSTD=	gnu89
 
 DEMOS_SRC=	${WRKSRC}/demos/programs
@@ -86,6 +86,8 @@ post-patch:
 	@${FIND} ${WRKSRC}/doc/man/man5 -name '*.5' -maxdepth 1 | \
 		${XARGS} ${REINPLACE_CMD} -e 's|special file|5| ; \
 		 s|file formats|5|'
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
+		${WRKSRC}/configure
 
 post-install:
 .if defined(WITH_OPENMOTIF_DEMOS)

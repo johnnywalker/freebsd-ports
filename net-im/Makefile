@@ -37,7 +37,6 @@
     SUBDIR += gale
     SUBDIR += gicq
     SUBDIR += gloox
-    SUBDIR += gnomeicu
     SUBDIR += gossip
     SUBDIR += grouch
     SUBDIR += gtkyahoo
@@ -53,7 +52,6 @@
     SUBDIR += jabber-pyaim
     SUBDIR += jabber-pyicq
     SUBDIR += jabber-pymsn
-    SUBDIR += jabber-users-agent
     SUBDIR += jabber.el
     SUBDIR += jabberd
     SUBDIR += jarl
@@ -110,6 +108,7 @@
     SUBDIR += p5-Net-XMPP2
     SUBDIR += p5-POE-Component-Client-MSN
     SUBDIR += p5-Protocol-XMPP
+    SUBDIR += p5-SOAP-Transport-JABBER
     SUBDIR += papyon
     SUBDIR += pebrot
     SUBDIR += pecl-stomp

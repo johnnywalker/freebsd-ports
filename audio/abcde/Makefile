@@ -29,7 +29,6 @@ OPTIONS=	CDDA2WAV "support cdda2wav to rip CD" Off \
 		DAGRAB	"support dagrab to rip IDE CD" Off \
 		EJECT	"enable auto-eject support" Off \
 		GOGO	"support gogo MP3 encoder" Off \
-		BLADEENC	"support BladeEnc MP3 encoder" Off \
 		FLAC	"support FLAC format" Off \
 		AAC	"support AAC format" Off \
 		MPP	"support Musepack format" Off \
@@ -69,16 +68,12 @@ RUN_DEPENDS+=	speexenc:${PORTSDIR}/audio/speex
 RUN_DEPENDS+=	gogo:${PORTSDIR}/audio/gogo
 .endif
 
-.if defined(WITH_BLADEENC)
-RUN_DEPENDS+=	bladeenc:${PORTSDIR}/audio/bladeenc
-.endif
-
 .if defined(WITH_AAC)
 RUN_DEPENDS+=	faac:${PORTSDIR}/audio/faac
 .endif
 
 .if defined(WITH_MPP)
-RUN_DEPENDS+=	mppenc:${PORTSDIR}/audio/musepack
+RUN_DEPENDS+=	mpcenc:${PORTSDIR}/audio/musepack
 .endif
 
 .if defined(WITH_REPLAYGAIN)

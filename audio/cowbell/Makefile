@@ -16,13 +16,14 @@ COMMENT=	An elegant music organizer
 
 LIB_DEPENDS=	tag:${PORTSDIR}/audio/taglib
 
-USE_GNOME=	gnomehack gnomeprefix gnometarget intltool gtksharp20
+USE_GNOME=	gnomehack gnomeprefix intltool gtksharp20
 INSTALLS_ICONS=	yes
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_GETTEXT=	yes
 USE_ICONV=	yes
-CONFIGURE_ENV+=	CPPFLAGS="-I${LOCALBASE}/include" LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 

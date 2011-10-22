@@ -19,9 +19,8 @@
 # If your port needs a Fortran compiler, please specify that with the
 # USE_FORTRAN= knob.  Here is the list of options for that knob:
 #
-#   USE_FORTRAN=	yes		# use gfortran45 (lang/gcc45)
-#   USE_FORTRAN=	g77		# use g77-34 (lang/gcc34; FreeBSD>=7)
-#							# or system f77 (/usr/bin/f77; FreeBSD<=6)
+#   USE_FORTRAN=	yes		# use gfortran46 (lang/gcc46)
+#   USE_FORTRAN=	g77		# use g77-34 (lang/gcc34)
 #   USE_FORTRAN=	ifort	# use the Intel compiler (lang/ifc)
 #
 # Due to object file incompatiblity between Fortran compilers, we strongly
@@ -30,7 +29,7 @@
 # If you are wondering what your port exactly does, use "make test-gcc"
 # to see some debugging.
 #
-# $FreeBSD: ports/Mk/bsd.gcc.mk,v 1.51 2011/05/04 22:33:13 flz Exp $
+# $FreeBSD: ports/Mk/bsd.gcc.mk,v 1.55 2011/09/10 12:10:37 gerald Exp $
 #
 
 GCC_Include_MAINTAINER=		gerald@FreeBSD.org
@@ -42,12 +41,12 @@ GCCVERSIONS=	030402 040200 040400 040500 040600 040700
 # The first field if the OSVERSION in which it appeared in the base.
 # The second field is the OSVERSION in which it disappeared from the base.
 # The third field is the version as USE_GCC would use.
-GCCVERSION_030402=	502126 700042 3.4
-GCCVERSION_040200=	700042 999999 4.2
-GCCVERSION_040400=	999999 999999 4.4
-GCCVERSION_040500=	999999 999999 4.5
-GCCVERSION_040600=	999999 999999 4.6
-GCCVERSION_040700=	999999 999999 4.7
+GCCVERSION_030402=	502126  700042 3.4
+GCCVERSION_040200=	700042 9999999 4.2
+GCCVERSION_040400=	     0       0 4.4
+GCCVERSION_040500=	     0       0 4.5
+GCCVERSION_040600=	     0       0 4.6
+GCCVERSION_040700=	     0       0 4.7
 
 #
 # No configurable parts below this.
@@ -74,9 +73,9 @@ _GCCVERSION_${v}_V=	${j}
 
 # The default case, with a current lang/gcc port.
 . if ${USE_FORTRAN} == yes
-_USE_GCC:=	4.5
-FC:=	gfortran45
-F77:=	gfortran45
+_USE_GCC:=	4.6
+FC:=	gfortran46
+F77:=	gfortran46
 
 # Intel Fortran compiler from lang/ifc.
 . elif ${USE_FORTRAN} == ifort
@@ -85,8 +84,7 @@ RUN_DEPENDS+=	${LOCALBASE}/intel_fc_80/bin/ifort:${PORTSDIR}/lang/ifc
 FC:=	${LOCALBASE}/intel_fc_80/bin/ifort
 F77:=	${LOCALBASE}/intel_fc_80/bin/ifort
 
-# In some case we want to use g77 from lang/gcc34 (FreeBSD>=7) or f77
-# (FreeBSD<=6).
+# g77 from lang/gcc34.
 . elif ${USE_FORTRAN} == g77
 _USE_GCC:=	3.4
 FC:=	g77-34
@@ -139,7 +137,7 @@ IGNORE=		Couldn't find your current GCCVERSION (OSVERSION=${OSVERSION})
 
 #
 # If the GCC package defined in USE_GCC does not exist, but a later
-# version is allowed (for example 3.4+), see if there is a later.
+# version is allowed (for example 4.2+), see if there is a later.
 # First check if the base installed version is good enough, otherwise
 # get the first available version.
 #

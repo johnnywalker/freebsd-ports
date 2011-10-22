@@ -158,6 +158,7 @@
     SUBDIR += ruby-libarchive
     SUBDIR += ruby-zip
     SUBDIR += rubygem-archive-tar-minitar
+    SUBDIR += rubygem-archive-zip
     SUBDIR += rubygem-bzip2
     SUBDIR += rubygem-rubyzip2
     SUBDIR += rvm
@@ -201,7 +202,6 @@
     SUBDIR += xpk
     SUBDIR += xz
     SUBDIR += zip
-    SUBDIR += zipios++
     SUBDIR += zipmix
     SUBDIR += zipper
     SUBDIR += zoo

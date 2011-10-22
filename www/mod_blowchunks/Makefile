@@ -16,11 +16,14 @@ EXTRACT_SUFX=	.c
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	Apache module for rejecting and logging chunked requests
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 OPTIONS=	BLOWCHUNK_LOG	"Log chunked requests"	off
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 NO_WRKSUBDIR=	YES
 
 AP_FAST_BUILD=	yes

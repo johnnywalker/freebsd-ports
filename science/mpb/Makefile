@@ -8,7 +8,7 @@
 
 PORTNAME=	mpb
 PORTVERSION=	1.4.2
-PORTREVISION=	10
+PORTREVISION=	11
 CATEGORIES=	science
 MASTER_SITES=	http://ab-initio.mit.edu/mpb/
 
@@ -19,14 +19,14 @@ BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash
 LIB_DEPENDS=	fftw.2:${PORTSDIR}/math/fftw \
 		hdf5.0:${PORTSDIR}/science/hdf5 \
 		ctl.4:${PORTSDIR}/science/libctl \
-		guile.20:${PORTSDIR}/lang/guile
+		guile.21:${PORTSDIR}/lang/guile
 
 USE_FORTRAN=	yes
 
 .include <bsd.port.pre.mk>
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if exists(${LOCALBASE}/lib/libatlas_r.so) && !defined(WITH_BLAS)
 WITH_ATLAS=	yes

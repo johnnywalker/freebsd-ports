@@ -11,4 +11,4 @@ It's also possible to run phalanx without xboard. Do "phalanx -h"
 to get a list of command line options. One important command of
 phalanx's ASCII interface is "help".
 
-WWW: http://dusan.freeshell.org/phalanx/
+WWW: http://phalanx.sourceforge.net/

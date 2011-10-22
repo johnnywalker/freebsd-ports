@@ -7,7 +7,7 @@
 
 PORTNAME=	lightning
 DISTVERSION=	1.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	deskutils
 MASTER_SITES=	${MASTER_SITE_MOZILLA_EXTENDED}
 MASTER_SITE_SUBDIR=	calendar/${PORTNAME}/releases/${DISTVERSION}b2/source
@@ -17,7 +17,7 @@ DISTNAME=	${PORTNAME}-${DISTVERSION}b2.source
 MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	An integrated calendar for Thunderbird 3.1
 
-RUN_DEPENDS+=	${LOCALBASE}/lib/thunderbird/thunderbird-bin:${PORTSDIR}/mail/thunderbird3
+RUN_DEPENDS+=	${LOCALBASE}/lib/thunderbird3/thunderbird-bin:${PORTSDIR}/mail/thunderbird3
 
 CONFLICTS_BUILD=	spidermonkey-1.[0-7]*
 USE_AUTOTOOLS=	autoconf213 libtool
@@ -61,17 +61,15 @@ EXTRA_PATCHES=	${FILESDIR}/releng6_pulseaudio
 EXTRA_PATCHES=	${FILESDIR}/liboggplay_oss
 .endif
 
-GECKO_PTHREAD_LIBS!=${CC} -dumpspecs | ${GREP} -m 1 '%{\!pg: %{pthread:' | ${SED} -e 's|^.*%{\!pg: %{pthread:|| ; s|}.*$$||' || ${TRUE}
-
 .if defined(WITHOUT_DBUS)
 MOZ_OPTIONS+=	--disable-dbus --disable-libnotify
 .else
 LIB_DEPENDS+=	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-		notify.1:${PORTSDIR}/devel/libnotify
+		notify.4:${PORTSDIR}/devel/libnotify
 .endif
 
 post-patch:
-	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS:C/-pthread/${GECKO_PTHREAD_LIBS}/}|' \
+	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS}|' \
 		${MOZSRC}/storage/build/Makefile.in \
 		${MOZSRC}/db/sqlite3/src/Makefile.in
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \

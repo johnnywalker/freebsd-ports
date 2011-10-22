@@ -8,7 +8,7 @@
 
 PORTNAME=	kazehakase
 PORTVERSION=	0.5.8
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP}
 MASTER_SITE_SUBDIR=	${PORTNAME}/43802
@@ -19,6 +19,8 @@ COMMENT=	Kazehakase is a browser with gecko engine like Epiphany or Galeon
 LIB_DEPENDS=	gnutls.47:${PORTSDIR}/security/gnutls \
 		estraier.8:${PORTSDIR}/textproc/hyperestraier
 
+BROKEN=		does not link
+
 USE_GNOME=	gnomehack intlhack gnomeprefix gtk20
 USE_GMAKE=	yes
 USE_GETTEXT=	yes
@@ -26,9 +28,9 @@ USE_GECKO=	libxul
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-gecko_engine=${GECKO}
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include ${PTHREAD_CFLAGS} \
-		-I${LOCALBASE}/include/nspr" \
-		LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS} \
+		-I${LOCALBASE}/include/nspr
 MAN1=		kazehakase.1
 OPTIONS=	WEBKIT "Webkit Backend (along with Gecko)" On
 
@@ -45,7 +47,7 @@ BROKEN=		does not build on 6.x
 .endif
 
 .if defined(WITH_WEBKIT)
-LIB_DEPENDS+=	webkit-1.0.13:${PORTSDIR}/www/webkit-gtk2
+LIB_DEPENDS+=	webkitgtk-1.0.0:${PORTSDIR}/www/webkit-gtk2
 PLIST_SUB+=	WEBKIT=""
 .else
 PLIST_SUB+=	WEBKIT="@comment "

@@ -23,13 +23,11 @@ LIB_DEPENDS=	jpeg.11:${PORTSDIR}/graphics/jpeg \
 		png.6:${PORTSDIR}/graphics/png
 
 USE_BZIP2=	yes
-USE_GNOME=	gnometarget gtk12
+USE_GNOME=	gtk12
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" \
-		LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--enable-cookies --enable-threaded-dns \
 		--libdir=${PREFIX}/libexec
 .if !defined(WITHOUT_DILLO_IPV6) && !defined(WITHOUT_IPV6)

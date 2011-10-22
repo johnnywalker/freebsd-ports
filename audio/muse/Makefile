@@ -20,14 +20,13 @@ LIB_DEPENDS=	vorbis.4:${PORTSDIR}/audio/libvorbis \
 		ogg.7:${PORTSDIR}/audio/libogg
 
 USE_GETTEXT=	yes
-USE_GNOME=	gnometarget
 USE_GMAKE=	yes
+WANT_GNOME=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--disable-debug --disable-lubrify --disable-rpath
-CPPFLAGS=	-I${LOCALBASE}/include -DHAVE_DECL_GETOPT -DHAVE_SYS_UIO_H \
+CPPFLAGS+=	-I${LOCALBASE}/include -DHAVE_DECL_GETOPT -DHAVE_SYS_UIO_H \
 		${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS} -lintl
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS} -lintl
 
 OPTIONS=	X11	"Build with X11 support" on \
 		MP3	"Build with MP3 support" on \

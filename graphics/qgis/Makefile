@@ -7,6 +7,7 @@
 
 PORTNAME=	qgis
 PORTVERSION=	1.7.0
+PORTREVISION=	2
 CATEGORIES=	graphics geography
 MASTER_SITES=	http://qgis.org/downloads/ \
 		http://download.osgeo.org/qgis/src/
@@ -27,14 +28,12 @@ USE_CMAKE=	yes
 USE_QT_VER=	4
 USE_SQLITE=	yes
 CMAKE_USE_PTHREAD=	yes
-CMAKE_ENV+=	QMAKESPEC=${QMAKESPEC}
 QT_COMPONENTS=	gui svg xml network sql designer linguist_build \
 		qmake_build moc_build rcc_build uic_build
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
-GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-qtdir=${QTDIR}
 USE_LDCONFIG=	yes
+
+MAN1=		qgis.1
 
 OPTIONS=	GRASS "Enable GRASS support" Off \
 		POSTGIS "Enable PostGIS support" Off \
@@ -47,38 +46,36 @@ OPTIONS=	GRASS "Enable GRASS support" Off \
 BROKEN=		does not compile on 7.X
 .endif
 
-.if !defined (QTDIR)
-QTDIR=		${QT_PREFIX}
-.endif
-
-.if !defined (GRASS_INST_DIR)
-GRASS_INST_DIR=	grass
-.endif
-
 .if defined(WITH_GRASS)
-CONFIGURE_ARGS+=--with-grass=${LOCALBASE}/${GRASS_INST_DIR}
+CMAKE_ARGS+=	-DWITH_GRASS:BOOL=TRUE
 RUN_DEPENDS+=	${LOCALBASE}/lib/gdalplugins/gdal_GRASS.so:${PORTSDIR}/graphics/gdal-grass
+.else
+CMAKE_ARGS+=	-DWITH_GRASS:BOOL=FALSE
 .endif
 
 .if defined(WITH_POSTGIS)
-CONFIGURE_ARGS+=--with-postgresql
+CMAKE_ARGS+=	-DWITH_POSTGRESQL:BOOL=TRUE
 BUILD_DEPENDS+=	${LOCALBASE}/share/postgis:${PORTSDIR}/databases/postgis
 PLIST_SUB+=	PGSQL=""
 .else
-CONFIGURE_ARGS+=--without-postgresql
+CMAKE_ARGS+=	-DWITH_POSTGRESQL:BOOL=FALSE
 PLIST_SUB+=	PGSQL="@comment "
 .endif
 
 .if defined(WITH_MAPSERVER)
+CMAKE_ARGS+=	-DWITH_MAPSERVER:BOOL=TRUE
 PLIST_SUB+=	QGIS_FCGI=""
 LIB_DEPENDS+=	fcgi.0:${PORTSDIR}/www/fcgi
 .else
+CMAKE_ARGS+=	-DWITH_MAPSERVER:BOOL=FALSE
 PLIST_SUB+=	QGIS_FCGI="@comment "
 .endif
 
 .if defined(WITHOUT_PYTHON)
+CMAKE_ARGS+=	-DWITH_BINDINGS:BOOL=FALSE
 PLIST_SUB+=	QGIS_PYTHON="@comment "
 .else
+CMAKE_ARGS+=	-DWITH_BINDINGS:BOOL=TRUE
 PLIST_SUB+=	QGIS_PYTHON=""
 BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}sip>=4.8.2:${PORTSDIR}/devel/py-sip \
 		${PYTHON_PKGNAMEPREFIX}qt4-gui>=4.5.4:${PORTSDIR}/x11-toolkits/py-qt4-gui \
@@ -87,22 +84,6 @@ BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}sip>=4.8.2:${PORTSDIR}/devel/py-sip \
 		${PYTHON_PKGNAMEPREFIX}qt4-xml>=4.5.4:${PORTSDIR}/textproc/py-qt4-xml \
 		${PYTHON_PKGNAMEPREFIX}qt4-core>=4.5.4:${PORTSDIR}/devel/py-qt4-core \
 		${PYTHON_PKGNAMEPREFIX}sqlite3>=2.6.5:${PORTSDIR}/databases/py-sqlite3
-.endif
-
-MAN1=		qgis.1
-
-post-patch:
-		${REINPLACE_CMD} -e 's# dl##g' \
-			${WRKSRC}/src/core/CMakeLists.txt
-
-.if !defined(WITH_MAPSERVER)
-		${REINPLACE_CMD} -e 's#WITH_MAPSERVER TRUE#WITH_MAPSERVER FALSE#g' \
-			${WRKSRC}/CMakeLists.txt
-.endif
-
-.if defined(WITHOUT_PYTHON)
-		${REINPLACE_CMD} -e 's#WITH_BINDINGS TRUE#WITH_BINDINGS FALSE#g' \
-			${WRKSRC}/CMakeLists.txt
 .endif
 
 .include <bsd.port.post.mk>

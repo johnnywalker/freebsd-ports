@@ -7,16 +7,16 @@
 
 PORTNAME=	visualboyadvance-m
 PORTVERSION=	1.8.0r${SVN_REV}
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	http://update.cooltrainer.org/emulators/visualboyadvance-m/
 
 MAINTAINER=	root@cooltrainer.org
 COMMENT=	Game Boy Advance emulator with GTK frontend
 
-BUILD_DEPENDS=	${LOCALBASE}/lib/libsfml-system.so:${PORTSDIR}/devel/sfml
 LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png \
-		cairomm-1.0.1:${PORTSDIR}/graphics/cairomm
+		cairomm-1.0.1:${PORTSDIR}/graphics/cairomm \
+		sfml-system.1:${PORTSDIR}/devel/sfml
 
 OPTIONS=	GVBAM "Build gvbam (GTK2 frontend)" on \
 		ASM "Enable ASM core and filters (i386 only)" off
@@ -30,13 +30,13 @@ USE_GL=		gl glu
 USE_SDL=	sdl
 USE_CMAKE=	yes
 CMAKE_ARGS+=	-DVERSION:STRING="${PORTVERSION}" -DSYSCONFDIR:STRING="${PREFIX}/etc"
-SVN_REV=	966
+SVN_REV=	1001
 
 .include <bsd.port.pre.mk>
 
 .if defined(WITH_ASM) && ${ARCH} == "i386"
 BUILD_DEPENDS+=	as:${PORTSDIR}/devel/binutils
-CMAKE_ARGS+=	-DUSE_ASM_CORE=yes -DUSE_ASM_SCALERS=yes
+CMAKE_ARGS+=	-DENABLE_ASM_CORE:BOOL=yes -DENABLE_ASM_SCALERS:BOOL=yes
 .endif
 
 .if defined(WITH_GVBAM)
@@ -49,7 +49,16 @@ LIB_DEPENDS+=	gtkmm-2.4:${PORTSDIR}/x11-toolkits/gtkmm24 \
 		gdkglextmm-x11-1.2:${PORTSDIR}/x11-toolkits/gtkglextmm
 .else
 PLIST_SUB+=	GVBAM="@comment "
-CMAKE_ARGS+=	-DNO_GTK:BOOL=yes
+CMAKE_ARGS+=	-DENABLE_GTK:BOOL=no
+.endif
+
+.if !defined(WITHOUT_NLS)
+USE_GETTEXT=	yes
+CMAKE_ARGS+=	-DENABLE_NLS:BOOL=yes
+PLIST_SUB+=	NLS=""
+.else
+CMAKE_ARGS+=	-DENABLE_NLS:BOOL=no
+PLIST_SUB+=	NLS="@comment "
 .endif
 
 post-patch:

@@ -17,9 +17,12 @@ PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	An Apache module for authenticating users with Kerberos v5
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
 

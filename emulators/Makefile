@@ -71,7 +71,6 @@
     SUBDIR += linux-ePSXe
     SUBDIR += linux-geepee32
     SUBDIR += linux-libaio
-    SUBDIR += linux-padjoy
     SUBDIR += linux-peops-softgpu
     SUBDIR += linux-peops-spu
     SUBDIR += linux-pete-mesagpu
@@ -89,7 +88,6 @@
     SUBDIR += loemu
     SUBDIR += m2000
     SUBDIR += mame
-    SUBDIR += mame-extras
     SUBDIR += mastergear
     SUBDIR += mednafen
     SUBDIR += mess
@@ -137,6 +135,7 @@
     SUBDIR += quasi88
     SUBDIR += raine
     SUBDIR += rtc
+    SUBDIR += seabios-devel
     SUBDIR += sim6811
     SUBDIR += simh
     SUBDIR += ski
@@ -144,7 +143,6 @@
     SUBDIR += snes9express
     SUBDIR += snes9x
     SUBDIR += snes9x-gtk
-    SUBDIR += snespp
     SUBDIR += spim
     SUBDIR += stella
     SUBDIR += stonx
@@ -163,9 +161,9 @@
     SUBDIR += vice
     SUBDIR += virtualbox-ose
     SUBDIR += virtualbox-ose-additions
-    SUBDIR += virtualbox-ose-legacy
     SUBDIR += virtualbox-ose-kmod
     SUBDIR += virtualbox-ose-kmod-legacy
+    SUBDIR += virtualbox-ose-legacy
     SUBDIR += visualboyadvance-m
     SUBDIR += visualos
     SUBDIR += vmips
@@ -186,7 +184,6 @@
     SUBDIR += xbraitenberg
     SUBDIR += xcpc
     SUBDIR += xgngeo
-    SUBDIR += xgs
     SUBDIR += xhomer
     SUBDIR += xmame
     SUBDIR += xmess

@@ -16,10 +16,12 @@ MAINTAINER=	frank@exit.com
 COMMENT=	CUPS support for the Konica-Minolta Magicolor 2430DL
 
 #BUILD_DEPENDS=	${NONEXISTENT}:${PORTSDIR}/print/cups-base:configure
-LIB_DEPENDS=	cups.2:${PORTSDIR}/print/cups-base \
+LIB_DEPENDS=	cups.2:${PORTSDIR}/print/cups-client \
 		jbig.1:${PORTSDIR}/graphics/jbigkit \
 		lcms.1:${PORTSDIR}/graphics/lcms
 RUN_DEPENDS=	espgs:${PORTSDIR}/print/cups-pstoraster
+
+BROKEN=		does not compile
 
 WRKSRC=		${WRKDIR}/magicolor2430DL-${PORTVERSION}
 

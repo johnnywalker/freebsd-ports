@@ -7,6 +7,7 @@
 
 PORTNAME=	bochs
 PORTVERSION=	2.4.6
+PORTREVISION=	1
 PORTEPOCH=	2
 CATEGORIES=	emulators
 MASTER_SITES=	SF
@@ -14,9 +15,10 @@ MASTER_SITES=	SF
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	An IA-32 (x86) PC emulator that runs DOS, Win 95, and more
 
+LIB_DEPENDS=	asound.2:${PORTSDIR}/audio/alsa-lib
+
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--disable-docbook
 
 OPTIONS=	A20_PIN "Enable support for A20 pin" on \
@@ -68,10 +70,10 @@ OPTIONS=	A20_PIN "Enable support for A20 pin" on \
 		X86_64 "Enable AMD x86-64 support" off \
 		XPM "Enable XPM library support" off
 
-CFLAGS+=	-fno-exceptions -fomit-frame-pointer
+CFLAGS+=	-fno-exceptions -fomit-frame-pointer ${CPPFLAGS}
 CXXFLAGS+=	-fno-rtti
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MANCOMPRESSED=	yes
 MAN1=		bochs.1 bochs-dlx.1 bxcommit.1 bximage.1
@@ -211,7 +213,7 @@ CONFIGURE_ARGS+=--enable-long-phy-address
 CONFIGURE_ARGS+=--disable-long-phy-address
 .endif
 
-.if defined(WITH_MISALIGNDSSE)
+.if defined(WITH_MISALIGNEDSSE)
 CONFIGURE_ARGS+=--enable-misaligned-sse
 .else
 CONFIGURE_ARGS+=--disable-misaligned-sse

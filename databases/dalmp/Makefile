@@ -6,21 +6,22 @@
 #
 
 PORTNAME=	dalmp
-PORTVERSION=	0.9.308
+PORTVERSION=	1.320
 CATEGORIES=	databases
-MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
+MASTER_SITES=	GOOGLE_CODE
 
 MAINTAINER=	nbari@dalmp.com
 COMMENT=	Database Abstraction Layer for MySQL using PHP
 
-USE_BZIP2=	YES
 LICENSE=	BSD
+
+USE_BZIP2=	YES
 
 DEFAULT_PHP_VER=5
 IGNORE_WITH_PHP=4
 
 NO_BUILD=	YES
-USE_PHP=	pcre mysql mysqli session memcache sqlite curl
+USE_PHP=	pcre mysql mysqli session memcache sqlite3 curl
 
 do-install:
 	@${MKDIR} ${DATADIR}

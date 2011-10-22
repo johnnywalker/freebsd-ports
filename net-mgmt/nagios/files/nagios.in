@@ -1,11 +1,10 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/net-mgmt/nagios/files/nagios.in,v 1.3 2010/01/08 01:19:53 pgollucci Exp $
+# $FreeBSD: ports/net-mgmt/nagios/files/nagios.in,v 1.4 2010/03/27 00:14:22 dougb Exp $
 #
 
 # PROVIDE: nagios
-# REQUIRE: DAEMON
-# BEFORE: LOGIN
+# REQUIRE: LOGIN
 # KEYWORD: shutdown
 
 #
@@ -35,11 +34,11 @@ restart_precmd="nagios_checkconfig"
 reload_precmd="reload_precmd"
 sig_reload=HUP
 
+load_rc_config "${name}"
+
 [ -z "${nagios_enable}" ]       && nagios_enable="NO"
 [ -z "${nagios_configfile}" ]   && nagios_configfile="%%PREFIX%%/etc/nagios/nagios.cfg"
 [ -z "${nagios_precache}" ]     && nagios_precache="NO"
-
-load_rc_config "${name}"
 
 required_files="${nagios_configfile}"
 command_args="${command_args} ${nagios_configfile}"

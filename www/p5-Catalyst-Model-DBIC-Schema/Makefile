@@ -3,9 +3,10 @@
 # Whom:					Lars Balker Rasmussen <lbr@FreeBSD.org>
 #
 # $FreeBSD$
+#
 
 PORTNAME=	Catalyst-Model-DBIC-Schema
-PORTVERSION=	0.50
+PORTVERSION=	0.55
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -29,9 +30,12 @@ RUN_DEPENDS=	p5-Carp-Clan>=0:${PORTSDIR}/devel/p5-Carp-Clan \
 		p5-Try-Tiny>=0:${PORTSDIR}/lang/p5-Try-Tiny \
 		p5-namespace-autoclean>=0.09:${PORTSDIR}/devel/p5-namespace-autoclean \
 		p5-namespace-clean>=0:${PORTSDIR}/devel/p5-namespace-clean
-TEST_DEPENDS=	p5-Test-Exception>=0:${PORTSDIR}/devel/p5-Test-Exception
 
-PERL_CONFIGURE=	5.8.1+
+TEST_DEPENDS=	p5-DBD-SQLite>=0:${PORTSDIR}/databases/p5-DBD-SQLite \
+		p5-Test-Exception>=0:${PORTSDIR}/devel/p5-Test-Exception \
+		p5-Test-Requires>=0:${PORTSDIR}/devel/p5-Test-Requires
+
+PERL_CONFIGURE=	yes
 
 MAN3=		Catalyst::Helper::Model::DBIC::Schema.3 \
 		Catalyst::Model::DBIC::Schema.3 \
@@ -42,4 +46,10 @@ MAN3=		Catalyst::Helper::Model::DBIC::Schema.3 \
 post-extract:
 	@${PERL} -i.bak -ne 'print unless m,^feature, .. m,;$$,' ${WRKSRC}/Makefile.PL
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} < 501200
+TEST_DEPENDS=	p5-Test-Simple>=0.94:${PORTSDIR}/devel/p5-Test-Simple
+.endif
+
+.include <bsd.port.post.mk>

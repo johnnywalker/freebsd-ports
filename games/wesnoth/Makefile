@@ -23,7 +23,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 CONFLICTS=	wesnoth-devel-[0-9]*
 
 USE_SDL=	image mixer net ttf
-USE_GNOME=	gnometarget pango
+USE_GNOME=	pango
 USE_GMAKE=	yes
 MAKE_JOBS_SAFE=	yes
 USE_BZIP2=	yes
@@ -31,8 +31,7 @@ USE_LUA=	5.1
 USE_AUTOTOOLS=	aclocal autoheader automake autoconf
 ACLOCAL_ARGS=	-Im4
 AUTOMAKE_ARGS=	--add-missing --copy
-CONFIGURE_ENV=	PKG_CONFIG="${PKG_CONFIG}" \
-		LDFLAGS="${LDFLAGS}"
+CONFIGURE_ENV=	PKG_CONFIG="${PKG_CONFIG}"
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--with-boost=${LOCALBASE} \
 		--with-icondir=${PREFIX}/share/pixmaps \

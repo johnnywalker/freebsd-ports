@@ -13,14 +13,16 @@ MASTER_SITES=	http://releases.compiz-fusion.org/${PORTVERSION}/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Themes for the Emerald Window Decorator
 
+BROKEN=	does not fetch
+
 BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash
 
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 post-patch:
 	@${REINPLACE_CMD} 's|/bin/bash|${LOCALBASE}/bin/bash|' \

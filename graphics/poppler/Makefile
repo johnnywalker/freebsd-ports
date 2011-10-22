@@ -3,11 +3,11 @@
 # Whom:                 marcus@FreeBSD.org
 #
 # $FreeBSD$
-#   $MCom: ports/graphics/poppler/Makefile,v 1.66 2010/11/17 15:03:00 kwm Exp $
+#   $MCom: ports/graphics/poppler/Makefile,v 1.74 2011/08/05 14:05:23 kwm Exp $
 #
 
 PORTNAME=	poppler
-PORTVERSION=	0.14.5
+PORTVERSION=	0.16.7
 PORTREVISION?=	0
 CATEGORIES=	graphics print
 MASTER_SITES=	http://poppler.freedesktop.org/
@@ -23,27 +23,25 @@ RUN_DEPENDS=	poppler-data>0:${PORTSDIR}/graphics/poppler-data
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 USE_GMAKE=	yes
-USE_GNOME=	gnomehack gnometarget libxml2 ltverhack
+USE_GNOME=	gnomehack libxml2 ltverhack
 USE_AUTOTOOLS=	libtool
 MAKE_JOBS_UNSAFE=	yes
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--enable-zlib \
 		--enable-xpdf-headers \
 		--with-html-dir=${DOCSDIR}
-CPPFLAGS=-I${LOCALBASE}/include -I${LOCALBASE}/include/freetype2 ${PTHREAD_CFLAGS}
-LDFLAGS=-L${LOCALBASE}/lib ${PTHREAD_LIBS}
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" \
-		LDFLAGS="${LDFLAGS}"
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/freetype2 ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .if !defined(SLAVEPORT)
 OPTIONS=	CAIRO "Enable cairo output backend" on \
 		OPENJPEG "Enable JPEG 2000 support" on
 .endif
 
-.include <bsd.port.pre.mk>
+.include <bsd.port.options.mk>
 
 .if defined(SLAVEPORT)
-LIB_DEPENDS+=	poppler.6:${PORTSDIR}/graphics/poppler
+LIB_DEPENDS+=	poppler.13:${PORTSDIR}/graphics/poppler
 
 .if ${SLAVEPORT}=="gtk"
 CONFIGURE_ARGS+=--enable-poppler-glib
@@ -61,7 +59,6 @@ CONFIGURE_ARGS+=--enable-poppler-qt
 USE_QT_VER+=	3
 BUILD_WRKSRC=	${WRKSRC}/qt
 INSTALL_WRKSRC=	${WRKSRC}/qt
-.include "${PORTSDIR}/Mk/bsd.kde.mk"
 .else
 CONFIGURE_ARGS+=--disable-poppler-qt
 .endif
@@ -75,7 +72,6 @@ QT_COMPONENTS=	gui corelib xml qtestlib moc_build
 # can read more PDF files than without, tested with demos's poppler_qt4viewer.
 #BUILD_WRKSRC=	${WRKSRC}/qt4
 INSTALL_WRKSRC=	${WRKSRC}/qt4
-.include "${PORTSDIR}/Mk/bsd.qt.mk"
 .else
 CONFIGURE_ARGS+=--disable-poppler-qt4
 .endif
@@ -113,8 +109,6 @@ LIB_DEPENDS+=	openjpeg.2:${PORTSDIR}/graphics/openjpeg
 .endif
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|7:0:0|6:0:0|' ${WRKSRC}/poppler/Makefile.in
-
 .if defined(SLAVEPORT) && ${SLAVEPORT}=="qt"
 	@${REINPLACE_CMD} -e 's|/usr/local/qt/include|${LOCALBASE}/include|; \
 		s|$$QTDIR|${QT_PREFIX}|; \
@@ -137,4 +131,4 @@ post-install:
 .endif
 .endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

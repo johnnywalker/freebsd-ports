@@ -2,7 +2,7 @@
 # Date created:				29 Feb 2004
 # Whom:					Tom McLaughlin <tmclaugh@sdf.lonestar.org>
 #
-# $FreeBSD: ports/x11-themes/gnome-icons/bsd.gnome-icons.mk,v 1.6 2006/10/14 08:53:51 marcus Exp $
+# $FreeBSD: ports/x11-themes/gnome-icons/bsd.gnome-icons.mk,v 1.7 2008/07/08 00:13:31 tmclaugh Exp $
 #
 
 # Port logic gratuitously stolen from x11-themes/kde-icons-noia by
@@ -25,5 +25,6 @@ icon-do-install:
 		-exec ${MKDIR} -m 0755 \
 		${PREFIX}/share/icons/"{}" \;
 	cd ${WRKDIR} && ${FIND} * ! -type d ! -name 'plist' ! -name '*.bak' \
+		! -name '${LICENSE}' \
 		-exec ${INSTALL_DATA} ${WRKDIR}/"{}" \
 		${PREFIX}/share/icons/"{}" \;

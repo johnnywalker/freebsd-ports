@@ -8,7 +8,7 @@
 
 PORTNAME=	balsa
 PORTVERSION=	2.4.8
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	mail gnome
 MASTER_SITES=	http://pawsa.fedorapeople.org/balsa/
 DISTNAME=	balsa-${PORTVERSION}
@@ -40,8 +40,8 @@ CONFIGURE_ARGS=	--enable-threads \
 		--with-ssl \
 		--without-nm \
 		--with-canberra
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include ${PTHREAD_CFLAGS}" \
-		LIBS="-L${LOCALBASE}/lib -liconv ${PTHREAD_LIBS}"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib -liconv ${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
 
 MAN1=		balsa.1
 
@@ -74,7 +74,7 @@ CONFIGURE_ARGS+=--with-gtksourceview=2
 .endif
 
 .if !defined(WITHOUT_NOTIFY)
-LIB_DEPENDS+=	notify.1:${PORTSDIR}/devel/libnotify
+LIB_DEPENDS+=	notify.4:${PORTSDIR}/devel/libnotify
 CONFIGURE_ARGS+=--with-libnotify=yes
 .else
 CONFIGURE_ARGS+=--with-libnotify=no

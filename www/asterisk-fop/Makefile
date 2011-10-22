@@ -6,11 +6,15 @@
 
 PORTNAME=	op_panel
 PORTVERSION=	0.30
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://www.asternic.org/files/
 
 MAINTAINER=	araujo@FreeBSD.org
 COMMENT=	Flash Operator Panel for the Asterisk PBX
+
+DEPRECATED=	Depends on www/flashplugin-mozilla which is DEPRECATED
+EXPIRATION_DATE=	2011-09-30
 
 NO_BUILD=	yes
 USE_PERL5=	yes
@@ -18,7 +22,7 @@ USE_PHP=	pcre zlib session xml gd
 WANT_PHP_WEB=	yes
 
 LIB_DEPENDS+=	flash.0:${PORTSDIR}/www/flashplugin-mozilla \
-		ming.4:${PORTSDIR}/graphics/p5-ming
+		ming.5:${PORTSDIR}/graphics/p5-ming
 
 WEBOWN?=	www
 WEBGRP?=	www

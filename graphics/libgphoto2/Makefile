@@ -7,6 +7,7 @@
 
 PORTNAME=	libgphoto2
 PORTVERSION=	2.4.11
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	SF/gphoto/libgphoto/${PORTVERSION}
 
@@ -17,7 +18,7 @@ LIB_DEPENDS=	exif.12:${PORTSDIR}/graphics/libexif \
 		jpeg.11:${PORTSDIR}/graphics/jpeg
 
 USE_BZIP2=	yes
-USE_GNOME=	gnometarget pkgconfig ltverhack
+USE_GNOME=	pkgconfig ltverhack
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool libltdl
 LIBTOOLFILES=	configure libgphoto2_port/configure
@@ -54,6 +55,9 @@ post-patch:
 		 s|-g -O2||g ; \
 		 /grep -i linux/s|; fi ; then|; else false; fi ; then|' ${WRKSRC}/${file}
 .endfor
+.if !defined(WITHOUT_NLS)
+	@${REINPLACE_CMD} -e 's|(LDFLAGS) -o|(LDFLAGS) -lintl -o|' ${WRKSRC}/libgphoto2_port/libgphoto2_port/Makefile.in
+.endif
 	@${REINPLACE_CMD} -e '/test.*udevscriptdir/d ; s| "$$(DESTDIR)$$(udevscriptdir)"||' ${WRKSRC}/libgphoto2_port/usb/Makefile.in ${WRKSRC}/packaging/generic/Makefile.in
 	@${REINPLACE_CMD} -e 's|linux-hotplug ||' ${WRKSRC}/packaging/Makefile.in
 	@${REINPLACE_CMD} -e 's|@HAVE_DOXYGEN_TRUE@|#| ; s|@HAVE_DOXYGEN_FALSE@||' ${WRKSRC}/doc/Makefile.in

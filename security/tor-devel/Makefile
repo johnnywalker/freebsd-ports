@@ -6,19 +6,21 @@
 #
 
 PORTNAME=	tor
-DISTVERSION=	0.2.3.2-alpha
+DISTVERSION=	0.2.3.4-alpha
+PORTREVISION=	1
 CATEGORIES=	security net ipv6
 MASTER_SITES=	https://www.torproject.org/dist/ \
 		ftp://ftp.bit.nl/mirror/tor/ \
 		http://cyberside.net.ee/tor/ \
 		http://mirrors.chaos-darmstadt.de/tor-mirror/dist/ \
+		http://mirror.host4site.co.il/torproject.org/dist/ \
 		http://mirror.tor.hu/dist/ \
 		http://onion.anonymo.us.org/dist/ \
 		http://theonionrouter.com/dist/ \
-		http://tor-www.5coluna.com/dist/ \
 		http://tor.amorphis.eu/dist/ \
 		http://tor.askapache.com/dist/ \
 		http://tor.beme-it.de/dist/ \
+		http://tor.blingblingsquad.net/dist/ \
 		http://tor.ccc.de/dist/ \
 		http://tor.cyberarmy.at/dist/ \
 		http://tor.homosu.net/dist/ \
@@ -30,6 +32,7 @@ MASTER_SITES=	https://www.torproject.org/dist/ \
 		http://tordistua.reactor-xg.kiev.ua/ \
 		http://torproj.xpdm.us/dist/ \
 		http://torproject.nwlinux.us/dist/ \
+		http://www.torproject.org.in/dist/ \
 		http://www.oignon.net/dist/ \
 		http://www.torproject.org.nyud.net/dist/ \
 		http://www.torproject.us/dist/ \
@@ -44,8 +47,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-openssl-dir="${OPENSSLBASE}" --disable-asciidoc
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}" \
-		TOR_CPPFLAGS_libevent="-I${LOCALBASE}/include/event2 -I${LOCALBASE}/include" \
+CONFIGURE_ENV=	TOR_CPPFLAGS_libevent="-I${LOCALBASE}/include/event2 -I${LOCALBASE}/include" \
 		TOR_LDFLAGS_libevent="-L${LOCALBASE}/lib/event2" \
 		TOR_LIBEVENT_LIBS="${TOR_LIBEVENT_LIBS}"
 
@@ -53,6 +55,7 @@ MAKE_JOBS_UNSAFE=	yes
 
 OPTIONS=	BUFFEREVENTS "use libevent's buffered IO" off \
 		BUFFREELISTS "freelists for buffer RAM" on \
+		GMAKE "parallel build safety via GNU make" off \
 		INSTR_DOWNLOADS "instrument downloads for analysis" off \
 		STATIC_TOR "build a static tor" off \
 		TCMALLOC "use the tcmalloc memory allocation library" off \
@@ -72,6 +75,18 @@ MAN1=		tor.1 tor-resolve.1 torify.1 tor-gencert.1
 
 .include <bsd.port.pre.mk>
 
+.if defined(WITH_GMAKE)
+USE_GMAKE=	yes
+.else
+MAKE_JOBS_UNSAFE=	yes
+.endif
+
+.if ( (${OSVERSION} >= 703100 && ${OSVERSION} < 800000) || \
+(${OSVERSION} >= 800500 && ${OSVERSION} < 900000) || \
+(${OSVERSION} >= 900003) ) && !defined(USE_GCC) && empty(CC:M*gcc4*)
+CONFIGURE_ARGS+=	--enable-gcc-hardening
+.endif
+
 .if  ( ${OSVERSION} < 704000 || \
 (${OSVERSION} >= 800000 && ${OSVERSION} < 802000) || \
 (${OSVERSION} >= 900000 && ${OSVERSION} < 900027) )
@@ -80,7 +95,6 @@ WITH_OPENSSL_PORT=	yes
 .include "${PORTSDIR}/Mk/bsd.openssl.mk"
 
 .if defined(WITH_BUFFEREVENTS)
-BROKEN =	there are unresolved problems with BUFFEREVENTS; please disable this option
 CONFIGURE_ARGS+=	--enable-bufferevents
 .else
 CONFIGURE_ARGS+=	--disable-bufferevents
@@ -144,6 +158,8 @@ post-patch:
 		${WRKSRC}/contrib/Makefile.in
 	@${REINPLACE_CMD} -e '\|^install-data-am:|s|install-docDATA||' \
 		${WRKSRC}/doc/Makefile.in
+	@${REINPLACE_CMD} -e "s|-ltcmalloc|${LOCALBASE}/lib/libtcmalloc.so|" \
+		${WRKSRC}/configure
 
 post-configure:
 	@${FIND} -X ${WRKSRC} -type f -name Makefile | ${XARGS} ${REINPLACE_CMD} -e \

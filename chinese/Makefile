@@ -24,7 +24,6 @@
     SUBDIR += cce
     SUBDIR += cconv
     SUBDIR += celvis
-    SUBDIR += chm2html
     SUBDIR += cless
     SUBDIR += cmexfonts
     SUBDIR += cnprint
@@ -37,7 +36,6 @@
     SUBDIR += enscript
     SUBDIR += eterm
     SUBDIR += fcitx
-    SUBDIR += firebird
     SUBDIR += fireflyttf
     SUBDIR += font-std
     SUBDIR += fortune
@@ -45,7 +43,6 @@
     SUBDIR += fqterm
     SUBDIR += gb2jis
     SUBDIR += gb2ps
-    SUBDIR += gbscript
     SUBDIR += gcin
     SUBDIR += gimp-help-zh_CN
     SUBDIR += gugod-clean
@@ -75,15 +72,12 @@
     SUBDIR += miniChinput
     SUBDIR += moefonts-cid
     SUBDIR += moettf
-    SUBDIR += mplayer-fonts
     SUBDIR += msttf
     SUBDIR += muni
     SUBDIR += mutt
-    SUBDIR += ntuttf
     SUBDIR += oicq
     SUBDIR += opendesktop-fonts
     SUBDIR += oto
-    SUBDIR += oxford
     SUBDIR += oxim
     SUBDIR += p5-Date-Chinese
     SUBDIR += p5-Encode-CNMap
@@ -114,7 +108,6 @@
     SUBDIR += qt4-codecs-cn
     SUBDIR += qt4-codecs-tw
     SUBDIR += qterm
-    SUBDIR += reciteword
     SUBDIR += scim-array
     SUBDIR += scim-chewing
     SUBDIR += scim-fcitx
@@ -128,13 +121,11 @@
     SUBDIR += tin
     SUBDIR += tintin++
     SUBDIR += tk83
-    SUBDIR += tocps
     SUBDIR += ttf2pt1
     SUBDIR += ttfm
     SUBDIR += unrar
     SUBDIR += unzip
     SUBDIR += ve
-    SUBDIR += vflib
     SUBDIR += wangttf
     SUBDIR += wenju
     SUBDIR += wordpress-zh_CN
@@ -143,7 +134,6 @@
     SUBDIR += xmms
     SUBDIR += xpdf
     SUBDIR += xsim
-    SUBDIR += xttmgr
     SUBDIR += ydict
     SUBDIR += zhcon
 

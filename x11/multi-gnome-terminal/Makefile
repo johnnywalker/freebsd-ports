@@ -12,15 +12,15 @@ PORTREVISION=	10
 CATEGORIES=	x11 gnome
 MASTER_SITES=	SF/multignometerm/multignometerm/mgt-${PORTVERSION}
 
-MAINTAINER=	ports@eitanadler.com
+MAINTAINER=	eadler@FreeBSD.org
 COMMENT=	Gnome tabbed terminal emulator
 
 INSTALLS_OMF=	yes
 USE_GNOME=	gnomehack gnomeprefix libglade
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		mgt-helper.1 multi-gnome-terminal.1
 

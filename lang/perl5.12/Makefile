@@ -7,6 +7,7 @@
 
 PORTNAME=	perl
 PORTVERSION=	${PERL_VERSION}
+PORTREVISION=	2
 CATEGORIES=	lang devel perl5
 MASTER_SITES=	CPAN \
 		${MASTER_SITE_LOCAL:S/$/:local/} \
@@ -93,7 +94,7 @@ CONFIGURE_ARGS+=	-Doptimize="${CFLAGS}"
 
 .if defined(WITH_GDBM)
 CONFIGURE_ARGS+=	-Di_gdbm
-LIB_DEPENDS+=		gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=		gdbm.4:${PORTSDIR}/databases/gdbm
 PLIST_SUB+=		GDBM=""
 .else
 CONFIGURE_ARGS+=	-Ui_gdbm

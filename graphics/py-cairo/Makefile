@@ -21,10 +21,10 @@ LIB_DEPENDS=	cairo.2:${PORTSDIR}/graphics/cairo
 WRKSRC=		${WRKDIR}/py${PORTNAME}-${PORTVERSION}
 USE_PYTHON=	2.6-2.7
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget gnomehack
+USE_GNOME=	gnomehack
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|$$(libdir)/pkgconfig|${PREFIX}/libdata/pkgconfig|; \

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	oxygen
-PORTVERSION=	1.1.1
+PORTVERSION=	1.1.3
 CATEGORIES=	x11-themes
 MASTER_SITES=	${MASTER_SITE_KDE}
 MASTER_SITE_SUBDIR=	stable/${PORTNAME}-gtk/${PORTVERSION}/src/
@@ -14,7 +14,7 @@ PKGNAMEPREFIX=	gtk-
 PKGNAMESUFFIX=	-engine
 DISTNAME=	${PORTNAME}-gtk-${PORTVERSION}
 
-MAINTAINER=	kubito@gmail.com
+MAINTAINER=	rakuco@FreeBSD.org
 COMMENT=	Oxygen-Gtk engine and theme
 
 LIB_DEPENDS=	cairo.2:${PORTSDIR}/graphics/cairo \

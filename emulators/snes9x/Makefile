@@ -10,7 +10,6 @@ PORTVERSION=	1.51
 PORTREVISION=	3
 CATEGORIES=	emulators
 MASTER_SITES=	http://files.ipherswipsite.com/snes9x/ \
-		http://www.geocities.co.jp/SiliconValley-PaloAlto/2560/release/ \
 		http://www.lysator.liu.se/snes9x/${PORTVERSION}/
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
 
@@ -24,8 +23,8 @@ USE_XORG=	x11 sm ice xext
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--without-extensions
-CONFIGURE_ENV+=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 MAKE_ARGS=	INCLUDES="-I${WRKSRC}/unzip -I${WRKSRC} -I${LOCALBASE}/include \
 		${PTHREAD_CFLAGS}" LDLIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}" \
 		OPTIMISE="${CXXFLAGS}"

@@ -7,27 +7,26 @@
 
 PORTNAME=	elk
 PORTVERSION=	3.99.7
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	lang scheme
 MASTER_SITES=	http://sam.zoy.org/elk/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	An embeddable Scheme interpreter
 
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm \
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm \
 		elf.0:${PORTSDIR}/devel/libelf
 
 USE_BZIP2=	yes
 USE_MOTIF=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 USE_LDCONFIG=	yes
 MAKE_JOBS_UNSAFE=	yes
 
 MAN1=		elk.1
 
-CPPFLAGS=	-I${LOCALBASE}/include/libelf -I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include/libelf -I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 

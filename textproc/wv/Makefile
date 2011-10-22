@@ -15,12 +15,12 @@ COMMENT=	A library and executables to access Microsoft Word files
 
 LIB_DEPENDS=	wmf.2:${PORTSDIR}/graphics/libwmf
 
-USE_GNOME=	gnometarget libgsf
+USE_GNOME=	libgsf
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}" MKDIR_P="${MKDIR}"
+CONFIGURE_ENV=	MKDIR_P="${MKDIR}"
 CONFIGURE_ARGS=	--with-png=${LOCALBASE} \
 		--with-libwmf=${LOCALBASE}
 MAKEFILE=	GNUmakefile

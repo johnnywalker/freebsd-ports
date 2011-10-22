@@ -7,7 +7,7 @@
 
 PORTNAME=	lapack++
 PORTVERSION=	2.5.3
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	math
 MASTER_SITES=   SF/lapackpp/lapackpp/${PORTVERSION} \
 		http://math.nist.gov/lapack++/:doc
@@ -22,6 +22,9 @@ EXTRACT_ONLY=   ${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	maho@FreeBSD.org
 COMMENT=	Linear Algebra PACKage in C++, a wrapper for LAPACK
+
+WANT_GNOME=	yes
+USE_GNOME=	gnomehack
 
 .include <bsd.port.pre.mk>
 

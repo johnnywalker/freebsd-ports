@@ -8,13 +8,13 @@
 PORTNAME=	id3ed
 PORTVERSION=	1.10.4
 CATEGORIES=	audio
-MASTER_SITES=	http://www.dakotacom.net/~donut/programs/id3ed/
+MASTER_SITES=	${MASTER_SITE_NETBSD} \
+		${MASTER_SITE_OPENBSD}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	turutani@scphys.kyoto-u.ac.jp
 COMMENT=	An id3 tag editor for mp3 files
 
-DEPRECATED=	No more public distfiles, looks like an abandonware
-EXPIRATION_DATE=	2011-08-01
+LICENSE=	GPLv2
 
 GNU_CONFIGURE=	yes
 

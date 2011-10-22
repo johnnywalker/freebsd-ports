@@ -7,7 +7,7 @@
 
 PORTNAME=	mod_ruby
 PORTVERSION=	1.3.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www ruby
 MASTER_SITES=	http://www.modruby.net/archive/
 PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
@@ -18,13 +18,12 @@ COMMENT=	An Apache module that embeds Ruby interpreter within
 
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	1.3+
+USE_APACHE=	13+
 USE_RUBY=	yes
 USE_PERL5_BUILD=	yes
 
 CONFIGURE_ARGS=	--with-apxs="${APXS}"
 CFLAGS+=	-DONIG_ESCAPE_REGEX_T_COLLISION
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS}"
 MAKE_ARGS=	RUBY="${RUBY}"
 INSTALL_TARGET=	site-install
 

@@ -12,9 +12,10 @@ CATEGORIES=	ukrainian textproc
 MASTER_SITES=	SF/ispell-uk/spell-uk/${PORTVERSION}
 DISTNAME=	spell-uk-${PORTVERSION}
 EXTRACT_SUFX=	.tgz
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
-COMMENT=	Hunspell ukrainian dictionary
+COMMENT=	Ukrainian hunspell dictionaries
 
 BUILD_DEPENDS=	iconv:${PORTSDIR}/converters/libiconv
 

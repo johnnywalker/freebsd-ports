@@ -5,7 +5,7 @@
 # $FreeBSD$
 
 PORTNAME=	DBIx-Class-QueryProfiler
-PORTVERSION=	0.04
+PORTVERSION=	0.05
 CATEGORIES=	databases perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -13,11 +13,15 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	DBIx::Class profiler
 
-BUILD_DEPENDS=	p5-Module-Install>=0:${PORTSDIR}/devel/p5-Module-Install
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Module-Install>=0:${PORTSDIR}/devel/p5-Module-Install \
+		p5-DBIx-Class>=0:${PORTSDIR}/databases/p5-DBIx-Class
 RUN_DEPENDS=	p5-DBIx-Class>=0:${PORTSDIR}/databases/p5-DBIx-Class
 TEST_DEPENDS=	p5-Test-Perl-Critic>=0:${PORTSDIR}/devel/p5-Test-Perl-Critic
 
-PERL_CONFIGURE=	5.8.9+
+PERL_CONFIGURE=	yes
 
 MAN3=		DBIx::Class::QueryProfiler.3
 

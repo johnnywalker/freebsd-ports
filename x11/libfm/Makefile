@@ -6,7 +6,8 @@
 #
 
 PORTNAME=	libfm
-PORTVERSION=	0.1.14
+PORTVERSION=	0.1.16
+PORTREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/libfm%20%28required%20by%20PCManFM%29/
 
@@ -23,13 +24,11 @@ USE_FAM=	yes
 USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS+=--prefix=${LOCALBASE} --sysconfdir=${LOCALBASE}/etc
 
 .if !defined(WITHOUT_NLS)
 USE_GETTEXT=	yes
 PLIST_SUB+=	NLS=""
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 .else
 CONFIGURE_ARGS+=--disable-nls
 PLIST_SUB+=	NLS="@comment "
@@ -40,6 +39,12 @@ PLIST_SUB+=	NLS="@comment "
 post-patch:
 	@${REINPLACE_CMD} -e 's|-DG_DISABLE_DEPRECATED||g' \
 		${WRKSRC}/src/Makefile.in
+	@${REINPLACE_CMD} -e 's|docs/Makefile||g' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|docs/reference/Makefile||g' \
+		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|docs/reference/libfm/Makefile||g' \
+		${WRKSRC}/configure
 
 pre-install:
 	cd ${WRKDIR}/libfm-${PORTVERSION} && ${CHMOD} 755 install-sh

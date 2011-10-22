@@ -30,7 +30,7 @@ RUN_DEPENDS=	dbus-daemon:${PORTSDIR}/devel/dbus \
 
 USE_BZIP2=	yes
 USE_SQLITE=	yes
-USE_GNOME=	gnomehack gnomeprefix gnometarget intlhack gnomedesktopsharp20
+USE_GNOME=	gnomehack gnomeprefix intlhack gnomedesktopsharp20
 GNU_CONFIGURE=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
@@ -39,8 +39,8 @@ INSTALLS_OMF=	yes
 USE_LDCONFIG=	yes
 GCONF_SCHEMAS=	f-spot.schemas
 
-CONFIGURE_ENV+=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 CONFIGURE_ARGS+=--with-vendor-build-id=FreeBSD\ BSD\#\ Project
 

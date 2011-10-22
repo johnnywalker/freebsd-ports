@@ -15,10 +15,8 @@ MAINTAINER=	stas@FreeBSD.org
 COMMENT=	An addressbook program with mutt mail client support
 
 GNU_CONFIGURE=	yes
-USE_GNOME=	gnometarget
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
 
 .if defined(WITHOUT_NLS)
 CONFIGURE_ARGS+=--disable-nls

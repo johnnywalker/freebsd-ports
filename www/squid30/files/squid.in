@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/www/squid30/files/squid.in,v 1.6 2010/03/27 00:15:17 dougb Exp $
+# $FreeBSD: ports/www/squid30/files/squid.in,v 1.8 2011/08/31 20:57:32 flo Exp $
 #
 # PROVIDE: squid
 # REQUIRE: LOGIN
@@ -41,7 +41,7 @@
 #
 
 squid_checkrunning() {
-	${command} ${squid_flags} -k check 2>/dev/null
+	${command} ${command_args} ${squid_flags} -k check 2>/dev/null
 }
 
 squid_setfib() {
@@ -55,7 +55,7 @@ squid_setfib() {
 
 squid_stop() {
 	echo "Stopping ${name}."
-	${command} ${squid_flags} -k shutdown
+	${command} ${command_args} ${squid_flags} -k shutdown
 	run_rc_command poll
 }
 
@@ -66,7 +66,7 @@ rcvar=${name}_enable
 
 command=%%PREFIX%%/sbin/squid
 extra_commands=reload
-reload_cmd="${command} ${squid_flags} -k reconfigure"
+reload_cmd="${command} ${command_args} ${squid_flags} -k reconfigure"
 start_precmd="squid_setfib"
 stop_precmd="squid_checkrunning"
 stop_cmd="squid_stop"
@@ -89,5 +89,9 @@ required_dirs=${squid_chdir}
 # squid(8) crash.
 
 required_files=${squid_conf}
+
+# Now make sure that we invoke squid with "-f ${squid_conf}":
+
+command_args="-f ${squid_conf}"
 
 run_rc_command "$1"

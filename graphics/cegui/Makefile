@@ -7,6 +7,7 @@
 
 PORTNAME=	cegui
 PORTVERSION=	0.7.5
+PORTREVISION=	1
 CATEGORIES=	graphics devel
 MASTER_SITES=	SF/crayzedsgui/CEGUI%20Mk-2/0.7.5
 DISTNAME=	${PORTNAME:U}-${PORTVERSION}
@@ -17,8 +18,8 @@ COMMENT=	A library providing windowing and widgets for graphics APIs
 LIB_DEPENDS=	IL.2:${PORTSDIR}/graphics/devil \
 		pcre.0:${PORTSDIR}/devel/pcre \
 		freetype.9:${PORTSDIR}/print/freetype2
-BUILD_DEPENDS=	${LOCALBASE}/lib/libOgreMain.so.1.7.2:${PORTSDIR}/graphics/ogre3d
-RUN_DEPENDS=	${LOCALBASE}/lib/libOgreMain.so.1.7.2:${PORTSDIR}/graphics/ogre3d
+BUILD_DEPENDS=	${LOCALBASE}/lib/libOgreMain.so.1.7.3:${PORTSDIR}/graphics/ogre3d
+RUN_DEPENDS=	${LOCALBASE}/lib/libOgreMain.so.1.7.3:${PORTSDIR}/graphics/ogre3d
 
 WRKSRC=		${WRKDIR}/${DISTNAME:S/2b/2/}
 CONFIGURE_ARGS=	--disable-toluacegui --disable-irrlicht-renderer \
@@ -26,9 +27,9 @@ CONFIGURE_ARGS=	--disable-toluacegui --disable-irrlicht-renderer \
 		--disable-libxml --disable-xerces-c --disable-expat --disable-samples
 
 CONFIGURE_ENV+=	Lua_LIBS="-L${LUA_LIBDIR} -llua -lm" \
-		Lua_CFLAGS="-I${LUA_INCDIR}" \
-		LDFLAGS="-L${LOCALBASE}/lib -L${LUA_LIBDIR}" \
-		CPPFLAGS="-I${LOCALBASE}/include -I${LUA_INCDIR}"
+		Lua_CFLAGS="-I${LUA_INCDIR}"
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LUA_INCDIR}
+LDFLAGS+=	-L${LOCALBASE}/lib -L${LUA_LIBDIR}
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 USE_GL=		yes

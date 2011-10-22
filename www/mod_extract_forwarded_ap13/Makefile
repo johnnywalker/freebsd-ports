@@ -13,9 +13,12 @@ MASTER_SITES=	http://www.warhound.org/mod_extract_forwarded/
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	An Apache module that can make proxied requests appear with client IP
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 AP_FAST_BUILD=	yes
 AP_GENPLIST=	yes
 CONFLICTS=	mod_extract_forwarded-2.* mod_extract_forwarded2-0.*

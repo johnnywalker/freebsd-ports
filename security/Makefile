@@ -6,6 +6,8 @@
     SUBDIR += ADMsmb
     SUBDIR += ADMsnmp
     SUBDIR += IMHear
+    SUBDIR += R-cran-ROAuth
+    SUBDIR += R-cran-digest
     SUBDIR += aescrypt
     SUBDIR += aespipe
     SUBDIR += afterglow
@@ -63,6 +65,7 @@
     SUBDIR += chntpw
     SUBDIR += chroot_safe
     SUBDIR += chrootuid
+    SUBDIR += ckpass
     SUBDIR += cksfv
     SUBDIR += cl-md5
     SUBDIR += cl-md5-clisp
@@ -76,6 +79,7 @@
     SUBDIR += clamsmtp
     SUBDIR += clamtk
     SUBDIR += clusterssh
+    SUBDIR += cops
     SUBDIR += courier-authlib
     SUBDIR += courier-authlib-base
     SUBDIR += courierpassd
@@ -107,16 +111,12 @@
     SUBDIR += distcache
     SUBDIR += distcache-devel
     SUBDIR += dmitry
-    SUBDIR += donkey
     SUBDIR += doorman
     SUBDIR += doscan
     SUBDIR += dradis
     SUBDIR += dropbear
-    SUBDIR += drweb
-    SUBDIR += drweb-postfix
-    SUBDIR += drweb-qmail
-    SUBDIR += drweb-sendmail
     SUBDIR += dsniff
+    SUBDIR += duo
     SUBDIR += easypg
     SUBDIR += engine_pkcs11
     SUBDIR += execwrap
@@ -139,7 +139,6 @@
     SUBDIR += fprint_demo
     SUBDIR += fragroute
     SUBDIR += fragrouter
-    SUBDIR += fressh
     SUBDIR += fsh
     SUBDIR += fswatch
     SUBDIR += ftimes
@@ -187,6 +186,7 @@
     SUBDIR += honggfuzz
     SUBDIR += horde-jeta
     SUBDIR += hotssh
+    SUBDIR += hs-Crypto
     SUBDIR += hs-SHA
     SUBDIR += hs-digest
     SUBDIR += httprint
@@ -196,7 +196,6 @@
     SUBDIR += idea
     SUBDIR += identify
     SUBDIR += ifd-devkit
-    SUBDIR += ifd-gempc410
     SUBDIR += ifd-slb_rf60
     SUBDIR += ike
     SUBDIR += ike-scan
@@ -244,8 +243,8 @@
     SUBDIR += libgnomesu
     SUBDIR += libgpg-error
     SUBDIR += libgringotts
-    SUBDIR += libidea
     SUBDIR += libident
+    SUBDIR += libkpass
     SUBDIR += libksba
     SUBDIR += libmcrypt
     SUBDIR += libntlm
@@ -262,7 +261,11 @@
     SUBDIR += libtomcrypt
     SUBDIR += libwhisker
     SUBDIR += linux-f10-cyrus-sasl2
+    SUBDIR += linux-f10-gnutls
+    SUBDIR += linux-f10-libgcrypt
+    SUBDIR += linux-f10-libgpg-error
     SUBDIR += linux-f10-libssh2
+    SUBDIR += linux-f10-libtasn1
     SUBDIR += linux-f10-nss
     SUBDIR += linux-f10-openssl
     SUBDIR += linux-openssl
@@ -278,6 +281,7 @@
     SUBDIR += mailzu
     SUBDIR += makepasswd
     SUBDIR += manipulate_data
+    SUBDIR += massh
     SUBDIR += matrixssl
     SUBDIR += mcrypt
     SUBDIR += md4coll
@@ -303,7 +307,6 @@
     SUBDIR += nikto
     SUBDIR += nmap
     SUBDIR += nmapsi4
-    SUBDIR += nsm-console
     SUBDIR += nss
     SUBDIR += ocaml-cryptgps
     SUBDIR += ocaml-cryptokit
@@ -430,6 +433,7 @@
     SUBDIR += p5-Crypt-OpenPGP
     SUBDIR += p5-Crypt-OpenSSL-AES
     SUBDIR += p5-Crypt-OpenSSL-Bignum
+    SUBDIR += p5-Crypt-OpenSSL-CA
     SUBDIR += p5-Crypt-OpenSSL-DSA
     SUBDIR += p5-Crypt-OpenSSL-RSA
     SUBDIR += p5-Crypt-OpenSSL-Random
@@ -721,7 +725,6 @@
     SUBDIR += quantis-kmod
     SUBDIR += racoon2
     SUBDIR += radiusniff
-    SUBDIR += rain
     SUBDIR += rainbowcrack
     SUBDIR += ranpwd
     SUBDIR += rarcrack
@@ -732,15 +735,10 @@
     SUBDIR += revelation
     SUBDIR += rkhunter
     SUBDIR += ruby-acl
-    SUBDIR += ruby-aes
-    SUBDIR += ruby-blowfish
     SUBDIR += ruby-camellia
-    SUBDIR += ruby-cast_256
     SUBDIR += ruby-crypt
     SUBDIR += ruby-gpgme
     SUBDIR += ruby-hmac
-    SUBDIR += ruby-mcrypt
-    SUBDIR += ruby-pam
     SUBDIR += ruby-password
     SUBDIR += ruby-tcpwrap
     SUBDIR += rubygem-bcrypt-ruby
@@ -752,6 +750,7 @@
     SUBDIR += rubygem-net-ssh-multi
     SUBDIR += rubygem-nmap-parser
     SUBDIR += rubygem-roauth
+    SUBDIR += rubygem-twitter_oauth
     SUBDIR += saferpay
     SUBDIR += safesh
     SUBDIR += saint

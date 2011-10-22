@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	x11vnc
-PORTVERSION=	0.9.12
+PORTVERSION=	0.9.13
 CATEGORIES=	net
 MASTER_SITES=	SF/libvncserver/${PORTNAME}/${PORTVERSION}
 
@@ -21,7 +21,6 @@ LIB_DEPENDS=	jpeg:${PORTSDIR}/graphics/jpeg \
 
 LICENSE=	GPLv2
 
-USE_GNOME=	gnometarget
 USE_XORG=	x11 xdamage xfixes xrandr xinerama xext xtst xau xrender xdmcp recordproto
 
 # Sets LDFLAGS and adds to CONFIGURE_ENV, therefore we set LDFLAGS
@@ -32,7 +31,7 @@ USE_ICONV=	yes
 USE_GETTEXT=	yes
 .endif
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include"
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 MAN1=		x11vnc.1
 PORTDOCS=	AUTHORS COPYING ChangeLog NEWS README README.LibVNCServer TODO

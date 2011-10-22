@@ -7,7 +7,7 @@
 
 PORTNAME=	dmd
 PKGNAMESUFFIX=	2
-PORTVERSION=	2.053
+PORTVERSION=	2.055
 CATEGORIES=	lang
 MASTER_SITES=	http://ftp.digitalmars.com/
 DISTNAME=	dmd.${PORTVERSION}
@@ -17,7 +17,7 @@ COMMENT=	D 2.0 compiler, not officially validated for FreeBSD
 
 USE_ZIP=	yes
 USE_GMAKE=	yes
-MAKEFILE=	freebsd.mak
+MAKEFILE=	posix.mak
 MAN1=		dmd2.1
 MAN5=		dmd2.conf.5
 EXAMPLESDIR=	${PREFIX}/share/examples/dmd2
@@ -39,12 +39,25 @@ LICENSE_PERMS_DMD=	no-dist-mirror no-dist-sell no-pkg-mirror no-pkg-sell auto-ac
 BROKEN=		does not compile
 .endif
 
+.if ${ARCH} == "amd64"
+MAKE_ARGS+=	MODEL=64
+.else
+MAKE_ARGS+=	MODEL=32
+.endif
+
+.if defined(WITH_DEBUG)
+BUILD=		debug
+MAKE_ARGS+=	DEBUG_FLAGS=-g\ -DDEBUG=1\ -DUNITTEST
+.else
+BUILD=		release
+.endif
+
 MODULEDIR=	${PREFIX}/include/d/phobos2
 
 post-patch:
-	@${REINPLACE_CMD} -e "s|gcc|${CC}|" ${WRKSRC}/freebsd.mak \
+	@${REINPLACE_CMD} -e "s|gcc|${CC}|" ${WRKSRC}/posix.mak \
 		${WRKSRC}/../phobos/etc/c/zlib/freebsd.mak
-	@${REINPLACE_CMD} -e "s|g++|${CXX}|" ${WRKSRC}/freebsd.mak
+	@${REINPLACE_CMD} -e "s|g++|${CXX}|" ${WRKSRC}/posix.mak
 	@${REINPLACE_CMD} -e "s|cc|${CC}|" ${WRKSRC}/../phobos/posix.mak
 	@${REINPLACE_CMD} -e "s|/etc|${PREFIX}/etc|"	\
 			  -e "s|\(dmd\)|\12|gI"		\
@@ -60,9 +73,9 @@ post-patch:
 
 post-build:
 	cd ${WRKSRC}/../druntime && \
-		${SETENV} PATH=${WRKSRC}:${PATH} ${GMAKE} ${MAKE_FLAGS} posix.mak
+		${SETENV} PATH=${WRKSRC}:${PATH} ${GMAKE} ${MAKE_FLAGS} ${MAKEFILE} ${_MAKE_JOBS} ${MAKE_ARGS}
 	cd ${WRKSRC}/../phobos && \
-		${SETENV} PATH=${WRKSRC}:${PATH} ${GMAKE} ${MAKE_FLAGS} posix.mak
+		${SETENV} PATH=${WRKSRC}:${PATH} ${GMAKE} ${MAKE_FLAGS} ${MAKEFILE} ${_MAKE_JOBS} ${MAKE_ARGS} ${BUILD}
 
 do-install:
 	${INSTALL_MAN} ${WRKDIR}/dmd2/man/man1/dmd.1 ${MANPREFIX}/man/man1/dmd2.1
@@ -71,7 +84,11 @@ do-install:
 	${INSTALL_DATA} ${WRKDIR}/dmd2/linux/bin32/dmd.conf ${PREFIX}/etc/dmd2.conf
 .endif
 	${INSTALL_PROGRAM} ${WRKSRC}/dmd ${PREFIX}/bin/dmd2
-	${INSTALL_DATA} ${WRKSRC}/../phobos/generated/freebsd/release/32/libphobos2.a ${PREFIX}/lib
+.if ${ARCH} == "amd64"
+	${INSTALL_DATA} ${WRKSRC}/../phobos/generated/freebsd/${BUILD}/64/libphobos2.a ${PREFIX}/lib
+.else
+	${INSTALL_DATA} ${WRKSRC}/../phobos/generated/freebsd/${BUILD}/32/libphobos2.a ${PREFIX}/lib
+.endif
 	${MKDIR} ${EXAMPLESDIR}
 	${INSTALL_DATA} ${WRKDIR}/dmd2/linux/bin32/dmd.conf ${EXAMPLESDIR}/dmd2.conf
 	cd ${WRKDIR}/dmd2 && ${COPYTREE_SHARE} samples ${EXAMPLESDIR}

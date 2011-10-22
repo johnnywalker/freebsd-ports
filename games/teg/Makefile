@@ -14,11 +14,11 @@ MASTER_SITES=	SF
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A turn-based strategy game for GNOME
 
-USE_GNOME=	gnomehack gnomeprefix gnometarget intlhack libgnomeui
+USE_GNOME=	gnomehack gnomeprefix intlhack libgnomeui
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--disable-ggz
 
 GCONF_SCHEMAS=	teg.schemas

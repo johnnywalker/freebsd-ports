@@ -8,8 +8,7 @@ PORTNAME=	prelude-manager
 PORTVERSION=	0.9.14.2
 PORTREVISION=	7
 CATEGORIES=	security
-MASTER_SITES=   http://www.prelude-ids.com/download/releases/%SUBDIR%/
-MASTER_SITE_SUBDIR=     ${PORTNAME} ${PORTNAME}/old
+MASTER_SITES=   http://www.prelude-technologies.com/download/releases/${PORTNAME}/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Prelude Network Intrusion Detection System central logging point
@@ -23,8 +22,8 @@ USE_AUTOTOOLS=	autoconf
 USE_RC_SUBR=	prelude-manager.sh
 CONFIGURE_ARGS=		--with-html-dir=${PREFIX}/share/doc \
 			--localstatedir=/var
-CONFIGURE_ENV=	CFLAGS="${CFLAGS} -I${LOCALBASE}/include" \
-		LIBS="${LIBS} -L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="${LIBS} -L${LOCALBASE}/lib"
+CFLAGS+=	-I${LOCALBASE}/include
 
 USERS?=		prelude
 GROUPS?=	prelude

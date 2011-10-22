@@ -15,12 +15,15 @@ MASTER_SITES=	ftp://users.freebsd.org.uk/pub/foobar2k/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OpenGL Racing Game
 
+DEPRECATED=	No more public distfiles
+EXPIRATION_DATE=	2011-09-01
+
 USE_SDL=	mixer image sdl
 USE_BZIP2=	yes
 USE_GL=		glut
 CFLAGS+=	"-I${LOCALBASE}/include"
 CC+=		${CFLAGS}
-MAKE_ENV=	LDFLAGS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 post-patch:
 	@${REINPLACE_CMD} -e "s|^CC|#CC|g" \

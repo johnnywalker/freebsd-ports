@@ -14,6 +14,9 @@ PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
 MAINTAINER=	lev@FreeBSD.org
 COMMENT=	Allows Apache to log to a MySQL database
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
@@ -21,7 +24,7 @@ WRKSRC=		${WRKDIR}/${PORTNAME}
 USE_MYSQL=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-USE_APACHE=	1.3
+USE_APACHE=	13
 
 ALL_TARGET=	dso
 INSTALL_TARGET=	dsoinstall

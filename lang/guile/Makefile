@@ -6,8 +6,7 @@
 #    $MCom: ports/lang/guile/Makefile,v 1.1 2006/09/12 14:57:06 ahze Exp $
 
 PORTNAME=	guile
-PORTVERSION=	1.8.6
-PORTREVISION=	6
+PORTVERSION=	1.8.8
 CATEGORIES=	lang scheme
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	guile
@@ -23,7 +22,6 @@ USE_GETTEXT=	yes
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 USE_NCURSES=	yes
-USE_GNOME=	gnometarget
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
 
@@ -39,8 +37,6 @@ REINPLACE_FILES=	libguile/smob.c libguile/filesys.c libguile/gc.c \
 INFO=		goops guile-tut guile r5rs
 
 .include <bsd.port.pre.mk>
-
-AUTOTOOLSFILES=	aclocal.m4
 
 post-extract:
 	cd ${WRKSRC}; ${CHMOD} u+w ${REINPLACE_FILES}

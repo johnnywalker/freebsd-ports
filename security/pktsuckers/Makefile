@@ -8,8 +8,7 @@
 PORTNAME=	pktsuckers
 PORTVERSION=	1.2
 CATEGORIES=	security
-MASTER_SITES=	http://mirror2.unixfreunde.de/ \
-		http://freebsd.unixfreunde.de/sources/
+MASTER_SITES=	ftp://minnie.tuhs.org/pub/NetSecurity/
 DISTNAME=	${PORTNAME}1_2
 
 MAINTAINER=	ports@FreeBSD.org

@@ -7,6 +7,7 @@
 
 PORTNAME=	prosearch
 PORTVERSION=	0.19.1
+PORTREVISION=	1
 CATEGORIES=	net www
 MASTER_SITES=	http://pro.setun.net/search/download/ SF/pro-search/pro-search/${PORTVERSION}
 
@@ -67,11 +68,11 @@ RUN_DEPENDS+=	rsync:${PORTSDIR}/net/rsync
 .endif
 
 .if defined(WITH_APACH22)
-USE_APACHE=	2.2+
+USE_APACHE=	22+
 .endif
 
 .if defined(WITH_APACH20)
-USE_APACHE=	2.0+
+USE_APACHE=	20+
 .endif
 
 .if defined(WITH_NGINX)
@@ -87,7 +88,7 @@ ${LOCALBASE}/${APACHEMODDIR}/mod_perl.so:${PORTSDIR}/www/mod_perl2
 .if defined(WITH_MOD_FASTCGI)
 RUN_DEPENDS+=\
 ${LOCALBASE}/${APACHEMODDIR}/mod_fastcgi.so:${PORTSDIR}/www/mod_fastcgi	\
-${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FastCGI
+${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FCGI
 .endif
 
 .if defined(WITH_SPHINX)

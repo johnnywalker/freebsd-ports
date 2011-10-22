@@ -11,7 +11,7 @@ CATEGORIES=	mail
 MASTER_SITES=	http://archiveopteryx.org/%SUBDIR%/
 MASTER_SITE_SUBDIR=	download
 
-MAINTAINER=	ashish@FreeBSD.org
+MAINTAINER=	feld@feld.me
 COMMENT=	An advanced PostgreSQL-based IMAP/POP server
 
 BUILD_DEPENDS=	jam:${PORTSDIR}/devel/jam
@@ -39,10 +39,6 @@ JAM?=		${LOCALBASE}/bin/jam
 
 .include <bsd.port.pre.mk>
 
-.if ${OSVERSION} >= 900000
-BROKEN=		does not build on FreeBSD 9.X
-.endif
-
 post-patch:
 	@${GREP} -Rl '%%[[:alpha:]]\+%%' ${WRKSRC} |${XARGS} ${REINPLACE_CMD} \
 		-e 's,%%PREFIX%%,${PREFIX},g'
@@ -59,5 +55,6 @@ post-install:
 
 post-deinstall:
 	@PKG_PREFIX=${PREFIX} ${SH} ${PKGDEINSTALL} ${PKGNAME} POST-DEINSTALL
+
 
 .include <bsd.port.post.mk>

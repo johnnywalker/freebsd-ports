@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	postfwd
-PORTVERSION=	1.20
+PORTVERSION=	1.30
 CATEGORIES=	mail
 MASTER_SITES=	http://www.${PORTNAME}.org/old/
 PKGNAMEPREFIX=	postfix-
@@ -14,13 +14,16 @@ PKGNAMEPREFIX=	postfix-
 MAINTAINER=	sahil@FreeBSD.org
 COMMENT=	A postfix firewall policy daemon
 
-RUN_DEPENDS=	${SITE_PERL}/${PERL_ARCH}/Net/DNS.pm:${PORTSDIR}/dns/p5-Net-DNS \
-		${SITE_PERL}/Net/Server.pm:${PORTSDIR}/net/p5-Net-Server
-
 LICENSE=	BSD
 
-PORTDOCS=	CHANGELOG ${PORTNAME}.html ${PORTNAME}.txt
-PORTEXAMPLES=	request.sample
+RUN_DEPENDS=	${SITE_PERL}/${PERL_ARCH}/Net/DNS.pm:${PORTSDIR}/dns/p5-Net-DNS \
+		${SITE_PERL}/Net/Server.pm:${PORTSDIR}/net/p5-Net-Server \
+		${SITE_PERL}/${PERL_ARCH}/Time/HiRes.pm:${PORTSDIR}/devel/p5-Time-HiRes
+
+PORTDOCS=	arch.html ${PORTNAME}.CHANGELOG ${PORTNAME}.html \
+		${PORTNAME}.txt quick.html versions.html
+
+PORTEXAMPLES=	request.sample postfwd.plugins.sample
 PLIST_FILES=	bin/${PORTNAME} etc/${PORTNAME}.conf.sample
 
 SUB_FILES=	pkg-message
@@ -45,7 +48,8 @@ post-install:
 .endif
 .if !defined(NOPORTEXAMPLES)
 	@${INSTALL} -o ${SHAREOWN} -g ${SHAREGRP} -m 555 -d ${EXAMPLESDIR}
-	@${INSTALL_DATA} ${WRKSRC}/tools/${PORTEXAMPLES} ${EXAMPLESDIR}
+	@${INSTALL_DATA} ${WRKSRC}/tools/request.sample ${EXAMPLESDIR}
+	@${INSTALL_DATA} ${WRKSRC}/plugins/postfwd.plugins.sample ${EXAMPLESDIR}
 .endif
 	@${CAT} ${PKGMESSAGE}
 

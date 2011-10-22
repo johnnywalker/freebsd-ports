@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/sysutils/nut/files/nut.sh.in,v 1.1 2006/03/29 12:03:54 pav Exp $
+# $FreeBSD: ports/sysutils/nut/files/nut.sh.in,v 1.2 2010/03/27 00:14:59 dougb Exp $
 #
 
 # PROVIDE: nut
@@ -39,6 +39,12 @@ nut_prestart() {
 
 nut_poststop() {
 	${nut_prefix}/libexec/nut/upsdrvctl stop
+}
+
+extra_commands=reload
+reload()
+{
+ kill -HUP `cat $pidfile`
 }
 
 run_rc_command "$1"

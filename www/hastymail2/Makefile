@@ -13,13 +13,15 @@ CATEGORIES=	www mail
 MASTER_SITES=	SF/hastymail/Hastymail2%20Stable%20Releases/Hastymail2%201.01/
 DISTNAME=	hastymail2_${WIKEDVERSION}
 
-MAINTAINER=	aldis@bsdroot.lv
+MAINTAINER=	graudeejs@gmail.com
 COMMENT=	Small, fast and secure yet powerful IMAP webmail
+
+LICENSE=	GPLv2
 
 NO_BUILD=	yes
 SUB_FILES=	pkg-message
 
-LICENSE=	GPLv2
+CONFLICTS=      hastymail2-devel-1.[0-9]*
 
 INSTALL_DIR?=	www/${PORTNAME}
 PLIST=		${WRKDIR}/pkg-plist

@@ -6,23 +6,26 @@
 #
 
 PORTNAME=	gbrainy
-PORTVERSION=	2.00
+PORTVERSION=	2.03
 CATEGORIES=	games
 MASTER_SITES=	http://gent.softcatala.org/jmas/gbrainy/
 
 MAINTAINER=	kevlo@FreeBSD.org
 COMMENT=	A brain teaser game and trainer
 
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
 BUILD_DEPENDS=	mautil:${PORTSDIR}/devel/mono-addins \
 		${LOCALBASE}/bin/bash:${PORTSDIR}/shells/bash
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USE_GNOME=	desktopfileutils gnometarget gnomehack gtksharp20 gnomesharp20
+USE_GNOME=	desktopfileutils gnomehack gtksharp20 gnomesharp20
 USE_GMAKE=	yes
 USE_GETTEXT=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN6=		gbrainy.6
 INSTALLS_ICONS=	yes

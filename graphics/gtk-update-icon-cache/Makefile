@@ -7,7 +7,7 @@
 #
 
 PORTNAME=	gtk-update-icon-cache
-PORTVERSION=	2.24.5
+PORTVERSION=	2.24.6
 PORTREVISION?=	0
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_GNOME:S,%SUBDIR%,sources/gtk+/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}/,} \
@@ -43,9 +43,9 @@ USE_XORG=	xext xrender x11 xinerama xi xrandr xcursor xfixes xdamage \
 		xcomposite
 PATCHDIR=	${.CURDIR}/../../x11-toolkits/gtk20/files
 CONFIGURE_ARGS=	--enable-static --with-xinput=yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include/freetype2 \
-			  -I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include/freetype2 \
+		-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 PLIST_FILES=	bin/gtk-update-icon-cache
 
 MAN1=		gtk-update-icon-cache.1

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	dtc
-PORTVERSION=	0.32.0.1
+PORTVERSION=	0.34.2.1
 CATEGORIES=	sysutils
 MASTER_SITES=	ftp://ftp.gplhost.sg/pub/dtc/bsd/ \
 		ftp://qala-sg.apt-proxy.gplhost.sg/pub/dtc/bsd/ \
@@ -18,7 +18,7 @@ MASTER_SITES=	ftp://ftp.gplhost.sg/pub/dtc/bsd/ \
 		ftp://972.apt-proxy.gplhost.com/pub/dtc/bsd/ \
 		http://ftp.gplhost.fr/pub/dtc/bsd/
 
-MAINTAINER=	fkiernan@id.net.ar
+MAINTAINER=	thomas@goirand.fr
 COMMENT=	A hosting web GUI for admin and accounting all hosting services
 
 RUN_DEPENDS=	${LOCALBASE}/${APACHEMODDIR}/mod_log_sql.so:${PORTSDIR}/www/mod_log_sql2-dtc \
@@ -40,8 +40,6 @@ RUN_DEPENDS=	${LOCALBASE}/${APACHEMODDIR}/mod_log_sql.so:${PORTSDIR}/www/mod_log
 		${LOCALBASE}/sbin/logrotate:${PORTSDIR}/sysutils/logrotate \
 		${LOCALBASE}/bin/bash:${PORTSDIR}/shells/bash
 
-BROKEN=		bad dependency object
-
 CONFLICTS=	dtc-toaster-[0-9]* dtc-postfix-courier-[0-9]*
 
 USE_GETTEXT=	yes
@@ -52,8 +50,9 @@ USE_MYSQL=	server
 
 NO_BUILD=	yes
 USE_PHP=	mysql pcre session
-MAN8=		dtc-chroot-shell.8
+MAN8=		dtc-chroot-shell.8 dtc-chroot-wrapper.8
 MANCOMPRESSED=	no
+USE_APACHE=	22+
 
 .if defined(WITH_PHP5)
 DEFAULT_PHP_VER=5
@@ -119,10 +118,6 @@ RUN_DEPENDS+=	${LOCALBASE}/www/squirrelmail/src/login.php:${PORTSDIR}/mail/squir
 RUN_DEPENDS+=	${LOCALBASE}/www/phpMyAdmin/index.php:${PORTSDIR}/databases/phpmyadmin
 .endif
 
-.if defined(WITH_APACHE)
-USE_APACHE=	2.2+
-.endif
-
 .if defined(WITH_DOVECOT)
 RUN_DEPENDS+=	${LOCALBASE}/sbin/dovecot:${PORTSDIR}/mail/dovecot
 .endif
@@ -132,7 +127,7 @@ RUN_DEPENDS+=	${LOCALBASE}/sbin/radiusd:${PORTSDIR}/net/freeradius2
 .endif
 
 SUB_FILES=	dtc-install dtc-deinstall
-SUB_LIST+=	WWWDIR="${WWWDIR}" QMAIL_DIR="${QMAIL_DIR}"
+SUB_LIST+=	QMAIL_DIR="${QMAIL_DIR}"
 
 .include <bsd.port.pre.mk>
 
@@ -141,7 +136,7 @@ do-install:
 	@${INSTALL_SCRIPT} ${WRKDIR}/dtc-deinstall ${PREFIX}/sbin/dtc-deinstall
 	@${GMAKE} -C ${WRKSRC} install-dtc-common INSTALL=install \
 		DTC_APP_DIR=${WWWDIR} DTC_GEN_DIR=${PREFIX}/var/dtc CONFIG_DIR=${PREFIX}/etc DTC_ETC_DIRECTORY=${ETCDIR} \
-		DTC_DOC_DIR=${DOCSDIR} MANUAL_DIR=${MANPREFIX}/man BIN_DIR=${PREFIX}/bin UNIX_TYPE=bsd VERS=0.32.0
+		DTC_DOC_DIR=${DOCSDIR} MANUAL_DIR=${MANPREFIX}/man BIN_DIR=${PREFIX}/bin UNIX_TYPE=bsd VERS=0.34.2.1
 	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.post.mk>

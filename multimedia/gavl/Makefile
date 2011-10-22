@@ -19,12 +19,12 @@ LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png \
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USE_GNOME=	pkgconfig gnometarget gnomehack
+USE_GNOME=	pkgconfig gnomehack
 USE_LDCONFIG=	yes
 MAKE_JOBS_SAFE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--without-cpuflags --without-doxygen
 
 PORTDOCS=	README

@@ -6,12 +6,12 @@
 #
 
 PORTNAME=	hiawatha
-PORTVERSION=	7.5
+PORTVERSION=	7.6
 CATEGORIES=	www
 MASTER_SITES=	http://www.hiawatha-webserver.org/files/ \
 		http://www.c-s.li/ports/
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	An advanced and secure webserver for Unix
 
 LICENSE=	GPLv2
@@ -21,16 +21,15 @@ PORTEXAMPLES=	hiawatha mkcert newroot php-fcgi
 CONFIG_FILES=	hiawatha.conf mimetype.conf cgi-wrapper.conf php-fcgi.conf
 MAN1=		cgi-wrapper.1 hiawatha.1 newroot.1 php-fcgi.1 ssi-cgi.1 wigwam.1
 
-USE_RC_SUBR=	hiawatha
+USE_RC_SUBR=	hiawatha php-fcgi
 SUB_FILES=	pkg-message
 WANT_GNOME=	yes
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--localstatedir=/var webrootdir=${WWWDIR}
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=	COMMAND "Enable the Hiawatha CommandChannel" Off \
 		CACHE "Internal file caching support" On \

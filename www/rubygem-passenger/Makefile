@@ -5,7 +5,8 @@
 # $FreeBSD$
 
 PORTNAME=	passenger
-PORTVERSION=	3.0.7
+PORTVERSION=	3.0.9
+PORTREVISION=	1
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 PKGNAMEPREFIX=	rubygem-
@@ -31,7 +32,7 @@ IGNORE=		supports only one web-server: apache22 or nginx. \
 .endif
 
 .if !defined(WITHOUT_APACHEPORT)
-USE_APACHE=	2.2+
+USE_APACHE=	22+
 .endif
 
 .if defined(WITH_NGINXPORT)
@@ -43,7 +44,7 @@ BUILD_DEPENDS+=	nginx:${PORTSDIR}/www/nginx-devel
 .endif
 .endif
 
-LIB_DEPENDS+=	ev.3:${PORTSDIR}/devel/libev \
+LIB_DEPENDS+=	ev.4:${PORTSDIR}/devel/libev \
 		curl.6:${PORTSDIR}/ftp/curl
 BUILD_DEPENDS+=	rubygem-fastthread>=1.0.1:${PORTSDIR}/devel/rubygem-fastthread \
 		rubygem-rack>=0:${PORTSDIR}/www/rubygem-rack \
@@ -87,7 +88,7 @@ post-install:
 		s!g++!${CXX}!g; \
 		s!#{PlatformInfo.debugging_cflags}!${CFLAGS}!g; \
 		s!-O2!!g; \
-		42s!true!false!' \
+		43s!true!false!' \
 		${PREFIX}/${GEM_LIB_DIR}/build/config.rb
 .if !defined(WITH_DEBUG)
 	@${REINPLACE_CMD} \
@@ -104,7 +105,8 @@ post-install:
 		's!#{LIBEV_LIBS}!-L${LOCALBASE}/lib -lev!g' \
 		${PREFIX}/${GEM_LIB_DIR}/build/agents.rb
 	@${REINPLACE_CMD} \
-		'263s!/usr/include/libev!${LOCALBASE}/include!; \
+		's!-Iext/libev!!; \
+		263s!/usr/include/libev!${LOCALBASE}/include!; \
 		264s!-lev!-L${LOCALBASE}/lib -lev!' \
 		${PREFIX}/${GEM_LIB_DIR}/build/common_library.rb
 

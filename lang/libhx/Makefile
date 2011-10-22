@@ -6,34 +6,34 @@
 #
 
 PORTNAME=	libHX
-PORTVERSION=	3.6
+PORTVERSION=	3.10.1
 CATEGORIES=	lang
 MASTER_SITES=	SF/${PORTNAME:L}/${PORTNAME}/${PORTVERSION}
 
 MAINTAINER=	sylvio@FreeBSD.org
 COMMENT=	Library C with some additional C++ bindings available
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 USE_XZ=		yes
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 USE_AUTOTOOLS=	libtool
+CONFIGURE_ARGS+=--with-pkgconfigdir=${PREFIX}/libdata/pkgconfig
 
-PORTDOCS=	libHX_Documentation.pdf
+.if !defined(NOPORTDOCS)
+PORTDOCS=	*
+DOCSDIR=	${PREFIX}/share/doc/${PORTNAME:L}
+.endif
+
+MAN1=		hxdirstamp.1
 
 post-patch:
 	${REINPLACE_CMD} -e 's| -lrt||g' ${WRKSRC}/src/Makefile.in
-
-post-build:
-	@${REINPLACE_CMD} -e 's|doc src|src|g' ${WRKSRC}/Makefile
-
-post-install:
-	(mv ${PREFIX}/lib/pkgconfig/libHX.pc ${PREFIX}/libdata/pkgconfig/libHX.pc)
-.if !defined(NOPORTDOCS)
-	@${MKDIR} ${DOCSDIR}
-	@${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/doc/,} ${DOCSDIR}/
+.if defined(NOPORTDOCS)
+	${REINPLACE_CMD} -e 's|libHX_Documentation.pdf||' \
+	   ${WRKSRC}/doc/Makefile.in ${WRKSRC}/doc/Makefile.am
 .endif
 
 .include <bsd.port.mk>

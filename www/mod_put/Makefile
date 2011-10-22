@@ -15,11 +15,14 @@ DISTNAME=	${PORTNAME}
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	An Apache module that provides PUT and DELETE methods
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 CONFLICTS=	apache-contrib-1.*
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 
 WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}
 

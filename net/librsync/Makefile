@@ -22,13 +22,11 @@ USE_GMAKE=	yes
 USE_CSTD=	gnu89
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
-CONFIGURE_ENV=	LDFLAGS="-L${LOCALBASE}/lib"
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--enable-shared --disable-trace
 USE_LDCONFIG=	yes
 
+MAN1=	rdiff.1
 MAN3=	librsync.3
-
-post-patch:
-	@${REINPLACE_CMD} -e 's|= rdiff.1|=|g' ${WRKSRC}/doc/Makefile.in
 
 .include <bsd.port.mk>

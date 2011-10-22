@@ -4,7 +4,7 @@
 # $FreeBSD$
 
 PORTNAME=	HTML-FormHandler
-PORTVERSION=	0.34001
+PORTVERSION=	0.35003
 PORTEPOCH=	1
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
@@ -14,7 +14,11 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	az@FreeBSD.org
 COMMENT=	Form handler written in Moose
 
-BUILD_DEPENDS=	p5-DateTime>=0:${PORTSDIR}/devel/p5-DateTime \
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Class-Load>=0.06:${PORTSDIR}/devel/p5-Class-Load \
+		p5-DateTime>=0:${PORTSDIR}/devel/p5-DateTime \
 		p5-DateTime-Format-Strptime>=0:${PORTSDIR}/devel/p5-DateTime-Format-Strptime \
 		p5-Email-Valid>=0:${PORTSDIR}/mail/p5-Email-Valid \
 		p5-File-ShareDir>=0:${PORTSDIR}/devel/p5-File-ShareDir \
@@ -23,6 +27,7 @@ BUILD_DEPENDS=	p5-DateTime>=0:${PORTSDIR}/devel/p5-DateTime \
 		p5-MooseX-Getopt>=0.16:${PORTSDIR}/devel/p5-MooseX-Getopt \
 		p5-MooseX-Types>=0.20:${PORTSDIR}/devel/p5-MooseX-Types \
 		p5-MooseX-Types-Common>=0:${PORTSDIR}/devel/p5-MooseX-Types-Common \
+		p5-MooseX-Types-LoadableClass>=0.006:${PORTSDIR}/devel/p5-MooseX-Types-LoadableClass \
 		p5-Try-Tiny>=0:${PORTSDIR}/lang/p5-Try-Tiny \
 		p5-aliased>=0:${PORTSDIR}/devel/p5-aliased \
 		p5-namespace-autoclean>=0.09:${PORTSDIR}/devel/p5-namespace-autoclean \
@@ -33,7 +38,8 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 TEST_DEPENDS=	p5-Test-Exception>=0:${PORTSDIR}/devel/p5-Test-Exception \
 		p5-Test-Differences>=0:${PORTSDIR}/devel/p5-Test-Differences
 
-PERL_CONFIGURE=	5.8.9+
+PERL_CONFIGURE=	yes
+
 MAN3=	HTML::FormHandler.3 \
 	HTML::FormHandler::Field.3 HTML::FormHandler::TraitFor::I18N.3 \
 	HTML::FormHandler::Render::WithTT.3 HTML::FormHandler::Field::NoValue.3 \
@@ -89,6 +95,7 @@ MAN3=	HTML::FormHandler.3 \
 	HTML::FormHandler::Widget::Field::Textarea.3 \
 	HTML::FormHandler::Widget::Field::Password.3 \
 	HTML::FormHandler::Widget::Field::Select.3 \
+	HTML::FormHandler::I18N::sv_se.3 \
 	HTML::FormHandler::I18N::ua_ua.3 \
 	HTML::FormHandler::I18N::ru_ru.3 \
 	HTML::FormHandler::Widget::Field::Hidden.3 \

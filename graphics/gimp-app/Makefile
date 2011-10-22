@@ -8,7 +8,7 @@
 
 PORTNAME=	gimp-app
 DISTVERSION=	2.6.11
-PORTREVISION?=	3
+PORTREVISION?=	4
 PORTEPOCH?=	1
 CATEGORIES?=	graphics gnome
 MASTER_SITES=	ftp://ftp.gimp.org/pub/%SUBDIR%/ \
@@ -53,9 +53,9 @@ CONFIGURE_ARGS?=--with-html-dir=${PREFIX}/share/doc/gimp \
 		--docdir=${PREFIX}/share/doc/gimp \
 		--enable-default-binary \
 		--without-gnomevfs
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		GIMP_THREAD_LIBS=${PTHREAD_LIBS}
+CONFIGURE_ENV=	GIMP_THREAD_LIBS=${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if !defined(GIMP_SLAVE)
 WANT_GNOME=	yes
@@ -132,7 +132,7 @@ CONFIGURE_ARGS+=	--without-gvfs
 .endif
 
 .if defined(WITH_HELPBROWSER)
-LIB_DEPENDS+=		webkit-1.0.13:${PORTSDIR}/www/webkit-gtk2
+LIB_DEPENDS+=		webkitgtk-1.0.0:${PORTSDIR}/www/webkit-gtk2
 CONFIGURE_ARGS+=	--with-webkit
 PLIST_SUB+=		HELPBROWSER=""
 .else
@@ -155,7 +155,7 @@ CONFIGURE_ARGS+=	--disable-mp
 .endif
 
 .if defined(WITH_POPPLER)
-LIB_DEPENDS+=		poppler-glib.5:${PORTSDIR}/graphics/poppler-gtk
+LIB_DEPENDS+=		poppler-glib.6:${PORTSDIR}/graphics/poppler-gtk
 PLIST_SUB+=		POPPLER=""
 .else
 CONFIGURE_ARGS+=	--without-poppler

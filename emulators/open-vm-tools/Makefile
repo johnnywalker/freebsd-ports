@@ -7,7 +7,7 @@
 
 PORTNAME=		open-vm-tools
 PORTVERSION=		${BUILD_VER}
-PORTREVISION=		3
+PORTREVISION=		4
 CATEGORIES=		emulators kld
 MASTER_SITES=		SF/${PORTNAME}/${PORTNAME}/${RELEASE_DATE}
 DISTNAME=		open-vm-tools-${RELEASE_DATE}-${BUILD_VER}
@@ -17,6 +17,8 @@ COMMENT?=		Open VMware tools for FreeBSD VMware guests
 
 RELEASE_DATE=		2010.10.18
 BUILD_VER=		313025
+
+BROKEN=			does not compile
 
 LICENSE=		LGPL21
 LICENSE_FILE=		${WRKSRC}/COPYING
@@ -32,7 +34,7 @@ PLIST_SUB+=		X11="@comment "
 CONFLICTS=		open-vm-tools-[0-9]*
 .else
 .if !defined(WITHOUT_LIBNOTIFY)
-LIB_DEPENDS+=		notify.1:${PORTSDIR}/devel/libnotify
+LIB_DEPENDS+=		notify.4:${PORTSDIR}/devel/libnotify
 .endif
 .if defined(WITH_UNITY)
 CONFIGURE_ENV+=		CUSTOM_URIPARSER_CPPFLAGS="-I${LOCALBASE}/include/uriparser"
@@ -42,8 +44,8 @@ CONFIGURE_ARGS+=	--disable-unity
 .endif
 LIB_DEPENDS+=		gtkmm-2.4:${PORTSDIR}/x11-toolkits/gtkmm24
 CONFIGURE_ARGS+=	--with-x
-CONFIGURE_ENV+=		LDFLAGS="-L${LOCALBASE}/lib" \
-			CPPFLAGS="-I${LOCALBASE}/include"
+CPPFLAGS+=		-I${LOCALBASE}/include
+LDFLAGS+=		-L${LOCALBASE}/lib
 USE_XORG=		x11 ice sm xext xineramaproto xinerama xrandr xrender \
 			xtst
 USE_GNOME=		gtk20 glib20

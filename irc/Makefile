@@ -86,6 +86,7 @@
     SUBDIR += p5-POE-Component-IRC-Plugin-Blowfish
     SUBDIR += p5-POE-Component-IRC-Plugin-Bollocks
     SUBDIR += p5-POE-Component-IRC-Plugin-CoreList
+    SUBDIR += p5-POE-Component-IRC-Plugin-Hailo
     SUBDIR += p5-POE-Component-IRC-Plugin-POE-Knee
     SUBDIR += p5-POE-Component-IRC-Plugin-QueryDNS
     SUBDIR += p5-POE-Component-IRC-Plugin-QueryDNSBL
@@ -98,8 +99,6 @@
     SUBDIR += pircbot
     SUBDIR += pisg
     SUBDIR += psybnc
-    SUBDIR += ptlink-ircd
-    SUBDIR += ptlink-services
     SUBDIR += pure-emacs21
     SUBDIR += pure-xemacs21-mule
     SUBDIR += py-gozerbot
@@ -107,8 +106,8 @@
     SUBDIR += py-supybot
     SUBDIR += py-supybot-plugins
     SUBDIR += quassel
-    SUBDIR += qwebirc
     SUBDIR += quirc
+    SUBDIR += qwebirc
     SUBDIR += ratbox-respond
     SUBDIR += ratbox-services
     SUBDIR += rbot

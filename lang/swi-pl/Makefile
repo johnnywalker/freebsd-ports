@@ -18,6 +18,8 @@ COMMENT=	Edinburgh-style Prolog compiler
 LIB_DEPENDS=	gmp:${PORTSDIR}/math/gmp \
 		readline:${PORTSDIR}/devel/readline
 
+BROKEN=		does not compile
+
 LIB_DEPENDS+=	odbc:${PORTSDIR}/databases/unixODBC
 LIB_DEPENDS+=	Xt:${PORTSDIR}/x11-toolkits/libXt \
 		jpeg:${PORTSDIR}/graphics/jpeg \
@@ -38,7 +40,7 @@ NOPRECIOUSMAKEVARS=	yes
 USE_GMAKE=	yes
 MAKE_JOBS_UNSAFE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}" ARCH=${ARCH}-${OPSYS:L}
+CONFIGURE_ENV=	ARCH=${ARCH}-${OPSYS:L}
 CONFIGURE_TARGET=	${ARCH}-${OPSYS:L}
 CONFIGURE_ARGS=	--with-world --without-jpl
 

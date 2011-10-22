@@ -18,11 +18,14 @@ COMMENT=	An Apache module that provides the country code of the client's IP
 BUILD_DEPENDS=	GeoIP>=1.4.4:${PORTSDIR}/net/GeoIP
 RUN_DEPENDS=	GeoIP>=1.4.4:${PORTSDIR}/net/GeoIP
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 CONFLICTS=	mod_geoip2-[0-9]*
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 AP_FAST_BUILD=	yes
 AP_GENPLIST=	yes
 AP_INC+=	${LOCALBASE}/include

@@ -12,6 +12,7 @@
 
 PORTNAME=	pulseaudio
 PORTVERSION=	0.9.22
+PORTREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	http://0pointer.de/lennart/projects/${PORTNAME}/
 
@@ -21,11 +22,11 @@ COMMENT=	Sound server for UNIX
 LIB_DEPENDS=	samplerate.1:${PORTSDIR}/audio/libsamplerate \
 		speexdsp.1:${PORTSDIR}/audio/speex \
 		dbus-1.3:${PORTSDIR}/devel/dbus \
-		gdbm.3:${PORTSDIR}/databases/gdbm \
+		gdbm.4:${PORTSDIR}/databases/gdbm \
 		execinfo:${PORTSDIR}/devel/libexecinfo \
 		ck-connector.0:${PORTSDIR}/sysutils/consolekit
 
-USE_GNOME=	gnometarget gnomehack glib20 intltool ltverhack
+USE_GNOME=	gnomehack glib20 intltool ltverhack
 USE_XORG=	x11 sm xtst ice
 USE_LDCONFIG=	yes
 USE_GETTEXT=	yes
@@ -33,13 +34,13 @@ GNU_CONFIGURE=	yes
 USE_AUTOTOOLS=	libltdl libtool
 USE_GMAKE=	yes
 MAKE_JOBS_UNSAFE=yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
+CONFIGURE_ENV=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		PTHREAD_LIBS="${PTHREAD_LIBS}" \
 		OPENSSL_CFLAGS="-I/usr/include" \
 		OPENSSL_LIBS="-lcrypto -lssl" \
 		LIBS="-lm -lintl"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--with-database=gdbm \

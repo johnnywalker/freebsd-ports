@@ -13,7 +13,7 @@ CATEGORIES=	graphics
 MASTER_SITES=	http://www.swftools.org/ \
 		http://www.c-s.li/ports/
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	SWF manipulation and generation utilities
 
 LIB_DEPENDS=	t1.5:${PORTSDIR}/devel/t1lib \
@@ -32,8 +32,7 @@ USE_GNOME=	pkgconfig
 USE_GL=		glut
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" \
-		ac_cv_lib_zzip_zzip_file_open=no
+CONFIGURE_ENV=	ac_cv_lib_zzip_zzip_file_open=no
 
 MAKE_JOBS_SAFE=	yes
 
@@ -41,8 +40,8 @@ MAN1=		as3compile.1 font2swf.1 gif2swf.1 jpeg2swf.1 pdf2swf.1 \
 		png2swf.1 swfbbox.1 swfc.1 swfcombine.1 swfdump.1 \
 		swfextract.1 swfrender.1 swfstrings.1 wav2swf.1
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 

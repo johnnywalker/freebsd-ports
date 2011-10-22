@@ -1,7 +1,0 @@
-@comment $FreeBSD: ports/security/nsm-console/pkg-plist,v 1.1 2008/01/21 11:56:43 miwi Exp $
-bin/nsm
-%%PORTDOCS%%%%DOCSDIR%%/CHANGELOG
-%%PORTDOCS%%%%DOCSDIR%%/TODO
-%%PORTDOCS%%@dirrm %%DOCSDIR%%
-@dirrmtry %%DATADIR%%
-@dirrmtry %%RUBY_SITELIBDIR%%/nsm-console

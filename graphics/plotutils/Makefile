@@ -17,10 +17,8 @@ COMMENT=	A plotting library and toolkit
 
 LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png
 
-USE_GNOME=	gnometarget
 USE_MOTIF=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--enable-libplotter --enable-libxmi --with-motif
 USE_LDCONFIG=	yes
 

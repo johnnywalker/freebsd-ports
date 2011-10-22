@@ -12,7 +12,7 @@ CATEGORIES=	sysutils
 MASTER_SITES=	http://afflib.org/downloads/ \
 		http://www.c-s.li/ports/
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	The Advanced Forensics Format library and utilities
 
 LIB_DEPENDS=	fuse:${PORTSDIR}/sysutils/fusefs-libs \
@@ -29,8 +29,8 @@ GNU_CONFIGURE=	yes
 USE_GNOME=	gnomehack
 USE_AUTOTOOLS=	autoconf
 CONFIGURE_ARGS=	--enable-s3=yes --libdir=${PREFIX}
-CONFIGURE_ENV=	CPPFLAGS='-DFUSE_USE_VERSION=26' \
-		LDFLAGS='${PTHREAD_LIBS}'
+CPPFLAGS+=	-DFUSE_USE_VERSION=26
+LDFLAGS+=	${PTHREAD_LIBS}
 CFLAGS+=	${PTHREAD_LIBS}
 MAKE_JOBS_SAFE=	yes
 

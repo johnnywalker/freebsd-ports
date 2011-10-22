@@ -17,7 +17,7 @@ DISTFILES+=	${OOOSRC} ${OOOEXTSRC} unowinreg.dll:unowinreg
 
 #de facto maintainer is maho@FreeBSD.org
 #patch submitters must sign SCA; see http://porting.openoffice.org/freebsd/#policy
-MAINTAINER=	openoffice@FreeBSD.org
+MAINTAINER=	office@FreeBSD.org
 COMMENT?=	Integrated wordprocessor/dbase/spreadsheet/drawing/chart/browser(developer version)
 
 IGNORE=		now development towards ver. 3.5 has been stopped, and OOO340_m0 is the newest milestone
@@ -115,9 +115,9 @@ OOOCC=		${CC}
 OOOCXX=		${CXX}
 .endif
 CONFIGURE_ENV+=	CC="${OOOCC}" CXX="${OOOCXX}"		\
-		CPPFLAGS="-I${LOCALBASE}/include"	\
-		LDFLAGS="-L${LOCALBASE}/lib" \
 		PATH=${WRKSRC}/solenv/bin:$$PATH
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 BUILD_DEPENDS+=	zip:${PORTSDIR}/archivers/zip \
 		${LOCALBASE}/bin/unzip:${PORTSDIR}/archivers/unzip \

@@ -133,6 +133,8 @@ include/wine/windows/control.h
 include/wine/windows/control.idl
 include/wine/windows/cor.h
 include/wine/windows/cor.idl
+include/wine/windows/cordebug.h
+include/wine/windows/cordebug.idl
 include/wine/windows/corerror.h
 include/wine/windows/corhdr.h
 include/wine/windows/cpl.h
@@ -982,6 +984,7 @@ lib/wine/fakedlls/httpapi.dll
 lib/wine/fakedlls/iccvid.dll
 lib/wine/fakedlls/icinfo.exe
 lib/wine/fakedlls/icmp.dll
+lib/wine/fakedlls/ieframe.dll
 lib/wine/fakedlls/iexplore.exe
 lib/wine/fakedlls/ifsmgr.vxd
 lib/wine/fakedlls/imaadp32.acm
@@ -1123,6 +1126,7 @@ lib/wine/fakedlls/pidgen.dll
 lib/wine/fakedlls/ping.exe
 lib/wine/fakedlls/plugplay.exe
 lib/wine/fakedlls/powrprof.dll
+lib/wine/fakedlls/presentationfontcache.exe
 lib/wine/fakedlls/printui.dll
 lib/wine/fakedlls/progman.exe
 lib/wine/fakedlls/propsys.dll
@@ -1139,6 +1143,7 @@ lib/wine/fakedlls/rasapi32.dll
 lib/wine/fakedlls/rasdlg.dll
 lib/wine/fakedlls/reg.exe
 lib/wine/fakedlls/regapi.dll
+lib/wine/fakedlls/regasm.exe
 lib/wine/fakedlls/regedit.exe
 lib/wine/fakedlls/regsvcs.exe
 lib/wine/fakedlls/regsvr32.exe
@@ -1221,6 +1226,7 @@ lib/wine/fakedlls/vdhcp.vxd
 lib/wine/fakedlls/vdmdbg.dll
 lib/wine/fakedlls/ver.dll16
 lib/wine/fakedlls/version.dll
+lib/wine/fakedlls/view.exe
 lib/wine/fakedlls/vmm.vxd
 lib/wine/fakedlls/vnbt.vxd
 lib/wine/fakedlls/vnetbios.vxd
@@ -1283,6 +1289,7 @@ lib/wine/fakedlls/wow32.dll
 lib/wine/fakedlls/write.exe
 lib/wine/fakedlls/ws2_32.dll
 lib/wine/fakedlls/wscript.exe
+lib/wine/fakedlls/wshom.ocx
 lib/wine/fakedlls/wsock32.dll
 lib/wine/fakedlls/wtsapi32.dll
 lib/wine/fakedlls/wuapi.dll
@@ -1294,6 +1301,7 @@ lib/wine/fakedlls/xinput1_2.dll
 lib/wine/fakedlls/xinput1_3.dll
 lib/wine/fakedlls/xinput9_1_0.dll
 lib/wine/fakedlls/xmllite.dll
+lib/wine/fakedlls/xolehlp.dll
 lib/wine/faultrep.dll.so
 lib/wine/fltlib.dll.so
 lib/wine/fusion.dll.so
@@ -1316,6 +1324,7 @@ lib/wine/httpapi.dll.so
 lib/wine/iccvid.dll.so
 lib/wine/icinfo.exe.so
 lib/wine/icmp.dll.so
+lib/wine/ieframe.dll.so
 lib/wine/iexplore.exe.so
 lib/wine/ifsmgr.vxd.so
 lib/wine/imaadp32.acm.so
@@ -1395,6 +1404,7 @@ lib/wine/libgdiplus.def
 lib/wine/libglu32.def
 lib/wine/libhid.def
 lib/wine/libhlink.def
+lib/wine/libieframe.def
 lib/wine/libimagehlp.def
 lib/wine/libimm32.def
 lib/wine/libinetcomm.def
@@ -1616,6 +1626,7 @@ lib/wine/pidgen.dll.so
 lib/wine/ping.exe.so
 lib/wine/plugplay.exe.so
 lib/wine/powrprof.dll.so
+lib/wine/presentationfontcache.exe.so
 lib/wine/printui.dll.so
 lib/wine/progman.exe.so
 lib/wine/propsys.dll.so
@@ -1632,6 +1643,7 @@ lib/wine/rasapi32.dll.so
 lib/wine/rasdlg.dll.so
 lib/wine/reg.exe.so
 lib/wine/regapi.dll.so
+lib/wine/regasm.exe.so
 lib/wine/regedit.exe.so
 lib/wine/regsvcs.exe.so
 lib/wine/regsvr32.exe.so
@@ -1714,6 +1726,7 @@ lib/wine/vdhcp.vxd.so
 lib/wine/vdmdbg.dll.so
 lib/wine/ver.dll16.so
 lib/wine/version.dll.so
+lib/wine/view.exe.so
 lib/wine/vmm.vxd.so
 lib/wine/vnbt.vxd.so
 lib/wine/vnetbios.vxd.so
@@ -1776,6 +1789,7 @@ lib/wine/wow32.dll.so
 lib/wine/write.exe.so
 lib/wine/ws2_32.dll.so
 lib/wine/wscript.exe.so
+lib/wine/wshom.ocx.so
 lib/wine/wsock32.dll.so
 lib/wine/wtsapi32.dll.so
 lib/wine/wuapi.dll.so
@@ -1787,63 +1801,14 @@ lib/wine/xinput1_2.dll.so
 lib/wine/xinput1_3.dll.so
 lib/wine/xinput9_1_0.dll.so
 lib/wine/xmllite.dll.so
+lib/wine/xolehlp.dll.so
 share/applications/wine.desktop
-%%DATADIR%%/generic.ppd
-%%DATADIR%%/l_intl.nls
-%%DATADIR%%/wine.inf
-%%DATADIR%%/fonts/coue1255.fon
-%%DATADIR%%/fonts/coue1256.fon
-%%DATADIR%%/fonts/coue1257.fon
-%%DATADIR%%/fonts/coure.fon
-%%DATADIR%%/fonts/couree.fon
-%%DATADIR%%/fonts/coureg.fon
-%%DATADIR%%/fonts/courer.fon
-%%DATADIR%%/fonts/couret.fon
-%%DATADIR%%/fonts/cvgasys.fon
-%%DATADIR%%/fonts/hvgasys.fon
-%%DATADIR%%/fonts/jsmalle.fon
-%%DATADIR%%/fonts/jvgasys.fon
-%%DATADIR%%/fonts/marlett.ttf
-%%DATADIR%%/fonts/smae1255.fon
-%%DATADIR%%/fonts/smae1256.fon
-%%DATADIR%%/fonts/smae1257.fon
-%%DATADIR%%/fonts/smalle.fon
-%%DATADIR%%/fonts/smallee.fon
-%%DATADIR%%/fonts/smalleg.fon
-%%DATADIR%%/fonts/smaller.fon
-%%DATADIR%%/fonts/smallet.fon
-%%DATADIR%%/fonts/ssee1255.fon
-%%DATADIR%%/fonts/ssee1256.fon
-%%DATADIR%%/fonts/ssee1257.fon
-%%DATADIR%%/fonts/ssee874.fon
-%%DATADIR%%/fonts/sserife.fon
-%%DATADIR%%/fonts/sserifee.fon
-%%DATADIR%%/fonts/sserifeg.fon
-%%DATADIR%%/fonts/sserifer.fon
-%%DATADIR%%/fonts/sserifet.fon
-%%DATADIR%%/fonts/svgasys.fon
-%%DATADIR%%/fonts/symbol.ttf
-%%DATADIR%%/fonts/tahoma.ttf
-%%DATADIR%%/fonts/tahomabd.ttf
-%%DATADIR%%/fonts/vgas1255.fon
-%%DATADIR%%/fonts/vgas1256.fon
-%%DATADIR%%/fonts/vgas1257.fon
-%%DATADIR%%/fonts/vgas874.fon
-%%DATADIR%%/fonts/vgasys.fon
-%%DATADIR%%/fonts/vgasyse.fon
-%%DATADIR%%/fonts/vgasysg.fon
-%%DATADIR%%/fonts/vgasysr.fon
-%%DATADIR%%/fonts/vgasyst.fon
 %%PORTDOCS%%%%DOCSDIR%%/ANNOUNCE
 %%PORTDOCS%%%%DOCSDIR%%/AUTHORS
 %%PORTDOCS%%%%DOCSDIR%%/README
 %%PORTDOCS%%%%DOCSDIR%%/README.winedbg
 %%PORTDOCS%%%%DOCSDIR%%/README.winedump
 %%PORTDOCS%%@dirrm %%DOCSDIR%%
-@dirrm %%DATADIR%%/fonts
-@dirrmtry %%DATADIR%%
-@dirrmtry %%DATADIR%%/aclocal
-@dirrmtry %%DATADIR%%
 @dirrmtry share/applications
 @dirrm lib/wine/fakedlls
 @dirrm lib/wine

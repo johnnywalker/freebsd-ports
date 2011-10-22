@@ -15,6 +15,9 @@ MASTER_SITES=	SF
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	ICQ2000 protocol implementation
 
+DEPRECATED=	Abandonware
+EXPIRATION_DATE=	2011-09-01
+
 LIB_DEPENDS=	gtkmm-1.2.2:${PORTSDIR}/x11-toolkits/gtkmm12 \
 		icq2000.5:${PORTSDIR}/net-im/libicq2000
 
@@ -25,7 +28,7 @@ USE_AUTOTOOLS=	libtool
 CONFIGURE_ARGS=	--with-sigc-prefix=${LOCALBASE} \
 		--with-gtkmm-prefix=${LOCALBASE} \
 		--with-gnome=no
-CONFIGURE_ENV=	CPPFLAGS="`${LOCALBASE}/bin/sigc-config --cflags`"
+CPPFLAGS+=	`${LOCALBASE}/bin/sigc-config --cflags`
 
 post-patch:
 	@${REINPLACE_CMD} -E -e 's|(gtkmm_config_args[[:space:]]*=).+$$|\1|' \

@@ -2,15 +2,15 @@ Index: webmagick.in
 ===================================================================
 RCS file: /cvsroot/webmagick/WebMagick/webmagick.in,v
 retrieving revision 1.117
-retrieving revision 1.167
-diff -u -r1.117 -r1.167
+retrieving revision 1.169
+diff -u -r1.117 -r1.169
 --- webmagick.in	23 Oct 2002 16:14:47 -0000	1.117
-+++ webmagick.in	25 Apr 2011 18:05:53 -0000	1.167
++++ webmagick.in	21 Sep 2011 05:54:43 -0000	1.169
 @@ -1,6 +1,6 @@
  #! @PERL@ 
  #
 -# $Id: webmagick.in,v 1.117 2002/10/23 16:14:47 clindell Exp $
-+# $Id: webmagick.in,v 1.167 2011/04/25 18:05:53 ache Exp $
++# $Id: webmagick.in,v 1.169 2011/09/21 05:54:43 ache Exp $
  #
  # You are looking at the main PERL script for WebMagick, a package to
  # intelligently create HTML and JavaScript index files and imagemaps
@@ -1330,7 +1330,7 @@ diff -u -r1.117 -r1.167
 +			if ($pic =~ /\.(jpg|jpeg?|gif|xbm|png|bmp|ico)$/i) {
 +			    print( PICHTML "<A HREF=\"$opt_pichtmllink\">")
 +				if ($opt_pichtmllink ne '');
-+			    print( PICHTML "<IMG SRC=\"", escapeurl($pic), "\" BORDER=0 ALT=\"${altlabel}\" TITLE=\"${altlabel}\">" );
++			    print( PICHTML "<IMG class='wm_pic' SRC=\"", escapeurl($pic), "\" BORDER=0 ALT=\"${altlabel}\" TITLE=\"${altlabel}\">" );
 +			    print( PICHTML "</A>")
 +				if ($opt_pichtmllink ne '');
  			} else {
@@ -1688,8 +1688,8 @@ diff -u -r1.117 -r1.167
 -    s/ /%20/g;          # " "
 -    s:\\:/:g; # replace \ with / for better URLs
 +    # RFC 2396
-+    # unreserved + some reserved (no query, allow path chars): "$+,/:;=@"
-+    s/([^0-9a-zA-Z_.!~*'()\$+,\/:;=\@-])/sprintf("%%%02x", ord($1))/eg;
++    # unreserved + some reserved (no query, allow path chars): "$+,/;=@"
++    s/([^0-9a-zA-Z_.!~*'()\$+,\/;=\@-])/sprintf("%%%02x", ord($1))/eg;
      return( $_ );
  }
  

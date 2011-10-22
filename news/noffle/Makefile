@@ -7,20 +7,21 @@
 
 PORTNAME=	noffle
 PORTVERSION=	1.1.5
+PORTREVISION=	1
 CATEGORIES=	news
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}%20%28devel%29/${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	News server for low speed dial-up connections
 
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm
 
 GNU_CONFIGURE=	yes
 
 CONFIGURE_ARGS+=--with-configfile=${LOCALBASE}/etc/noffle.conf \
 		--with-usersfile=${LOCALBASE}/etc/noffle.users
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 SPOOL_DIR=	/var/spool/noffle
 PLIST_SUB+=	SPOOL_DIR=${SPOOL_DIR}

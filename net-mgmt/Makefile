@@ -6,7 +6,6 @@
     SUBDIR += 2ping
     SUBDIR += TkTopNetFlows
     SUBDIR += aggregate
-    SUBDIR += aguri
     SUBDIR += aircrack-ng
     SUBDIR += airport
     SUBDIR += angst
@@ -37,7 +36,6 @@
     SUBDIR += cacti-spine
     SUBDIR += cdpd
     SUBDIR += cdpr
-    SUBDIR += cfgstoragemk
     SUBDIR += cflowd
     SUBDIR += check_logfiles
     SUBDIR += check_multi
@@ -51,6 +49,7 @@
     SUBDIR += ciscoconf
     SUBDIR += clog
     SUBDIR += collectd
+    SUBDIR += collectd5
     SUBDIR += confregdecode
     SUBDIR += coovachilli
     SUBDIR += cowpatty
@@ -127,6 +126,7 @@
     SUBDIR += nagios-check_ports
     SUBDIR += nagios-check_puppet
     SUBDIR += nagios-check_smartmon
+    SUBDIR += nagios-check_tftp
     SUBDIR += nagios-devel
     SUBDIR += nagios-geom
     SUBDIR += nagios-pf-plugin
@@ -189,6 +189,7 @@
     SUBDIR += p5-Cflow
     SUBDIR += p5-Cisco-Reconfig
     SUBDIR += p5-Data-Validate-IP
+    SUBDIR += p5-FusionInventory-Agent
     SUBDIR += p5-MRTG-Parse
     SUBDIR += p5-Mon
     SUBDIR += p5-NSNMP
@@ -221,6 +222,7 @@
     SUBDIR += p5-SNMP_Session
     SUBDIR += p5-Telnet-Cisco
     SUBDIR += p5-Tie-NetAddr-IP
+    SUBDIR += p5-Zenoss
     SUBDIR += packit
     SUBDIR += pads
     SUBDIR += pancho
@@ -281,7 +283,6 @@
     SUBDIR += tcptrack
     SUBDIR += tork
     SUBDIR += torrus
-    SUBDIR += trafd
     SUBDIR += vidalia
     SUBDIR += virt-viewer
     SUBDIR += virtinst

@@ -23,7 +23,6 @@ OPTIONS=	PHPMRSS "support to PHP" on
 GNU_CONFIGURE=	yes
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
 
 USE_LDCONFIG=	yes
 WANT_GNOME=	yes
@@ -39,7 +38,7 @@ USE_PHP_BUILD=	yes
 USE_AUTOTOOLS+=	autoconf:env
 post-install:
 		@(cd ${WRKSRC}/phpmrss; ${SETENV} ${SCRIPTS_ENV} ${LOCALBASE}/bin/phpize)
-		@(cd ${WRKSRC}/phpmrss; ./configure; ${MAKE} install)
+		@(cd ${WRKSRC}/phpmrss; ${SETENV} ${SCRIPTS_ENV} CC=${CC} ./configure; ${MAKE} install)
 PLIST_SUB+=	PHPMRSS=""
 .else
 PLIST_SUB+=	PHPMRSS="@comment "

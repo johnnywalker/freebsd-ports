@@ -6,11 +6,12 @@
 #
 
 PORTNAME=	mythes
-PORTVERSION=	2011.07.26
+PORTVERSION=	2011.09.18
 CATEGORIES=	german textproc
-MASTER_SITES=	http://www.openthesaurus.de/export/
-DISTNAME=	Deutscher-Thesaurus
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
+DISTNAME=	Deutscher-Thesaurus-${PORTVERSION:C/\.//g}
 EXTRACT_SUFX=	.oxt
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	German thesaurus

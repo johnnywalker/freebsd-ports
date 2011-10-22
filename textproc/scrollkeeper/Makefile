@@ -34,14 +34,14 @@ USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
 USE_BISON=	build
-USE_GNOME=	gnomehack gnomehier gnometarget libxslt intlhack
+USE_GNOME=	gnomehack gnomehier libxslt intlhack
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--localstatedir=/var --datadir=${PREFIX}/share \
 		--with-omfdirs=${PREFIX}/share/omf \
 		--with-xml-catalog=${LOCALBASE}/share/xml/catalog.ports
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib -lintl" \
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib -lintl" \
 		LOCALBASE="${LOCALBASE}"
+CPPFLAGS+=	-I${LOCALBASE}/include
 PLIST_SUB=	LOCALBASE=${LOCALBASE}
 
 MAN1=	scrollkeeper-config.1 scrollkeeper-gen-seriesid.1

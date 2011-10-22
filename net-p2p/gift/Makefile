@@ -15,6 +15,9 @@ DISTNAME=	${PORTNAME:L}-${PORTVERSION}
 MAINTAINER=	shoesoft@gmx.net
 COMMENT=	An OpenFT, Gnutella and FastTrack p2p network client
 
+DEPRECATED=	unmaintained upstream for several years
+EXPIRATION_DATE=	2011-09-30
+
 LIB_DEPENDS=	vorbis.4:${PORTSDIR}/audio/libvorbis
 
 USE_AUTOTOOLS=	libltdl libtool
@@ -24,8 +27,6 @@ USE_GMAKE=	yes
 USE_PERL5=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" \
-		LDFLAGS="${LDFLAGS}"
 USE_LDCONFIG=	yes
 USE_RC_SUBR=	giftd
 

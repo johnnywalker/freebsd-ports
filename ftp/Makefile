@@ -4,6 +4,7 @@
     COMMENT = FTP client and server utilities
 
     SUBDIR += IglooFTP
+    SUBDIR += R-cran-RCurl
     SUBDIR += atftp
     SUBDIR += axel
     SUBDIR += bareftp
@@ -36,7 +37,6 @@
     SUBDIR += gftp
     SUBDIR += gnusget
     SUBDIR += gnustep-ftp
-    SUBDIR += gproftpd
     SUBDIR += gwget
     SUBDIR += horde-gollem
     SUBDIR += hs-curl
@@ -54,7 +54,6 @@
     SUBDIR += llnlxftp
     SUBDIR += mget
     SUBDIR += mirror
-    SUBDIR += muddleftpd
     SUBDIR += multiget
     SUBDIR += ncftp1
     SUBDIR += ncftp2
@@ -70,6 +69,7 @@
     SUBDIR += p5-Net-FTPSSL
     SUBDIR += p5-Net-FTPServer
     SUBDIR += p5-POE-Component-Client-FTP
+    SUBDIR += p5-SOAP-Transport-FTP
     SUBDIR += paraget
     SUBDIR += pavuk
     SUBDIR += pear-Net_FTP

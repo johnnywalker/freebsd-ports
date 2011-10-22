@@ -21,13 +21,13 @@ LIB_DEPENDS=	polkit.2:${PORTSDIR}/sysutils/policykit
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 USE_GETTEXT=	yes
-USE_GNOME=	gnomehack gnometarget intlhack gnomedocutils gconf2
+USE_GNOME=	gnomehack intlhack gnomedocutils gconf2
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--disable-gtk-doc \
 		--localstatedir=/var
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 GCONF_SCHEMAS=	polkit-gnome.schemas
 

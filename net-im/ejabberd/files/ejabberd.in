@@ -1,5 +1,5 @@
 #! /bin/sh
-# $FreeBSD: ports/net-im/ejabberd/files/ejabberd.in,v 1.5 2010/03/27 00:14:13 dougb Exp $
+# $FreeBSD: ports/net-im/ejabberd/files/ejabberd.in,v 1.7 2011/09/19 15:52:30 ashish Exp $
 
 # PROVIDE: ejabberd
 # REQUIRE: DAEMON
@@ -15,6 +15,7 @@
 #
 ejabberd_enable=${ejabberd_enable-"NO"}
 ejabberd_node=${ejabberd_node-"ejabberd@localhost"}
+ejabberd_epmd_address=${ejabberd_epmd_address-"127.0.0.1"}
 
 . /etc/rc.subr
 
@@ -44,19 +45,19 @@ ejabberd_status()
 
 ejabberd_checkstatus()
 {
-    su $EJABBERDUSER -c "$EJABBERDCTL --node $ejabberd_node status > /dev/null"
+    su $EJABBERDUSER -c "env ERL_EPMD_ADDRESS=\"${ejabberd_epmd_address}\" $EJABBERDCTL --node $ejabberd_node status > /dev/null"
 }
 
 ejabberd_start()
 {
     echo "Starting $name."
-    su $EJABBERDUSER -c "$EJABBERDCTL --node $ejabberd_node start"
+    su $EJABBERDUSER -c "env ERL_EPMD_ADDRESS=\"${ejabberd_epmd_address}\" $EJABBERDCTL --node $ejabberd_node start"
 }
 
 ejabberd_stop()
 {
     echo "Stopping $name."
-    if su $EJABBERDUSER -c "$EJABBERDCTL --node $ejabberd_node stop"; then
+    if su $EJABBERDUSER -c "env ERL_EPMD_ADDRESS=\"${ejabberd_epmd_address}\" $EJABBERDCTL --node $ejabberd_node stop"; then
 #        sleep 2
 #        killall -u ejabberd -kill
     else
@@ -68,7 +69,7 @@ ejabberd_reload()
 {
     echo "Restarting $name."
     if ejabberd_checkstatus; then
-        su $EJABBERDUSER -c "$EJABBERDCTL --node $ejabberd_node restart"
+        su $EJABBERDUSER -c "env ERL_EPMD_ADDRESS=\"${ejabberd_epmd_address}\" $EJABBERDCTL --node $ejabberd_node restart"
     else
         ejabberd_start
     fi

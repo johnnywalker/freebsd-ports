@@ -6,7 +6,8 @@
 #
 
 PORTNAME=	mod_proctitle
-PORTVERSION=	0.3
+PORTVERSION=	0.4.1
+PORTREVISION=	0
 CATEGORIES=	www
 MASTER_SITES=	ftp://ftp.springdaemons.com/soft/
 PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
@@ -16,7 +17,7 @@ COMMENT=	Set httpd process titles to reflect currently processed request
 
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	2.0+
+USE_APACHE=	20+
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes
 CFLAGS+=	-I${LOCALBASE}/include
@@ -27,10 +28,6 @@ PLIST_FILES=	${APACHEMODDIR}/${PORTNAME}.so
 CFLAGS+=	-I${LOCALBASE}/include/apr-0
 .else
 CFLAGS+=	-I${LOCALBASE}/include/apr-1
-.endif
-
-.if ${OSVERSION} >= 900000
-BROKEN=		does not configure on 9.X
 .endif
 
 do-install:

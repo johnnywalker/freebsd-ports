@@ -34,13 +34,13 @@ RUN_DEPENDS=	\
 	p5-Try-Tiny>=0:${PORTSDIR}/lang/p5-Try-Tiny
 
 TEST_DEPENDS=	\
-	p5-Test-Exception=>0;${PORTSDIR}/devel/p5-Test-Exception	\
-	p5-Test-Simple=>0.94;${PORTSDIR}/devel/p5-Test-Simple	\
-	p5-Test-Warn=>0.21;${PORTSDIR}/devel/p5-Test-Warn	\
-	p5-DBI=>1.56;${PORTSDIR}/databases/p5-DBI	\
-	p5-DBD-SQLite=>1.29;${PORTSDIR}/databases/p5-DBD-SQLite	\
-	p5-File-Temp=>0.16;${PORTSDIR}/devel/p5-File-Temp	\
-	p5-File-Path=>2.07;${PORTSDIR}/devel/p5-File-Path
+	p5-Test-Exception>=0:${PORTSDIR}/devel/p5-Test-Exception	\
+	p5-Test-Simple>=0.94:${PORTSDIR}/devel/p5-Test-Simple	\
+	p5-Test-Warn>=0.21:${PORTSDIR}/devel/p5-Test-Warn	\
+	p5-DBI>=1.56:${PORTSDIR}/databases/p5-DBI	\
+	p5-DBD-SQLite>=1.29:${PORTSDIR}/databases/p5-DBD-SQLite	\
+	p5-File-Temp>=0.16:${PORTSDIR}/devel/p5-File-Temp	\
+	p5-File-Path>=2.07:${PORTSDIR}/devel/p5-File-Path
 
 OPTIONS=	SQLITE "SQLite Support" Off \
 		MYSQL "MySQL Support" Off \
@@ -62,7 +62,7 @@ USE_PGSQL=	yes
 RUN_DEPENDS+=	p5-DBD-Oracle>=0.19:${PORTSDIR}/databases/p5-DBD-Oracle
 .endif
 
-PERL_CONFIGURE=	5.8.0+
+PERL_CONFIGURE=	yes
 
 MAN1=	dbicdump.1
 MAN3=	DBIx::Class::Schema::Loader.3 \

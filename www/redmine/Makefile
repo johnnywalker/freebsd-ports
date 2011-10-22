@@ -7,21 +7,25 @@
 
 PORTNAME=	redmine
 PORTVERSION=	1.2.1
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_RUBYFORGE}
 MASTER_SITE_SUBDIR=	${PORTNAME}
 
-MAINTAINER=	decke@FreeBSD.org
+MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	A flexible project management web application
 
 RUN_DEPENDS=	rackup:${PORTSDIR}/www/rubygem-rack \
 		rubygem-i18n>=0.4.2:${PORTSDIR}/devel/rubygem-i18n
 
+RUBY_VER=	1.8
 USE_RUBY=	yes
 USE_RUBY_FEATURES=	iconv
 USE_RAKE=	yes
 NO_BUILD=	yes
 SUB_LIST+=	RUBY_NAME=${RUBY_NAME}
+
+BROKEN=		Does not work with RubyGems 1.8
 
 OPTIONS=	MYSQL "Enable MySQL support" on \
 		POSTGRESQL "Enable PostgreSQL support" off \
@@ -36,7 +40,7 @@ RUN_DEPENDS+=	${RUBY_SITEARCHLIBDIR}/mysql.so:${PORTSDIR}/databases/ruby-mysql
 .endif
 
 .if defined(WITH_POSTGRESQL)
-RUN_DEPENDS+=	${RUBY_SITEARCHLIBDIR}/pg.so:${PORTSDIR}/databases/ruby-pg
+RUN_DEPENDS+=	rubygem-pg>=0:${PORTSDIR}/databases/rubygem-pg
 .endif
 
 .if defined(WITH_RMAGIC)

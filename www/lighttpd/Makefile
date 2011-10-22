@@ -7,6 +7,7 @@
 
 PORTNAME?=	lighttpd
 PORTVERSION=	1.4.29
+PORTREVISION=	2
 CATEGORIES?=	www
 MASTER_SITES?=	http://download.lighttpd.net/lighttpd/releases-1.4.x/
 
@@ -25,18 +26,16 @@ USE_BZIP2=	yes
 GNU_CONFIGURE=	yes
 USE_GNOME=	lthack
 
-.if !defined(_BUILDING_LIGHTTPD_MODULE)
-USE_AUTOTOOLS=	libtool
-.else
+#.if !defined(_BUILDING_LIGHTTPD_MODULE)
+#USE_AUTOTOOLS=	libtool
+#.else
 USE_AUTOTOOLS=	autoconf autoheader aclocal automake libtool
 ACLOCAL_ARGS=	-I m4
-.endif
+#.endif
 CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib/lighttpd --enable-static
 
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-
-CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}"
 
 .if !defined(_BUILDING_LIGHTTPD_MODULE)
 USE_RC_SUBR=	lighttpd.sh
@@ -129,7 +128,7 @@ CONFIGURE_ARGS+=	--disable-ipv6
 
 .if defined(WITH_LIBEV)
 CONFIGURE_ARGS+=	--with-libev=${LOCALBASE}
-LIB_DEPENDS+=		ev.3:${PORTSDIR}/devel/libev
+LIB_DEPENDS+=		ev.4:${PORTSDIR}/devel/libev
 .endif
 
 .if defined(WITH_MAGNET)
@@ -243,6 +242,14 @@ post-install:
 	@${INSTALL_DATA} ${FILESDIR}/${FILE} ${DOCSDIR}/${FILE}
 . endfor
 .endif
+
+test: build
+	@cd ${WRKSRC}/tests && ${SETENV} ${MAKE_ENV} ${MAKE} \
+		${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} \
+		check-TESTS
+
+regression-test: test
+
 .endif # !defined(_BUILDING_LIGHTTPD_MODULE)
 
 .include <bsd.port.post.mk>

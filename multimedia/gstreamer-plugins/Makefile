@@ -8,7 +8,7 @@
 
 PORTNAME=	gstreamer
 PORTVERSION?=	${BASE_PORTVERSION}
-PORTREVISION?=	0
+PORTREVISION?=	1
 PORTEPOCH=	3
 CATEGORIES?=	multimedia audio
 MASTER_SITES=	http://gstreamer.freedesktop.org/src/gst-plugins-base/:base \
@@ -20,7 +20,7 @@ PKGNAMESUFFIX?=	-plugins${GST_PLUGIN_SUFFIX}
 MAINTAINER=	multimedia@FreeBSD.org
 COMMENT?=	GStreamer written collection of plugins handling several media types
 
-BUILD_DEPENDS+=	v4l_compat>=1.0.20100321:${PORTSDIR}/multimedia/v4l_compat \
+BUILD_DEPENDS+=	v4l_compat>=1.0.20110720:${PORTSDIR}/multimedia/v4l_compat \
 		gstreamer>=0.10.34:${PORTSDIR}/multimedia/gstreamer \
 		orc>=0.4.14:${PORTSDIR}/devel/orc
 LIB_DEPENDS+=	gstreamer-0.10.0:${PORTSDIR}/multimedia/gstreamer \
@@ -48,14 +48,14 @@ VERSION=	${GST_VERSION}
 WANT_GSTREAMER=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-USE_GNOME+=	gnomehack gnometarget pkgconfig ltverhack ltasneededhack
+USE_GNOME+=	gnomehack pkgconfig ltverhack ltasneededhack
 USE_AUTOTOOLS=	libtool
 GST_PLUGIN?=	base
 
 CONFIGURE_ARGS=	--disable-option-checking
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-CONFIGURE_ENV=	CFLAGS="${CFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib ${EXTRA_LIBS} ${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${EXTRA_LIBS} ${PTHREAD_LIBS}
+CFLAGS+=	-I${LOCALBASE}/include
 
 DEFAULT_AUDIOSINK?=	osssink
 DEFAULT_AUDIOSRC?=	osssrc
@@ -127,7 +127,7 @@ DEFAULT_DVD_DEVICE=/dev/acd0
 
 post-patch:
 .if ${DIST}=="bad"
-	@${REINPLACE_CMD} -e 's|opencv <= 2.2.0|opencv <= 2.3.0|g' \
+	@${REINPLACE_CMD} -e 's|opencv <= 2.2.0|opencv <= 2.3.9|g' \
 	${WRKSRC}/configure
 .endif
 	@${FIND} ${WRKSRC}/ext -name Makefile.in | \

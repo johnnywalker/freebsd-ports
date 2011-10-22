@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	rrd
-DISTVERSION=	1.0.2
+DISTVERSION=	1.0.4
 CATEGORIES=	databases pear
 MASTER_SITES=	http://pecl.php.net/get/
 PKGNAMEPREFIX=	pecl-
@@ -18,7 +18,7 @@ COMMENT=	PHP bindings to rrd tool system
 
 LIB_DEPENDS=	rrd:${PORTSDIR}/databases/rrdtool
 
-CONFIGURE_ENV+=	LDFLAGS="-L${LOCALBASE}/lib"
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 LICENSE=	PHP301
 

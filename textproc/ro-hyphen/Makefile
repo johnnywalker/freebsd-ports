@@ -12,6 +12,7 @@ CATEGORIES=	textproc
 MASTER_SITES=	SF/rospell/Romanian%20dictionaries/dict-${PORTVERSION}/
 PKGNAMEPREFIX=	ro-
 DISTNAME=	hyph_ro_RO.${PORTVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Romanian hyphenation rules
@@ -21,12 +22,13 @@ LICENSE_COMB=	dual
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	%%DATADIR%%/hyph_ro_RO.dic
 PLIST_DIRSTRY=	%%DATADIR%%
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKDIR}/hyph_ro_RO.dic ${DATADIR}/
+	${INSTALL_DATA} ${WRKSRC}/hyph_ro_RO.dic ${DATADIR}/
 
 .include <bsd.port.mk>

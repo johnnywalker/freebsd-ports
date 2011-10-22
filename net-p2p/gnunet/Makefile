@@ -8,7 +8,7 @@
 
 PORTNAME=	gnunet
 PORTVERSION=	0.8.1b
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	net-p2p ipv6
 MASTER_SITES=	GNU \
 		http://gnunet.org/download/
@@ -20,7 +20,7 @@ COMMENT=	An anonymous, distributed, reputation-based network
 LIB_DEPENDS=	adns.1:${PORTSDIR}/dns/adns \
 		cares.2:${PORTSDIR}/dns/c-ares \
 		curl.6:${PORTSDIR}/ftp/curl \
-		guile.20:${PORTSDIR}/lang/guile \
+		guile.21:${PORTSDIR}/lang/guile \
 		esmtp.6:${PORTSDIR}/mail/libesmtp \
 		gmp.10:${PORTSDIR}/math/gmp \
 		gcrypt.18:${PORTSDIR}/security/libgcrypt \
@@ -37,7 +37,6 @@ USE_GNOME=	gnomehack libglade2
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libltdl libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--with-dialog=no \
 		--with-cdialog=no \
 		--with-qt=no \
@@ -55,8 +54,8 @@ MAN1=		gnunet-auto-share.1 gnunet-chat.1 gnunet-directory.1 \
 		gnunet-update.1 gnunet-vpn.1 gnunetd.1
 MAN5=		gnunet.conf.5 gnunetd.conf.5
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 DBDIR=		/var/db/${PORTNAME}
 

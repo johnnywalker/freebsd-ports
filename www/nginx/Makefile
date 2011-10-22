@@ -6,9 +6,11 @@
 #
 
 PORTNAME=	nginx
-PORTVERSION=	1.0.5
+PORTVERSION=	1.0.6
+PORTREVISION=	1
+PORTEPOCH=	1
 CATEGORIES=	www
-MASTER_SITES=	http://sysoev.ru/nginx/
+MASTER_SITES=	http://nginx.org/download/
 MASTER_SITES+=	${MASTER_SITE_LOCAL}
 MASTER_SITE_SUBDIR=	osa
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
@@ -310,7 +312,7 @@ CONFIGURE_ARGS+=--with-http_realip_module
 .endif
 
 .if defined(WITH_HTTP_REDIS_MODULE)
-NGINX_REDIS_MODULE_VERSION=	0.3.3
+NGINX_REDIS_MODULE_VERSION=	0.3.4
 MASTER_SITES+=	${MASTER_SITE_LOCAL:S/$/:redis/}
 MASTER_SITE_SUBDIR+=	osa/:redis
 DISTFILES+=	ngx_http_redis-${NGINX_REDIS_MODULE_VERSION}.tar.gz:redis
@@ -436,8 +438,8 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/mdirolf-nginx-gridfs-${GIT_GRIDFS_MODULE_
 BROKEN=		for lua module build devel_kit also should be defined
 .endif
 USE_LUA=	5.1+
-NGINX_LUA_MODULE_VERSION=	0.2.0
-GIT_LUA_MODULE_VERSION=	0-g8e7d37e
+NGINX_LUA_MODULE_VERSION=	0.3.0
+GIT_LUA_MODULE_VERSION=	0-gdd0d4d0
 FETCH_ARGS=	-pRr
 MASTER_SITES+=	https://github.com/chaoslawful/lua-nginx-module/tarball/v${NGINX_LUA_MODULE_VERSION}/:lua
 DISTFILES+=	chaoslawful-lua-nginx-module-v${NGINX_LUA_MODULE_VERSION}-${GIT_LUA_MODULE_VERSION}.tar.gz:lua
@@ -464,7 +466,7 @@ CONFIGURE_ARGS+=--with-pcre
 .endif
 
 .if defined(WITH_PASSENGER_MODULE)
-PASSENGER_VERSION=	3.0.7
+PASSENGER_VERSION=	3.0.9
 MASTER_SITES+=	RF/passenger/:passenger
 DISTFILES+=	passenger-${PASSENGER_VERSION}.tar.gz:passenger
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/passenger-${PASSENGER_VERSION}/ext/nginx
@@ -629,7 +631,8 @@ post-patch:
 		${WRKDIR}/passenger-${PASSENGER_VERSION}/build/config.rb
 	@${REINPLACE_CMD} \
 		's!-I/usr/include/libev!!; \
-		s!-lev!!' \
+		s!-lev!!; \
+		s!-Iext/libev!!' \
 		${WRKDIR}/passenger-${PASSENGER_VERSION}/build/common_library.rb
 	@${REINPLACE_CMD} 's!-lpthread!${PTHREAD_LIBS}!g' \
 		${WRKDIR}/passenger-${PASSENGER_VERSION}/lib/phusion_passenger/platform_info/compiler.rb

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	freeciv
-PORTVERSION=	2.2.7
+PORTVERSION=	2.3.0
 CATEGORIES=	games
 MASTER_SITES=	SF/freeciv/Freeciv%20${PORTVERSION:R}/${PORTVERSION}
 
@@ -20,8 +20,7 @@ USE_GMAKE=	yes
 USE_BZIP2=	yes
 USE_PYTHON=	yes
 GNU_CONFIGURE=	yes
-LDFLAGS=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-libiconv-prefix=${PREFIX} --program-transform-name=
 INSTALLS_ICONS=	yes
 

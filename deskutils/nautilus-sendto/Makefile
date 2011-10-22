@@ -19,12 +19,12 @@ GLIB_SCHEMAS=	org.gnome.Nautilus.Sendto.gschema.xml
 USE_BZIP2=	yes
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
-USE_GNOME=	intlhack gnomeprefix gnometarget nautilus2 gnomehack \
+USE_GNOME=	intlhack gnomeprefix nautilus2 gnomehack \
 		evolutiondataserver
 GNOME_DESKTOP_VERSION=2
 USE_GETTEXT=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-plugins="${SENDTO_PLUGINS}"
 
 OPTIONS=	PIDGIN	"Build pidgin sendto plugin" off \

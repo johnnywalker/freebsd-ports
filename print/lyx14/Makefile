@@ -19,6 +19,9 @@ MASTER_SITES=	ftp://ftp.lyx.org/pub/lyx/stable/1.4.x/ \
 MAINTAINER=	mi@aldan.algebra.com
 COMMENT=	Document processor interfaced with LaTeX (nearly WYSIWYG)
 
+DEPRECATED=	last release in 2007, use print/lyx16 or print/lyx instead
+EXPIRATION_DATE=	2011-10-05
+
 BUILD_DEPENDS=	latex:${PORTSDIR}/print/teTeX
 RUN_DEPENDS=	latex:${PORTSDIR}/print/teTeX
 LIB_DEPENDS=	boost_regex:${PORTSDIR}/devel/boost-libs
@@ -29,7 +32,7 @@ OPTIONS=	QT	"Use Qt (instead of XForms)"	${QT_PRESENT}	\
 		ISPELL	"Depend on ISPELL as well"	off
 ALL_TARGET=	all check
 USE_BZIP2=	yes
-USE_GNOME=	gnometarget lthack
+USE_GNOME=	lthack
 USE_PERL5=	yes
 USE_PYTHON=	yes
 USE_GETTEXT=	yes
@@ -87,9 +90,10 @@ CONFIGURE_ARGS+=--without-aiksaurus
 LIB_DEPENDS+=	qt-mt:${PORTSDIR}/x11-toolkits/qt33
 CONFIGURE_ARGS+=	--with-frontend=qt
 CFLAGS+=	${PTHREAD_CFLAGS}
-CONFIGURE_ENV+=	LDFLAGS=${PTHREAD_LIBS}
+LDFLAGS+=	${PTHREAD_LIBS}
 RUN_DEPENDS+=	${LOCALBASE}/lib/X11/fonts/texcm-ttf/cmex10.ttf:${PORTSDIR}/x11-fonts/texcm-ttf
 .else
+BROKEN=		Does not work with the latest xforms version
 LIB_DEPENDS+=	forms:${PORTSDIR}/x11-toolkits/xforms
 CONFIGURE_ARGS+=--with-frontend=xforms
 USE_XORG=	x11

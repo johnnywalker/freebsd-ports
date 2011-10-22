@@ -20,11 +20,11 @@ LIB_DEPENDS=	gnomecanvasmm-2.6.1:${PORTSDIR}/graphics/libgnomecanvasmm26 \
 		glademm-2.4.1:${PORTSDIR}/devel/libglademm24
 
 USE_BZIP2=	yes
-USE_GNOME=	gnomeprefix gnomehack gnometarget intlhack libgnome esound
+USE_GNOME=	gnomeprefix gnomehack intlhack libgnome esound
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib -lesd"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib -lesd
 
 GCONF_SCHEMAS=	monster-masher.schemas
 

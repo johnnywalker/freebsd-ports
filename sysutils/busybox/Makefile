@@ -6,10 +6,21 @@
 #
 
 PORTNAME=	busybox
-PORTVERSION=	1.18.5
+PORTVERSION=	1.19.2
 PORTREVISION=	1
 CATEGORIES=	sysutils misc shells
 MASTER_SITES=	http://www.busybox.net/downloads/
+
+PATCH_SITES=	http://www.busybox.net/downloads/fixes-${PORTVERSION}/
+PATCHFILES=	\
+		busybox-1.19.2-buildsys.patch \
+		busybox-1.19.2-chpasswd.patch \
+		busybox-1.19.2-crond.patch \
+		busybox-1.19.2-inetd.patch \
+		busybox-1.19.2-syslogd.patch \
+		busybox-1.19.2-tail.patch \
+
+PATCH_DIST_STRIP=	-p1
 
 MAINTAINER=	mandree@FreeBSD.org
 COMMENT=	Busybox for FreeBSD
@@ -22,8 +33,8 @@ MAKE_JOBS_SAFE=	yes
 MAKE_ARGS+=	SKIP_STRIP=y
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-CPPFLAGS+=	-include libgen.h
-# avoid clang, breaks in findutils/find.c l. 752+:
+# avoid clang, breaks in findutils/find.c l. 752+,
+# uses a GCC extension/invalid C code:
 USE_GCC=	4.2+
 
 PLIST_FILES=	bin/busybox
@@ -34,8 +45,8 @@ PORTDOCS=		*
 .endif
 
 post-patch:
-	@${REINPLACE_CMD} -e 's/sed/gsed/' ${WRKSRC}/scripts/gen_build_files.sh
-	@${REINPLACE_CMD} -e 's/<malloc.h>/<stdlib.h>/' \
+	${REINPLACE_CMD} -e 's/sed/gsed/' ${WRKSRC}/scripts/gen_build_files.sh
+	${REINPLACE_CMD} -e 's/<malloc.h>/<stdlib.h>/' \
 		${WRKSRC}/libbb/appletlib.c \
 		${WRKSRC}/shell/hush.c
 

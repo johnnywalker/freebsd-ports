@@ -4,7 +4,7 @@
 # Date created:		12 Nov 2005
 # Whom:			Michael Johnson <ahze@FreeBSD.org>
 #
-# $FreeBSD: ports/Mk/bsd.gecko.mk,v 1.30 2011/06/30 18:19:47 flo Exp $
+# $FreeBSD: ports/Mk/bsd.gecko.mk,v 1.38 2011/08/20 00:09:08 flo Exp $
 #
 # 4 column tabs prevent hair loss and tooth decay!
 
@@ -14,7 +14,7 @@
 # WITH_GECKO=	libxul
 #
 # The valid backends are:
-# libxul seamonkey
+# libxul
 #
 # See below for more details.
 # ======================= /USERS ================================
@@ -36,8 +36,9 @@ Gecko_Pre_Include=			bsd.gecko.mk
 
 # Users should use the following syntax:
 #
-# WITH_GECKO= libxul seamonkey
-#  Use libxul whenever a port supports it, falling back on seamonkey.
+# WITH_GECKO= libxul libxul-devel
+#  Use libxul whenever a port supports it, falling back on libxul-devel.
+#  Note: libxul-devel does not exist at the moment!
 # WITH_GECKO= libxul
 #  Sets your preferred backend. With this example, libxul will always
 #  be chosen, unless the port doesn't support a libxul backend. In that
@@ -47,19 +48,21 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #
 # Ports should use the following:
 #
-# USE_GECKO= libxul seamonkey
+# USE_GECKO= libxul libxul-devel
 #  The list of gecko backends that the port supports. Unless the user
 #  overrides it with WITH_GECKO, the first gecko listed in USE_GECKO
 #  will be the default. In the above example, www/libxul will be used
-#  as a gecko backend unless WITH_GECKO=seamonkey is defined by the user.
+#  as a gecko backend unless WITH_GECKO=libxul-devel is defined by the
+#  user. Note: libxul-devel does not exist at the moment!
 #
 # USE_GECKO= libxul-devel<->libxul
 #  This will sed -e 's/libxul/libxul-devel/' on Makefile.in's and configure 
 #  if ${GECKO}=="libxul-devel"
 #
 #  Example:
-#  USE_GECKO= libxul seamonkey
-#  
+#  USE_GECKO= libxul libxul-devel
+#  Note: libxul-devel does not exist at the moment!
+# 
 #  post-patch:
 #	@${REINPALCE_CMD} -e 's|mozilla-|${GECKO}-|' \
 #		${MOZSRC}/configure
@@ -68,15 +71,16 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #  has been chosen.
 #
 #  Example:
-#  USE_GECKO= libxul seamonkey
+#  USE_GECKO= libxul libxul-devel
+#  Note: libxul-devel does not exist at the moment!
 #  
 #  post-patch:
-#  .if ${GECKO}=="seamonkey"
-#	@${REINPLACE_CMD} -e 's|mozilla-|seamonkey-|' \
+#  .if ${GECKO}=="libxul-devel"
+#	@${REINPLACE_CMD} -e 's|mozilla-|libxul-|' \
 #		${MOZSRC}/configure
 #  .endif
 
-_GECKO_ALL=	seamonkey libxul
+_GECKO_ALL=	libxul
 
 libxul_PLIST=		${LOCALBASE}/lib/libxul/libxul.so
 
@@ -177,9 +181,9 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #                         is given by the maintainer via the port or by the
 #                         user via defined variable try to find the highest
 #                         stable installed version.
-#                         Available values: yes 50+ 36+ 35+ 50 36 35
+#                         Available values: yes 60+ 36+ 60 36
 #                         NOTE:
-#                         default value 50 is used in case of USE_FIREFOX=yes
+#                         default value 60 is used in case of USE_FIREFOX=yes
 #
 # USE_FIREFOX_BUILD       Add buildtime dependency on Firefox.
 #                         Available values: see USE_FIREFOX
@@ -188,9 +192,9 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #                         version is given by the maintainer via the port 
 #                         or by the user via defined variable try to find
 #                         the highest stable installed version.
-#                         Available values: yes 11+ 20+ 11 20
+#                         Available values: yes 23+ 20+ 23 20
 #                         NOTE:
-#                         default value 20 is used in case of USE_SEAMONKEY=yes
+#                         default value 23 is used in case of USE_SEAMONKEY=yes
 #
 # USE_SEAMONKEY_BUILD     Add buildtime dependency on SeaMonkey.
 #                         Available values: see USE_SEAMONKEY
@@ -199,9 +203,9 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #                         version is given by the maintainer via the port 
 #                         or by the user via defined variable try to find 
 #                         the highest stable installed version.
-#                         Available values: yes 50+ 31+ 50 31
+#                         Available values: yes 60+ 31+ 60 31
 #                         NOTE:
-#                         default value 50 is used in case of USE_THUNDERBIRD=yes
+#                         default value 60 is used in case of USE_THUNDERBIRD=yes
 #
 # USE_THUNDERBIRD_BUILD   Add buildtime dependency on Thunderbird.
 #                         Available values: see USE_THUNDERBIRD
@@ -218,14 +222,13 @@ USE_FIREFOX:=				${USE_FIREFOX_BUILD}
 _FIREFOX_BUILD_DEPENDS=		yes
 .endif
 
-_FIREFOX_DEFAULT_VERSION=	50
-_FIREFOX_VERSIONS=			50 36 35
-_FIREFOX_RANGE_VERSIONS=	50+ 36+ 35+
+_FIREFOX_DEFAULT_VERSION=	60
+_FIREFOX_VERSIONS=			60 36
+_FIREFOX_RANGE_VERSIONS=	60+ 36+
 
-# For specifying [36, 35, ..]+
-_FIREFOX_35P=	35 ${_FIREFOX_36P}
-_FIREFOX_36P=	36 ${_FIREFOX_50P}
-_FIREFOX_50P=	50
+# For specifying [36, ..]+
+_FIREFOX_36P=	36 ${_FIREFOX_60P}
+_FIREFOX_60P=	60
 
 # Set the default Firefox version and check if USE_FIREFOX=yes was given
 .if ${USE_FIREFOX} == "yes"
@@ -233,10 +236,10 @@ USE_FIREFOX=	${_FIREFOX_DEFAULT_VERSION}
 .endif
 
 # Setting/finding Firefox version we want.
-.if exists(${LOCALBASE}/bin/firefox3)
-_FIREFOX_VER!=	${LOCALBASE}/bin/firefox3 --version | ${SED} -e 's/Mozilla Firefox \([0-9]\)\.\([0-9]*\).*/\1\2/'
-.elif exists(${LOCALBASE}/bin/firefox)
-_FIREFOX_VER!=	${LOCALBASE}/bin/firefox --version | ${SED} -e 's/Mozilla Firefox \([0-9]\)\.\([0-9]*\).*/\1\2/'
+.if exists(${LOCALBASE}/bin/firefox)
+_FIREFOX_VER!=	${LOCALBASE}/bin/firefox --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/Mozilla Firefox \([0-9]\)\.\([0-9]*\).*/\1\2/'
+.elif exists(${LOCALBASE}/bin/firefox3)
+_FIREFOX_VER!=	${LOCALBASE}/bin/firefox3 --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/Mozilla Firefox \([0-9]\)\.\([0-9]*\).*/\1\2/'
 .endif
 
 # Check if installed Firefox version matches the wanted one
@@ -269,9 +272,8 @@ IGNORE=			cannot install: unknown Firefox version: firefox-${USE_FIREFOX:C/([0-9
 .endif
 
 # Dependence lines for different Firefox versions
-50_DEPENDS=		${LOCALBASE}/lib/firefox/firefox:${PORTSDIR}/www/firefox
+60_DEPENDS=		${LOCALBASE}/lib/firefox/firefox:${PORTSDIR}/www/firefox
 36_DEPENDS=		${LOCALBASE}/lib/firefox3/firefox:${PORTSDIR}/www/firefox36
-35_DEPENDS=		${LOCALBASE}/lib/firefox3/firefox:${PORTSDIR}/www/firefox35
 
 # Add dependencies
 .if defined(USE_FIREFOX)
@@ -293,12 +295,12 @@ USE_SEAMONKEY:=				${USE_SEAMONKEY_BUILD}
 _SEAMONKEY_BUILD_DEPENDS=	yes
 .endif
 
-_SEAMONKEY_DEFAULT_VERSION=	20
-_SEAMONKEY_VERSIONS=		11 20
-_SEAMONKEY_RANGE_VERSIONS=	11+ 20+
+_SEAMONKEY_DEFAULT_VERSION=	23
+_SEAMONKEY_VERSIONS=		23 20
+_SEAMONKEY_RANGE_VERSIONS=	23+ 20+
 
-# For specifying [20, 11, ..]+
-_SEAMONKEY_11P=	11 ${_SEAMONKEY_20P}
+# For specifying [23, 20, ..]+
+_SEAMONKEY_23P=	23 ${_SEAMONKEY_20P}
 _SEAMONKEY_20P=	20
 
 # Set the default SeaMonkey version and check if USE_SEAMONKEY=yes was given
@@ -308,7 +310,9 @@ USE_SEAMONKEY=	${_SEAMONKEY_DEFAULT_VERSION}
 
 # Setting/finding SeaMonkey version we want.
 .if exists(${LOCALBASE}/bin/seamonkey)
-_SEAMONKEY_VER!=	${LOCALBASE}/bin/seamonkey --version | ${SED} -e 's/Mozilla SeaMonkey \([0-9]\)\.\([0-9]*\).*/\1\2/'
+_SEAMONKEY_VER!=	${LOCALBASE}/bin/seamonkey --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/Mozilla SeaMonkey \([0-9]\)\.\([0-9]*\).*/\1\2/'
+.elif exists(${LOCALBASE}/bin/seamonkey2)
+_SEAMONKEY_VER!=	${LOCALBASE}/bin/seamonkey2 --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/Mozilla SeaMonkey \([0-9]\)\.\([0-9]*\).*/\1\2/'
 .endif
 
 # Check if installed SeaMonkey version matches the wanted one
@@ -341,8 +345,8 @@ IGNORE=			cannot install: unknown SeaMonkey version: seamonkey-${USE_SEAMONKEY:C
 .endif
 
 # Dependence lines for different SeaMonkey versions
-11_DEPENDS=		${LOCALBASE}/lib/seamonkey/seamonkey-bin:${PORTSDIR}/www/seamonkey
-20_DEPENDS=		${LOCALBASE}/lib/seamonkey/seamonkey:${PORTSDIR}/www/seamonkey2
+23_DEPENDS=		${LOCALBASE}/lib/seamonkey/seamonkey:${PORTSDIR}/www/seamonkey
+20_DEPENDS=		${LOCALBASE}/lib/seamonkey2/seamonkey:${PORTSDIR}/www/seamonkey2
 
 # Add dependencies
 .if defined(USE_SEAMONKEY)
@@ -364,13 +368,13 @@ USE_THUNDERBIRD:=			${USE_THUNDERBIRD_BUILD}
 _THUNDERBIRD_BUILD_DEPENDS=		yes
 .endif
 
-_THUNDERBIRD_DEFAULT_VERSION=	50
-_THUNDERBIRD_VERSIONS=			50 31
-_THUNDERBIRD_RANGE_VERSIONS=	50+ 31+
+_THUNDERBIRD_DEFAULT_VERSION=	60
+_THUNDERBIRD_VERSIONS=			60 31
+_THUNDERBIRD_RANGE_VERSIONS=	60+ 31+
 
 # For specifying [31, 30, ..]+
 _THUNDERBIRD_31P=	31 ${_THUNDERBIRD_31P}
-_THUNDERBIRD_50P=	50
+_THUNDERBIRD_60P=	60
 
 # Set the default Thunderbird version and check if USE_THUNDERBIRD=yes was given
 .if ${USE_THUNDERBIRD} == "yes"
@@ -379,7 +383,9 @@ USE_THUNDERBIRD=	${_THUNDERBIRD_DEFAULT_VERSION}
 
 # Setting/finding Thunderbird version we want.
 .if exists(${LOCALBASE}/bin/thunderbird)
-_THUNDERBIRD_VER!=	${LOCALBASE}/bin/thunderbird --version | ${SED} -e 's/ Thunderbird \([0-9]\)\.\([0-9]*\).*/\1\2/'
+_THUNDERBIRD_VER!=	${LOCALBASE}/bin/thunderbird --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/ Thunderbird \([0-9]\)\.\([0-9]*\).*/\1\2/'
+.elif exists(${LOCALBASE}/bin/thunderbird3)
+_THUNDERBIRD_VER!=	${LOCALBASE}/bin/thunderbird3 --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/ Thunderbird \([0-9]\)\.\([0-9]*\).*/\1\2/'
 .endif
 
 # Check if installed Thunderbird version matches the wanted one
@@ -412,8 +418,8 @@ IGNORE=			cannot install: unknown Thunderbird version: thunderbird-${USE_THUNDER
 .endif
 
 # Dependence lines for different Thunderbird versions
-50_DEPENDS=		${LOCALBASE}/lib/thunderbird/thunderbird:${PORTSDIR}/mail/thunderbird
-31_DEPENDS=		${LOCALBASE}/lib/thunderbird/thunderbird:${PORTSDIR}/mail/thunderbird3
+60_DEPENDS=		${LOCALBASE}/lib/thunderbird/thunderbird:${PORTSDIR}/mail/thunderbird
+31_DEPENDS=		${LOCALBASE}/lib/thunderbird3/thunderbird:${PORTSDIR}/mail/thunderbird3
 
 # Add dependencies
 .if defined(USE_THUNDERBIRD)
@@ -528,7 +534,6 @@ GENERIC_MOZCONFIG?=	${.CURDIR}/../../www/seamonkey/files/mozconfig-generic.in
 PORT_MOZCONFIG?=	${FILESDIR}/mozconfig.in
 MOZCONFIG?=		${WRKSRC}/.mozconfig
 MOZILLA_PLIST_DIRS?=	bin include lib share/idl
-GECKO_PTHREAD_LIBS!=${CC} -dumpspecs | ${GREP} -m 1 pthread: | ${SED} -e 's|^.*%{\!pg: %{pthread:|| ; s|}.*$$||' || ${TRUE}
 PKGINSTALL?=	${WRKDIR}/pkg-install
 PKGDEINSTALL?=	${WRKDIR}/pkg-deinstall
 MASTER_MOZDIR?=	${PORTSDIR}/www/seamonkey
@@ -845,11 +850,10 @@ gecko-pre-install:
 .endfor
 	@${REINPLACE_CMD} -e 's|${MOZILLA}-bin|${MOZILLA:S/${MOZILLA_SUFX}//}|; \
 		s|$${progbase}-bin|${MOZILLA:S/${MOZILLA_SUFX}//}-bin|' \
-		${FAKEDIR}/bin/${MOZILLA_EXEC_NAME}*
+		-i '' $$(${REALPATH} ${FAKEDIR}/bin/${MOZILLA_EXEC_NAME}*)
 .endif
 	@${REINPLACE_CMD} -e 's|${FAKEDIR}|${PREFIX}|g' \
-		${FAKEDIR}/bin/${MOZILLA_EXEC_NAME}*
-	${RM} -f ${FAKEDIR}/bin/*.bak
+		-i '' $$(${REALPATH} ${FAKEDIR}/bin/${MOZILLA_EXEC_NAME}*)
 .endif
 
 gecko-create-plist:
@@ -865,7 +869,7 @@ gecko-create-plist:
 	${MV} -f ${FAKEDIR}/lib/pkgconfig ${FAKEDIR}/libdata/ || ${TRUE}
 	${RM} -f ${FAKEDIR}/lib/pkgconfig
 .for dir in ${MOZILLA_PLIST_DIRS}
-	@cd ${FAKEDIR}/${dir} && ${FIND} -H -s * -type f | \
+	@cd ${FAKEDIR}/${dir} && ${FIND} -H -s * ! -type d | \
 		${SED} -e 's|^|${dir}/|' >> ${PLISTF} && \
 		${FIND} -d * -type d | \
 		${SED} -e 's|^|@dirrm ${dir}/|' >> ${PLISTD}
@@ -890,11 +894,17 @@ gecko-do-install:
 .for dir in ${MOZILLA_PLIST_DIRS}
 .if !exists(${PREFIX}/${dir})
 	${MKDIR} ${PREFIX}/${dir}
-	${CHMOD} 755 ${PREFIX}/${dir}
 .endif
-	cd ${FAKEDIR}/${dir} && ${FIND} . | \
-		${CPIO} -pdm -L -R ${LIBOWN}:${LIBGRP} ${PREFIX}/${dir}
+	${TAR} cf - -C${FAKEDIR}/${dir} -s'|${FAKEDIR}|${PREFIX}|s' . | \
+		${TAR} xof - -C${PREFIX}/${dir}
 .endfor
+.if (${OSVERSION} < 800081 )
+	# XXX: make sure bsdtar(1) corrected symlinks
+	${FIND} ${FAKEDIR} -type l -exec \
+		${ECHO_CMD} stat -f \'${LN} -hfs \"%Y\" \"%N\"\' {} + | \
+		${SED} s'|${FAKEDIR}|${PREFIX}|g' | ${SH} | \
+		${SED} -n s'|${FAKEDIR}|${PREFIX}|p' | ${SH} -x
+.endif
 .for pcfile in ${MOZ_PKGCONFIG_FILES}
 	${INSTALL_DATA} ${FAKEDIR}/libdata/pkgconfig/${pcfile}.pc \
 		${PREFIX}/libdata/pkgconfig/${pcfile}.pc

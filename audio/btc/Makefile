@@ -8,7 +8,7 @@
 PORTNAME=	btc
 PORTVERSION=	258
 CATEGORIES=	audio
-MASTER_SITES=	http://www.harmony-central.com/Bass/
+MASTER_SITES=	ftp://ftp.SpringDaemons.com/soft/
 DISTNAME=	${PORTNAME}${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org

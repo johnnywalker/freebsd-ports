@@ -76,6 +76,7 @@
     SUBDIR += freetype
     SUBDIR += freetype-tools
     SUBDIR += freetype2
+    SUBDIR += frescobaldi
     SUBDIR += ft2demos
     SUBDIR += gfontview
     SUBDIR += ggv
@@ -148,6 +149,7 @@
     SUBDIR += latex-logreq
     SUBDIR += latex-ltablex
     SUBDIR += latex-mathabx
+    SUBDIR += latex-nomencl
     SUBDIR += latex-pgf
     SUBDIR += latex-prettyref
     SUBDIR += latex-resume
@@ -173,18 +175,18 @@
     SUBDIR += libppd
     SUBDIR += libspectre
     SUBDIR += lilypond
+    SUBDIR += linux-f10-cups-libs
     SUBDIR += lout
     SUBDIR += lpr-wrapper
     SUBDIR += lprps-a4
     SUBDIR += lprps-letter
     SUBDIR += lyx
-    SUBDIR += lyx16
     SUBDIR += lyx14
+    SUBDIR += lyx16
     SUBDIR += magicfilter
     SUBDIR += makeindex
     SUBDIR += mapagi
     SUBDIR += mftrace
-    SUBDIR += mgv
     SUBDIR += min12xxw
     SUBDIR += mp-a4
     SUBDIR += mp-letter
@@ -196,6 +198,8 @@
     SUBDIR += nl-acroread8
     SUBDIR += no-acroread8
     SUBDIR += openprinting
+    SUBDIR += p5-Font-FreeType
+    SUBDIR += p5-Net-CUPS
     SUBDIR += p5-Net-Printer
     SUBDIR += p5-PDF-Template
     SUBDIR += p5-PDFLib
@@ -300,7 +304,6 @@
     SUBDIR += rtf2latex2e
     SUBDIR += ruby-gnomeprint
     SUBDIR += ruby-panda
-    SUBDIR += ruby-pdflib
     SUBDIR += rubygem-color
     SUBDIR += rubygem-colortools
     SUBDIR += rubygem-pdfwriter

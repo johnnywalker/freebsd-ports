@@ -19,7 +19,6 @@ RUN_DEPENDS=	xmessage:${PORTSDIR}/x11/xmessage
 
 USE_XORG=	xextproto xft xpm xrandr
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget
 WANT_GNOME=	yes
 GNU_CONFIGURE=	yes
 
@@ -83,13 +82,13 @@ CONFIGURE_ARGS+=	--enable-xinerama
 
 .if !defined(WITHOUT_NLS)
 USE_ICONV=		yes
-CONFIGURE_ENV=		CPPFLAGS="-I${LOCALBASE}/include" \
-			LIBS="-L${LOCALBASE}/lib -liconv"
+CONFIGURE_ENV=		LIBS="-L${LOCALBASE}/lib -liconv"
+CPPFLAGS+=		-I${LOCALBASE}/include
 CONFIGURE_ARGS+=	--enable-nls
 PLIST_SUB+=		NLS:=""
 .else
-CONFIGURE_ENV=		CPPFLAGS="-I${LOCALBASE}/include" \
-			LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=		LIBS="-L${LOCALBASE}/lib"
+CPPFLAGS+=		-I${LOCALBASE}/include
 CONFIGURE_ARGS+=	--disable-nls
 PLIST_SUB+=		NLS:="@comment "
 .endif

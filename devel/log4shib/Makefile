@@ -17,8 +17,9 @@ COMMENT=	A library of C++ classes for flexible logging
 USE_AUTOTOOLS=	libtool
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-USE_GNOME=	pkgconfig gnometarget gnomehack
-CONFIGURE_ENV=	CPPFLAGS="${PTHREAD_CFLAGS}" LDFLAGS="${PTHREAD_LIBS}"
+USE_GNOME=	pkgconfig gnomehack
+CPPFLAGS+=	${PTHREAD_CFLAGS}
+LDFLAGS+=	${PTHREAD_LIBS}
 CONFIGURE_ARGS=	--with-pthreads --disable-html-docs --disable-doxygen
 USE_LDCONFIG=	yes
 

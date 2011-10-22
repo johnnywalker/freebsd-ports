@@ -6,8 +6,8 @@
 #
 
 PORTNAME=	rt
-PORTVERSION?=	3.6.7
-PORTREVISION=	7
+PORTVERSION?=	3.6.11
+PORTREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	http://download.bestpractical.com/pub/rt/release/ \
 		http://download.bestpractical.com/pub/rt/devel/ \
@@ -18,6 +18,9 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	RT is an industrial-grade ticketing system written in Perl
+
+FORBIDDEN=	Vulnerable since 2009-12-09, http://portaudit.freebsd.org/714c1406-e4cf-11de-883a-003048590f9e.html
+EXPIRATION_DATE=	2011-09-30
 
 CONFLICTS=	rt-2* rt-3.0* rt-3.2* rt-3.4* rt-3.8*
 
@@ -56,7 +59,7 @@ LATEST_LINK=	rt36
 HAS_CONFIGURE=	yes
 NO_BUILD=	yes
 NO_PACKAGE=	Executes scripts in post-install phase
-USE_APACHE=	1.3+
+USE_APACHE=	13+
 USE_PERL5=	5.8.3+
 
 CONFIGURE_ARGS=	--prefix=${RT_PATH} \
@@ -75,7 +78,7 @@ CONFIGURE_ARGS=	--prefix=${RT_PATH} \
 .include <bsd.port.pre.mk>
 .if defined(WITH_FASTCGI)
 PERL_MODULES+=	${LOCALBASE}/${APACHEMODDIR}/mod_fastcgi.so:${PORTSDIR}/www/mod_fastcgi
-PERL_MODULES+=		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FastCGI
+PERL_MODULES+=		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FCGI
 .else
 .	if ${APACHE_VERSION} == 13
 PERL_MODULES+=	${SITE_PERL}/Apache/DBI.pm:${PORTSDIR}/www/p5-Apache-DBI-mp1

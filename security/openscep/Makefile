@@ -7,7 +7,7 @@
 
 PORTNAME=	openscep
 PORTVERSION=	0.4.2
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	security
 MASTER_SITES=	http://openscep.othello.ch/download/
 
@@ -19,7 +19,7 @@ MAKE_JOBS_SAFE=	yes
 USE_AUTOTOOLS=	libtool
 USE_OPENSSL=	yes
 USE_OPENLDAP=	yes
-USE_APACHE=	1.3+
+USE_APACHE=	13+
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_LDCONFIG=	yes
@@ -31,12 +31,11 @@ PLIST_DIRSTRY=	www/cgi-bin
 .endif
 
 CPPFLAGS+=	-I${LOCALBASE}/include
-CONFIGURE_ENV=	CPPFLAGS=${CPPFLAGS} LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
 CONFIGURE_ARGS=	--with-html-install-dir="${PREFIX}/www/openscep" \
 		--with-cgi-install-dir="${PREFIX}/www/cgi-bin/openscep" \
 		--with-openscep-dir="${PREFIX}/etc/openscep" \
 		--with-pkiclientexe="${PREFIX}/www/cgi-bin/pkiclient.exe"
-MAKE_ENV=	CPPFLAGS=${CPPFLAGS}
 
 CONF_DIR=	${PREFIX}/etc/${PORTNAME}
 LOCAL_CONF_FILES=	openscep.cnf openscep.ldif openscep.schema slapd.conf

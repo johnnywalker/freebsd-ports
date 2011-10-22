@@ -18,22 +18,21 @@ LIB_DEPENDS=	gd.4:${PORTSDIR}/graphics/gd
 
 OPTIONS=	IMAGEMAGICK "Enable magick++ interface" on \
 		EMF "Enable emf interface" on \
-		MING "Enable swf interface" on \
+		MING "Enable swf interface" off \
 		PLOTUTILS "Enable libplot interface" on
 
 USE_GNOME=	gnomehack pkgconfig
 USE_GHOSTSCRIPT=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 USE_LDCONFIG=	yes
 MAKE_JOBS_UNSAFE=	yes
 
 MAN1=		pstoedit.1
 
 CFLAGS+=	-DHAVE_LIBGD
-CPPFLAGS=	-I${LOCALBASE}/include/ming -I${LOCALBASE}/include \
+CPPFLAGS+=	-I${LOCALBASE}/include/ming -I${LOCALBASE}/include \
 		-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.options.mk>
 
@@ -58,7 +57,7 @@ PLIST_SUB+=	EMF=""
 CONFIGURE_ARGS+=	--without-swf
 PLIST_SUB+=	MING="@comment "
 .else
-LIB_DEPENDS+=	ming.4:${PORTSDIR}/graphics/ming
+LIB_DEPENDS+=	ming.5:${PORTSDIR}/graphics/ming
 PLIST_SUB+=	MING=""
 .endif
 

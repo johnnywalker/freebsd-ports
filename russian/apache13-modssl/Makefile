@@ -50,6 +50,9 @@ CONFLICTS=	apache+ipv6-* \
 		publicfile-* \
 		ru-apache-*
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 USE_OPENSSL=	yes
 USE_PERL5=	yes
 
@@ -164,8 +167,7 @@ OPTIM+=		-DBUFFERED_LOGS
 CFLAGS+=	-O6 -fomit-frame-pointer
 .endif
 
-CONFIGURE_ENV=	CFLAGS='${CFLAGS}' \
-		OPTIM='${OPTIM}' \
+CONFIGURE_ENV=	OPTIM='${OPTIM}' \
 		SSL_BASE='SYSTEM' \
 		EAPI_MM='SYSTEM' \
 		PATH="${PREFIX}/bin:${PATH}"

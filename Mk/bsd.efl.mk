@@ -1,6 +1,6 @@
 #
 # $MBSDlabs: portmk/bsd.efl.mk,v 1.17 2006/10/02 14:57:48 stas Exp $
-# $FreeBSD: ports/Mk/bsd.efl.mk,v 1.3 2008/04/19 17:46:02 miwi Exp $
+# $FreeBSD: ports/Mk/bsd.efl.mk,v 1.4 2010/12/14 07:30:31 stas Exp $
 #
 # bsd.efl.mk - Support for Enlightenment Foundation Libraries (EFL)
 #
@@ -520,9 +520,9 @@ LIB_DEPENDS+=	${_${LIB}_SLIB}.${_${LIB}_VERSION}:${PORTSDIR}/${_${LIB}_CATEGORY}
 #
 # Initialize configure enviropment
 #
-CONFIGURE_ENV+=	CPPFLAGS="-I${LOCALBASE}/include" \
-		CFLAGS="-I${LOCALBASE}/include ${CFLAGS}" \
-		LDFLAGS="-L${LOCALBASE}/lib ${LDFLAGS}"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-I${LOCALBASE}/include
 
 PLIST_SUB+=	E17_ARCH=freebsd${OSREL}-${ARCH}
 

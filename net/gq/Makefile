@@ -20,17 +20,16 @@ LIB_DEPENDS=	gnome-keyring:${PORTSDIR}/security/gnome-keyring
 OPTIONS=	DND	"Enable Drag and drop support in browse mode" On \
 		CACHE	"Support the OpenLDAP experimental client cache" On
 
-USE_GNOME=	gnometarget libglade2 gnomedocutils
+USE_GNOME=	libglade2 gnomedocutils
 USE_OPENSSL=	yes
 USE_OPENLDAP=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--with-ldap-prefix=${LOCALBASE}
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .include <bsd.port.pre.mk>
 

@@ -7,9 +7,9 @@
     SUBDIR += 44bsd-rdist
     SUBDIR += 6tunnel
     SUBDIR += AquaGatekeeper
-    SUBDIR += AquaGatekeeper2
     SUBDIR += DarwinStreamingServer
     SUBDIR += GeoIP
+    SUBDIR += R-cran-twitteR
     SUBDIR += Sockets
     SUBDIR += abills
     SUBDIR += activemq
@@ -24,7 +24,6 @@
     SUBDIR += arpdig
     SUBDIR += arping
     SUBDIR += arprelease
-#XXX move to net-mgmt
     SUBDIR += asfrecorder
     SUBDIR += asio
     SUBDIR += aslookup
@@ -72,7 +71,6 @@
     SUBDIR += bwping
     SUBDIR += c3270
     SUBDIR += cagibi
-    SUBDIR += callgen323
     SUBDIR += callweaver
     SUBDIR += ccxstream
     SUBDIR += citrix_ica
@@ -174,6 +172,7 @@
     SUBDIR += gkrellmqst
     SUBDIR += gkrellmwireless2
     SUBDIR += glflow
+    SUBDIR += glib-networking
     SUBDIR += gnet2
     SUBDIR += gnetcat
     SUBDIR += gnome-mud
@@ -224,6 +223,7 @@
     SUBDIR += hs-network
     SUBDIR += hs-pcap
     SUBDIR += hs-sendfile
+    SUBDIR += hs-simple-sendfile
     SUBDIR += htpdate
     SUBDIR += http_ping
     SUBDIR += httping
@@ -259,12 +259,12 @@
     SUBDIR += isc-dhcp31-client
     SUBDIR += isc-dhcp31-relay
     SUBDIR += isc-dhcp31-server
-    SUBDIR += isc-dhcp41-server
     SUBDIR += isc-dhcp41-client
     SUBDIR += isc-dhcp41-relay
-    SUBDIR += isc-dhcp42-server
+    SUBDIR += isc-dhcp41-server
     SUBDIR += isc-dhcp42-client
     SUBDIR += isc-dhcp42-relay
+    SUBDIR += isc-dhcp42-server
     SUBDIR += iscsi-target
     SUBDIR += istgt
     SUBDIR += iwi-firmware
@@ -336,6 +336,8 @@
     SUBDIR += libproxy-gnome
     SUBDIR += libproxy-kde
     SUBDIR += libproxy-mozjs
+    SUBDIR += libproxy-perl
+    SUBDIR += libproxy-python
     SUBDIR += libproxy-webkit
     SUBDIR += librsync
     SUBDIR += libsocket++
@@ -363,7 +365,6 @@
     SUBDIR += lua50-luasocket
     SUBDIR += luasocket
     SUBDIR += lvwimax
-    SUBDIR += lyntin
     SUBDIR += mDNSResponder
     SUBDIR += mad_fcl
     SUBDIR += mars_nwe
@@ -474,6 +475,7 @@
     SUBDIR += openmq
     SUBDIR += openmq-client
     SUBDIR += openntpd
+    SUBDIR += opennx
     SUBDIR += openospfd
     SUBDIR += openradius
     SUBDIR += openser
@@ -495,8 +497,8 @@
     SUBDIR += p5-BBS-UserInfo-SOB
     SUBDIR += p5-BBS-UserInfo-Wretch
     SUBDIR += p5-Beanstalk-Client
-    SUBDIR += p5-Crypt-DH-GMP
     SUBDIR += p5-Cisco-IPPhone
+    SUBDIR += p5-Crypt-DH-GMP
     SUBDIR += p5-Daemon-Generic
     SUBDIR += p5-Data-IPV4-Range-Parse
     SUBDIR += p5-EasyTCP
@@ -713,6 +715,7 @@
     SUBDIR += p5-SOAP-Lite
     SUBDIR += p5-SOAP-Lite-060
     SUBDIR += p5-SOAP-MySOAP
+    SUBDIR += p5-SOAP-Transport-TCP
     SUBDIR += p5-Samba-LDAP
     SUBDIR += p5-Server-Starter
     SUBDIR += p5-Socket-Class
@@ -726,7 +729,9 @@
     SUBDIR += p5-Test-URI
     SUBDIR += p5-URI
     SUBDIR += p5-URI-FromHash
+    SUBDIR += p5-URI-Match
     SUBDIR += p5-URI-OpenURL
+    SUBDIR += p5-URI-Query
     SUBDIR += p5-URI-SmartURI
     SUBDIR += p5-URI-Template
     SUBDIR += p5-URI-Template-Restrict
@@ -863,6 +868,7 @@
     SUBDIR += py-medusa
     SUBDIR += py-miniupnpc
     SUBDIR += py-mp-random
+    SUBDIR += py-msrplib
     SUBDIR += py-netaddr
     SUBDIR += py-netifaces
     SUBDIR += py-netstring
@@ -874,7 +880,6 @@
     SUBDIR += py-pypcap
     SUBDIR += py-qt4-network
     SUBDIR += py-radix
-    SUBDIR += py-rt
     SUBDIR += py-s3cmd
     SUBDIR += py-smb
     SUBDIR += py-smbpasswd
@@ -891,7 +896,7 @@
     SUBDIR += py-xmlrpc
     SUBDIR += py-xmlrpclib
     SUBDIR += py-yadis
-    SUBDIR += py-zopeproxy
+    SUBDIR += py-zope.proxy
     SUBDIR += py-zsi
     SUBDIR += pygopherd
     SUBDIR += pynids
@@ -946,17 +951,14 @@
     SUBDIR += rtpproxy
     SUBDIR += rtptools
     SUBDIR += ruby-dict
+    SUBDIR += ruby-growl
     SUBDIR += ruby-icmp
     SUBDIR += ruby-ldap
-    SUBDIR += ruby-mpi
     SUBDIR += ruby-net-geoip
-    SUBDIR += ruby-nis
-    SUBDIR += ruby-pcap
-    SUBDIR += ruby-romp
-    SUBDIR += ruby-spread
     SUBDIR += ruby-tcpsocketpipe
     SUBDIR += ruby-tserver
     SUBDIR += rubygem-amqp
+    SUBDIR += rubygem-amqp-utils
     SUBDIR += rubygem-bunny
     SUBDIR += rubygem-geoip
     SUBDIR += rubygem-http_parser.rb
@@ -965,6 +967,7 @@
     SUBDIR += rubygem-net-ldap
     SUBDIR += rubygem-net-netrc
     SUBDIR += rubygem-oauth
+    SUBDIR += rubygem-open-uri-cached
     SUBDIR += rubygem-openid
     SUBDIR += rubygem-rightaws
     SUBDIR += rubygem-rightflexiscale
@@ -980,7 +983,6 @@
     SUBDIR += rubygem-whois
     SUBDIR += rubygem-yadis
     SUBDIR += rude
-    SUBDIR += rwhoisd
     SUBDIR += samba-libsmbclient
     SUBDIR += samba-nmblookup
     SUBDIR += samba-pdbsql
@@ -1101,7 +1103,6 @@
     SUBDIR += tptest
     SUBDIR += traceroute
     SUBDIR += traff
-    SUBDIR += traffic
     SUBDIR += trafshow
     SUBDIR += trafshow3
     SUBDIR += tramp
@@ -1115,7 +1116,6 @@
     SUBDIR += tsocks
     SUBDIR += ttbudget
     SUBDIR += ttlscan
-    SUBDIR += ttt
     SUBDIR += tucan
     SUBDIR += twinkle
     SUBDIR += twitux
@@ -1130,10 +1130,10 @@
     SUBDIR += unison232
     SUBDIR += unix2tcp
     SUBDIR += uplog
-    SUBDIR += uproxy
     SUBDIR += urelay
     SUBDIR += uriparser
     SUBDIR += urlendec
+    SUBDIR += usbredir
     SUBDIR += ushare
     SUBDIR += utftpd
     SUBDIR += v6eval
@@ -1149,7 +1149,6 @@
     SUBDIR += vnstat
     SUBDIR += vserver
     SUBDIR += vtun
-    SUBDIR += vyqchat
     SUBDIR += wackamole
     SUBDIR += wackford-squeers
     SUBDIR += wakeonlan
@@ -1194,7 +1193,6 @@
     SUBDIR += xpvm
     SUBDIR += xrdesktop
     SUBDIR += xrdp
-    SUBDIR += xwhois
     SUBDIR += yaph
     SUBDIR += yate
     SUBDIR += yate-devel

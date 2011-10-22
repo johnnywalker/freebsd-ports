@@ -6,9 +6,9 @@
 #
 
 PORTNAME=	lxinput
-PORTVERSION=	0.3.0
+PORTVERSION=	0.3.1
 CATEGORIES=	sysutils
-MASTER_SITES=	SF/lxde/LXInput%20%28Kbd%20and%20amp_%20mouse%20config%29/LXInput%200.3
+MASTER_SITES=	SF/lxde/LXInput%20%28Kbd%20and%20amp_%20mouse%20config%29/LXInput%200.3.1
 
 MAINTAINER=	kmoore@FreeBSD.org
 COMMENT=	A keyboard and mouse config tool from the LXDE project
@@ -26,7 +26,6 @@ USE_GETTEXT=	yes
 PLIST_SUB+=	NLS=""
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 .else
 CONFIGURE_ARGS+=--disable-nls
 PLIST_SUB+=	NLS="@comment "

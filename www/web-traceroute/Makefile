@@ -16,8 +16,11 @@ DISTNAME=	${PORTNAME}
 MAINTAINER=	dean@odyssey.apana.org.au
 COMMENT=	WWW Traceroute CGI script written in C
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 PLIST_FILES=	www/cgi-bin/trace
-USE_APACHE=	1.3
+USE_APACHE=	13
 
 #pre-configure:
 #	${SH} ${SCRIPTDIR}/locate-template.sh

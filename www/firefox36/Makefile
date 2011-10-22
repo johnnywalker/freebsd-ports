@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	firefox
-DISTVERSION=	3.6.18
+DISTVERSION=	3.6.22
 PORTEPOCH=	1
 CATEGORIES=	www ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA}
@@ -27,8 +27,6 @@ MOZILLA_NAME=	Firefox${MOZILLA_SUFX}
 MOZILLA_SUFX=	3
 MOZILLA=	${PORTNAME}${MOZILLA_SUFX}
 MOZ_TOOLKIT=	cairo-gtk2
-GECKO_PLIST_PRE_DIRS=	lib/${MOZILLA}/bin lib/${MOZILLA}/idl \
-			lib/${MOZILLA}/include lib/${MOZILLA}/lib
 
 MAKE_JOBS_SAFE=	yes
 WANT_GNOME=	yes
@@ -38,9 +36,7 @@ EXTRA_CFLAGS=	-O2
 HAS_CONFIGURE=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-MAKE_JOBS_SAFE=	yes
 NO_MOZPKGINSTALL=yes
-CONFLICTS_INSTALL=	firefox-3.5.*
 
 FIREFOX_ICON=		${MOZILLA}.png
 FIREFOX_ICON_SRC=	${PREFIX}/lib/${MOZILLA}/chrome/icons/default/default48.png
@@ -75,8 +71,6 @@ CFLAGS+=	-mminimal-toc
 
 WRKSRC:=	${WRKSRC}-1.9.2
 
-GECKO_PTHREAD_LIBS!=${CC} -dumpspecs | ${GREP} -m 1 '%{\!pg: %{pthread:' | ${SED} -e 's|^.*%{\!pg: %{pthread:|| ; s|}.*$$||' || ${TRUE}
-
 .if ${HAVE_GNOME:Mlibgnomeui}!=""
 USE_GNOME+=	libgnomeui
 MOZ_OPTIONS+=	--enable-gnomeui
@@ -88,16 +82,16 @@ MOZ_OPTIONS+=	--disable-gnomeui
 MOZ_OPTIONS+=	--disable-dbus --disable-libnotify
 .else
 LIB_DEPENDS+=	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-		notify.1:${PORTSDIR}/devel/libnotify
+		notify.4:${PORTSDIR}/devel/libnotify
 .endif
 
-post-extract::
+post-extract:
 	@${SED} -e 's|@FIREFOX_ICON@|${FIREFOX_ICON}|' -e 's|@MOZILLA@|${MOZILLA}|' \
 		-e 's|@MOZILLA_NAME@|${MOZILLA_NAME}|' \
 		<${FILESDIR}/firefox.desktop.in >${WRKDIR}/${MOZILLA}.desktop
 
 post-patch:
-	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS:C/-pthread/${GECKO_PTHREAD_LIBS}/}|' \
+	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS}|' \
 		${WRKSRC}/storage/build/Makefile.in \
 		${WRKSRC}/db/sqlite3/src/Makefile.in
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \

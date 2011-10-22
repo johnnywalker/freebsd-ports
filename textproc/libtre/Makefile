@@ -20,7 +20,7 @@ COMMENT=	A lightweight fully POSIX compliant regexp matching library
 LICENSE=	BSD
 LICENSE_FILE=	${WRKSRC}/LICENSE
 USE_BZIP2=	yes
-USE_GNOME=	gnomehack gnometarget pkgconfig
+USE_GNOME=	gnomehack pkgconfig
 USE_AUTOTOOLS=	libtool
 CONFIGURE_ARGS+=	--enable-static
 USE_LDCONFIG=	yes
@@ -51,10 +51,8 @@ CFLAGS+=	-Wuninitialized -ffast-math -finline-functions \
 .endif
 
 .if defined(WITH_PGO)
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS} -fprofile-generate" \
-		LDFLAGS="${LDFLAGS} -fprofile-generate"
-.else
-CONFIGURE_ENV+= LDFLAGS="${LDFLAGS}"
+LDFLAGS+=	-fprofile-generate
+CFLAGS+=	-fprofile-generate
 .endif
 
 post-patch:

@@ -19,13 +19,12 @@ LIB_DEPENDS=	cups.2:${PORTSDIR}/print/cups-client
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
-USE_GNOME=	gnometarget gtk20
+USE_GNOME=	gtk20
 USE_OPENSSL=	yes
 USE_AUTOTOOLS=	automake:env
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}"
 
 MAN1=		gtklp.1 gtklpq.1
 

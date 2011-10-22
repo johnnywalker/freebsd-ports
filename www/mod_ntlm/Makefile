@@ -14,9 +14,12 @@ PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
 MAINTAINER=	skv@FreeBSD.org
 COMMENT=	NTLM authentication module for the Apache webserver
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 MAKE_ENV=	APXS=${APXS}
 
 .include <bsd.port.pre.mk>

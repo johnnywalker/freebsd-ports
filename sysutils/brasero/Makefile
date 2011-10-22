@@ -7,7 +7,7 @@
 
 PORTNAME=	brasero
 PORTVERSION=	2.32.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	sysutils audio multimedia gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome2
@@ -15,7 +15,7 @@ DIST_SUBDIR=	gnome2
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	CD/DVD mastering tool for the GNOME desktop
 
-LIB_DEPENDS=	notify.1:${PORTSDIR}/devel/libnotify \
+LIB_DEPENDS=	notify.4:${PORTSDIR}/devel/libnotify \
 		unique-1.0.2:${PORTSDIR}/x11-toolkits/unique \
 		totem-plparser.17:${PORTSDIR}/multimedia/totem-pl-parser \
 		canberra-gtk.0:${PORTSDIR}/audio/libcanberra
@@ -35,8 +35,8 @@ INSTALLS_OMF=	yes
 INSTALLS_ICONS=	yes
 CONFIGURE_ARGS=	--disable-inotify --with-html-dir=${PREFIX}/share/doc \
 		--enable-gtk3=no --enable-introspection=yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include -DHAVE_CAM_LIB_H=1" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include -DHAVE_CAM_LIB_H=1
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		brasero.1
 GLIB_SCHEMAS=	org.gnome.brasero.gschema.xml

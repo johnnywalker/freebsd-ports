@@ -7,6 +7,7 @@
 
 PORTNAME=	libtorrent-rasterbar
 PORTVERSION=	0.14.12
+PORTREVISION=	1
 CATEGORIES=	net-p2p ipv6
 MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
 PROJECTHOST=	libtorrent
@@ -19,13 +20,12 @@ LIB_DEPENDS=	boost_date_time.4:${PORTSDIR}/devel/boost-libs \
 
 MAKE_JOBS_SAFE=	yes
 
-CONFLICTS=	libtorrent-rasterbar-0.15.*
+CONFLICTS=	libtorrent-rasterbar-0.1[2356789].*
 
 USE_GNOME=	gnomehack
 USE_OPENSSL=	yes
 USE_AUTOTOOLS=	aclocal automake autoconf libtool
 ACLOCAL_ARGS=	-I m4
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--disable-debug \
 		--disable-python-binding \
 		--disable-examples \
@@ -42,8 +42,8 @@ CONFIGURE_ARGS=	--disable-debug \
 		--with-zlib=system
 USE_LDCONFIG=	yes
 
-CPPFLAGS=	${PTHREAD_CFLAGS}
-LDFLAGS=	${PTHREAD_LIBS}
+CPPFLAGS+=	${PTHREAD_CFLAGS}
+LDFLAGS+=	${PTHREAD_LIBS}
 
 .if !defined(NOPORTDOCS)
 PORTDOCS=	*
@@ -54,6 +54,9 @@ post-patch:
 		${WRKSRC}/Makefile.am
 	@${REINPLACE_CMD} -e 's|^AM_CFLAGS|AM_CPPFLAGS|g' \
 		 ${WRKSRC}/src/Makefile.am
+	@${CP} ${WRKSRC}/configure ${WRKSRC}/configure.Dist
+	@${SED} -e 's#COMPILETIME_OPTIONS+="#COMPILETIME_OPTIONS="$$COMPILETIME_OPTIONS #g' \
+		${WRKSRC}/configure.Dist > ${WRKSRC}/configure
 
 post-install:
 .if !defined(NOPORTDOCS)

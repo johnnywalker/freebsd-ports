@@ -21,6 +21,9 @@ LIB_DEPENDS+=	expat.6:${PORTSDIR}/textproc/expat2
 BUILD_DEPENDS=	${SITE_PERL}/LWP.pm:${PORTSDIR}/www/p5-libwww
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 CONFLICTS=	apache-1.* apache+mod_ssl-1.* apache+mod_ssl+ipv6-1.* apache+mod_ssl+modsnmp-1.* \
@@ -119,7 +122,7 @@ OPTIM+=		-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 CFLAGS=		-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 
-CONFIGURE_ENV=	OPTIM='${OPTIM}' LIBS='${LIBS}' \
+CONFIGURE_ENV=	OPTIM='${OPTIM}' LIBS='${LIBS}'
 
 MAN1=	dbmmanage.1 htdigest.1 htpasswd.1
 

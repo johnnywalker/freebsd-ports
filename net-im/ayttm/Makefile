@@ -27,17 +27,16 @@ OPTIONS=	ARTS	"Enable aRts support"		off \
 
 USE_BZIP2=	yes
 USE_XORG=	xpm xscrnsaver
-USE_GNOME=	gnometarget gtk20
+USE_GNOME=	gtk20
 USE_OPENSSL=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libltdl libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--enable-oscar --disable-workwizu --enable-smtp --enable-lj
 
 MAN1=		ayttm.1
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 

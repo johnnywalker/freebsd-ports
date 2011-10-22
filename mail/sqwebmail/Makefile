@@ -7,14 +7,15 @@
 
 PORTNAME=	sqwebmail
 PORTVERSION=	5.5.2
+PORTREVISION=	1
 CATEGORIES=	mail www
 MASTER_SITES=	SF/courier/webmail/${PORTVERSION}
 
 MAINTAINER=	oliver@FreeBSD.org
 COMMENT=	CGI Webmail client for Maildirs
 
-CONFIGURE_ENV=	CFLAGS="-I${LOCALBASE}/include -L${LOCALBASE}/lib ${CFLAGS:S/^[:space:]*//}" \
-		CXXFLAGS="-I${LOCALBASE}/include ${CXXFLAGS:S/^[:space:]*//}"
+CFLAGS:=	-I${LOCALBASE}/include -L${LOCALBASE}/lib ${CFLAGS:S/^[:space:]*//}
+CXXFLAGS:=	-I${LOCALBASE}/include ${CXXFLAGS:S/^[:space:]*//}
 
 BUILD_DEPENDS=	courierauthconfig:${PORTSDIR}/security/courier-authlib-base
 RUN_DEPENDS=	courierauthconfig:${PORTSDIR}/security/courier-authlib-base
@@ -56,7 +57,6 @@ CACHEOWNER?=	bin
 #
 # End of user variables
 
-#USE_GCC=	3.4
 USE_PERL5=	YES
 HAS_CONFIGURE=	YES
 USE_BZIP2=	YES
@@ -170,7 +170,7 @@ CONFIGURE_ARGS+=        --enable-maxpurge=${WITH_MAXPURGE}
 
 .if defined(WITH_GDBM)
 CONFIGURE_ARGS+=--with-db=gdbm
-LIB_DEPENDS+=   gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=   gdbm.4:${PORTSDIR}/databases/gdbm
 .else
 CONFIGURE_ARGS+=--with-db=db
 .endif

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	lrzip
-PORTVERSION=	0.605
+PORTVERSION=	0.606
 CATEGORIES=	archivers
 MASTER_SITES=	http://ck.kolivas.org/apps/lrzip/ \
 		http://files.gslin.org/Software/
@@ -17,11 +17,12 @@ COMMENT=	Long Range ZIP or Lzma RZIP
 BUILD_DEPENDS=	nasm>=0:${PORTSDIR}/devel/nasm
 LIB_DEPENDS=	lzo2:${PORTSDIR}/archivers/lzo2
 
-CFLAGS+=	-I${LOCALBASE}/include
-CONFIGURE_ARGS+=	--enable-asm
-CONFIGURE_ENV+=	LDFLAGS=-L${LOCALBASE}/lib
-GNU_CONFIGURE=	yes
 LICENSE=	GPLv2
+
+CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+CONFIGURE_ARGS+=	--enable-asm
+GNU_CONFIGURE=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 USE_PERL5_BUILD=	yes

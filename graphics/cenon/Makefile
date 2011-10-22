@@ -6,11 +6,10 @@
 #
 
 PORTNAME=	cenon
-PORTVERSION=	3.83
-PORTREVISION=	2
+PORTVERSION=	3.95
 CATEGORIES=	graphics gnustep
-MASTER_SITES=	http://www.vhf-group.com/vhfInterservice/download/source/
-DISTNAME=	Cenon-${PORTVERSION}
+MASTER_SITES=	http://www.vhf-group.com/vhf-interservice/download/source/
+DISTNAME=	Cenon-${MAINVERSION}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 DIST_SUBDIR=	${PORTNAME}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
@@ -25,7 +24,8 @@ USE_GNUSTEP_BUILD=	yes
 USE_GNUSTEP_INSTALL=	yes
 
 WRKSRC=		${WRKDIR}/Cenon
-FULLVERSION=	3.82
+MAINVERSION=	3.9.5
+FULLVERSION=	3.9.4
 CENON_LIB_DIR=	${GNUSTEP_LOCAL_ROOT}/Library/Cenon
 
 OPTIONS=	FULL_LIBRARY	"Install complete Cenon Library" off
@@ -35,8 +35,10 @@ OPTIONS=	FULL_LIBRARY	"Install complete Cenon Library" off
 .if defined(WITH_FULL_LIBRARY) || make(makesum) || defined(FETCH_ALL)
 DISTFILES+=	CenonLibrary-${FULLVERSION}-1${EXTRACT_SUFX}
 PLIST_SUB+=	FULL=""
+PLIST_SUB+=	LITE="@comment "
 .else
 PLIST_SUB+=	FULL="@comment "
+PLIST_SUB+=	LITE=""
 .endif
 
 post-extract:
@@ -50,7 +52,6 @@ post-install:
 		-C ${GNUSTEP_LOCAL_ROOT}/Library/ --exclude COPYING
 	@${CHOWN} -R root:wheel ${CENON_LIB_DIR}
 	@${CHMOD} -R u=rwX,go=rX ${CENON_LIB_DIR}
-	@${CHMOD} 444 ${CENON_LIB_DIR}/INSTALL
 	${INSTALL_DATA} ${WRKSRC}/Library/Cenon/README ${CENON_LIB_DIR}/
 .else
 	${CP} -R ${WRKSRC}/Library/Cenon ${GNUSTEP_LOCAL_ROOT}/Library/

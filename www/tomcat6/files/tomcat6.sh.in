@@ -1,11 +1,10 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/www/tomcat6/files/tomcat6.sh.in,v 1.9 2010/10/26 08:19:05 ale Exp $
+# $FreeBSD: ports/www/tomcat6/files/tomcat6.sh.in,v 1.10 2011/07/06 13:29:09 ale Exp $
 #
 
 # PROVIDE: tomcat%%TOMCAT_VERSION%%
-# REQUIRE: NETWORKING SERVERS
-# BEFORE: DAEMON
+# REQUIRE: LOGIN
 # KEYWORD: shutdown
 
 #

@@ -7,14 +7,18 @@
 
 PORTNAME=	emacs
 PORTVERSION=	${EMACS_VER}
-PORTREVISION=	1
+PORTREVISION=	5
 PORTEPOCH=	2
 CATEGORIES=	editors ipv6
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	${PORTNAME}
+DISTNAME=	${PORTNAME}-${PORTVERSION}a
 
 MAINTAINER=	ashish@FreeBSD.org
 COMMENT=	GNU editing macros
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 MAKE_JOBS_UNSAFE=	yes
 
@@ -23,17 +27,14 @@ CONFLICTS=	emacs-19.* emacs-21.* emacs-22.* emacs-24.* \
 		xemacs-mule-[0-9]* xemacs-devel-mule-[0-9]* \
 		emacs-nox11-[0-9]*
 
-INSTALLS_ICONS=	yes
-
 EMACS_VER=	23.3
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_BZIP2=	yes
-CONFIGURE_ENV+=	CPPFLAGS="-I${LOCALBASE}/include" LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--localstatedir=/var
-
-LICENSE=	GPLv3
-LICENSE_FILE=	${WRKSRC}/COPYING
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 MAN1=		b2m.1 ctags.1 ebrowse.1 emacs.1 emacsclient.1 etags.1 \
 		grep-changelog.1 rcs-checkin.1
@@ -113,6 +114,7 @@ IGNORE=	please choose a toolkit: GTK+/Motif/Xaw/Xaw3d, or build without X11 supp
 .if defined(WITH_XAW) || defined(WITH_XAW3D) || defined(WITH_MOTIF)
 IGNORE=	please choose only one toolkit: GTK+/Motif/Xaw/Xaw3d
 .endif
+INSTALLS_ICONS=	yes
 USE_GNOME+=	gtk20
 CONFIGURE_ARGS+=	--with-x-toolkit=gtk
 .endif
@@ -199,7 +201,7 @@ CONFIGURE_ARGS+=	--without-xim
 .endif
 
 .if defined(WITH_CANNA)
-PATCH_SITES+=	http://wahjava.users.sourceforge.net/%SUBDIR%/ ${MASTER_SITE_LOCAL}
+PATCH_SITES+=	http://distfiles.pirateparty.in/%SUBDIR%/ ${MASTER_SITE_LOCAL}
 PATCH_SITE_SUBDIR+=	ashish
 PATCHFILES+=	emacs23.3canna-20110316.diff.gz
 PATCH_DIST_STRIP=	-p1

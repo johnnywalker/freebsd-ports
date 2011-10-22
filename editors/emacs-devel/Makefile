@@ -9,39 +9,36 @@ PORTNAME=	emacs
 PORTVERSION=	${EMACS_VER}.${EMACS_REV}
 PORTEPOCH=	1
 CATEGORIES=	editors ipv6
-MASTER_SITES=	http://wahjava.users.sourceforge.net/%SUBDIR%/ \
+MASTER_SITES=	http://distfiles.pirateparty.in/%SUBDIR%/ \
 		${MASTER_SITE_LOCAL}
 MASTER_SITE_SUBDIR=	ashish
 
 MAINTAINER=	ashish@FreeBSD.org
 COMMENT=	GNU editing macros
 
-MAKE_JOBS_UNSAFE=	yes
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+MAKE_JOBS_SAFE=	yes
 
 CONFLICTS=	emacs-19.* emacs-21.* emacs-22.* emacs-23.* \
 		xemacs-[0-9]* xemacs-devel-[0-9]* \
 		xemacs-mule-[0-9]* xemacs-devel-mule-[0-9]* \
 		emacs-nox11-[0-9]*
 
-INSTALLS_ICONS=	yes
-
 EMACS_VER=	24.0.50
-EMACS_REV=	104609
+EMACS_REV=	105651
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_XZ=		yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--localstatedir=/var
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 USE_AUTOTOOLS=	autoconf:env automake:env aclocal:env autoheader:env
 
 EMACS_DIRS=	${DATADIR}/${EMACS_VER}/leim ${DATADIR}/${EMACS_VER}/lisp ${DATADIR}/${EMACS_VER}/src \
 		${PREFIX}/libexec/${PORTNAME}
-
-LICENSE=	GPLv3
-LICENSE_FILE=	${WRKSRC}/COPYING
 
 MAN1=		ctags.1 ebrowse.1 emacs.1 emacsclient.1 etags.1 \
 		grep-changelog.1 rcs-checkin.1
@@ -62,6 +59,7 @@ OPTIONS=	DBUS	"DBus support"			ON \
 		GCONF	"GConf support"			ON \
 		GIF	"GIF Images support"		ON \
 		GTK2	"Use GTK+ widgets"		ON \
+		GTK3	"Use GTK+ 3 widgets"		OFF \
 		JPEG	"JPEG images support"		ON \
 		M17N	"M17N support for text-shaping"	ON \
 		MOTIF	"Use Motif widgets"		OFF \
@@ -80,7 +78,8 @@ OPTIONS=	DBUS	"DBus support"			ON \
 		XML	"XML Parser support"		ON \
 		XPM	"XPM images support"		ON \
 		IMAGEMAGICK	"ImageMagick support"	ON \
-		GNUTLS	"GNUTLS support"		ON
+		GNUTLS	"GNUTLS support"		ON \
+		GSETTINGS	"GSettings support"	ON
 
 .include <bsd.port.options.mk>
 
@@ -98,16 +97,16 @@ CONFIGURE_ARGS+=	--without-rsvg
 USE_GNOME+=	librsvg2
 .endif
 
-.if defined(WITHOUT_GTK2)
+.if defined(WITHOUT_GTK2) && defined(WITHOUT_GTK3)
 .if defined(WITH_XAW)
 .if defined(WITH_XAW3D) || defined(WITH_MOTIF)
-IGNORE=	please choose only one toolkit: GTK+/Motif/Xaw/Xaw3d
+IGNORE=	please choose only one toolkit: GTK+/GTK+3/Motif/Xaw/Xaw3d
 .endif
 USE_XORG=	xaw
 CONFIGURE_ARGS+=	--with-x-toolkit=athena --without-xaw3d
 .elif defined(WITH_XAW3D)
 .if defined(WITH_MOTIF)
-IGNORE=	please choose only one toolkit: GTK+/Motif/Xaw/Xaw3d
+IGNORE=	please choose only one toolkit: GTK+/GTK+3/Motif/Xaw/Xaw3d
 .endif
 LIB_DEPENDS+=	Xaw3d.${XAWVER}:${PORTSDIR}/x11-toolkits/Xaw3d
 CONFIGURE_ARGS+=	--with-x-toolkit=athena
@@ -115,14 +114,22 @@ CONFIGURE_ARGS+=	--with-x-toolkit=athena
 USE_MOTIF=	yes
 CONFIGURE_ARGS+=	--with-x-toolkit=motif
 .else
-IGNORE=	please choose a toolkit: GTK+/Motif/Xaw/Xaw3d, or build without X11 support
+IGNORE=	please choose a toolkit: GTK+/GTK+3/Motif/Xaw/Xaw3d, or build without X11 support
 .endif
 .else
 .if defined(WITH_XAW) || defined(WITH_XAW3D) || defined(WITH_MOTIF)
-IGNORE=	please choose only one toolkit: GTK+/Motif/Xaw/Xaw3d
+IGNORE=	please choose only one toolkit: GTK+/GTK+3/Motif/Xaw/Xaw3d
 .endif
+INSTALLS_ICONS=	yes
+.if defined(WITH_GTK3) && defined(WITHOUT_GTK2)
+USE_GNOME+=	gtk30
+CONFIGURE_ARGS+=	--with-x-toolkit=gtk3
+.elif defined(WITH_GTK2) && defined(WITHOUT_GTK3)
 USE_GNOME+=	gtk20
 CONFIGURE_ARGS+=	--with-x-toolkit=gtk
+.else
+IGNORE=	please choose only one toolkit: GTK+/GTK+3/Motif/Xaw/Xaw3d
+.endif
 .endif
 
 .if defined(WITHOUT_SCROLLBARS)
@@ -200,6 +207,12 @@ CONFIGURE_ARGS+=	--without-libotf
 .if !defined(WITHOUT_XFT)
 LIB_DEPENDS+=	otf.0:${PORTSDIR}/print/libotf
 .endif
+.endif
+
+.if defined(WITHOUT_GSETTINGS)
+CONFIGURE_ARGS+=	--without-gsettings
+.else
+USE_GNOME+=	glib20
 .endif
 
 .if defined(WITHOUT_GCONF)

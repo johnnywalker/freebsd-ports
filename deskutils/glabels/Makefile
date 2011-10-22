@@ -17,15 +17,15 @@ COMMENT=	A program to create labels and business cards
 
 USE_GMAKE=	yes
 USE_BZIP2=	yes
-USE_GNOME=	gnomehack gnomeprefix gnometarget libgnomeui \
+USE_GNOME=	gnomehack gnomeprefix libgnomeui \
 		desktopfileutils intlhack ltverhack
 WANT_GNOME=	yes
 USE_GETTEXT=	yes
 INSTALLS_OMF=	yes
 USE_LDCONFIG=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		glabels.1
 

@@ -1,4 +1,4 @@
-# New ports collection makefile for:	snort_inline
+#/ New ports collection makefile for:	snort_inline
 # Date created:        4 March 2005
 # Whom:                nick@rogness.net
 #
@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	snort_inline
-PORTVERSION=	2.4.5
-PORTREVISION=	1
+PORTVERSION=	2.6.1.5
 CATEGORIES=	security
 MASTER_SITES=	http://freebsd.rogness.net/ports/snort_inline/
 
@@ -17,15 +16,20 @@ COMMENT=	An inline IPS system based on snort using ipfw
 LIB_DEPENDS=	pcre.0:${PORTSDIR}/devel/pcre
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS+=	--enable-inline --enable-ipfw
 
 LIB_DEPENDS+=		dnet:${PORTSDIR}/net/libdnet
+
+USE_LDCONFIG=	yes
 
 OPTIONS=		MYSQL "With MySQL support" off \
 			ODBC "With ODBC support" off \
 			POSTGRESQL "With POSTGRESQL support" off \
 			FLEXRESP "With flexible responses (resp. w/packet resets)" off
+
+BROKEN=		this port does not build properly
+DEPRECATED=		no longer supported upstream
+EXPIRATION_DATE=	2011/09/04
 
 .include <bsd.port.pre.mk>
 

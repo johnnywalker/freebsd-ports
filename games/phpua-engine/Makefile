@@ -14,9 +14,14 @@ MASTER_SITES=	SF/phpua/phpUA%20Engine/${PORTVERSION}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Game server monitor & admin tool
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 NO_BUILD=	yes
-USE_APACHE=	1.3
+USE_APACHE=	13
 USE_PHP=	yes
+
+BROKEN=		conflicting dependencies
 
 _subs=PHPUADIR=${PHPUADIR} PHPUA_USER=${PHPUA_USER} PHPUA_GROUP=${PHPUA_GROUP} APNAME=${APNAME}
 

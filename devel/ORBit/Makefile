@@ -17,12 +17,12 @@ COMMENT=	High-performance CORBA ORB with support for the C language
 
 USE_BZIP2=	yes
 USE_GETTEXT=	yes
-USE_GNOME=	glib12 gnometarget
+USE_GNOME=	glib12
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS= --disable-indent
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 INFO=		libIDL
 

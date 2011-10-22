@@ -9,7 +9,6 @@
     SUBDIR += DTraceToolkit
     SUBDIR += LPRng
     SUBDIR += LPRngTool
-    SUBDIR += Tee
     SUBDIR += abck
     SUBDIR += abgx360
     SUBDIR += abgx360gui
@@ -17,6 +16,7 @@
     SUBDIR += afbinit
     SUBDIR += afflib
     SUBDIR += afio
+    SUBDIR += agedu
     SUBDIR += agef
     SUBDIR += ah-tty
     SUBDIR += aimage
@@ -59,6 +59,7 @@
     SUBDIR += batmon
     SUBDIR += battfink
     SUBDIR += battmond
+    SUBDIR += battray
     SUBDIR += bbapm
     SUBDIR += bchunk
     SUBDIR += be_agent
@@ -99,7 +100,6 @@
     SUBDIR += cfengine
     SUBDIR += cfengine3
     SUBDIR += cfvers
-    SUBDIR += checkservice
     SUBDIR += chgrep
     SUBDIR += ciso
     SUBDIR += ck4up
@@ -136,7 +136,6 @@
     SUBDIR += cromwell
     SUBDIR += cronolog
     SUBDIR += cronolog-devel
-    SUBDIR += curly
     SUBDIR += cvsweb-converters
     SUBDIR += cw
     SUBDIR += daa2iso
@@ -184,8 +183,8 @@
     SUBDIR += dump9660
     SUBDIR += dupfind
     SUBDIR += duplicity
-    SUBDIR += duplicity05
     SUBDIR += duplicity-devel
+    SUBDIR += duplicity05
     SUBDIR += duply
     SUBDIR += dupmerge
     SUBDIR += dvd+rw-tools
@@ -235,6 +234,7 @@
     SUBDIR += flasher
     SUBDIR += flashrom
     SUBDIR += flexbackup
+    SUBDIR += flock
     SUBDIR += flog
     SUBDIR += flyback
     SUBDIR += fonteditfs
@@ -322,7 +322,6 @@
     SUBDIR += goaccess
     SUBDIR += googlog
     SUBDIR += gosa
-    SUBDIR += gpart
     SUBDIR += gpkgdep
     SUBDIR += gpte
     SUBDIR += graid5
@@ -364,7 +363,6 @@
     SUBDIR += httplog
     SUBDIR += hwstat
     SUBDIR += hyperic-sigar
-    SUBDIR += i855vidctl10
     SUBDIR += iat
     SUBDIR += iextract
     SUBDIR += installwatch
@@ -462,7 +460,6 @@
     SUBDIR += lookupd
     SUBDIR += lookupd_ldap
     SUBDIR += lsof
-    SUBDIR += ltrace
     SUBDIR += luckybackup
     SUBDIR += luma
     SUBDIR += lxinput
@@ -475,6 +472,7 @@
     SUBDIR += mapchan
     SUBDIR += massadmin
     SUBDIR += mbmon
+    SUBDIR += mcollective
     SUBDIR += mcron
     SUBDIR += mcweject
     SUBDIR += mdcp
@@ -570,6 +568,7 @@
     SUBDIR += p5-Iterator-File
     SUBDIR += p5-Lchown
     SUBDIR += p5-MogileFS-Client
+    SUBDIR += p5-MogileFS-Server
     SUBDIR += p5-MogileFS-Utils
     SUBDIR += p5-Plugtools
     SUBDIR += p5-Plugtools-Plugins-HomeOU
@@ -605,7 +604,6 @@
     SUBDIR += p5-User
     SUBDIR += p5-ZConf-Cron
     SUBDIR += p5-arclog
-    SUBDIR += p5-mogilefs-server
     SUBDIR += p5-reslog
     SUBDIR += paicc
     SUBDIR += pam_mount
@@ -635,6 +633,7 @@
     SUBDIR += pecl-fileinfo
     SUBDIR += pecl-mogilefs
     SUBDIR += pecl-proctitle
+    SUBDIR += pefs-kmod
     SUBDIR += penv
     SUBDIR += personality
     SUBDIR += pessulus
@@ -651,7 +650,6 @@
     SUBDIR += pipemeter
     SUBDIR += plasma-applet-apcups
     SUBDIR += plconfig
-    SUBDIR += plod
     SUBDIR += pmap
     SUBDIR += pmt
     SUBDIR += policykit
@@ -663,6 +661,7 @@
     SUBDIR += polkit-qt
     SUBDIR += powerman
     SUBDIR += pp
+    SUBDIR += pprotectd
     SUBDIR += prips
     SUBDIR += procmap
     SUBDIR += progsreiserfs
@@ -725,7 +724,6 @@
     SUBDIR += rsyslog3-mysql
     SUBDIR += rsyslog3-pgsql
     SUBDIR += rsyslog3-relp
-    SUBDIR += rsyslog3-snmp
     SUBDIR += rsyslog4
     SUBDIR += rsyslog4-dbi
     SUBDIR += rsyslog4-devel
@@ -763,10 +761,10 @@
     SUBDIR += rsyslog6-devel-rfc3195
     SUBDIR += rsyslog6-devel-snmp
     SUBDIR += rtty
-    SUBDIR += ruby-log4r
     SUBDIR += ruby-quota
     SUBDIR += rubygem-bundler
     SUBDIR += rubygem-capistrano
+    SUBDIR += rubygem-capistrano-ext
     SUBDIR += rubygem-chef
     SUBDIR += rubygem-god
     SUBDIR += rubygem-log4r
@@ -826,6 +824,7 @@
     SUBDIR += spassgen
     SUBDIR += spindown
     SUBDIR += spinner
+    SUBDIR += spiped
     SUBDIR += squashfs-tools
     SUBDIR += ssid
     SUBDIR += ssync
@@ -924,6 +923,7 @@
     SUBDIR += vii
     SUBDIR += vils
     SUBDIR += virtualmin
+    SUBDIR += vlogger
     SUBDIR += vobcopy
     SUBDIR += vordog
     SUBDIR += vstrip
@@ -954,13 +954,11 @@
     SUBDIR += wmtop
     SUBDIR += wmupmon
     SUBDIR += worldtools
-    SUBDIR += wots
     SUBDIR += wtail
     SUBDIR += wtmp-tools
     SUBDIR += wuzzah
     SUBDIR += x86info
     SUBDIR += xacpim
-    SUBDIR += xapply
     SUBDIR += xbatt
     SUBDIR += xbattbar
     SUBDIR += xcdroast

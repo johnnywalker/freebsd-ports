@@ -8,7 +8,7 @@
 
 PORTNAME=	gnotime
 PORTVERSION=	2.3.0
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	SF/gttr/${PORTNAME}/${PORTNAME}-${PORTVERSION} \
 		SF/qof/qof/${QOF_VERSION}:qof
@@ -18,7 +18,7 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:DEFAULT \
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A time tracker for gnome2
 
-LIB_DEPENDS=	guile.20:${PORTSDIR}/lang/guile
+LIB_DEPENDS=	guile.21:${PORTSDIR}/lang/guile
 
 USE_XORG=	xscrnsaver
 USE_GNOME=	gnomehack gnomeprefix gtkhtml3 intlhack libgnomeui
@@ -26,8 +26,7 @@ USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool libltdl
 LIBTOOLFILES=	configure ../${QOF_DISTNAME}/configure
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" \
-		LIBQOF_CFLAGS="${LIBQOF_CFLAGS}" LIBQOF_LIBS="${LIBQOF_LIBS}"
+CONFIGURE_ENV=	LIBQOF_CFLAGS="${LIBQOF_CFLAGS}" LIBQOF_LIBS="${LIBQOF_LIBS}"
 USE_LDCONFIG=	yes
 INSTALLS_OMF=	yes
 
@@ -38,8 +37,8 @@ QOF_VERSION=	0.7.5
 QOF_DISTNAME=	qof-${QOF_VERSION}
 QOF_WRKSRC=	${WRKDIR}/${QOF_DISTNAME}
 
-CPPFLAGS=	-I${LOCALBASE}/include `pkg-config --cflags libgnomeui-2.0`
-LDFLAGS=	-L${LOCALBASE}/lib `pkg-config --libs libgnomeui-2.0`
+CPPFLAGS+=	-I${LOCALBASE}/include `pkg-config --cflags libgnomeui-2.0`
+LDFLAGS+=	-L${LOCALBASE}/lib `pkg-config --libs libgnomeui-2.0`
 LIBQOF_CFLAGS=	-I${QOF_WRKSRC}/qof
 LIBQOF_LIBS=	-L${QOF_WRKSRC}/qof/.libs -lqof
 
@@ -57,6 +56,7 @@ pre-configure:
 	@(cd ${QOF_WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
 		CC="${CC}" CFLAGS="${CFLAGS}" \
 		CXX="${CXX}" CXXFLAGS="${CXXFLAGS}" \
+		CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" \
 		./configure --prefix=${PREFIX} --disable-error-on-warning \
 		--disable-sqlite --disable-gdasql)
 

@@ -3,6 +3,7 @@
 
     COMMENT = Astronomical ports
 
+    SUBDIR += R-cran-maptools
     SUBDIR += aa
     SUBDIR += accrete
     SUBDIR += astrometry
@@ -19,7 +20,6 @@
     SUBDIR += ephem
     SUBDIR += fowsr
     SUBDIR += foxtrotgps
-    SUBDIR += gkrellmoon
     SUBDIR += gkrellmoon2
     SUBDIR += gkrellsun
     SUBDIR += glunarclock
@@ -89,10 +89,8 @@
     SUBDIR += roadmap
     SUBDIR += roadnav
     SUBDIR += saoimage
-    SUBDIR += sattrack
     SUBDIR += sextractor
     SUBDIR += sky2000
-    SUBDIR += spacechart
     SUBDIR += sscalc
     SUBDIR += stardates
     SUBDIR += starplot

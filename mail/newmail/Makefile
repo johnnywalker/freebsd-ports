@@ -8,7 +8,7 @@
 PORTNAME=	newmail
 PORTVERSION=	1.0.2
 CATEGORIES=	mail
-MASTER_SITES=	http://freebsd.unixfreunde.de/sources/
+MASTER_SITES=	ftp://ftp.ugh.net.au/pub/unix/newmail/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A tool for checking for new mail in multiple mail boxes

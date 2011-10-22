@@ -8,8 +8,7 @@
 PORTNAME=	wait_on
 PORTVERSION=	1.1
 CATEGORIES=	sysutils
-MASTER_SITES=	http://mirror2.unixfreunde.de/ \
-		http://freebsd.unixfreunde.de/sources/
+MASTER_SITES=	ftp://ftp.ugh.net.au/pub/unix/wait_on/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Enable shell scripts to monitor directories for new files

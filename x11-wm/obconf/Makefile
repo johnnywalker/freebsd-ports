@@ -7,24 +7,25 @@
 
 PORTNAME=	obconf
 PORTVERSION=	2.0.3
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	x11-wm
-MASTER_SITES=	http://offload1.icculus.org/openbox/obconf/
+MASTER_SITES=	http://openbox.org/dist/obconf/
 
 MAINTAINER=	novel@FreeBSD.org
 COMMENT=	Preferences manager for the Openbox window manager
 
 LIB_DEPENDS=	startup-notification-1.0:${PORTSDIR}/x11/startup-notification \
-		obparser.21:${PORTSDIR}/x11-wm/openbox
+		obrender.27:${PORTSDIR}/x11-wm/openbox
 
-USE_GNOME=	gnomehier gnometarget libglade2
+USE_GNOME=	gnomehier libglade2
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
+CONFIGURE_ENV=	OPENBOX_CFLAGS="`pkg-config --cflags obrender-3.5 obt-3.5`" \
+		OPENBOX_LIBS="`pkg-config --libs obrender-3.5 obt-3.5`"
 CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc/openbox
 MAKE_ARGS=	mkdir_p='${MKDIR}'
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 PORTDOCS=	ABOUT-NLS AUTHORS README TODO
 

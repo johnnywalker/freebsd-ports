@@ -7,21 +7,21 @@
 
 PORTNAME=	gwave
 PORTVERSION=	20080127
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	cad
 MASTER_SITES=	http://geda.seul.org/dist/
 
 MAINTAINER=	stas@FreeBSD.org
 COMMENT=	Waveform viewer for analogue electronic simulation tools
 
-LIB_DEPENDS=	guile.20:${PORTSDIR}/lang/guile \
+LIB_DEPENDS=	guile.21:${PORTSDIR}/lang/guile \
 		guilegtk-1.2.0:${PORTSDIR}/x11-toolkits/guile-gtk
 
 USE_GNOME=	gtk12
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 OPTIONS=	PLOTUTILS "Use GNU plotutils for plotting" off \
 		GNUPLOT "Use gnuplot for plotting" on \

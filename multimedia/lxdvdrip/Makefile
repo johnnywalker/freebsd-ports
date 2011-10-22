@@ -9,8 +9,7 @@ PORTNAME=	lxdvdrip
 PORTVERSION=	1.62
 PORTREVISION=	8
 CATEGORIES=	multimedia
-MASTER_SITES=	http://download.berlios.de/lxdvdrip/ \
-		ftp://quenix2.dyndns.org/FreeBSD/ports/distfiles/
+MASTER_SITES=	http://download.berlios.de/lxdvdrip/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	multimedia@FreeBSD.org
@@ -45,7 +44,6 @@ LXDVDRIPSRC=	cputest.c \
 		vaporize.c
 CFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
 LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS} -ldvdread -lm
-MAKE_ENV+=	LDFLAGS="${LDFLAGS}"
 
 PORTDOCS=	Changelog.de Changelog.en Changelog.fr \
 		README.de  README.en README.fr \

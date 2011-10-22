@@ -11,12 +11,12 @@ MASTER_SITES=	SF/fuse/fuse-2.X/${PORTVERSION}
 PKGNAMESUFFIX=	-libs
 DISTNAME=	fuse-${PORTVERSION}
 
-MAINTAINER=	amistry@am-productions.biz
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	FUSE allows filesystem implementation in userspace
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	MOUNT_FUSE_PATH=${PREFIX}/sbin \
-		CFLAGS="${CFLAGS} ${PTHREAD_CFLAGS}"
+CONFIGURE_ENV=	MOUNT_FUSE_PATH=${PREFIX}/sbin
+CFLAGS+=	${PTHREAD_CFLAGS}
 USE_GNOME=	pkgconfig
 USE_LDCONFIG=	yes
 USE_ICONV=	yes

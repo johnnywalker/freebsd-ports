@@ -11,6 +11,27 @@ in the port directory:
 make extract;  more `find . -type f -maxdepth 2 -name UPGRADING`
 
 ###########################################################################
+# dspam-devel-3.10.1,1
+#
+
+Fix a problem with queries when using MySQL 5.5
+
+
+###########################################################################
+# dspam-devel-3.10.0,1
+#
+
+No change from RC1.
+
+
+###########################################################################
+# dspam-devel-3.10.0.r1,1
+#
+
+Various small fixes / improvements, see the CHANGELOG for details.
+
+
+###########################################################################
 # dspam-devel-3.8.0,1
 #
 

@@ -15,10 +15,10 @@ COMMENT=	Object-Relational Database Management System
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-USE_GNOME=	gnometarget
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${PTHREAD_CFLAGS}" LDFLAGS="${PTHREAD_LIBS}"
+CPPFLAGS+=	${PTHREAD_CFLAGS}
+LDFLAGS+=	${PTHREAD_LIBS}
 USE_LDCONFIG=	yes
 
 .include <bsd.port.pre.mk>

@@ -8,9 +8,9 @@
 
 PORTNAME=	tuxpuck
 PORTVERSION=	0.8.2
-PORTREVISION=	13
+PORTREVISION=	14
 CATEGORIES=	games
-MASTER_SITES=	http://users.student.lth.se/d00jkr/tuxpuck/
+MASTER_SITES=	http://www.sourcefiles.org/Games/Sports/Miscellaneous/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Shufflepuck Cafe Clone

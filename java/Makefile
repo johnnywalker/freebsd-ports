@@ -99,7 +99,6 @@
     SUBDIR += jcommon
     SUBDIR += jdbcpool
     SUBDIR += jde
-    SUBDIR += jdk14-doc
     SUBDIR += jdk15
     SUBDIR += jdk15-doc
     SUBDIR += jdk16
@@ -141,6 +140,7 @@
     SUBDIR += phpeclipse
     SUBDIR += poseidon
     SUBDIR += proguard
+    SUBDIR += rubygem-rjb
     SUBDIR += sablevm
     SUBDIR += sablevm-classpath
     SUBDIR += servingxml

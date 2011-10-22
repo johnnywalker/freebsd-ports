@@ -7,7 +7,7 @@
 
 PORTNAME=	pike76
 PORTVERSION=	7.6.112
-PORTREVISION=	12
+PORTREVISION=	13
 CATEGORIES=	lang
 MASTER_SITES=	ftp://pike.ida.liu.se/pub/pike/beta/${PORTVERSION}/ \
 		http://pike.ida.liu.se/pub/pike/beta/${PORTVERSION}/ \
@@ -22,7 +22,7 @@ COMMENT=	A dynamic programming language with a syntax similar to C++
 
 LIB_DEPENDS=	jpeg.11:${PORTSDIR}/graphics/jpeg \
 		tiff.4:${PORTSDIR}/graphics/tiff \
-		gdbm.3:${PORTSDIR}/databases/gdbm \
+		gdbm.4:${PORTSDIR}/databases/gdbm \
 		pcre.0:${PORTSDIR}/devel/pcre \
 		mird.1:${PORTSDIR}/databases/mird \
 		gmp.10:${PORTSDIR}/math/gmp
@@ -49,7 +49,6 @@ MAN1=		pike.1
 WANT_MESA=	yes
 
 CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-CONFIGURE_ENV=	CPPFLAGS=${CPPFLAGS}
 CONFIGURE_ARGS+=	--without-debug \
 		 --with-thread-library=${PTHREAD_LIBS} \
 		 --with-double-precision \

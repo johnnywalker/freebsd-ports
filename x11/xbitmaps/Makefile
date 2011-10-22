@@ -6,13 +6,15 @@
 #
 
 PORTNAME=	xbitmaps
-PORTVERSION=	1.1.0
+PORTVERSION=	1.1.1
 CATEGORIES=	x11
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X.Org bitmaps data
 
-CONFLICTS=	XFree86-libraries-* xorg-libraries-6.*
+LICENSE=	MIT
+
+CONFLICTS=	xorg-libraries-6.*
 
 USE_GNOME=	gnomehack
 

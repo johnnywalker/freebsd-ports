@@ -6,8 +6,8 @@
 #
 
 PORTNAME=	libmemcached
-PORTVERSION=	0.49
-PORTREVISION=	1
+PORTVERSION=	0.51
+PORTREVISION=	0
 CATEGORIES=	databases
 MASTER_SITES=	http://launchpad.net/${PORTNAME}/1.0/${PORTVERSION}/+download/
 
@@ -18,7 +18,7 @@ FETCH_ARGS?= 	-pRr
 USE_GMAKE=	yes
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
-USE_GNOME=	gnomehack gnometarget pkgconfig
+USE_GNOME=	gnomehack pkgconfig
 CONFIGURE_ARGS=	--with-memcached=no --disable-libevent --without-libevent-prefix
 
 OPTIONS=	SASL "With (Cyrus) SASL2 support" off

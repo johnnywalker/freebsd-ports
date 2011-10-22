@@ -11,7 +11,7 @@ PORTREVISION=	8
 CATEGORIES=	ftp ipv6
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-sources/${PORTNAME}-0.8
 
-MAINTAINER=	novel@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Modular FTP server configurable online using SITE commands
 
 USE_AUTOTOOLS=	libtool
@@ -21,8 +21,8 @@ GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 USE_GNOME=	pkgconfig ltverhack
 CONFIGURE_ARGS+=	--without-pam --disable-pgsql --disable-bonjour
-CONFIGURE_ENV=	CPPFLAGS="${CPPLAGS} -I${LOCALBASE}/include ${PTHREAD_CFLAGS}" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 PKGMESSAGE=	${WRKDIR}/pkg-message
 
 OPTIONS=	UTF8 "Enable UTF8 support" off \

@@ -18,13 +18,13 @@ LIB_DEPENDS=	cairo.2:${PORTSDIR}/graphics/cairo
 
 USE_AUTOTOOLS=	libtool
 USE_GMAKE=	yes
-USE_GNOME=	gnomehack gnometarget libgnomeprint libxslt \
+USE_GNOME=	gnomehack libgnomeprint libxslt \
 		libxml2 gtk20 glib20 pango
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-gtk-doc \
 		--with-html-dir=${PREFIX}/share/doc
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.mk>

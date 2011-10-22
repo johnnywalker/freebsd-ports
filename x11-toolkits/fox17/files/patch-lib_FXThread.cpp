@@ -1,11 +1,15 @@
---- lib/FXThread.cpp.orig	2011-05-19 09:10:16.000000000 +0200
-+++ lib/FXThread.cpp	2011-05-19 09:10:38.000000000 +0200
-@@ -599,7 +599,7 @@
-   InitializeCriticalSection(((RWLOCK*)data)->mutex);
-   InitializeCriticalSection(((RWLOCK*)data)->access);
-   ((RWLOCK*)data)->readers=0;
--#elif defined(__APPLE__)
-+#elif defined(__APPLE__) || defined(__FreeBSD__)
-   // If this fails on your machine, determine what value
-   // of sizeof(pthread_rwlock_t) is supposed to be on your
-   // machine and mail it to: jeroen@fox-toolkit.com!!
+--- lib/FXThread.cpp.orig	2011-08-05 09:26:49.000000000 +0200
++++ lib/FXThread.cpp	2011-08-05 09:32:51.000000000 +0200
+@@ -25,6 +25,12 @@
+ #include "FXAutoThreadStorageKey.h"
+ #include "FXThread.h"
+ 
++#ifdef __FreeBSD__
++#include <pthread_np.h>
++#include <sys/cpuset.h>
++#define cpu_set_t cpuset_t
++#endif
++
+ /*
+   Notes:
+ 

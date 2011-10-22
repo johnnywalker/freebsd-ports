@@ -8,10 +8,12 @@
 PORTNAME=	hcidump
 PORTVERSION=	1.5.1
 CATEGORIES=	comms sysutils
-MASTER_SITES=	http://www.geocities.com/m_evmenkin/
+MASTER_SITES=	http://bsd-geek.de/FreeBSD/distfiles/
 
 MAINTAINER=	pav@FreeBSD.org
 COMMENT=	Bluetooth traffic dumper, similar to tcpdump
+
+LICENSE=	GPLv2
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 

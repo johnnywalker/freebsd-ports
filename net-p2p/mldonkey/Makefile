@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	mldonkey
-PORTVERSION=	3.0.7
+PORTVERSION=	3.1.0
 CATEGORIES+=	net-p2p
 MASTER_SITES=	SF
 
@@ -30,17 +30,13 @@ ALL_TARGET=	opt
 MAKE_ENV+=	OCAMLRUNPARAM="l=256M"
 MAKE_JOBS_UNSAFE=	yes
 
-CONFIGURE_ARGS+=\
-		--enable-ocamlver=3 \
+CONFIGURE_ARGS+=--enable-ocamlver=3 \
 		--with-libiconv-prefix=${LOCALBASE}
-CONFIGURE_ENV+=	\
-		NEWCXX="${CXX}" \
-		CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib" \
+CONFIGURE_ENV+=	NEWCXX="${CXX}" \
 		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		PTHREAD_LIBS="${PTHREAD_LIBS}"
-# FreeBSD has reentrant dns code
-PTHREAD_CFLAGS+=	-D_REENTRANT
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 ###
 ## Library dependency handling
@@ -113,26 +109,11 @@ ALL_TARGET+=	\
 
 .include <bsd.port.pre.mk>
 
-### Development version
-## Thus, we will use non standard threading library
-## We will switch from libpthread to libthr which should produce
-## better results in some scenarios. You can read more at pthread(3)
-.if defined(WITH_THR_THREAD_MODEL)
-PTHREAD_CFLAGS=	-D_THREAD_SAFE
-PTHREAD_LIBS=	-lthr
-.endif
-
 pre-everything::
 .if !defined(WITHOUT_GUI) && !defined(WITHOUT_CORE)
 	@${ECHO_MSG} "You can disable the GUI by defining WITHOUT_GUI."
 	@${ECHO_MSG} "You can disable the CORE by defining WITHOUT_CORE."
 	@${ECHO_MSG}
-.endif
-.ifndef(WITH_THR_THREAD_MODEL)
-	@${ECHO_MSG} "Define WITH_THR_THREAD_MODEL to switch from"
-	@${ECHO_MSG} "pthread to thr threading model which could produce better"
-	@${ECHO_MSG} "results in some scenarios.  Use at your discretion."
-
 .endif
 
 post-patch:
@@ -143,6 +124,7 @@ post-patch:
 		${WRKDIR}/wrapper.sh
 	@${REINPLACE_CMD} -E \
 		-e 's|%%AUTOCONF%%|${AUTOCONF}|' \
+		-e 's/-O6//' \
 		${BUILD_WRKSRC}/config/Makefile.in
 # update server.met provider
 .for file in \

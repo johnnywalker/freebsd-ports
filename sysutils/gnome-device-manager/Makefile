@@ -19,12 +19,12 @@ LIB_DEPENDS=	hal.1:${PORTSDIR}/sysutils/hal
 
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-USE_GNOME=	gnomehack gnometarget intlhack ltverhack libgnomeui
+USE_GNOME=	gnomehack intlhack ltverhack libgnomeui
 USE_AUTOTOOLS=	libtool
 INSTALLS_ICONS=	yes
 USE_LDCONFIG=	yes
 INSTALLS_OMF=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.mk>

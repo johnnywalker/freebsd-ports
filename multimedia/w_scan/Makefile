@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	w_scan
-PORTVERSION=	20110616
+PORTVERSION=	20110702
 CATEGORIES=	multimedia
 MASTER_SITES=	http://wirbel.htpc-forum.de/w_scan/
 
@@ -25,7 +25,6 @@ PORTDOCS=	COPYING ChangeLog README
 PLIST_FILES=	bin/${PORTNAME}
 MAN1=		w_scan.1
 MAKE_JOBS_SAFE=	yes
-CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}"
 
 post-patch:
 	${REINPLACE_CMD} -f ${FILESDIR}/types.sed ${WRKSRC}/configure ${WRKSRC}/*.c ${WRKSRC}/*.h

@@ -19,6 +19,9 @@ PATCH_DIST_STRIP=	-p0
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	The extremely popular Apache http server. Very fast, very clean
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 CONFLICTS=	apache+mod_ssl-1.* apache+mod_ssl+ipv6-1.* apache+mod_ssl+modsnmp-1.* \
@@ -137,8 +140,8 @@ CONFIGURE_ENV=	OPTIM='${OPTIM}' LD_SHLIB='${CC}' LIBS='${LIBS}'
 
 .if !defined(WITHOUT_APACHE_EXPAT) && !defined(WITH_APACHE_INTERNAL_EXPAT)
 CONFIGURE_ENV+=	\
-		INCLUDES=-I${LOCALBASE}/include \
-		LDFLAGS=-L${LOCALBASE}/lib
+		INCLUDES=-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 .endif
 
 MAN1=		dbmmanage.1 htdigest.1 htpasswd.1

@@ -10,28 +10,27 @@ PORTNAME=	gnuboy
 PORTVERSION=	1.0.3
 PORTREVISION=	8
 CATEGORIES=	emulators games
-MASTER_SITES=	http://gnuboy.unix-fu.org/src/ \
-		http://brightrain.aerifal.cx/~laguna/src/
+MASTER_SITES=	http://www.sourcefiles.org/Emulators/Videogames/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Nintendo GameBoy emulator
+
+LICENSE=	GPLv2 # (or later)
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	vga.1:${PORTSDIR}/graphics/svgalib
 
 USE_SDL=	sdl
 USE_XORG=	x11
 USE_AUTOTOOLS=	autoconf
-GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include"
 CONFIGURE_ARGS=	--with-sdl
+MAKE_JOBS_SAFE=	yes
 
-.if !defined(NOPORTDOCS)
 PORTDOCS=	*
-.endif
-
 PLIST_FILES=	bin/sdlgnuboy bin/sgnuboy bin/xgnuboy
 
-post-patch:
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 do-install:
 .for file in sdlgnuboy sgnuboy xgnuboy
@@ -39,7 +38,7 @@ do-install:
 .endfor
 .if !defined(NOPORTDOCS)
 	@${MKDIR} ${DOCSDIR}
-	@${INSTALL_DATA} ${WRKSRC}/docs/* ${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/docs/* ${DOCSDIR}
 .endif
 
 .include <bsd.port.mk>

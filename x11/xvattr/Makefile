@@ -10,7 +10,8 @@ PORTNAME=	xvattr
 PORTVERSION=	1.3
 PORTREVISION=	7
 CATEGORIES=	x11
-MASTER_SITES=	http://www.dtek.chalmers.se/groups/dvd/dist/
+MASTER_SITES=	ftp://ftp.SpringDaemons.com/soft/ \
+		http://www.dtek.chalmers.se/groups/dvd/dist/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Getting and setting Xv attributes

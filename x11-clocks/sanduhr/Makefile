@@ -14,12 +14,12 @@ MASTER_SITES=	http://seehuhn.de/media/programs/
 MAINTAINER=	araujo@FreeBSD.org
 COMMENT=	An alarm clock for GNOME desktop designed as a sand-glass
 
-USE_GNOME=	gnomehack gnometarget gnomeprefix libgnomeui oaf
+USE_GNOME=	gnomehack gnomeprefix libgnomeui oaf
 USE_GMAKE=	yes
 INSTALLS_OMF=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		sanduhr.1
 

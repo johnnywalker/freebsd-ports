@@ -19,7 +19,6 @@ COMMENT=	Garbage collection and memory leak detection for C and C++
 RUN_DEPENDS=	${PREFIX}/include/gc/gc.h:${PORTSDIR}/devel/boehm-gc
 
 GNU_CONFIGURE=	yes
-USE_GNOME=	gnometarget
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--enable-cplusplus --disable-static --enable-threads=posix \
 		--enable-thread-local-alloc
@@ -67,5 +66,8 @@ do-install:
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/bdw-gc.pc \
 		${PREFIX}/libdata/pkgconfig/bdw-gc-${GC_VARIANT}.pc
+
+test: build
+	cd ${WRKSRC} && ${MAKE} check
 
 .include <bsd.port.post.mk>

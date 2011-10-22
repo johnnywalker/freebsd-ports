@@ -7,7 +7,7 @@
 #
 
 PORTNAME=	nettle
-PORTVERSION=	2.2
+PORTVERSION=	2.4
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GNU} \
 		http://www.lysator.liu.se/~nisse/archive/:liu \
@@ -26,6 +26,7 @@ USE_GMAKE=	yes
 USE_OPENSSL=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-shared
+MAKE_ARGS=	pkgconfigdir="${PREFIX}/libdata/pkgconfig"
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -35,6 +36,10 @@ DOCS=		NEWS README TODO nettle.html nettle.pdf
 EXAMPLES=	examples/*.c examples/*.h
 
 INFO=		nettle
+
+post-patch:
+	@${REINPLACE_CMD} -e 's/[[:<:]]sub[[:>:]]/subl/' \
+		${WRKSRC}/x86/camellia-crypt-internal.asm
 
 post-install:
 .if !defined(NOPORTEXAMPLES)

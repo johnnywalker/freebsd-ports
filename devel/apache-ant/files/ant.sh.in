@@ -7,12 +7,12 @@
 #
 # See: http://ant.apache.org/
 #
-# $FreeBSD: ports/devel/apache-ant/files/ant.sh.in,v 1.5 2005/10/10 14:38:42 hq Exp $
+# $FreeBSD: ports/devel/apache-ant/files/ant.sh.in,v 1.6 2006/09/06 21:52:18 hq Exp $
 #
 
 
 DEFAULT_JIKES=false
-DATADIR=${DATADIR:-"%%DATADIR%%"}
+ANT_HOME=${ANT_HOME:-"%%DATADIR%%"}
 
 
 #-----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ fi
 usejikes=${usejikes:-${DEFAULT_JIKES}};
 
 # Set ANT_LIB location
-ANT_LIB="${DATADIR}/lib"
+ANT_LIB="${ANT_HOME}/lib"
 
 #-----------------------------------------------------------------------------
 # Determine CLASSPATH
@@ -79,4 +79,4 @@ if [ ! -x "${JAVACMD}" ]; then
 	exit 1
 fi
 
-exec "${JAVACMD}" ${ANT_OPTS} -classpath "${LOCALCLASSPATH}" -Dant.home="${DATADIR}" org.apache.tools.ant.launch.Launcher ${ANT_ARGS} -lib "${CLASSPATH}" "$@"
+exec "${JAVACMD}" ${ANT_OPTS} -classpath "${LOCALCLASSPATH}" -Dant.home="${ANT_HOME}" org.apache.tools.ant.launch.Launcher ${ANT_ARGS} -lib "${CLASSPATH}" "$@"

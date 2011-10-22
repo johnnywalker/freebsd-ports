@@ -17,11 +17,11 @@ COMMENT=	OpenGL image compositing library
 
 USE_GL=		yes
 USE_XORG=	xt
-USE_GNOME=	pkgconfig gnometarget gnomehack
+USE_GNOME=	pkgconfig gnomehack
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 
-CONFIGURE_ENV=	CPPFLAGS="${PTHREAD_CFLAGS}" \
-		LDFLAGS="${PTHREAD_LIBS}"
+CPPFLAGS+=	${PTHREAD_CFLAGS}
+LDFLAGS+=	${PTHREAD_LIBS}
 
 .include <bsd.port.mk>

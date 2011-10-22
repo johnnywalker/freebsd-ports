@@ -7,7 +7,7 @@
 
 PORTNAME=	gnubg
 PORTVERSION=	0.15
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	games
 MASTER_SITES=	http://www.gnubg.org/media/sources/:src \
 		${MASTER_SITE_GNU_ALPHA:S/$/:ts/}
@@ -21,7 +21,7 @@ COMMENT=	GNU Backgammon
 
 BUILD_DEPENDS=	bison:${PORTSDIR}/devel/bison
 LIB_DEPENDS=	gmp.10:${PORTSDIR}/math/gmp \
-		gdbm.3:${PORTSDIR}/databases/gdbm \
+		gdbm.4:${PORTSDIR}/databases/gdbm \
 		gtkextra-x11-2.0.1:${PORTSDIR}/x11-toolkits/gtkextra2 \
 		gtkglext-x11-1.0.0:${PORTSDIR}/x11-toolkits/gtkglext
 
@@ -32,10 +32,9 @@ OPTIONS=	ESOUND	"Enable sound support" ON	\
 
 CONFIGURE_ARGS=	--with-board3d
 
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" \
-		ac_cv_path_ARTSC_CONFIG=no ac_cv_path_LIBART_CONFIG=no
+CONFIGURE_ENV=	ac_cv_path_ARTSC_CONFIG=no ac_cv_path_LIBART_CONFIG=no
 
-USE_GNOME=	gnomehack gnometarget libxml2
+USE_GNOME=	gnomehack libxml2
 USE_GMAKE=	yes
 USE_PYTHON=	2.0+
 USE_AUTOTOOLS=	libtool automake
@@ -66,8 +65,8 @@ CONFIGURE_ARGS+=	--disable-sse
 MAN6=	gnubg.6
 INFO=	gnubg
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 post-extract:
 	${GUNZIP_CMD} --stdout ${DISTDIR}/${DIST_SUBDIR}/gnubg_ts0.bd.gz > ${WRKSRC}/gnubg_ts0.bd

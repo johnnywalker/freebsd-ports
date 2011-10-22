@@ -12,6 +12,7 @@
     SUBDIR += bind9-sdb-postgresql
     SUBDIR += bind96
     SUBDIR += bind97
+    SUBDIR += bind97-sdb
     SUBDIR += bind98
     SUBDIR += bindgraph
     SUBDIR += c-ares
@@ -57,7 +58,6 @@
     SUBDIR += gresolver
     SUBDIR += h2n
     SUBDIR += hesiod
-    SUBDIR += host
     SUBDIR += idnkit
     SUBDIR += inadyn
     SUBDIR += ipcheck

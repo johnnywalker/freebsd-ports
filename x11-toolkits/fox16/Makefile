@@ -32,14 +32,13 @@ PLIST_SUB+=	MAJORVER=${MAJORVER} SHVER=${SHVER}
 USE_GNOME=	lthack gnomehack
 USE_GL=		yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--with-opengl --with-x --enable-threadsafe
 USE_LDCONFIG=	yes
 
 MAN1=		shutterbug.1 reswrap.1
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=	XFT	"Enable Xft support" on \
 		SHM	"Enable Shared Memory support" on \
@@ -102,6 +101,7 @@ CONFIGURE_ARGS+=	--with-profiling=gprof
 .endif
 
 post-patch:
+	${REINPLACE_CMD} -e '/^Libs:/s|$$| ${PTHREAD_LIBS}|' ${WRKSRC}/fox.pc.in
 # CXXFLAGS safeness
 	@${REINPLACE_CMD} -E -e \
 		's|-O2|${CXXFLAGS}|g ; \

@@ -1,6 +1,6 @@
-# New ports collection makefile for:	egl
+# New ports collection makefile for:	EGL
 # Date created:				20 May 2006
-# Whom:					alepulver
+# Whom:					Alejandro Pulver <alepulver@FreeBSD.org>
 #
 # $FreeBSD$
 #
@@ -16,8 +16,8 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:src \
 		egl.pkz:data
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	ports@FreeBSD.org
-COMMENT=	Enhaced OpenGL only Quake II engine
+MAINTAINER=	danfe@FreeBSD.org
+COMMENT=	Enhanced OpenGL only Quake II engine
 
 USE_ZIP=	yes
 USE_DOS2UNIX=	yes

@@ -6,7 +6,6 @@
     SUBDIR += 9libs
     SUBDIR += SoXt
     SUBDIR += Xaw3d
-    SUBDIR += XawPlus
     SUBDIR += attica
     SUBDIR += bakery
     SUBDIR += blt
@@ -86,9 +85,9 @@
     SUBDIR += hs-OpenGL
     SUBDIR += hs-frantk
     SUBDIR += hs-gtk
+    SUBDIR += hs-gtk2hs
     SUBDIR += hs-gtkglext
     SUBDIR += hs-gtksourceview2
-    SUBDIR += hs-gtk2hs
     SUBDIR += hs-pango
     SUBDIR += hs-vte
     SUBDIR += irrlicht
@@ -143,7 +142,6 @@
     SUBDIR += otk
     SUBDIR += p5-Alien-wxWidgets
     SUBDIR += p5-GdkImlib
-    SUBDIR += p5-GdkPixbuf
     SUBDIR += p5-Glade2
     SUBDIR += p5-Gnome2
     SUBDIR += p5-Gnome2-Canvas
@@ -232,6 +230,8 @@
     SUBDIR += qwt4
     SUBDIR += qwt5
     SUBDIR += qwt5-designerplugin
+    SUBDIR += qwt6
+    SUBDIR += qwt6-designerplugin
     SUBDIR += renaissance
     SUBDIR += rep-gtk2
     SUBDIR += ruby-fox16
@@ -250,7 +250,6 @@
     SUBDIR += ruby-wx
     SUBDIR += sakura
     SUBDIR += scintilla
-    SUBDIR += sdl_gui
     SUBDIR += sdl_pango
     SUBDIR += shared-desktop-ontologies
     SUBDIR += skinlf

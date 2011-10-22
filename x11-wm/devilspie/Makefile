@@ -14,12 +14,12 @@ MASTER_SITES=	http://www.burtonini.com/computing/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A window manipulation tool
 
-USE_GNOME=	gnometarget libwnck
+USE_GNOME=	libwnck
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		devilspie.1
 PORTDOCS=	AUTHORS NEWS README TODO

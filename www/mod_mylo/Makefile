@@ -14,9 +14,12 @@ MASTER_SITES=	http://sheepkiller.nerim.net/ports/${PORTNAME}/ \
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	An Apache module to make Apache log to MySQL
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 USE_MYSQL=	YES
 
 AP_FAST_BUILD=	yes

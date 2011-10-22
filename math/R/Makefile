@@ -8,6 +8,7 @@
 
 PORTNAME?=	R
 PORTVERSION=	2.13.1
+PORTREVISION=	1
 CATEGORIES=	math lang
 MASTER_SITES=	http://cran.r-project.org/src/base/R-2/ \
 		ftp://cran.r-project.org/pub/R/src/base/R-2/ \
@@ -40,6 +41,7 @@ PLIST_SUB=		RMATH_SOVERSION="${RMATH_SOVERSION}"
 USE_LDCONFIG=		yes
 .else # LIBRMATH_SLAVEPORT
 ALL_TARGET=		all
+INSTALL_TARGET =	install
 CONFIGURE_ARGS =	--enable-memory-profiling rdocdir=${DOCSDIR} \
 			--with-system-bzlib --with-system-zlib
 CONFIGURE_ENV=		FCFLAGS="${FFLAGS}" \
@@ -48,7 +50,7 @@ CONFIGURE_ENV=		FCFLAGS="${FFLAGS}" \
 OPTIONS=	ATLAS		"Use ATLAS instead of BLAS/LAPACK" off \
 		ICU		"Improve collation in multibyte locales with ICU" on \
 		NLS		"Build with NLS support" on \
-		PCRE_PORT	"Use PCRE port instead of bundled source" on \
+		PCRE_PORT	"Use PCRE port instead of bundled source" off \
 		THREADS		"Build a multithreaded R" on
 .if !defined(LIBR_SLAVEPORT)
 OPTIONS+=	GHOSTSCRIPT	"Enable the [dev2]bitmap() graphics devices" on \
@@ -128,6 +130,7 @@ PLIST_SUB+=		NLS="@comment "
 .if defined(WITHOUT_PCRE_PORT)
 CONFIGURE_ARGS+=	--without-system-pcre
 .else
+BROKEN =	WITH_PCRE_PORT breaks document generation with pcre 8.13
 LIB_DEPENDS+=		pcre.0:${PORTSDIR}/devel/pcre
 CONFIGURE_ARGS+=	--with-system-pcre
 .endif
@@ -207,7 +210,8 @@ INFO=		R-FAQ R-admin R-data R-exts R-intro R-lang
 .endif
 
 .if defined(WITH_DVI_MANUALS) && !defined(NOPORTDOCS)
-BUILD_DEPENDS +=	texi2dvi:${PORTSDIR}/print/teTeX-base
+BUILD_DEPENDS +=	texi2dvi:${PORTSDIR}/print/texinfo \
+			tex:${PORTSDIR}/print/teTeX-base
 ALL_TARGET+=		dvi
 INSTALL_TARGET+=	install-dvi
 PLIST_SUB+=		DVI_MANUAL=""

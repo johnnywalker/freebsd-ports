@@ -9,10 +9,11 @@ PORTNAME=	hunspell
 PORTVERSION=	0.5
 PORTREVISION=	1
 CATEGORIES=	textproc
-MASTER_SITES=	http://extensions.services.openoffice.org/e-files/1639/2/
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
 PKGNAMEPREFIX=	es-
-DISTNAME=	es_ANY
+DISTNAME=	es_ANY-${PORTVERSION}
 EXTRACT_SUFX=	.oxt
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Spanish hunspell dictionaries
@@ -22,6 +23,7 @@ LICENSE_COMB=	dual
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	%%DATADIR%%/es_ES.aff \
 		%%DATADIR%%/es_ES.dic
@@ -36,8 +38,8 @@ PLIST_FILES+=	%%DATADIR%%/${ALIAS}.aff \
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKDIR}/es_ANY.aff ${DATADIR}/es_ES.aff
-	${INSTALL_DATA} ${WRKDIR}/es_ANY.dic ${DATADIR}/es_ES.dic
+	${INSTALL_DATA} ${WRKSRC}/es_ANY.aff ${DATADIR}/es_ES.aff
+	${INSTALL_DATA} ${WRKSRC}/es_ANY.dic ${DATADIR}/es_ES.dic
 .for ALIAS in ${ESALIASES}
 	${LN} -s es_ES.aff ${DATADIR}/${ALIAS}.aff
 	${LN} -s es_ES.dic ${DATADIR}/${ALIAS}.dic

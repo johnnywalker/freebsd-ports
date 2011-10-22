@@ -9,11 +9,14 @@ PORTNAME=		FormValidator-Simple
 PORTVERSION=	0.28
 CATEGORIES=		textproc perl5
 MASTER_SITES=		CPAN
-MASTER_SITE_SUBDIR=	../by-authors/id/L/LY/LYOKATO
+MASTER_SITE_SUBDIR=	CPAN:LYOKATO
 PKGNAMEPREFIX=		p5-
 
 MAINTAINER=		perl@FreeBSD.org
 COMMENT=		Validation with simple chains of constraints
+
+DEPRECATED=	Depends on devel/p5-Class-Data-Accessor, which is deprecated
+EXPIRATION_DATE=	2011-09-30
 
 BUILD_DEPENDS=	p5-Class-Accessor>=0.22:${PORTSDIR}/devel/p5-Class-Accessor \
 		p5-Class-Inspector>=1.13:${PORTSDIR}/devel/p5-Class-Inspector \
@@ -30,7 +33,7 @@ BUILD_DEPENDS=	p5-Class-Accessor>=0.22:${PORTSDIR}/devel/p5-Class-Accessor \
 		p5-DateTime-Format-Strptime>=1.07:${PORTSDIR}/devel/p5-DateTime-Format-Strptime
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
-PERL_CONFIGURE=	5.8.0+
+PERL_CONFIGURE=	yes
 
 MAN3=		FormValidator::Simple.3 \
 		FormValidator::Simple::Results.3

@@ -2,7 +2,7 @@
 # Date created:		31 May 2002
 # Whom:			dinoex
 #
-# $FreeBSD: ports/Mk/bsd.openssl.mk,v 1.44 2009/07/21 17:51:43 dinoex Exp $
+# $FreeBSD: ports/Mk/bsd.openssl.mk,v 1.45 2010/01/12 15:46:24 dinoex Exp $
 #
 # Use of 'USE_OPENSSL=yes' includes this Makefile after bsd.ports.pre.mk
 #
@@ -135,14 +135,8 @@ CFLAGS+=		-Wl,-rpath,${OPENSSLRPATH}
 .endif
 OPENSSL_LDFLAGS+=	-rpath=${OPENSSLRPATH}
 
-.if defined(LDFLAGS)
 LDFLAGS+=${OPENSSL_LDFLAGS}
-.else
-LDFLAGS=${OPENSSL_LDFLAGS}
-.endif
 
-CONFIGURE_ENV+=		LDFLAGS="${LDFLAGS}"
-MAKE_ENV+=		LDFLAGS="${LDFLAGS}"
 MAKE_ENV+=		OPENSSLLIB=${OPENSSLLIB} OPENSSLINC=${OPENSSLINC} \
 			OPENSSLBASE=${OPENSSLBASE} OPENSSLDIR=${OPENSSLDIR}
 

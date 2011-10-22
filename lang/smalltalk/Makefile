@@ -7,6 +7,7 @@
 
 PORTNAME=	smalltalk
 PORTVERSION=	3.2.4
+PORTREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	${PORTNAME}
@@ -16,7 +17,7 @@ COMMENT=	GNU Smalltalk
 
 BUILD_DEPENDS=	zip:${PORTSDIR}/archivers/zip \
 		gawk:${PORTSDIR}/lang/gawk
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm \
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm \
 		execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		cairo.2:${PORTSDIR}/graphics/cairo
 
@@ -25,14 +26,13 @@ OPTIONS=	TCLTK "Enable Tcl/Tk binding" on \
 		SDL "SDL binding" on
 
 USE_AUTOTOOLS=	libtool
-USE_GNOME=	gnomehack gnometarget pkgconfig pango
+USE_GNOME=	gnomehack pkgconfig pango
 USE_ICONV=	yes
 USE_SQLITE=	yes
 USE_GMAKE=	yes
 USE_GL=		gl glut
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}" \
-		ac_cv_prog_EMACS=no
+CONFIGURE_ENV=	ac_cv_prog_EMACS=no
 CONFIGURE_ARGS=	--enable-generational-gc=no \
 		--enable-gtk=no \
 		--with-emacs=no \
@@ -50,8 +50,8 @@ MAN1=		gst.1 gst-load.1 gst-package.1 gst-sunit.1 gst-config.1 \
 MLINKS=		gst-load.1 gst-reload.1
 INFO=		gst gst-base gst-libs
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 

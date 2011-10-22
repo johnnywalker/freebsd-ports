@@ -14,6 +14,9 @@ MASTER_SITES=	http://unixpages.org/distfiles/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A DirectConnect (www.neo-modus.com) text client for file sharing
 
+DEPRECATED=	No more public distfiles
+EXPIRATION_DATE=	2011-09-01
+
 BROKEN=	Does not fetch
 
 BUILD_DEPENDS=	makedepend:${PORTSDIR}/devel/makedepend
@@ -24,8 +27,6 @@ USE_PERL5_RUN=	yes
 GNU_CONFIGURE=	yes
 LDFLAGS+=	${PTHREAD_LIBS:S/"//g}
 CPPFLAGS+=	${PTHREAD_CFLAGS}
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" \
-		LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--enable-manual-db-detect --with-db=${LOCALBASE}
 MANCOMPRESSED=	no
 

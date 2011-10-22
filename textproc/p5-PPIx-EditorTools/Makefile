@@ -9,7 +9,7 @@ PORTNAME=	PPIx-EditorTools
 PORTVERSION=	0.11
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	../by-authors/id/A/AZ/AZAWAWI
+MASTER_SITE_SUBDIR=	CPAN:AZAWAWI
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	cm@therek.net
@@ -19,7 +19,7 @@ BUILD_DEPENDS=	p5-Class-XSAccessor>=1.02:${PORTSDIR}/devel/p5-Class-XSAccessor \
 		p5-PPI>=1.203:${PORTSDIR}/textproc/p5-PPI
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-PERL_CONFIGURE=	5.8.0+
+PERL_CONFIGURE=	yes
 
 MAN3=		PPIx::EditorTools::RenamePackage.3 \
 		PPIx::EditorTools::RenamePackageFromPath.3 \

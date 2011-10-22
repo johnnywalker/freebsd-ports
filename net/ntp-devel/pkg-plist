@@ -1,15 +1,13 @@
-bin/event_rpcgen.py
-%%SSL%%bin/ntp-keygen
-bin/ntp-wait
-bin/ntpd
-bin/ntpdate
-bin/ntpdc
-bin/ntpq
-bin/ntptime
-bin/ntptrace
-bin/sntp
-bin/tickadj
-%%NETSNMP%%bin/ntpsnmpd
+%%SSL%%sbin/ntp-keygen
+sbin/ntp-wait
+sbin/ntpd
+sbin/ntpdate
+sbin/ntpdc
+sbin/ntpq
+%%NETSNMP%%sbin/ntpsnmpd
+sbin/ntptime
+sbin/ntptrace
+sbin/sntp
 %%PORTDOCS%%%%DOCSDIR%%/access.html
 %%PORTDOCS%%%%DOCSDIR%%/accopt.html
 %%PORTDOCS%%%%DOCSDIR%%/assoc.html
@@ -124,6 +122,7 @@ bin/tickadj
 %%PORTDOCS%%%%DOCSDIR%%/ntpq.html
 %%PORTDOCS%%%%DOCSDIR%%/ntptime.html
 %%PORTDOCS%%%%DOCSDIR%%/ntptrace.html
+%%PORTDOCS%%%%DOCSDIR%%/ntp-wait.html
 %%PORTDOCS%%%%DOCSDIR%%/orphan.html
 %%PORTDOCS%%%%DOCSDIR%%/parsedata.html
 %%PORTDOCS%%%%DOCSDIR%%/parsenew.html
@@ -250,4 +249,3 @@ bin/tickadj
 %%PORTDOCS%%@dirrm %%DOCSDIR%%/drivers
 %%PORTDOCS%%@dirrm %%DOCSDIR%%
 @dirrm %%EXAMPLESDIR%%
-@dirrmtry lib/pkgconfig

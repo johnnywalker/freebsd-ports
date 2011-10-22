@@ -5,8 +5,7 @@
 # $FreeBSD$
 
 PORTNAME=	kannel
-PORTVERSION=	1.4.3
-PORTREVISION=	2
+PORTVERSION=	1.5.0
 CATEGORIES=	www
 MASTER_SITES=	http://www.kannel.org/download/${PORTVERSION}/
 MASTER_SITE_SUBDIR=	${PORTVERSION}
@@ -37,8 +36,8 @@ OPTIONS=	MYSQL	"Enable MySQL support"		off \
 
 .include <bsd.port.options.mk>
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .if defined(WITH_MYSQL)
 USE_MYSQL=	yes

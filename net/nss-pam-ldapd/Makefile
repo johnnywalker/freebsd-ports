@@ -7,7 +7,7 @@
 
 PORTNAME=		nss-pam-ldapd
 PORTVERSION=		0.7.13
-PORTREVISION=	1
+PORTREVISION=		2
 CATEGORIES=		net
 MASTER_SITES=		http://arthurdejong.org/nss-pam-ldapd/ \
 			http://static.ipfw.ru/files/
@@ -41,8 +41,8 @@ IGNORE=			problems with nss/libc TLS
 EXTRA_PATCHES+=		${FILESDIR}/rtld_nss__nslcd.c
 .endif
 
-CONFIGURE_ENV=		CPPFLAGS="-I${LOCALBASE}/include" \
-			LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=		-I${LOCALBASE}/include
+LDFLAGS+=		-L${LOCALBASE}/lib
 
 CONFIGURE_ARGS+=	--with-nslcd-pidfile=${NSLCD_PIDFILE} \
 			--with-nslcd-socket=${NSLCD_SOCKET} \

@@ -7,7 +7,7 @@
 
 PORTNAME=	guppi
 PORTVERSION=	0.40.3
-PORTREVISION=	17
+PORTREVISION=	18
 CATEGORIES=	math gnome
 MASTER_SITES=	GNOME
 MASTER_SITE_SUBDIR=	sources/Guppi/0.40
@@ -16,19 +16,19 @@ DISTNAME=	Guppi-${PORTVERSION}
 MAINTAINER=	gahr@FreeBSD.org
 COMMENT=	A plotting program for GNOME
 
-LIB_DEPENDS=	guile.20:${PORTSDIR}/lang/guile
+LIB_DEPENDS=	guile.21:${PORTSDIR}/lang/guile
 
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-USE_GNOME=	gnomeprefix gnomehack gnomelibs bonobo libglade gal gnometarget
+USE_GNOME=	gnomeprefix gnomehack gnomelibs bonobo libglade gal
 USE_PYTHON=	yes
 USE_AUTOTOOLS=	libtool
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-gnumeric --enable-explicit-python-linking
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include -I${LOCALBASE}/include/libglade-1.0" \
-		LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}" \
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}" \
 		GNUMERIC_IDLDIR="${WRKDIR}/gnumeric"
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/libglade-1.0
 PLIST_SUB=	VERSION="${PORTVERSION}"
 .if !defined(WITHOUT_NLS)
 USE_GETTEXT=	yes

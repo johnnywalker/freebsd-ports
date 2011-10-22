@@ -30,20 +30,18 @@ RUN_DEPENDS=	dvdauthor:${PORTSDIR}/multimedia/dvdauthor \
 LIB_DEPENDS+=	avformat.1:${PORTSDIR}/multimedia/ffmpeg \
 		exif:${PORTSDIR}/graphics/libexif
 
-BROKEN=		does not build
-
 USE_BZIP2=	yes
 USE_WX=		2.8
 WX_COMPS=	wx svg
 WX_CONF_ARGS=	absolute
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget desktopfileutils
+USE_GNOME=	desktopfileutils
 WANT_GNOME=	yes
 USE_GETTEXT=	yes
 USE_CDRTOOLS=	yes	# dvdstyler needs mkisofs
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CPPFLAGS+= 	"-I${LOCALBASE}/include"
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 MAN1=		dvdstyler.1
 
 .include <bsd.port.pre.mk>

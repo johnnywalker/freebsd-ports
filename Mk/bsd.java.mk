@@ -9,7 +9,7 @@
 # Please send all suggested changes to the maintainer instead of committing
 # them to CVS yourself.
 #
-# $FreeBSD: ports/Mk/bsd.java.mk,v 1.88 2011/06/28 18:46:46 rene Exp $
+# $FreeBSD: ports/Mk/bsd.java.mk,v 1.89 2011/07/21 05:02:23 linimon Exp $
 #
 
 .if !defined(Java_Include)
@@ -64,19 +64,19 @@ Java_Include_MAINTAINER=	glewis@FreeBSD.org hq@FreeBSD.org
 #								(e.g. 'FreeBSD Foundation')
 #
 # JAVA_HOME			Path to the installation directory of the JDK. (e.g.
-#					'/usr/local/jdk1.5.0')
+#					'/usr/local/jdk1.6.0')
 #
 # JAVAC				Path to the Java compiler to use. (e.g.
-#					'/usr/local/jdk1.5.0/bin/javac' or '/usr/local/bin/javac')
+#					'/usr/local/jdk1.6.0/bin/javac' or '/usr/local/bin/javac')
 #
 # JAR				Path to the JAR tool to use. (e.g.
-#					'/usr/local/jdk1.5.0/bin/jar' or '/usr/local/bin/fastjar')
+#					'/usr/local/jdk1.6.0/bin/jar' or '/usr/local/bin/fastjar')
 #
 # APPLETVIEWER		Path to the appletviewer utility. (e.g.
-#					'/usr/local/linux-jdk1.5.0/bin/appletviewer')
+#					'/usr/local/linux-jdk1.6.0/bin/appletviewer')
 #
 # JAVA				Path to the java executable. Use this for executing Java
-#					programs. (e.g. '/usr/local/jdk1.5.0/bin/java')
+#					programs. (e.g. '/usr/local/jdk1.6.0/bin/java')
 #
 # JAVADOC			Path to the javadoc utility program.
 #
@@ -111,7 +111,7 @@ Java_Include_MAINTAINER=	glewis@FreeBSD.org hq@FreeBSD.org
 #-------------------------------------------------------------------------------
 # Porter's hints
 #
-# To retrieve the Major version number from JAVA_PORT_VERSION (e.g. "1.5"):
+# To retrieve the Major version number from JAVA_PORT_VERSION (e.g. "1.6"):
 #		-> ${JAVA_PORT_VERSION:C/^([0-9])\.([0-9])(.*)$/\1.\2/}
 #
 #-------------------------------------------------------------------------------

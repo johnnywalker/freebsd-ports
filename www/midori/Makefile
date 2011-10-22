@@ -7,7 +7,7 @@
 #
 
 PORTNAME=	midori
-PORTVERSION=	0.3.6
+PORTVERSION=	0.4.0
 CATEGORIES=	www xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/apps/${PORTNAME}/${PORTVERSION:R}
@@ -16,9 +16,9 @@ DIST_SUBDIR=	xfce4
 MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Lightweight web browser using WebKit browser engine
 
-LIB_DEPENDS=	webkit-1.0.13:${PORTSDIR}/www/webkit-gtk2 \
+LIB_DEPENDS=	webkitgtk-1.0.0:${PORTSDIR}/www/webkit-gtk2 \
 		sqlite3.8:${PORTSDIR}/databases/sqlite3 \
-		notify.1:${PORTSDIR}/devel/libnotify
+		notify.4:${PORTSDIR}/devel/libnotify
 BUILD_DEPENDS=	rsvg-convert:${PORTSDIR}/graphics/librsvg2 \
 		valac:${PORTSDIR}/lang/vala
 RUN_DEPENDS=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_root_nss
@@ -26,10 +26,9 @@ RUN_DEPENDS=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_ro
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
-CONFIGURE_ARGS+=--disable-libidn \
-		--enable-libnotify \
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+CONFIGURE_ARGS+=--enable-libnotify \
 		--enable-addons \
 		--enable-docs \
 		--jobs=${MAKE_JOBS_NUMBER}
@@ -50,7 +49,7 @@ PLIST_SUB=	VERSION="${PORTVERSION:R}"
 
 OPTIONS=	NLS "Enable Native Language support" on \
 		APIDOCS "Build api documentation" off \
-		UNIQUE "Enable single instance support" off
+		UNIQUE "Enable single instance support" on
 
 .include <bsd.port.pre.mk>
 

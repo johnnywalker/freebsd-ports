@@ -82,18 +82,19 @@ PLIST_SUB+=	IF_DEFAULT="@comment "
 CFLAGS+=	-D__wchar_t=wchar_t
 
 .if !defined(WITHOUT_THREADS)
+PLIST_SUB+=	THREADS=""
 .if defined(WITH_PTH)
 CONFIGURE_ARGS+=	--with-pth
 EXTRA_PATCHES+=		${PATCHDIR}/extra-patch-configure-pth
 LIB_DEPENDS+=		pth:${PORTSDIR}/devel/pth
 _PTH_CPPFLAGS=		"-I${LOCALBASE}/include/pth"
 _PTH_LDFLAGS=		"-L${LOCALBASE}/lib/pth"
-CONFIGURE_ENV+=		CPPFLAGS="${_PTH_CPPFLAGS} ${CPPFLAGS}"
-CONFIGURE_ENV+=		LDFLAGS="${_PTH_LDFLAGS} ${LDFLAGS}"
+CPPFLAGS+=		${_PTH_CPPFLAGS}
+LDFLAGS+=		${_PTH_LDFLAGS}
 .else # !defined(WITH_PTH)
 CONFIGURE_ARGS+=	--with-threads
 CFLAGS+=		${PTHREAD_CFLAGS}
-CONFIGURE_ENV+=		LDFLAGS="${PTHREAD_LIBS} ${LDFLAGS}"
+LDFLAGS+=		${PTHREAD_LIBS}
 .endif # defined(WITH_PTH)
 .if defined(WITHOUT_HUGE_STACK_SIZE)
 CFLAGS+=		-DTHREAD_STACK_SIZE=0x20000
@@ -101,10 +102,8 @@ CFLAGS+=		-DTHREAD_STACK_SIZE=0x20000
 CFLAGS+=		-DTHREAD_STACK_SIZE=0x100000
 .endif # defined(WITHOUT_HUGE_STACK_SIZE)
 .else # defined(WITHOUT_THREADS)
+PLIST_SUB+=	THREADS="@comment "
 CONFIGURE_ARGS+=	--without-threads
-.if defined(LDFLAGS)
-CONFIGURE_ENV+=		LDFLAGS="${LDFLAGS}"
-.endif # defined(LDFLAGS)
 .endif # !defined(WITHOUT_THREADS)
 
 .if !defined(WITHOUT_UCS4) && !defined(WITH_UCS2)
@@ -129,8 +128,10 @@ PLIST_SUB+=	32BIT_ONLY=""
 CFLAGS+=	-DPYTHON_DEFAULT_RECURSION_LIMIT=900
 .endif
 
-.if !exists(/usr/bin/ypcat) # the world with NO_NIS
+# See http://bugs.freebsd.org/115940
+.if !exists(/usr/bin/ypcat) || defined(WITHOUT_NIS) # the world with NO_NIS
 PLIST_SUB+=	NO_NIS="@comment "
+WITHOUT_NIS?=	detected
 .else
 PLIST_SUB+=	NO_NIS=""
 .endif
@@ -185,6 +186,11 @@ post-patch:
 .if ${OSVERSION} >= 701106
 	@cd ${WRKSRC} && ${PATCH} ${PATCH_ARGS} < ${PATCHDIR}/extra-patch-setup.py
 .endif
+.endif
+.if defined(WITHOUT_NIS)
+	${REINPLACE_CMD} -e \
+	    's/disabled_module_list =[^]]*/&, "nis"/' \
+		${PATCH_WRKSRC}/setup.py
 .endif
 
 post-configure:

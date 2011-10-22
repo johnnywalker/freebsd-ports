@@ -11,17 +11,19 @@ PORTREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	SF/wordlist/Hunspell%20en_US/${PORTVERSION}-0/ \
 		SF/wordlist/Hunspell%20en_CA/${PORTVERSION}-0/:CA \
-		http://en-gb.pyxidium.co.uk/dictionary/:GB
+		LOCAL/sunpoet/${PORTNAME}/:GB
 PKGNAMEPREFIX=	en-
 DISTFILES=	hunspell-en_US-${PORTVERSION}-0${EXTRACT_SUFX} \
 		hunspell-en_CA-${PORTVERSION}-0${EXTRACT_SUFX}:CA \
-		en_GB.zip:GB
+		en_GB-1.20.zip:GB
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
-COMMENT=	Hunspell english dictionaries
+COMMENT=	English hunspell dictionaries
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	%%DATADIR%%/en_CA.aff \
 		%%DATADIR%%/en_CA.dic \
@@ -41,7 +43,7 @@ PLIST_FILES+=	%%DATADIR%%/${ALIAS}.aff \
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKDIR}/*.aff ${WRKDIR}/*.dic ${DATADIR}/
+	${INSTALL_DATA} ${WRKSRC}/*.aff ${WRKSRC}/*.dic ${DATADIR}/
 .for ALIAS in ${GBALIASES}
 	${LN} -s en_GB.aff ${DATADIR}/${ALIAS}.aff
 	${LN} -s en_GB.dic ${DATADIR}/${ALIAS}.dic

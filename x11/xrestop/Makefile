@@ -16,13 +16,13 @@ COMMENT=	X11 server side resource usage statistics monitor
 
 USE_XORG=	x11 xext xrender xt xres xproto
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget pkgconfig
+USE_GNOME=	pkgconfig
 USE_NCURSES=	yes
 GNU_CONFIGURE=	yes
 
-CONFIGURE_ENV=	CFLAGS=-I${LOCALBASE}/include \
-		LDFLAGS=-L${LOCALBASE}/lib \
-		XLIBS="-L${LOCALBASE}/lib -lX11"
+CONFIGURE_ENV=	XLIBS="-L${LOCALBASE}/lib -lX11"
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-I${LOCALBASE}/include
 
 MAN1=		xrestop.1
 PLIST_FILES=	bin/xrestop

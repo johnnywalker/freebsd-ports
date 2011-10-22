@@ -109,10 +109,7 @@ CONFIGURE_ARGS+=	--program-transform-name="s/x/x/" \
 		--disable-io --disable-ocaml --disable-java \
 		--disable-sharp
 
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS}" \
-		CPPFLAGS="${CPPFLAGS}" \
-		LDFLAGS="${LDFLAGS}" \
-		MISSING=${TRUE}
+CONFIGURE_ENV+=	MISSING=${TRUE}
 
 .if defined(WITH_TK)
 CPPFLAGS+=		-I${TK_INCLUDEDIR}
@@ -285,7 +282,7 @@ CONFIGURE_ARGS+=	--with-qt=no
 .if defined(WITH_MING)
 CONFIGURE_ARGS+=	--with-ming
 PLIST_SUB+=		WITH_MING=""
-LIB_DEPENDS+=		ming.4:${PORTSDIR}/graphics/ming
+LIB_DEPENDS+=		ming.5:${PORTSDIR}/graphics/ming
 .else
 CONFIGURE_ARGS+=	--without-ming
 PLIST_SUB+=		WITH_MING="@comment "
@@ -384,7 +381,7 @@ PLIST_SUB+=		WITH_TCL="@comment "
 .if defined(WITH_GUILE)
 CONFIGURE_ARGS+=	--enable-guile
 PLIST_SUB+=		WITH_GUILE=""
-LIB_DEPENDS+=		guile.20:${PORTSDIR}/lang/guile
+LIB_DEPENDS+=		guile.21:${PORTSDIR}/lang/guile
 MAN3+=			gv.3guile
 .else
 CONFIGURE_ARGS+=	--disable-guile
@@ -395,6 +392,7 @@ PLIST_SUB+=		WITH_GUILE="@comment "
 USE_GHOSTSCRIPT=	yes
 PLIST_SUB+=		WITH_GHOSTSCRIPT=""
 .else
+CONFIGURE_ARGS+=	--with-ghostscript=no
 PLIST_SUB+=		WITH_GHOSTSCRIPT="@comment "
 .endif
 

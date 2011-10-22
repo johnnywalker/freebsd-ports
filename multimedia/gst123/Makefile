@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	gst123
-PORTVERSION=	0.2.0
+PORTVERSION=	0.2.1
 CATEGORIES=	multimedia
 MASTER_SITES=	http://space.twc.de/~stefan/gst123/
 
@@ -20,7 +20,8 @@ USE_GMAKE=	yes
 USE_BZIP2=	yes
 USE_GNOME=	gtk20
 USE_GSTREAMER=	good
-CONFIGURE_ENV=	NCURSES5_CONFIG=/usr/bin/true LDFLAGS=-lncurses
+CONFIGURE_ENV=	NCURSES5_CONFIG=/usr/bin/true
+LDFLAGS+=	-lncurses
 
 PLIST_FILES=	bin/${PORTNAME}
 MAN1=		${PORTNAME}.1

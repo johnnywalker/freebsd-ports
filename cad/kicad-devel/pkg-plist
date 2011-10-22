@@ -5,6 +5,7 @@ bin/freeroute.jnlp
 bin/gerbview
 bin/kicad
 bin/minizip
+bin/pcb_calculator
 bin/pcbnew
 lib/kicad/plugins/netlist_form_pads-pcb.xsl
 share/applications/eeschema.desktop

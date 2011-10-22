@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	gromacs
-PORTVERSION=	4.5.4
-PORTREVISION=	1
+PORTVERSION=	4.5.5
 CATEGORIES=	science
 MASTER_SITES=	ftp://ftp.gromacs.org/pub/gromacs/
 
@@ -18,7 +17,8 @@ USE_GNOME=	libxml2
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
 USE_LDCONFIG=	yes
-CONFIGURE_ENV=	CPPFLAGS=-I${LOCALBASE}/include LDFLAGS=-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--exec-prefix=${PREFIX} --program-suffix="" --enable-shared
 
 PLIST_SUB=	BUILD=${MACHINE_ARCH}-portbld-freebsd${OSREL}
@@ -35,10 +35,6 @@ OPTIONS=	FFTW3	"Use FFT routines from math/fftw3"		on  \
 
 .if ${ARCH} == i386
 CONFIGURE_ARGS+=	--disable-ia32-sse
-.endif
-
-.if ${OSVERSION} < 700000
-CONFIGURE_ARGS+=	--disable-ia32-sse --disable-x86-64-sse
 .endif
 
 .if !defined(WITHOUT_FFTW3) && defined(WITH_FFTW2)
@@ -126,6 +122,7 @@ MAN1=	do_dssp.1 \
 	g_current.1 \
 	g_density.1 \
 	g_densmap.1 \
+	g_densorder.1 \
 	g_dielectric.1 \
 	g_dih.1 \
 	g_dipoles.1 \
@@ -140,6 +137,7 @@ MAN1=	do_dssp.1 \
 	g_hbond.1 \
 	g_helix.1 \
 	g_helixorient.1 \
+	g_hydorder.1 \
 	g_lie.1 \
 	g_mdmat.1 \
 	g_membed.1 \
@@ -149,7 +147,9 @@ MAN1=	do_dssp.1 \
 	g_nmeig.1 \
 	g_nmens.1 \
 	g_nmtraj.1 \
+	g_options.1 \
 	g_order.1 \
+	g_pme_error.1 \
 	g_polystat.1 \
 	g_potential.1 \
 	g_principal.1 \

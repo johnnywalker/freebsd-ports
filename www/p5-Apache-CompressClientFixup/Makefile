@@ -15,7 +15,10 @@ MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl extension for Apache-1.3.X to avoid gzip compression for known buggy browsers
 
 BUILD_DEPENDS=	${SITE_PERL}/${PERL_ARCH}/Apache/Constants.pm:${PORTSDIR}/www/mod_perl
-RUN_DEPENDS=	${BUILD_DEPENDS}
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+DEPRECATED=	depends on mod_perl
+EXPIRATION_DATE=	2011-11-01
 
 MAKE_JOBS_SAFE=  yes
 

@@ -18,13 +18,13 @@ OPTIONS=	GNOMEUI "Enable LibGnomeUI support" off \
 		PGPLOT "Enable PGPLOT support" on \
 		OPENGL "Enable OpenGL support" on
 
-USE_GNOME=	gnomehack gnomehier gnometarget gtk20
+USE_GNOME=	gnomehack gnomehier gtk20
 USE_PERL5=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-locale-prefix=${PREFIX}/share/locale
 
 MAN1=		nightfall.1

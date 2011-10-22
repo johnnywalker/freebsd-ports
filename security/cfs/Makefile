@@ -7,12 +7,16 @@
 
 PORTNAME=	cfs
 PORTVERSION=	1.4.1
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	security
 MASTER_SITES=	http://www.crypto.com/software/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A cryptographic file system implemented as a user-space NFS server
+
+FORBIDDEN=	Buffer overflows allow remote attackers to cause DoS / execute arbitrary code
+DEPRECATED=	Locks don't work, ports/137378, unmaintained, dead upstream, insecure
+EXPIRATION_DATE=2011-10-04
 
 ALL_TARGET=	cfs
 MAN1=		cattach.1 cdetach.1 cmkdir.1 cpasswd.1 cfssh.1

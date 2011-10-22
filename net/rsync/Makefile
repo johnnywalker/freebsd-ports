@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	rsync
-PORTVERSION=	3.0.8
+PORTVERSION=	3.0.9
 CATEGORIES=	net ipv6
 MASTER_SITES=	http://rsync.samba.org/ftp/%SUBDIR%/ \
 		ftp://ftp.samba.org/pub/%SUBDIR%/ \
@@ -19,6 +19,8 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	A network file distribution/synchronization utility
+
+LICENSE=	GPLv3
 
 GNU_CONFIGURE=	yes
 USE_RC_SUBR=	rsyncd.sh
@@ -34,8 +36,6 @@ PORTDOCS=	NEWS README csprotocol.txt tech_report.tex
 
 MAN1=		rsync.1
 MAN5=		rsyncd.conf.5
-
-LICENSE=	GPLv3
 
 OPTIONS=	POPT_PORT "Use popt from devel/popt instead of bundled one" off \
 		SSH       "Use SSH instead of RSH" on \
@@ -75,7 +75,7 @@ CFLAGS+=	-I${LOCALBASE}/include
 USE_ICONV=	yes
 CONFIGUREDCFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=		-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}" CONFIGUREDCFLAGS="${CONFIGUREDCFLAGS}"
+CONFIGURE_ENV+=	CONFIGUREDCFLAGS="${CONFIGUREDCFLAGS}"
 .else
 CONFIGURE_ARGS+=	--disable-iconv
 CONFIGURE_ENV+=		ac_cv_search_libiconv_open=no
@@ -94,8 +94,8 @@ EXTRA_PATCHES+=	${WRKSRC}/patches/acls.diff
 
 .if defined(WITH_POPT_PORT)
 LIB_DEPENDS+=	popt.0:${PORTSDIR}/devel/popt
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS} -I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV+=	LIBS="-L${LOCALBASE}/lib"
+CFLAGS+=	-I${LOCALBASE}/include
 .else
 CONFIGURE_ARGS+=	--with-included-popt
 .endif

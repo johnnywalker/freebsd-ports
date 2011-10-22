@@ -1,7 +1,7 @@
 #-*- mode: Makefile; tab-width: 4; -*-
 # ex:ts=4
 #
-# $FreeBSD: ports/Mk/bsd.qt.mk,v 1.26 2011/07/01 19:25:47 dougb Exp $
+# $FreeBSD: ports/Mk/bsd.qt.mk,v 1.27 2011/07/01 20:02:37 makc Exp $
 #
 # Variables:
 # QT_NONSTANDARD	- Suppress modification of configure and make environment.
@@ -25,8 +25,9 @@ CONFIGURE_ARGS+=--with-qt-includes=${QT_INCDIR} \
 		--with-qt-libraries=${QT_LIBDIR} \
 		--with-extra-libs=${LOCALBASE}/lib \
 		--with-extra-includes=${LOCALBASE}/include
-CONFIGURE_ENV+=	MOC="${MOC}" UIC="${UIC}" CPPFLAGS="${CPPFLAGS} ${QTCPPFLAGS}" LIBS="${QTCFGLIBS}" \
+CONFIGURE_ENV+=	MOC="${MOC}" UIC="${UIC}" LIBS="${QTCFGLIBS}" \
 		QMAKE="${QMAKE}" QMAKESPEC="${QMAKESPEC}" QTDIR="${QT_PREFIX}"
+CPPFLAGS+=	${QTCPPFLAGS}
 MAKE_ENV+=	QMAKESPEC="${QMAKESPEC}"
 .endif # !defined(QT_NONSTANDARD)
 

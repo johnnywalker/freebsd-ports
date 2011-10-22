@@ -12,7 +12,7 @@ MASTER_SITES=	ftp://ftp.espci.fr/pub/milter-greylist/
 DISTNAME=	milter-greylist-${PORTVERSION}
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	ache@FreeBSD.org
+MAINTAINER=	m.tsatsenko@gmail.com
 COMMENT=	Easy-to-use greylist milter for sendmail and postfix
 
 CONFLICTS=	milter-greylist-devel-[1-9]*.*
@@ -81,7 +81,7 @@ LIBS+=		${PTHREAD_LIBS}
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--with-user=mailnull --with-libmilter=${MILTERBASE} \
 			--enable-dnsrbl --with-thread-safe-resolver
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS}" LIBS="${LIBS} "
+CONFIGURE_ENV+=	LIBS="${LIBS}"
 
 ALL_TARGET=	milter-greylist
 SUB_FILES+=	pkg-message

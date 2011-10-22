@@ -14,10 +14,13 @@ MASTER_SITES=	http://freebsd.unixfreunde.de/sources/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A lazy version of solitaire game
 
+DEPRECATED=	No more public distfiles
+EXPIRATION_DATE=	2011-09-01
+
 USE_GNOME=	imlib
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 .if !defined(WITHOUT_NLS)
 USE_GETTEXT=		yes

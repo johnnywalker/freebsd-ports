@@ -7,7 +7,7 @@
 
 PORTNAME=	sympa
 PORTVERSION=	5.4.7
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	mail
 MASTER_SITES?=	http://www.sympa.org/distribution/
 
@@ -31,7 +31,7 @@ BUILD_DEPENDS+=	${SITE_PERL}/Archive/Zip.pm:${PORTSDIR}/archivers/p5-Archive-Zip
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
 LATEST_LINK=	sympa5
-USE_APACHE=	1.3+
+USE_APACHE=	13+
 HAS_CONFIGURE=	yes
 USE_PERL5=	5.8.6+
 USE_GMAKE=	yes
@@ -75,7 +75,7 @@ PLIST_SUB+=	NLS=""
 
 .if !defined(WITHOUT_FASTCGI)
 BUILD_DEPENDS+=	${LOCALBASE}/${APACHEMODDIR}/mod_fastcgi.so:${PORTSDIR}/www/mod_fastcgi
-BUILD_DEPENDS+=		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FastCGI
+BUILD_DEPENDS+=	${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FCGI
 .endif
 
 .if ${DB_TYPE} == "Oracle"

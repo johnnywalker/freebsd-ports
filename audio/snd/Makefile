@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	snd
-PORTVERSION=	12.3
+PORTVERSION=	12.4
 CATEGORIES=	audio
 MASTER_SITES=	ftp://ccrma-ftp.stanford.edu/pub/Lisp/ \
 		http://mirror.mcx2.org/
@@ -24,9 +24,8 @@ OPTIONS=	ESD	"Use Enlightened Sound Daemon"		on  \
 		GTK2	"Make Snd with Gtk+ graphics support"	on \
 		X11	"Make Snd with GUI support"	on
 
-USE_GNOME=	gnometarget
+WANT_GNOME=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--with-float-samples
 MAKEFILE=	makefile
 ALL_TARGET=	audinfo snd snd-info sndplay
@@ -35,8 +34,8 @@ MAKE_JOBS_UNSAFE=	yes
 MAN1=		snd.1
 
 CFLAGS+=	-I${LOCALBASE}/include
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 
@@ -63,7 +62,7 @@ CONFIGURE_ARGS+=	--without-gsl
 
 .if !defined(WITHOUT_GUILE)
 CONFIGURE_ARGS+=	--with-guile
-LIB_DEPENDS+=	guile.20:${PORTSDIR}/lang/guile
+LIB_DEPENDS+=	guile.21:${PORTSDIR}/lang/guile
 PLIST_SUB+=	SCHEME=""
 .else
 CONFIGURE_ARGS+=	--without-guile

@@ -15,6 +15,7 @@ DIST_SUBDIR=	drupal
 MAINTAINER=	nick@foobar.org
 COMMENT=	A database driven web content management system (CMS)
 
+USE_DRUPAL=	yes
 DRUPAL6_PORT=	yes
 
 USE_PHP=	gd pcre session xml mbstring
@@ -31,9 +32,6 @@ DOCS=		CHANGELOG.txt INSTALL.txt LICENSE.txt MAINTAINERS.txt \
 		COPYRIGHT.txt
 SUB_FILES+=	pkg-message
 PKGMESSAGE=	${WRKDIR}/pkg-message
-
-LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 .include <bsd.port.pre.mk>
 
@@ -81,5 +79,4 @@ do-install:
 post-install:
 	@${CAT} ${PKGMESSAGE}
 
-.include "${PORTSDIR}/Mk/bsd.drupal.mk"
 .include <bsd.port.post.mk>

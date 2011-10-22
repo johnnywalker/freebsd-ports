@@ -6,17 +6,17 @@
 #
 
 PORTNAME=	icinga
-PORTVERSION=	1.3.0
+PORTVERSION=	1.5.0
 CATEGORIES=	net-mgmt
 MASTER_SITES=	SF
 
 MAINTAINER=	chinsan@FreeBSD.org
 COMMENT=	Enterprise grade open source monitoring system based on nagios
 
+LICENSE=	GPLv2
+
 LIB_DEPENDS=	gd.4:${PORTSDIR}/graphics/gd
 RUN_DEPENDS=	${LOCALBASE}/libexec/nagios/check_nagios:${PORTSDIR}/net-mgmt/nagios-plugins
-
-LICENSE=	GPLv2
 
 USE_ICONV=	yes
 USE_PERL5_BUILD=	yes
@@ -43,7 +43,7 @@ ICINGACGIURL?=	${ICINGAHTMURL}/cgi-bin
 
 .include <bsd.port.pre.mk>
 
-CPPFLAGS=	-I${LOCALBASE}/include -fPIC
+CPPFLAGS+=	-I${LOCALBASE}/include -fPIC
 CFLAGS+=	${CPPFLAGS}
 
 CONFIGURE_ARGS=	--with-command-user=${ICINGAUSER} \
@@ -62,10 +62,7 @@ CONFIGURE_ARGS=	--with-command-user=${ICINGAUSER} \
 		--with-checkresult-dir=${ICINGADIR}/checkresults \
 		--disable-statuswrl
 
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" \
-		CFLAGS="${CFLAGS}" \
-		LDFLAGS="${LDFLAGS}" \
-		LIBS="-L${LOCALBASE}/lib" \
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib" \
 		PERL=${PERL}
 
 MAKE_JOBS_UNSAFE=	yes

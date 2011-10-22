@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	ntp
-PORTVERSION=	4.2.7p181
-PORTREVISION=	1
+PORTVERSION=	4.2.7p210
 CATEGORIES=	net ipv6
 MASTER_SITES=	ftp://ftp.udel.edu/pub/ntp/ntp4/ntp-dev/ \
 		http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-dev/ \
@@ -22,6 +21,7 @@ LATEST_LINK=	${PORTNAME}-dev
 
 GNU_CONFIGURE=	yes
 USE_AUTOTOOLS=	automake libtool
+USE_GNOME=	gnomehack
 
 .if defined(ENABLE_RAWDCF)
 CONFIGURE_ARGS+=	--enable-RAWDCF
@@ -41,7 +41,7 @@ PLIST_SUB+=		SSL=""
 CONFIGURE_ARGS+=	--enable-ipv6
 .endif
 
-MAN1=		ntp-keygen.1 ntpd.1 ntpdc.1 ntpq.1 sntp.1 ntpsnmpd.1
+MAN8=		ntp-keygen.8 ntpd.8 ntpdc.8 ntpq.8 sntp.8 ntp-wait.8
 
 pre-everything::
 	@${ECHO}
@@ -58,6 +58,7 @@ pre-everything::
 BUILD_DEPENDS=	${LOCALBASE}/bin/net-snmp-config:${PORTSDIR}/net-mgmt/net-snmp
 LIB_DEPENDS=	netsnmp.30:${PORTSDIR}/net-mgmt/net-snmp
 PLIST_SUB+=	NETSNMP=""
+MAN8+=		ntpsnmpd.8
 .else
 PLIST_SUB+=	NETSNMP="@comment "
 .endif

@@ -6,23 +6,30 @@
 #
 
 PORTNAME=	lgeneral
-PORTVERSION=	1.2.1
+PORTVERSION=	1.2.2
 CATEGORIES=	games
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME} \
+		SF/${PORTNAME}/${PORTNAME}-data:data
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:DEFAULT \
+		pg-data${EXTRACT_SUFX}:data
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A turn-based strategy engine inspired by Panzer General
 
+LICENSE=	GPLv2
+
+CONFLICTS=	lgeneral-data-[0-9]*
+
 USE_SDL=	sdl
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
+MAKE_JOBS_SAFE=	yes
 
 MAN1=		lgc-pg.1
 MAN6=		lgeneral.6
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if defined(WITHOUT_SOUND)
 CONFIGURE_ARGS+=--disable-sound
@@ -45,6 +52,10 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|/icons|/pixmaps|' ${WRKSRC}/Makefile.in
 
 post-install:
+	@${PREFIX}/bin/lgc-pg -s ${WRKDIR}/pg-data -d ${DATADIR}
+	@${FIND} ${DATADIR} | ${XARGS} ${CHOWN} ${SHAREOWN}:${SHAREGRP}
+	@${FIND} ${DATADIR} -type d | ${XARGS} ${CHMOD} a+rx
+	@${FIND} ${DATADIR} -type f | ${XARGS} ${CHMOD} ${SHAREMODE}
 .if !defined(NOPORTDOCS)
 	@${MKDIR} ${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/README.* ${DOCSDIR}

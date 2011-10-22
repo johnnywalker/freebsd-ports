@@ -30,14 +30,14 @@ USE_GMAKE=	yes
 MAKE_JOBS_SAFE=	yes
 USE_ICONV=	yes
 GNU_CONFIGURE=	yes
-USE_GNOME?=	gnomehack gnometarget pkgconfig
+USE_GNOME?=	gnomehack pkgconfig
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS?=--with-iconv=${LOCALBASE} \
 		--with-html-dir=${PREFIX}/share/doc \
 		--with-html-subdir=${PORTNAME} \
 		--without-python
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if !defined(MASTERDIR)
 MAN1=		xml2-config.1 xmllint.1 xmlcatalog.1

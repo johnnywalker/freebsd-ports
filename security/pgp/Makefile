@@ -9,8 +9,7 @@ PORTNAME=	pgp
 PORTVERSION=	2.6.3i
 PORTREVISION=	1
 CATEGORIES=	security
-MASTER_SITES=	ftp://ftp.ifi.uio.no/pub/pgp/2.x/src/ \
-		ftp://ftp.kiarchive.ru/pub/unix/crypto/pgp/
+MASTER_SITES=	PACKETSTORM/crypt/pgp/V5.0
 DISTNAME=	pgp263is
 
 MAINTAINER=	ports@FreeBSD.org

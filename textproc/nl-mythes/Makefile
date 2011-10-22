@@ -6,13 +6,13 @@
 #
 
 PORTNAME=	mythes
-PORTVERSION=	2011.07.26
-PORTREVISION=	1
+PORTVERSION=	2011.09.18
 CATEGORIES=	textproc
-MASTER_SITES=	http://data.opentaal.org/opentaalbank/thesaurus/download/
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
 PKGNAMEPREFIX=	nl-
-DISTNAME=	thes_nl
+DISTNAME=	thes_nl-${PORTVERSION:C/\.//g}
 EXTRACT_SUFX=	.oxt
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Dutch thesaurus
@@ -21,6 +21,7 @@ LICENSE=	BSD
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	%%DATADIR%%/th_nl_NL_v2.dat \
 		%%DATADIR%%/th_nl_NL_v2.idx
@@ -34,8 +35,8 @@ PLIST_FILES+=	%%DATADIR%%/th_${ALIAS}_v2.dat \
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKDIR}/th_nl_v2.dat ${DATADIR}/th_nl_NL_v2.dat
-	${INSTALL_DATA} ${WRKDIR}/th_nl_v2.dat ${DATADIR}/th_nl_NL_v2.idx
+	${INSTALL_DATA} ${WRKSRC}/th_nl_v2.dat ${DATADIR}/th_nl_NL_v2.dat
+	${INSTALL_DATA} ${WRKSRC}/th_nl_v2.dat ${DATADIR}/th_nl_NL_v2.idx
 .for ALIAS in ${NLALIASES}
 	${LN} -s th_nl_NL_v2.dat ${DATADIR}/th_${ALIAS}_v2.dat
 	${LN} -s th_nl_NL_v2.idx ${DATADIR}/th_${ALIAS}_v2.idx

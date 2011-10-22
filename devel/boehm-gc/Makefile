@@ -16,7 +16,7 @@ MAINTAINER=	stas@FreeBSD.org
 COMMENT=	Garbage collection and memory leak detection for C and C++
 
 GNU_CONFIGURE=	yes
-USE_GNOME=	gnometarget gnomehack
+USE_GNOME=	gnomehack
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--enable-cplusplus --disable-static --disable-threads
 MAKE_JOBS_UNSAFE=	yes
@@ -47,5 +47,8 @@ post-configure:
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/doc/gc.man ${PREFIX}/man/man3/gc.3
+
+test: build
+	cd ${WRKSRC} && ${MAKE} check
 
 .include <bsd.port.post.mk>

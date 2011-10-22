@@ -6,54 +6,38 @@
 #
 
 PORTNAME=	pari
-PORTVERSION=	${MAJOR_VERSION}.${MINOR_VERSION}.${REV_VERSION}
-PORTREVISION=	1
+PORTVERSION=	2.3.5
+PORTEPOCH=	1
 CATEGORIES=	math
-MASTER_SITES=	http://pari.math.u-bordeaux.fr/pub/pari/unix/
-DISTNAME=	pari-${MAJOR_VERSION}.${MINOR_VERSION}.${REV_VERSION}
+MASTER_SITES=	http://pari.math.u-bordeaux.fr/pub/pari/unix/OLD/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Mathematics library and advanced calculator package
+
+LICENSE=	GPLv2
 
 LIB_DEPENDS=	gmp.10:${PORTSDIR}/math/gmp
 
 MAKE_JOBS_UNSAFE=	yes
 
-USE_LDCONFIG=	yes
-HAS_CONFIGURE=	yes
+ALL_TARGET=	gp
 CONFIGURE_SCRIPT=	Configure
-CONFIGURE_ARGS=	--prefix=${PREFIX} --share-prefix=${PREFIX}/share --with-gmp=${LOCALBASE}
+CONFIGURE_ARGS=	--prefix=${PREFIX} \
+		--share-prefix=${PREFIX}/share \
+		--with-gmp=${LOCALBASE}
+HAS_CONFIGURE=	yes
+USE_LDCONFIG=	yes
 
-MAKE_ARGS=	gp
-PLIST_SUB=	MAJOR_VERSION=${MAJOR_VERSION} MINOR_VERSION=${MINOR_VERSION} REV_VERSION=${REV_VERSION}
-
-MAJOR_VERSION=	2
-MINOR_VERSION=	3
-REV_VERSION=	5
-
-MAN1=		gp.1 gphelp.1 gp-${MAJOR_VERSION}.${MINOR_VERSION}.1 tex2mail.1
+MAN1=		gp.1 gp-${GP_VERSION}.1 gphelp.1 tex2mail.1
 MLINKS=		gp.1 pari.1
+PORTDOCS=	*
+PLIST_SUB=	GP_VERSION=${GP_VERSION} PORTVERSION=${PORTVERSION}
 
-.include <bsd.port.pre.mk>
-
-HAVE_EMACS!=	${WHICH} emacs || ${ECHO} nope
-HAVE_PERL!=	${WHICH} perl || ${ECHO} nope
-
-.if ${HAVE_EMACS} != "nope"
-PLIST_SUB+=	EMACS=""
-.else
-PLIST_SUB+=	EMACS="@comment "
-.endif
-
-.if ${HAVE_PERL} != "nope"
-PLIST_SUB+=	PERL=""
-.else
-PLIST_SUB+=	PERL="@comment "
-.endif
+GP_VERSION=	${PORTVERSION:R}
 
 post-install:
-	@if [ -L ${PREFIX}/man/man1/pari.1 ]; then \
-		${RM} -f ${PREFIX}/man/man1/pari.1 ;\
+	@if [ -L ${MAN1PREFIX}/man/man1/pari.1 ]; then \
+		${RM} -f ${MAN1PREFIX}/man/man1/pari.1 ;\
 	fi
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

@@ -15,7 +15,7 @@
 #    - graphics/libglut
 #    - graphics/dri
 #
-# $FreeBSD: ports/graphics/libGL/bsd.mesalib.mk,v 1.16 2010/02/07 11:51:05 nork Exp $
+# $FreeBSD: ports/graphics/libGL/bsd.mesalib.mk,v 1.17 2011/02/25 16:52:06 miwi Exp $
 #
 
 MESAVERSION=	${MESABASEVERSION}${MESASUBVERSION:C/^(.)/.\1/}
@@ -43,8 +43,8 @@ USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 MAKE_JOBS_SAFE=	yes
 
-CONFIGURE_ENV=	CPPFLAGS=-I${LOCALBASE}/include \
-				LDFLAGS=-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--disable-gallium
 
 ALL_TARGET=		default

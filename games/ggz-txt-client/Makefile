@@ -14,16 +14,14 @@ CATEGORIES=	games
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	The GGZ Gaming Zone - Console (Text) Frontend
 
-USE_GNOME=	gnometarget
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--disable-debug
 USE_GGZ=	client
 
 MAN6=	ggz-txt.6
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .if defined(WITHOUT_NLS)
 CONFIGURE_ARGS+=	--disable-nls

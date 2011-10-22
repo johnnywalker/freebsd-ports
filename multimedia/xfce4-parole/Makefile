@@ -7,7 +7,7 @@
 
 PORTNAME=	xfce4-parole
 PORTVERSION=	0.2.0.6
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	multimedia xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=/src/apps/parole/0.2
@@ -20,7 +20,7 @@ COMMENT=	Lightweight media player for Xfce4 based on the gstreamer engine
 DATADIR=	${PREFIX}/share/${PORTNAME:S/xfce4-//}
 
 LIB_DEPENDS=	tag.1:${PORTSDIR}/audio/taglib \
-		notify.1:${PORTSDIR}/devel/libnotify \
+		notify.4:${PORTSDIR}/devel/libnotify \
 		dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib
 
 USE_AUTOTOOLS=	libtool
@@ -35,9 +35,9 @@ CONFIGURE_ARGS=	--disable-power-manager-plugin \
 		--enable-taglib \
 		--disable-gtk-doc-html \
 		--without-html-dir
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		ac_cv_prog_AWK="${AWK}"
+CONFIGURE_ENV=	ac_cv_prog_AWK="${AWK}"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 USE_GNOME=	gnomehack gtk20 glib20 intltool intlhack pkgconfig \
 		desktopfileutils
 USE_XFCE=	configenv libgui libutil

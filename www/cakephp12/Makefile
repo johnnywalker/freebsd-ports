@@ -15,6 +15,8 @@ DISTNAME=	${PORTNAME}-${PORTNAME}-${PORTVERSION}-${GITVERSION}
 MAINTAINER=	glarkin@FreeBSD.org
 COMMENT=	A framework for developing PHP web applications
 
+LATEST_LINK=	cakephp12
+
 GITVERSION=	0-ge6e50e8
 FETCH_ARGS=	-pRr
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTNAME}-da67eb8
@@ -66,7 +68,7 @@ SUB_LIST+=	PHPCGI=${WITH_PHP_CGI}
 
 .if defined(WITH_AP)
 SUB_FILES=	pkg-message
-USE_APACHE=	2.2+
+USE_APACHE=	22+
 PKGMESSAGE=	pkg-message
 APDEP=
 .else

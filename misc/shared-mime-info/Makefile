@@ -7,8 +7,7 @@
 #
 
 PORTNAME=	shared-mime-info
-PORTVERSION=	0.80
-PORTREVISION=	1
+PORTVERSION=	0.90
 CATEGORIES=	misc gnome
 MASTER_SITES=	http://people.freedesktop.org/~hadess/
 
@@ -20,8 +19,9 @@ GNU_CONFIGURE=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_GNOME=	glib20 libxml2 intltool gnomehack intlhack
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+MAKE_JOBS_UNSAFE=	yes
 
 MAN1=		update-mime-database.1
 

@@ -20,12 +20,12 @@ LIB_DEPENDS=	avahi-client.3:${PORTSDIR}/net/avahi-app
 MAKE_JOBS_SAFE=	yes
 
 USE_GMAKE=	yes
-USE_APACHE=	2.2+
+USE_APACHE=	22+
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		APR_CFLAGS="`${LOCALBASE}/bin/apr-1-config --cflags --cppflags --includes`" \
+CONFIGURE_ENV=	APR_CFLAGS="`${LOCALBASE}/bin/apr-1-config --cflags --cppflags --includes`" \
 		APR_LIBS="`${LOCALBASE}/bin/apr-1-config --ldflags`"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--disable-lynx
 
 post-install:

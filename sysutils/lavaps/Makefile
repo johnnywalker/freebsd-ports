@@ -15,7 +15,7 @@ MAINTAINER=	stas@FreeBSD.org
 COMMENT=	A lava lamp of currently running processes
 
 GNU_CONFIGURE=	yes
-USE_GNOME=	gnometarget
+WANT_GNOME=	yes
 USE_PERL5_BUILD=	yes
 USE_XORG=	x11 xext sm ice
 
@@ -44,7 +44,5 @@ CONFIGURE_ARGS+=	--with-tcltk --disable-nls \
 			--with-tcl-ver=${TCL_VER} --with-tk-ver=${TCL_VER}
 PLIST_SUB+=	NLS="@comment "
 .endif
-
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS}" CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 
 .include <bsd.port.post.mk>

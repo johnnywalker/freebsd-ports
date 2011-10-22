@@ -17,17 +17,17 @@ COMMENT=	Standalone Djvu viewer and plugin based on Qt4 toolkit
 LIB_DEPENDS=	djvulibre.24:${PORTSDIR}/graphics/djvulibre-nox11
 
 GNU_CONFIGURE=	yes
-USE_GNOME=	pkgconfig gnometarget
+USE_GNOME=	pkgconfig
 USE_QT_VER=	4
 QT_COMPONENTS=	gui network rcc_build uic_build moc_build qmake_build
 QT_NONSTANDARD=	yes
 CONFIGURE_ARGS=	--x-includes="${X11BASE}/include" \
 		--x-libraries="${X11BASE}/lib"
 CONFIGURE_ENV=	QMAKE="${LOCALBASE}/bin/qmake-qt4" \
-		QMAKESPEC="${QMAKESPEC}" \
-		CFLAGS="-I${LOCALBASE}/include" \
-		CXXFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+		QMAKESPEC="${QMAKESPEC}"
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-I${LOCALBASE}/include
+CXXFLAGS+=	-I${LOCALBASE}/include
 MAKE_ENV=	INSTALL_SCRIPT="${INSTALL_SCRIPT}"
 
 .if defined(CXX) && ${CXX:M*icc}

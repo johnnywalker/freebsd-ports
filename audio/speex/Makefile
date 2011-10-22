@@ -19,14 +19,14 @@ LIB_DEPENDS=	ogg.7:${PORTSDIR}/audio/libogg
 
 CONFLICTS=	speex-devel-[0-9]*
 
-USE_GNOME=	gnomehack gnometarget ltverhack
+USE_GNOME=	gnomehack ltverhack
 USE_LDCONFIG=	yes
 USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes
 MAKE_JOBS_SAFE=	yes
 CONFIGURE_ARGS=	--with-ogg-dir=${LOCALBASE}
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		speexdec.1 speexenc.1
 

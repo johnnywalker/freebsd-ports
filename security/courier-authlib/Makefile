@@ -7,7 +7,7 @@
 
 PORTNAME=	courier-authlib
 PORTVERSION=	0.63.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES?=	security mail
 .if defined(PKGNAMESUFFIX)
 MASTER_SITES=	SF/courier/authlib/${PORTVERSION}
@@ -57,8 +57,6 @@ USERDB?=	${PREFIX}/etc/userdb
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CPPFLAGS='${CPPFLAGS}' \
-		LDFLAGS='${LDFLAGS}'
 MAKE_ENV:=	${CONFIGURE_ENV}
 
 CONFIGURE_ARGS=	--enable-unicode \
@@ -112,7 +110,7 @@ REMOVE_SUBDIRS+=liblock liblog
 MAN8=		makeuserdb.8 userdb.8 userdbpw.8
 .if ${PKGNAMESUFFIX} == -usergdbm
 CONFLICTS+=	${PORTNAME}-userdb-0.*
-LIB_DEPENDS+=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=	gdbm.4:${PORTSDIR}/databases/gdbm
 CONFIGURE_ARGS+=--with-db=gdbm
 .elif ${PKGNAMESUFFIX} == -userdb
 CONFLICTS+=	${PORTNAME}-usergdbm-0.*

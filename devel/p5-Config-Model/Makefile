@@ -1,4 +1,3 @@
-# ex:ts=8
 # Ports collection makefile for:	Config::Model
 # Date created:			Jan 29, 2007
 # Whom:				ijliao
@@ -7,7 +6,7 @@
 #
 
 PORTNAME=	Config-Model
-PORTVERSION=	1.250
+PORTVERSION=	1.257
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:DDUMONT
@@ -34,6 +33,7 @@ RUN_DEPENDS=	p5-Any-Moose>=0:${PORTSDIR}/devel/p5-Any-Moose \
 		p5-Text-Autoformat>=0:${PORTSDIR}/textproc/p5-Text-Autoformat \
 		p5-YAML>=0.68:${PORTSDIR}/textproc/p5-YAML \
 		p5-libwww>=0:${PORTSDIR}/www/p5-libwww
+
 TEST_DEPENDS=	p5-Path-Class>=0:${PORTSDIR}/devel/p5-Path-Class \
 		p5-Probe-Perl>=0:${PORTSDIR}/sysutils/p5-Probe-Perl \
 		p5-Test-Differences>=0:${PORTSDIR}/devel/p5-Test-Differences
@@ -45,16 +45,18 @@ MAN3=		Config::Model.3 \
 		Config::Model::Annotation.3 \
 		Config::Model::AnyId.3 \
 		Config::Model::AnyThing.3 \
-		Config::Model::AutoRead.3 \
 		Config::Model::Backend::Any.3 \
+		Config::Model::Backend::Debian::Dpkg.3 \
 		Config::Model::Backend::Debian::Dpkg::Control.3 \
 		Config::Model::Backend::Debian::Dpkg::Copyright.3 \
+		Config::Model::Backend::Debian::Dpkg::Patch.3 \
 		Config::Model::Backend::Debian::DpkgSyntax.3 \
 		Config::Model::Backend::Fstab.3 \
 		Config::Model::Backend::IniFile.3 \
 		Config::Model::Backend::PlainFile.3 \
 		Config::Model::Backend::ShellVar.3 \
 		Config::Model::Backend::Yaml.3 \
+		Config::Model::BackendMgr.3 \
 		Config::Model::CheckList.3 \
 		Config::Model::Cookbook::CreateModelFromDoc.3 \
 		Config::Model::Debian::Dependency.3 \
@@ -93,6 +95,7 @@ MAN3=		Config::Model.3 \
 		Config::Model::models::Debian::Dpkg::Copyright::License.3 \
 		Config::Model::models::Debian::Dpkg::Copyright::LicenseSpec.3 \
 		Config::Model::models::Debian::Dpkg::Meta.3 \
+		Config::Model::models::Debian::Dpkg::Patch.3 \
 		Config::Model::models::Debian::Dpkg::Source.3 \
 		Config::Model::models::Debian::Dpkg::Source::Options.3 \
 		Config::Model::models::Fstab.3 \

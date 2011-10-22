@@ -6,7 +6,8 @@
 #
 
 PORTNAME=		mapserver
-PORTVERSION=		6.0.0
+PORTVERSION=		6.0.1
+PORTREVISION=		1
 CATEGORIES=		graphics www geography
 MASTER_SITES=		http://download.osgeo.org/mapserver/
 
@@ -63,7 +64,7 @@ CONFIGURE_ARGS+=	--without-tiff
 .endif
 
 .if defined(WITH_MING)
-LIB_DEPENDS+=		ming.4:${PORTSDIR}/graphics/ming
+LIB_DEPENDS+=		ming.5:${PORTSDIR}/graphics/ming
 CONFIGURE_ARGS+=	--with-ming=${LOCALBASE}
 .endif
 

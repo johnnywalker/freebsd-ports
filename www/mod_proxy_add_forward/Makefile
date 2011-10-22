@@ -14,9 +14,12 @@ EXTRACT_SUFX=	.c
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	Apache module that adds a client IP header to outgoing proxy requests
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 AP_FAST_BUILD=	yes
 AP_GENPLIST=	yes
 

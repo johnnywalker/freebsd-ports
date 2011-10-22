@@ -168,6 +168,45 @@
 %%WWWDIR%%/help/da-DK/help.html
 %%WWWDIR%%/help/da-DK/portal_help.html
 %%WWWDIR%%/help/da-DK/tips.txt
+%%WWWDIR%%/help/de-DE/AddressDataProtection.txt
+%%WWWDIR%%/help/de-DE/AutoAssignIncidents.txt
+%%WWWDIR%%/help/de-DE/CTRLAddRemove.txt
+%%WWWDIR%%/help/de-DE/CustomerImpactEngineer.txt
+%%WWWDIR%%/help/de-DE/Dashboard.txt
+%%WWWDIR%%/help/de-DE/EmailDataProtection.txt
+%%WWWDIR%%/help/de-DE/EmailSignatureTip.txt
+%%WWWDIR%%/help/de-DE/InventoryID.txt
+%%WWWDIR%%/help/de-DE/InventoryPrivacy.txt
+%%WWWDIR%%/help/de-DE/KBDistribution.txt
+%%WWWDIR%%/help/de-DE/KBPrivate.txt
+%%WWWDIR%%/help/de-DE/KBRestricted.txt
+%%WWWDIR%%/help/de-DE/LDAPAttributeMap.txt
+%%WWWDIR%%/help/de-DE/MessageTip.txt
+%%WWWDIR%%/help/de-DE/NewSupportedContact.txt
+%%WWWDIR%%/help/de-DE/OtherIncidents.txt
+%%WWWDIR%%/help/de-DE/ProblemDescriptionEngineer.txt
+%%WWWDIR%%/help/de-DE/ProblemReproductionEngineer.txt
+%%WWWDIR%%/help/de-DE/QualificationsTip.txt
+%%WWWDIR%%/help/de-DE/RevokeNotice.txt
+%%WWWDIR%%/help/de-DE/Scheduler.txt
+%%WWWDIR%%/help/de-DE/SchedulerParameters.txt
+%%WWWDIR%%/help/de-DE/SchedulerStatus.txt
+%%WWWDIR%%/help/de-DE/SeparatedBySpaces.txt
+%%WWWDIR%%/help/de-DE/ServiceLevelCustomerPeriod.txt
+%%WWWDIR%%/help/de-DE/ServiceLevelEngineerPeriod.txt
+%%WWWDIR%%/help/de-DE/ServiceLevelLimit.txt
+%%WWWDIR%%/help/de-DE/ServiceLevelTimed.txt
+%%WWWDIR%%/help/de-DE/SetYourStatus.txt
+%%WWWDIR%%/help/de-DE/SiteIncidentVisibility.txt
+%%WWWDIR%%/help/de-DE/TaskPrivacy.txt
+%%WWWDIR%%/help/de-DE/TaskUser.txt
+%%WWWDIR%%/help/de-DE/TelephoneDataProtection.txt
+%%WWWDIR%%/help/de-DE/UserSource.txt
+%%WWWDIR%%/help/de-DE/UserStartdate.txt
+%%WWWDIR%%/help/de-DE/VisibleToCustomer.txt
+%%WWWDIR%%/help/de-DE/WorkAroundsAttemptedEngineer.txt
+%%WWWDIR%%/help/de-DE/help.html
+%%WWWDIR%%/help/de-DE/portal_help.html
 %%WWWDIR%%/help/en-GB/AddressDataProtection.txt
 %%WWWDIR%%/help/en-GB/AutoAssignIncidents.txt
 %%WWWDIR%%/help/en-GB/CTRLAddRemove.txt
@@ -362,12 +401,14 @@
 %%WWWDIR%%/holiday_approve.php
 %%WWWDIR%%/holiday_request.php
 %%WWWDIR%%/holidays.php
+%%WWWDIR%%/i18n/af.inc.php
 %%WWWDIR%%/i18n/ar.inc.php
 %%WWWDIR%%/i18n/bg-BG.inc.php
 %%WWWDIR%%/i18n/ca-ES.inc.php
 %%WWWDIR%%/i18n/cy-GB.inc.php
 %%WWWDIR%%/i18n/da-DK.inc.php
 %%WWWDIR%%/i18n/de-DE.inc.php
+%%WWWDIR%%/i18n/el-GR.inc.php
 %%WWWDIR%%/i18n/en-GB.inc.php
 %%WWWDIR%%/i18n/en-US.inc.php
 %%WWWDIR%%/i18n/es-CO.inc.php
@@ -375,7 +416,6 @@
 %%WWWDIR%%/i18n/es-MX.inc.php
 %%WWWDIR%%/i18n/fa-IR.inc.php
 %%WWWDIR%%/i18n/fr-FR.inc.php
-%%WWWDIR%%/i18n/gr-GR.inc.php
 %%WWWDIR%%/i18n/it-IT.inc.php
 %%WWWDIR%%/i18n/ja-JP.inc.php
 %%WWWDIR%%/i18n/lt-LT.inc.php
@@ -2095,6 +2135,7 @@
 @dirrm %%WWWDIR%%/help/es-MX
 @dirrm %%WWWDIR%%/help/en-US
 @dirrm %%WWWDIR%%/help/en-GB
+@dirrm %%WWWDIR%%/help/de-DE
 @dirrm %%WWWDIR%%/help/da-DK
 @dirrm %%WWWDIR%%/help/cy-GB
 @dirrm %%WWWDIR%%/help

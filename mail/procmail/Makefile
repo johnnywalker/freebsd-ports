@@ -22,7 +22,7 @@ MASTER_SITES=	ftp://ftp.procmail.org/pub/procmail/ \
 		ftp://sunsite.cnlab-switch.ch/mirror/procmail/ \
 		ftp://ftp.mirrorservice.org/sites/ftp.procmail.org/pub/procmail/
 
-MAINTAINER=	ache@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	A local mail delivery agent
 
 MAKE_JOBS_UNSAFE=	yes
@@ -32,14 +32,6 @@ MAKE_JOBS_UNSAFE=	yes
 #PATCHFILES=	procmail-authenticate.c-userMaildir.patch
 #PATCH_DIST_STRIP=-p
 #.endif
-
-# It asks for list of directories to do test for file locking
-# (defaults to /tmp and ".", so return should suffice in most cases).
-.if defined(BATCH) # handled in patch-aa
-MAKE_ARGS+=	-DBATCH
-.else
-IS_INTERACTIVE=	yes
-.endif
 
 INSTALL_TARGET=	install-suid install.man
 

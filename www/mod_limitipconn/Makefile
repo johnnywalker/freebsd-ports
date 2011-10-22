@@ -15,9 +15,12 @@ PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
 MAINTAINER=	ychsiao@ychsiao.org
 COMMENT=	Limit the number of simultaneous connections from a single IP address
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
-USE_APACHE=	1.3
+USE_APACHE=	13
 PLIST_FILES=	${APACHEMODDIR}/mod_limitipconn.so
 
 OPTIONS=	FIXCOUNT "Patch dangling browser connections counting" Off

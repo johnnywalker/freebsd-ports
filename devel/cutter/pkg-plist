@@ -1,4 +1,4 @@
-@comment $FreeBSD: ports/devel/cutter/pkg-plist,v 1.3 2011/02/10 08:52:10 romain Exp $
+@comment $FreeBSD: ports/devel/cutter/pkg-plist,v 1.4 2011/02/13 11:55:38 romain Exp $
 bin/cut-diff
 bin/cutter
 include/cutter/cppcutter.h
@@ -225,6 +225,7 @@ share/aclocal/cutter.m4
 %%DOCSDIR%%/index-1-1-5.html
 %%DOCSDIR%%/index-1-1-6.html
 %%DOCSDIR%%/index-1-1-7.html
+%%DOCSDIR%%/index-1-1-8.html
 %%DOCSDIR%%/index-all.html
 %%DOCSDIR%%/index-deprecated.html
 %%DOCSDIR%%/index.html
@@ -380,6 +381,7 @@ share/aclocal/cutter.m4
 %%DOCSDIR%%/ja/index-1-1-5.html
 %%DOCSDIR%%/ja/index-1-1-6.html
 %%DOCSDIR%%/ja/index-1-1-7.html
+%%DOCSDIR%%/ja/index-1-1-8.html
 %%DOCSDIR%%/ja/index-all.html
 %%DOCSDIR%%/ja/index-deprecated.html
 %%DOCSDIR%%/ja/index.html

@@ -6,18 +6,18 @@
 #
 
 PORTNAME=	syslog-ng
-PORTVERSION=	3.3.0b1
+PORTVERSION=	3.3.0b2
 PORTREVISION=	1
 CATEGORIES=	sysutils
-MASTER_SITES=	http://www.balabit.com/downloads/files/syslog-ng/sources/3.3.0beta1/source/
+MASTER_SITES=	http://www.balabit.com/downloads/files/syslog-ng/sources/3.3.0beta2/source/
 PKGNAMESUFFIX=	3-devel
-DISTFILES=	$(PORTNAME)_3.3.0beta1.tar.gz
+DISTFILES=	$(PORTNAME)_3.3.0beta2.tar.gz
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	A powerful syslogd replacement
 
 CONFLICTS?=	syslog-ng-[0-9]* syslog-ng[0-9]-[0-9]*
-WRKSRC=		$(WRKDIR)/$(PORTNAME)-3.3.0beta1
+WRKSRC=		$(WRKDIR)/$(PORTNAME)-3.3.0beta2
 
 OPTIONS=	SYS_SSL "Build with OpenSSL support (from system)" off \
 		PORTS_SSL "Build with OpenSSL support (from ports)" off \
@@ -40,13 +40,13 @@ MAN8=		syslog-ng.8
 USE_RC_SUBR=	syslog-ng.sh
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
-USE_GNOME=	glib20
+USE_GNOME=	glib20 gnomehack
 SUB_FILES=	pkg-message
 
 CONFIGURE_ARGS=	--sysconfdir=${LOCALBASE}/etc --localstatedir=/var/db \
 		--enable-dynamic-linking --with-libnet=${LOCALBASE}/bin
-CONFIGURE_ENV=	CFLAGS="`${LIBNET_CONFIG} --cflags` -I${LOCALBASE}/include ${CFLAGS}" \
-		LDFLAGS="`${LIBNET_CONFIG} --libs` ${LDFLAGS}"
+CFLAGS+=	`${LIBNET_CONFIG} --cflags` -I${LOCALBASE}/include
+LDFLAGS+=	`${LIBNET_CONFIG} --libs`
 
 .if defined(WITH_SYS_SSL) && defined(WITH_PORTS_SSL)
 BROKEN=		SYS_SSL and PORTS_SSL are mutually exclusive
@@ -57,6 +57,7 @@ USE_OPENSSL=            yes
 CONFIGURE_ARGS+=        --enable-ssl
 CONFIGURE_ENV+=         OPENSSL_CFLAGS="${OPENSSL_CFLAGS}" \
                         OPENSSL_LIBS="${OPENSSL_LDFLAGS} -lcrypto -lssl"
+PLIST_FILES+=           lib/syslog-ng/libafsocket-tls.la lib/syslog-ng/libafsocket-tls.so
 .else
 CONFIGURE_ARGS+=        --disable-ssl
 .endif

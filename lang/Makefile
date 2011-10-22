@@ -103,9 +103,12 @@
     SUBDIR += gjs
     SUBDIR += gnat
     SUBDIR += gnat-aux
+    SUBDIR += gnatdroid-armv5
+    SUBDIR += gnatdroid-armv7
+    SUBDIR += gnatdroid-binutils
+    SUBDIR += gnatdroid-sysroot
     SUBDIR += gnustep-base
     SUBDIR += gnustep-guile
-    SUBDIR += gnustep-libobjc
     SUBDIR += go
     SUBDIR += gprolog
     SUBDIR += groovy
@@ -190,7 +193,6 @@
     SUBDIR += ocaml-examples
     SUBDIR += ocaml-mode.el
     SUBDIR += ocaml-nox11
-    SUBDIR += ocamlduce
     SUBDIR += ocs
     SUBDIR += ofc
     SUBDIR += ohugs
@@ -287,12 +289,9 @@
     SUBDIR += rscheme
     SUBDIR += rubinius
     SUBDIR += ruby-doc-stdlib
-    SUBDIR += ruby-extensions
-    SUBDIR += ruby-lua
     SUBDIR += ruby-lua4
     SUBDIR += ruby-man
     SUBDIR += ruby-mode.el
-    SUBDIR += ruby-perl
     SUBDIR += ruby-programmingruby
     SUBDIR += ruby-reference
     SUBDIR += ruby-usersguide

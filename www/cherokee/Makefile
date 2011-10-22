@@ -47,7 +47,7 @@ MASTER_SITES=	http://www.cherokee-project.com/download/1.2/${PORTVERSION}/ \
 MAINTAINER=	dschulz@gmail.com
 COMMENT=	Extremely fast and flexible web server
 
-USE_GNOME=	gnomehack gnometarget pkgconfig
+USE_GNOME=	gnomehack pkgconfig
 USE_OPENSSL=	yes
 USE_LDCONFIG=	yes
 USE_GETTEXT=	yes
@@ -55,9 +55,8 @@ USE_RC_SUBR=	cherokee.sh
 SUB_FILES=	pkg-install pkg-message
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 CHEROKEE_VARDIR?=	/var
 CHEROKEE_LOGDIR?=	${CHEROKEE_VARDIR}/log

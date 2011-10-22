@@ -7,7 +7,7 @@
 
 PORTNAME=	heartbeat
 PORTVERSION=	2.1.4
-PORTREVISION=	14
+PORTREVISION=	15
 CATEGORIES=	sysutils
 #MASTER_SITES=	http://hg.linux-ha.org/lha-2.1/archive/STABLE-2.1.4.tar.bz2
 MASTER_SITES=	${MASTER_SITE_LOCAL}
@@ -37,8 +37,8 @@ USE_PYTHON=	yes
 
 GNU_CONFIGURE=	yes
 
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include -I${LOCALBASE}/include/libnet115" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib -L${LOCALBASE}/lib/libnet115"
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/libnet115
+LDFLAGS+=	-L${LOCALBASE}/lib -L${LOCALBASE}/lib/libnet115
 
 CONFIGURE_ARGS=	--prefix=${PREFIX} \
 		--localstatedir=/var \

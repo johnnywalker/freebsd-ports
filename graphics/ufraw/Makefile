@@ -6,8 +6,8 @@
 #
 
 PORTNAME=	ufraw
-PORTVERSION=	0.17
-PORTREVISION=	2
+PORTVERSION=	0.18
+PORTREVISION=	0
 CATEGORIES=	graphics gnome
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
 
@@ -25,9 +25,8 @@ USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_GNOME=	gtk20 glib20 gnomehack intltool intlhack libartlgpl2 pkgconfig
 
-LDFLAGS=	-L"${LOCALBASE}/lib" ${PTHREAD_LIBS}
-CPPFLAGS=	-I"${LOCALBASE}/include"
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}" CPPFLAGS="${CPPFLAGS}"
+LDFLAGS+=	-L"${LOCALBASE}/lib" ${PTHREAD_LIBS}
+CPPFLAGS+=	-I"${LOCALBASE}/include"
 PC_FALSE+=	cinepaint
 
 OPTIONS=	CONTRAST "Enable contrast setting"		on	\

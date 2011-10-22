@@ -13,6 +13,7 @@
 
 PORTNAME=	rt
 PORTVERSION=	3.8.10
+PORTREVISION=	3
 CATEGORIES=	www
 MASTER_SITES=	http://download.bestpractical.com/pub/rt/release/ \
 		ftp://ftp.eu.uu.net/pub/unix/ticketing/rt/release/
@@ -67,18 +68,18 @@ RUN_DEPENDS+=	${STANDALONE_DEPS}
 .endif
 
 .if defined(WITH_APACHE) || defined(WITH_FASTCGI) || defined(WITH_MODPERL)
-USE_APACHE=	1.3+
+USE_APACHE=	13+
 .endif
 
 .if defined(WITH_FASTCGI)
 BUILD_DEPENDS+=	${LOCALBASE}/${APACHEMODDIR}/mod_fastcgi.so:${PORTSDIR}/www/mod_fastcgi
 RUN_DEPENDS+=	${LOCALBASE}/${APACHEMODDIR}/mod_fastcgi.so:${PORTSDIR}/www/mod_fastcgi \
-		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FastCGI
+		${SITE_PERL}/${PERL_ARCH}/FCGI.pm:${PORTSDIR}/www/p5-FCGI
 .endif
 
 .if defined(WITH_GRAPHVIZ)
-BUILD_DEPENDS+=	${GRAPVIZ_DEPS}
-RUN_DEPENDS+=	${GRAPVIZ_DEPS}
+BUILD_DEPENDS+=	${GRAPHVIZ_DEPS}
+RUN_DEPENDS+=	${GRAPHVIZ_DEPS}
 .endif
 
 .if defined(WITH_MODPERL)

@@ -18,13 +18,13 @@ COMMENT=	Dictionary/spellchecking framework
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
 USE_LDCONFIG=	yes
-USE_GNOME=	gnomehack gnometarget glib20 ltverhack
+USE_GNOME=	gnomehack glib20 ltverhack
 CONFIGURE_ARGS=	--disable-uspell \
 		--disable-voikko
 MAKE_JOBS_SAFE=	yes
 
-CONFIGURE_ENV+=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN1=		enchant.1
 

@@ -19,12 +19,12 @@ LIB_DEPENDS=	eb.15:${PORTSDIR}/japanese/eb
 
 CONFLICTS=	ja-ebview-0*
 
-USE_GNOME=	gtk20 gnometarget
+USE_GNOME=	gtk20
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--with-eb-conf=${LOCALBASE}/etc/eb.conf
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 SUB_FILES=	ebview.desktop
 

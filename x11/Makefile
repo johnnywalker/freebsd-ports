@@ -42,7 +42,6 @@
     SUBDIR += dynamag
     SUBDIR += dzen2
     SUBDIR += eaglemode
-    SUBDIR += ebuttons
     SUBDIR += ecore-imf
     SUBDIR += ecore-imf_evas
     SUBDIR += ecore-input
@@ -132,6 +131,7 @@
     SUBDIR += kdelibs3
     SUBDIR += kdelibs3-nocups
     SUBDIR += kdelibs4
+    SUBDIR += keybinder
     SUBDIR += keyboardcast
     SUBDIR += keylaunch
     SUBDIR += keynav
@@ -225,6 +225,7 @@
     SUBDIR += powershell
     SUBDIR += printproto
     SUBDIR += printscreen
+    SUBDIR += props
     SUBDIR += py-qt4-opengl
     SUBDIR += qimageblitz
     SUBDIR += qt4-graphicssystems-opengl

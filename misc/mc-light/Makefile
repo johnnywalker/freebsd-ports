@@ -25,7 +25,7 @@ OPTIONS=	NLS "Enable gettext support" on \
 
 USE_GMAKE=	yes
 USE_ICONV=	yes
-USE_GNOME=	pkgconfig gnometarget
+USE_GNOME=	pkgconfig
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--with-included-slang \
 		--with-gettext \
@@ -52,7 +52,7 @@ PLIST_SUB+=	NLS="@comment "
 .endif
 
 .if defined(WITH_MC_IN_MC)
-CONFIGURE_ENV+=	CPPFLAGS=-DMC_IN_MC_ALLOWED
+CPPFLAGS+=	-DMC_IN_MC_ALLOWED
 .endif
 
 post-install:

@@ -26,11 +26,11 @@ RUN_DEPENDS+=	${LIB_PC_DEPENDS:C|^|${LOCALBASE}/libdata/pkgconfig/|g}
 
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
-USE_GNOME=	gnomehack pkgconfig gnometarget
+USE_GNOME=	gnomehack pkgconfig
 USE_OPENSSL=	yes
 USE_PYTHON_BUILD=	yes
-CONFIGURE_ENV=	CPPFLAGS="${PTHREAD_CFLAGS}" \
-		LIBS="${PTHREAD_LIBS}"
+CONFIGURE_ENV=	LIBS="${PTHREAD_LIBS}"
+CPPFLAGS+=	${PTHREAD_CFLAGS}
 
 MAN8=		telepathy-salut.8
 

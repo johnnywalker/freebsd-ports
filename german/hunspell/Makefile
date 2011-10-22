@@ -11,11 +11,13 @@ PORTREVISION=	1
 CATEGORIES=	german textproc
 MASTER_SITES=	http://www.j3e.de/ispell/igerman98/dict/
 DISTNAME=	igerman98-${PORTVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
-COMMENT=	Hunspell german dictionary
+COMMENT=	German hunspell dictionaries
 
-BUILD_DEPENDS=	buildhash:${PORTSDIR}/textproc/ispell
+BUILD_DEPENDS=	buildhash:${PORTSDIR}/textproc/ispell \
+		hunspell:${PORTSDIR}/textproc/hunspell
 
 USE_BZIP2=	yes
 ALL_TARGET=	hunspell-all
@@ -39,7 +41,9 @@ PLIST_FILES+=	%%DATADIR%%/${ALIAS}.aff \
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKSRC}/hunspell/*.aff ${WRKSRC}/hunspell/*.dic ${DATADIR}/
+	${INSTALL_DATA} ${WRKSRC}/hunspell/de_AT.aff ${WRKSRC}/hunspell/de_AT.dic \
+		${WRKSRC}/hunspell/de_CH.aff ${WRKSRC}/hunspell/de_CH.dic \
+		${WRKSRC}/hunspell/de_DE.aff ${WRKSRC}/hunspell/de_DE.dic ${DATADIR}/
 .for ALIAS in ${CHALIASES}
 	${LN} -s de_CH.aff ${DATADIR}/${ALIAS}.aff
 	${LN} -s de_CH.dic ${DATADIR}/${ALIAS}.dic

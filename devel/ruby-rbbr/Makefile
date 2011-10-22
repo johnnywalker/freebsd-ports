@@ -7,7 +7,7 @@
 
 PORTNAME=	rbbr
 PORTVERSION=	0.6.0
-PORTREVISION=	8
+PORTREVISION=	10
 CATEGORIES=	devel ruby
 MASTER_SITES=	SF/ruby-gnome2/${PORTNAME}/${PORTNAME}-${PORTVERSION}
 PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
@@ -43,9 +43,9 @@ post-install:
 .include <bsd.port.pre.mk>
 
 .if ${RUBY_VER} == 1.9
-PLIST_SUB+=	CYMO="@comment "
+PLIST_SUB+=	R19="@comment "
 .else
-PLIST_SUB+=	CYMO=""
+PLIST_SUB+=	R19=""
 .endif
 
 .include <bsd.port.post.mk>

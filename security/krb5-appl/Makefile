@@ -7,7 +7,7 @@
 
 PORTNAME=		krb5-appl
 PORTVERSION=		1.0.1
-PORTREVISION=		3
+PORTREVISION=		4
 CATEGORIES=		security
 MASTER_SITES=		http://web.mit.edu/kerberos/dist/${PORTNAME}/${PORTVERSION:C/^[0-9]*\.[0-9]*/&X/:C/X\.[0-9]*$//:C/X//}/
 PATCH_SITES=		http://web.mit.edu/kerberos/advisories/
@@ -33,8 +33,7 @@ USE_PERL5_BUILD=	yes
 USE_LDCONFIG=		yes
 USE_AUTOTOOLS=		libtool autoheader autoconf
 CONFIGURE_ARGS?=	--enable-shared --with-krb5=${PREFIX}/bin/krb5-config
-CONFIGURE_ENV=		INSTALL="${INSTALL}" YACC=/usr/bin/yacc \
-			CFLAGS="${CFLAGS}"
+CONFIGURE_ENV=		INSTALL="${INSTALL}" YACC=/usr/bin/yacc
 MAKE_ARGS=		INSTALL="${INSTALL}"
 PATCH_DIST_STRIP=	-p1
 
@@ -45,10 +44,6 @@ OPTIONS=		KRB5_RENAME_FTP "Rename ftp to kftp" off \
 			KRB5_RENAME_RCP "Rename rcp to krcp" off
 
 .include <bsd.port.pre.mk>
-
-.if ${OSVERSION} > 900007
-BROKEN=		fails to build with new utmpx
-.endif
 
 .if defined(WITH_KRB5_DOC)
 BUILD_DEPENDS+=		texi2dvi:${PORTSDIR}/print/texinfo \

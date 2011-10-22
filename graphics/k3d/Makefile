@@ -31,14 +31,14 @@ WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION}
 USE_GL=		yes
 USE_PYTHON=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CXXFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	${CXXFLAGS} -I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--without-docbook --without-graphviz \
 		--with-truetype=freetype2 --with-imagemagick --with-jpeg \
 		--with-python=${PYTHONBASE} --with-tiff --with-openexr \
 		--with-plib --with-png --with-external-boost --with-libxml2
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget libxslt
+USE_GNOME=	libxslt
 WANT_GNOME=	yes
 USE_LDCONFIG=	yes
 MAN1=		k3d.1

@@ -15,7 +15,10 @@ COMMENT=	WWW interface for console wget
 
 RUN_DEPENDS=	${LOCALBASE}/bin/wget:${PORTSDIR}/ftp/wget
 
-USE_APACHE=	1.3
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
+USE_APACHE=	13
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 NO_BUILD=	yes

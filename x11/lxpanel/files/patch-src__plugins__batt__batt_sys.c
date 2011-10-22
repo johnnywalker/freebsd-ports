@@ -1,8 +1,8 @@
---- src/plugins/batt/batt_sys.c.orig	2010-02-08 07:37:52.000000000 +0100
-+++ src/plugins/batt/batt_sys.c	2010-10-16 19:34:55.616250250 +0200
-@@ -39,15 +39,6 @@
-     static int battery_num = 1;
-     battery * b = g_new0 ( battery, 1 );
+--- src/plugins/batt/batt_sys.c.o	2011-09-16 11:13:37.000000000 -0400
++++ src/plugins/batt/batt_sys.c	2011-09-16 11:40:08.000000000 -0400
+@@ -46,15 +46,6 @@
+ 
+ void battery_reset( battery * b) {
      b->type_battery = TRUE;
 -    b->capacity_unit = "mAh";
 -    b->last_capacity_unit = -1;
@@ -14,9 +14,9 @@
 -    b->remaining_capacity = -1;
 -    b->present_rate = -1;
      b->state = NULL;
-     b->battery_num = battery_num;
-     battery_num++;
-@@ -76,7 +67,7 @@
+ }
+ 
+@@ -79,7 +70,7 @@
      return n;
  }
  
@@ -25,7 +25,7 @@
  {
      if ( b->type_battery )
      {
-@@ -90,193 +81,61 @@
+@@ -93,195 +84,65 @@
  		b->seconds -= 3600 * b->hours;
  		b->minutes = b->seconds / 60;
  		b->seconds -= 60 * b->minutes;
@@ -37,7 +37,7 @@
  
 -
  	    printf("\n");
--	    
+ 	    
 -	    if (show_capacity && b->design_capacity > 0) {
 -		if (b->last_capacity <= 100) {
 -		    /* some broken systems just give a percentage here */
@@ -75,6 +75,7 @@
 -	NULL
 -    };
 -    const gchar *sys_file;
++
 +    char sstmp[ 100 ];
 +    int c, state;
 +    size_t intlen = sizeof c;
@@ -83,10 +84,10 @@
 +    sysctlbyname(sstmp, &c, &intlen, NULL, 0);
 +    b->percentage = c;
  
+     battery_reset(b);
+ 
 -    while ( (sys_file = sys_list[i]) != NULL ) {
-+    snprintf(sstmp, sizeof(sstmp), "hw.acpi.battery.state");
-+    sysctlbyname(sstmp, &state, &intlen, NULL, 0);
-     
+-    
 -	gchar *file_content;
 -	GString *filename = g_string_new( ACPI_PATH_SYS_POWER_SUPPY );
 -	g_string_append_printf ( filename, "/%s/%s", b->path, 
@@ -99,7 +100,7 @@
 -		    b->state = "available";
 -	    }
 -	    else if ( strcmp("energy_now", sys_file ) == 0 ) {
--		b->remaining_capacity = get_unit_value((gchar*) file_content) / 1000;
+-		b->remaining_energy = get_unit_value((gchar*) file_content) / 1000;
 -		if (!b->state)
 -		    b->state = "available";
 -	    }
@@ -164,12 +165,33 @@
 -    if (b->last_capacity < MIN_CAPACITY)
 -	b->percentage = 0;
 -    else
--	b->percentage = b->remaining_capacity * 100 / b->last_capacity;
+-	b->percentage = ((float) b->remaining_energy * 100.0) / (float) b->last_capacity_unit;
 -	    
 -    if (b->percentage > 100)
 -	b->percentage = 100;
--
--
++    snprintf(sstmp, sizeof(sstmp), "hw.acpi.battery.state");
++    sysctlbyname(sstmp, &state, &intlen, NULL, 0);
+ 
++    switch(state) {
++           case BATT_FULL:
++                   b->state = "Full";
++                   break;
++           case BATT_DISCHARGING:
++                   b->state = "Discharging";
++                   break;
++           case BATT_CHARGING:
++                   b->state = "Charging";
++                   break;
++           case BATT_CRITICAL:
++                   b->state = "Critical";
++                   break;
++           case BATT_NONE:
++                   b->state = "Unavailable";
++                   break;
++            default:
++                   b->state = "Unknown";
++                   break;
+ 
 -	    
 -    if (b->present_rate == -1) {
 -	b->poststr = "rate information unavailable";
@@ -193,47 +215,26 @@
 -    } else {
 -	b->poststr = NULL;
 -	b->seconds = -1;
--    }
+     }
 -	    
 -}
--
+ 
 -static battery* acpi_sys_get_battery_from_dir (const gchar *device_name ) {
 -    battery *b = battery_new();
 -    b->path = g_strdup( device_name );    
 -    return b;
-+    switch(state) {
-+	    case BATT_FULL:
-+		    b->state = "Full";
-+		    break;
-+	    case BATT_DISCHARGING:
-+		    b->state = "Discharging";
-+		    break;
-+	    case BATT_CHARGING:
-+		    b->state = "Charging";
-+		    break;
-+	    case BATT_CRITICAL:
-+		    b->state = "Critical";
-+		    break;
-+	    case BATT_NONE:
-+		    b->state = "Unavailable";
-+		    break;
-+            default:
-+		    b->state = "Unknown";
-+		    break;
-+
-+    } 
-+
 +    snprintf(sstmp, sizeof(sstmp), "hw.acpi.battery.time");
 +    sysctlbyname(sstmp, &c, &intlen, NULL, 0);
 +    b->minutes = c;
 +    b->seconds = c * 60;
++
  }
  
  battery *battery_get() {
 -    GError * error = NULL;
 -    const gchar *entry;
 -    GDir * dir = g_dir_open( ACPI_PATH_SYS_POWER_SUPPY, 0, &error );
-     battery *b = NULL;
+-    battery *b = NULL;
 -    if ( dir == NULL ) 
 -    {
 -	g_warning( "NO ACPI/sysfs support in kernel: %s", error->message );
@@ -252,12 +253,12 @@
 -	}
 -    }
 -    g_dir_close( dir );
-+    b = battery_new();
++    battery *b = battery_new();
 +    battery_update(b);
      return b;
  }
  
-@@ -286,10 +145,3 @@
+@@ -291,10 +152,3 @@
  	     strcasecmp( b->state, "Full" ) == 0
  	     || strcasecmp( b->state, "Charging" ) == 0 );
  }

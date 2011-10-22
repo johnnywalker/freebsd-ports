@@ -9,11 +9,12 @@ PORTNAME=	hunspell
 PORTVERSION=	20080604
 PORTREVISION=	1
 CATEGORIES=	vietnamese textproc
-MASTER_SITES=	GOOGLE_CODE
-DISTNAME=	vi_VN
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
+DISTNAME=	vi_VN-${PORTVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
-COMMENT=	Hunspell vietnamese dictionary
+COMMENT=	Vietnamese hunspell dictionaries
 
 USE_ZIP=	yes
 NO_BUILD=	yes

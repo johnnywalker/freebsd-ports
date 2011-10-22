@@ -16,12 +16,11 @@ MAINTAINER=	stas@FreeBSD.org
 COMMENT=	Fast and portable Forth system
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CFLAGS="${CFLAGS} -I${LOCALBASE}/include" \
-		CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-I${LOCALBASE}/include
 USE_GMAKE=	yes
 ALL_TARGET=	all info
-USE_GNOME=	gnometarget
 USE_EMACS=	yes
 EMACS_NO_BUILD_DEPENDS=	yes
 EMACS_NO_RUN_DEPENDS=	yes

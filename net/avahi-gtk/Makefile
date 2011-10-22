@@ -6,7 +6,7 @@
 #   $MCom: ports/net/avahi-gtk/Makefile,v 1.2 2007/09/12 12:41:45 ahze Exp $
 #
 
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-gtk
 
@@ -27,7 +27,7 @@ AVAHI_PKGCONFIG=avahi-ui.pc
 MAN1+=		bssh.1
 MLINKS+=	bssh.1 bvnc.1 \
 		bssh.1 bshell.1
-USE_GNOME=	gnomehack gnometarget ltverhack intltool libglade2
+USE_GNOME=	gnomehack ltverhack intltool libglade2
 
 post-build:
 	@(cd ${WRKSRC}/avahi-discover-standalone; \

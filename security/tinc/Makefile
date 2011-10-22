@@ -7,7 +7,7 @@
 #
 
 PORTNAME=	tinc
-PORTVERSION=	1.0.15
+PORTVERSION=	1.0.16
 CATEGORIES=	security
 MASTER_SITES=	http://www.tinc-vpn.org/packages/ \
 		ftp://ftp.wiretapped.net/pub/security/network-security/tinc/ \
@@ -25,7 +25,6 @@ GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--localstatedir=/var
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}"
 USE_RC_SUBR=	tincd.sh
 
 PLIST_FILES=	sbin/tincd

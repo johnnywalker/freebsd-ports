@@ -10,7 +10,6 @@ PORTVERSION=	1.10
 PORTREVISION=	12
 CATEGORIES=	www
 MASTER_SITES=	SF/timidity/TiMidity%2B%2B/TiMidity%2B%2B-${TIMIDITY_VERSION}:timidity \
-		http://www.geocities.com/SiliconValley/Lab/2826/1-10/:ump \
 		http://pubweb.bnl.gov/people/hoff/midi/1.10/:ump \
 		ftp://ftp.fu-berlin.de/unix/network/www/netscape/sdk/plugin/unix/:plugin \
 		ftp://ftp.fh-wolfenbuettel.de/pub/www/netscape/sdk/plugin/unix/:plugin
@@ -37,7 +36,7 @@ TIMIDITY_VERSION=	2.13.2
 USE_BZIP2=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-ump --with-default-path=${LOCALBASE}/share/timidity
-CONFIGURE_ENV=	LDFLAGS=-export-dynamic
+LDFLAGS+=	-export-dynamic
 USE_GMAKE=	yes
 USE_XORG=	xpm xmu
 WANT_GNOME=	yes

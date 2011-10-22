@@ -6,27 +6,27 @@
 #
 
 PORTNAME=	Dancer
-PORTVERSION=	1.3060
+PORTVERSION=	1.3072
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	CPAN:SUKRIA
+MASTER_SITE_SUBDIR=	CPAN:XSAWYERX
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	kuriyama@FreeBSD.org
 COMMENT=	Perl extension for minimal-effort oriented web application framework
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
 
 RUN_DEPENDS=	\
 	p5-libwww>0:${PORTSDIR}/www/p5-libwww \
 	p5-HTTP-Body>=1.07:${PORTSDIR}/www/p5-HTTP-Body \
 	p5-HTTP-Server-Simple-PSGI>=0.11:${PORTSDIR}/www/p5-HTTP-Server-Simple-PSGI \
 	p5-MIME-Types>0:${PORTSDIR}/mail/p5-MIME-Types \
-	p5-URI>0:${PORTSDIR}/net/p5-URI
+	p5-URI>=1.59:${PORTSDIR}/net/p5-URI
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
 OPTIONS=	YAML "Enable YAML implementation in Perl" On
-
-LICENSE=	ART10 GPLv1
-LICENSE_COMB=	dual
 
 .include <bsd.port.options.mk>
 
@@ -48,6 +48,7 @@ MAN3=	Dancer.3 \
 	Dancer::Development::Integration.3 \
 	Dancer::Engine.3 \
 	Dancer::Error.3 \
+	Dancer::Exception.3 \
 	Dancer::FileUtils.3 \
 	Dancer::HTTP.3 \
 	Dancer::Handler::Debug.3 \

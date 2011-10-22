@@ -22,12 +22,12 @@ LIB_DEPENDS=	mad.2:${PORTSDIR}/audio/libmad \
 		speex.1:${PORTSDIR}/audio/speex
 
 USE_BZIP2=	yes
-USE_GNOME=	gnomehack gnometarget gtk20
+USE_GNOME=	gnomehack gtk20
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-extralibdir=${LOCALBASE}/lib \
 		--with-extraincdir=${LOCALBASE}/include \
 		--with-vorbis-libraries=${LOCALBASE}/lib \

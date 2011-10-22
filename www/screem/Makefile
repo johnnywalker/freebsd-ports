@@ -17,13 +17,13 @@ COMMENT=	Nice GNOME/GTK-based HTML editor
 LIB_DEPENDS=	croco-0.6.3:${PORTSDIR}/textproc/libcroco
 
 USE_GETTEXT=	yes
-USE_GNOME=	desktopfileutils gnomehack gnomemenus gnomeprefix gnometarget \
+USE_GNOME=	desktopfileutils gnomehack gnomemenus gnomeprefix \
 		gtksourceview intlhack libgnomeprintui libgnomeui libgtkhtml
 USE_XORG=	xpm
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALLS_OMF=	yes
 
 GCONF_SCHEMAS=	screem.schemas

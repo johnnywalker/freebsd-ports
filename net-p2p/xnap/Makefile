@@ -13,7 +13,7 @@ MASTER_SITES=	SF/${PORTNAME:L}/${PORTNAME}/2.5r3
 #DISTNAME=	${PORTNAME:L}-${PORTVERSION:S/.p/-pre/:S/.b/-beta/}
 DISTNAME=	${PORTNAME:L}-${DISTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	conrads@cox.net
 COMMENT=	A pure java napster client; also, supports OpenNap & giFT (FastTrack)
 
 USE_JAVA=	yes

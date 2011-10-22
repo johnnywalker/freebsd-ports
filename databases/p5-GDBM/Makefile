@@ -8,28 +8,27 @@
 #
 
 PORTNAME=	GDBM
-PORTVERSION=	1.09
+PORTVERSION=	1.14
+PORTREVISION=	1
 CATEGORIES=	databases perl5
 MASTER_SITES=	CPAN/../../src
 PKGNAMEPREFIX=	p5-
-DISTNAME=	perl-5.8.9
+DISTNAME=	perl-5.14.1
 DIST_SUBDIR=	perl
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	GNU Data Base Manager (gdbm) interface
 
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm
 
-MAKE_JOBS_SAFE=  yes
-
-USE_BZIP2=	yes
-PERL_CONFIGURE=	5.8.0+
 EXTRACT_AFTER_ARGS=	| ${TAR} -xf - ${DISTNAME}/ext/GDBM_File
-WRKSRC=		${WRKDIR}/${DISTNAME}/ext/GDBM_File
-CFLAGS=		-I${LOCALBASE}/include
-MAN3=		GDBM_File.3
 
-post-patch:
-	@${REINPLACE_CMD} -e '/MAN3PODS/s|.*||' ${WRKSRC}/Makefile.PL
+CFLAGS+=	-I${LOCALBASE}/include
+MAKE_JOBS_SAFE=	yes
+PERL_CONFIGURE=	yes
+USE_BZIP2=	yes
+WRKSRC=		${WRKDIR}/${DISTNAME}/ext/GDBM_File
+
+MAN3=		GDBM_File.3
 
 .include <bsd.port.mk>

@@ -6,9 +6,9 @@
 #
 
 PORTNAME=	monodevelop-database
-PORTVERSION=	2.4
+PORTVERSION=	2.6.0.1
 CATEGORIES=	devel
-MASTER_SITES=	http://ftp.novell.com/pub/mono/sources/${PORTNAME}/
+MASTER_SITES=	http://download.mono-project.com/sources/${PORTNAME}/
 
 MAINTAINER=	mono@FreeBSD.org
 COMMENT=	MonoDevelop database support
@@ -20,7 +20,7 @@ USE_BZIP2=	yes
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_GETTEXT=	yes
-USE_GNOME=	gnometarget gnomehack gtksharp20
+USE_GNOME=	gnomehack gtksharp20
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|[(]prefix[)]/lib/pkgconfig|(prefix)/libdata/pkgconfig|g' \

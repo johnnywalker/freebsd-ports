@@ -18,10 +18,9 @@ DISTFILES=	gsmlib_1.10.orig.tar.gz
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A library to access GSM mobile phones through GSM modems
 
-USE_GNOME=	gnometarget lthack
+USE_GNOME=	lthack
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 USE_LDCONFIG=	yes
 
 MAN1=	gsmctl.1 gsmpb.1 gsmsendsms.1 gsmsmsstore.1

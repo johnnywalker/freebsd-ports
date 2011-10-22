@@ -9,7 +9,7 @@
 #	gsed 's/^\(.*\)mod\(.*\)\.so/%%\MOD\U\2%%\L\1mod\2\.so/' pkg-plist > tmp
 #	mv tmp pkg-plist
 #
-# $FreeBSD: ports/www/apache20/Makefile.modules,v 1.29 2010/05/06 23:26:43 pgollucci Exp $
+# $FreeBSD: ports/www/apache20/Makefile.modules,v 1.30 2010/05/07 05:04:43 pgollucci Exp $
 #
 
 # MPM section:
@@ -66,7 +66,7 @@ CONFIGURE_ARGS+=	--with-dbm=sdbm
 .   elif ${WITH_DBM:L} == "ndbm"
 CONFIGURE_ARGS+=       --with-ndbm
 .   elif ${WITH_DBM:L} == "gdbm"
-LIB_DEPENDS+=		gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=		gdbm.4:${PORTSDIR}/databases/gdbm
 CONFIGURE_ARGS+=	--with-gdbm=${LOCALBASE}
 .   elif ${WITH_DBM:L} == "db" || ${WITH_DBM:L} == "bdb"
 .	if defined(WITH_BDB_BASE)

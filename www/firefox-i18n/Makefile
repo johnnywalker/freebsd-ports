@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	firefox-i18n
-PORTVERSION=	5.0
+PORTVERSION=	6.0.2
 CATEGORIES=	www
 MASTER_SITE_SUBDIR=	firefox/releases/${PORTVERSION}/linux-i686/xpi
 PKGNAMEPREFIX=
@@ -14,12 +14,12 @@ DISTFILES=	${FIREFOX_I18N_:S/$/.xpi/}
 DIST_SUBDIR=	xpi/${DISTNAME}
 
 MAINTAINER=	gecko@FreeBSD.org
-COMMENT=	Localized interface for Firefox 5.0
+COMMENT=	Localized interface for Firefox
 
 EXTRACT_DEPENDS=	zip:${PORTSDIR}/archivers/zip
 
-USE_FIREFOX=	yes
-USE_XPI=	*firefox
+USE_FIREFOX=	60
+USE_XPI=	firefox
 
 USE_SUBMAKE=	yes
 
@@ -56,8 +56,10 @@ do-extract:
 		then \
 			exit 1; \
 		fi; \
-		cd ${WRKSRC}/langpack-$$lang@firefox.mozilla.org/chrome; \
-		${LOCALBASE}/bin/zip -r $$lang.jar $$lang; \
+		cd ${WRKSRC}/langpack-$$lang@firefox.mozilla.org/chrome/$$lang; \
+		${LOCALBASE}/bin/zip -r ../$$lang.jar locale; \
+		cd ..; ${RM} -rf $$lang; cd ..; \
+		${REINPLACE_CMD} -i "" "s,chrome/$$lang,jar:chrome/$$lang.jar!," chrome.manifest; \
 	done
 
 .if !exists(${OPTIONSFILE}) && !defined(PACKAGE_BUILDING)

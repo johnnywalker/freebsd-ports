@@ -1,5 +1,5 @@
 
-$FreeBSD: ports/x11-wm/wmanager/files/patch-aa,v 1.8 2008/04/19 17:56:03 miwi Exp $
+$FreeBSD: ports/x11-wm/wmanager/files/patch-aa,v 1.9 2008/05/24 16:15:52 roam Exp $
 
 diff -urN -urN -x .svn ../vendor/wmanager/Makefile ./Makefile
 --- ../vendor/wmanager/Makefile	2007-12-11 12:42:04.000000000 +0200
@@ -36,7 +36,7 @@ diff -urN -urN -x .svn ../vendor/wmanager/Makefile ./Makefile
 -LDDIRS    = -L/usr/X11R6/lib -L/usr/lib -L/usr/local/lib
 -
 +LD        = $(CXX)
-+LDFLAGS   ?= -lGL -lfltk -lXext -lX11 -lm ${PTHREAD_LIBS}
++LDFLAGS   += -lGL -lfltk -lXext -lX11 -lm ${PTHREAD_LIBS}
 +LDDIRS    = -L$(x11lib)
  
  # install settings

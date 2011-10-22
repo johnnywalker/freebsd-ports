@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	fillets-ng
-PORTVERSION=	1.0.0
-PORTREVISION=	1
+PORTVERSION=	1.0.1
 CATEGORIES=	games
 MASTER_SITES=	SF/fillets/Fish%20Fillets%20-%20Next%20Generation/${PORTVERSION}:source \
 		SF/fillets/Fish%20Fillets%20-%20Next%20Generation/${DATAVERSION}:data
@@ -21,7 +20,8 @@ USE_SDL=	sdl mixer image ttf
 USE_LUA=	5.1
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LUA_INCDIR}" LDFLAGS="-L${LUA_LIBDIR}"
+CPPFLAGS+=	-I${LUA_INCDIR}
+LDFLAGS+=	-L${LUA_LIBDIR}
 CONFIGURE_ARGS=	--datadir="${DATADIR}" --with-lua="${LOCALBASE}"
 MAKE_JOBS_SAFE=	yes
 PORTDOCS=	*

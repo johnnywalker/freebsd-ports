@@ -81,7 +81,6 @@
     SUBDIR += minicom
     SUBDIR += mlan
     SUBDIR += mlan3
-    SUBDIR += mserver
     SUBDIR += nasawash
     SUBDIR += ncid
     SUBDIR += nec2c
@@ -93,6 +92,7 @@
     SUBDIR += p5-Device-Modem
     SUBDIR += p5-Device-SerialPort
     SUBDIR += p5-Fax-Hylafax-Client
+    SUBDIR += p5-SMS-SMS77
     SUBDIR += p5-SMS-Send
     SUBDIR += p5-SMS-Send-DeviceGsm
     SUBDIR += p5-SMS-Send-TW-HiAir
@@ -102,7 +102,6 @@
     SUBDIR += p5-SMS-Send-TW-Socket2Air
     SUBDIR += p5-SMS-Send-TW-chtsns
     SUBDIR += p5-SMS-Send-TW-emome
-    SUBDIR += p5-SMS-SMS77
     SUBDIR += pear-Horde_ActiveSync
     SUBDIR += pear-Horde_SyncMl
     SUBDIR += picocom
@@ -114,12 +113,10 @@
     SUBDIR += pyla
     SUBDIR += qfaxreader
     SUBDIR += qico
-    SUBDIR += qicosi
     SUBDIR += qpage
     SUBDIR += qrq
     SUBDIR += qsstv
     SUBDIR += remserial
-    SUBDIR += ruby-serialport
     SUBDIR += rubygem-callsign
     SUBDIR += rubygem-ruby-termios
     SUBDIR += rxtx
@@ -128,8 +125,6 @@
     SUBDIR += ser2net
     SUBDIR += serialoverip
     SUBDIR += seyon
-    SUBDIR += sms_client
-    SUBDIR += smstools
     SUBDIR += smstools3
     SUBDIR += snooper
     SUBDIR += soundmodem

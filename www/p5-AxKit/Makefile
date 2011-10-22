@@ -30,6 +30,9 @@ RUN_DEPENDS=	\
 		${SITE_PERL}/LWP.pm:${PORTSDIR}/www/p5-libwww
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 MAN3=		\

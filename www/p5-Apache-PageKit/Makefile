@@ -34,8 +34,11 @@ RUN_DEPENDS=	${SITE_PERL}/${PERL_ARCH}/mod_perl.pm:${PORTSDIR}/www/mod_perl \
 		${SITE_PERL}/${PERL_ARCH}/Apache/Test.pm:${PORTSDIR}/www/p5-Apache-Test
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 EXAMPLESDIR?=	${PREFIX}/share/examples/${PORTNAME}
-PERL_CONFIGURE=	5.8.0+
+PERL_CONFIGURE=	yes
 USE_APACHE_RUN=	13
 
 MAN3=		Apache::ErrorReport.3 \

@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	asterisk
-PORTVERSION=	1.8.5.0
-PORTREVISION=	1
+PORTVERSION=	1.8.6.0
 CATEGORIES=	net
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/
@@ -24,10 +23,9 @@ RUN_DEPENDS=	mpg123:${PORTSDIR}/audio/mpg123
 ONLY_FOR_ARCHS=	i386 amd64 powerpc sparc64
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--with-gsm=${LOCALBASE}
-LDFLAGS=	-L${LOCALBASE}/lib
-CPPFLAGS=	-I${LOCALBASE}/include -I${LOCALBASE}/include/openh323
+LDFLAGS+=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/openh323
 USE_GMAKE=	yes
 USE_GNOME=	libxml2
 USE_BISON=	build

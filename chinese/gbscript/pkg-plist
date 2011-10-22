@@ -1,6 +1,0 @@
-@comment $FreeBSD: ports/chinese/gbscript/pkg-plist,v 1.4 2004/04/10 16:07:02 trevor Exp $
-bin/gbscript
-share/chinese/gb/gbscript.pro
-share/chinese/gb/cclib.24
-@dirrmtry share/chinese/gb
-@dirrmtry share/chinese

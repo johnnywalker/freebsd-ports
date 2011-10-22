@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# $FreeBSD: ports/databases/postgresql90-server/files/pkg-install-server,v 1.1 2011/04/27 13:28:50 girgen Exp $
+# $FreeBSD$
 
 PATH=/bin:/usr/bin:/usr/sbin
 

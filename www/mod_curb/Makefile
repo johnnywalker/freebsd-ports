@@ -15,6 +15,9 @@ DIST_SUBDIR=	apache
 MAINTAINER=	apache@FreeBSD.org
 COMMENT=	A per-server bandwidth limiter module for Apache 1.3
 
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=  yes
 
 USE_APACHE=	13

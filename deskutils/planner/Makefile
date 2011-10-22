@@ -7,8 +7,7 @@
 #
 
 PORTNAME=	planner
-PORTVERSION=	0.14.4
-PORTREVISION=	4
+PORTVERSION=	0.14.5
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome2
@@ -16,7 +15,7 @@ DIST_SUBDIR=	gnome2
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Project management application for GNOME 2
 
-USE_BZIP2=	yes
+USE_XZ=		yes
 USE_GMAKE=	yes
 USE_GNOME=	gnomeprefix gnomehack intlhack libgnomeui libgnomeprintui \
 		libgsf desktopfileutils
@@ -29,8 +28,8 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-static \
 		--disable-python \
 		--disable-python-plugin
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 GCONF_SCHEMAS=	planner.schemas
 

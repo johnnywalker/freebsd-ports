@@ -7,7 +7,7 @@
 #
 
 PORTNAME=	gcc
-PORTVERSION=	4.7.0.20110723
+PORTVERSION=	4.7.0.20110917
 CATEGORIES=	lang java
 MASTER_SITES=	${MASTER_SITE_GCC}
 MASTER_SITE_SUBDIR=	snapshots/${VERSIONSTRING}
@@ -158,5 +158,8 @@ post-install:
 	fi
 .endfor
 	cd ${WRKDIR} ; ${SED} -i -e "/PLIST.lib/ r PLIST.lib" ${TMPPLIST}
+	@if type ccache-update-links >/dev/null 2>&1; then \
+	    ccache-update-links -v; \
+	fi
 
 .include <bsd.port.post.mk>

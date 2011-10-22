@@ -16,6 +16,10 @@ MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Reload changed modules
 
 CONFLICTS=	ap2[02]-mod_perl2-2.0.[5-9]*
+
+DEPRECATED=	apache13 is deprecated, migrate to 2.2.x+ now
+EXPIRATION_DATE=	2011-11-01
+
 MAKE_JOBS_SAFE=	yes
 
 PERL_CONFIGURE=	yes

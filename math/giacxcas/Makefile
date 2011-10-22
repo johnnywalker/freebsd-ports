@@ -7,9 +7,9 @@
 
 PORTNAME=	giacxcas
 PORTVERSION=	0.9.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	math
-MASTER_SITES=	ftp://ftp-fourier.ujf-grenoble.fr/xcas/freebsd/ \
+MASTER_SITES=	ftp://ftp-fourier.ujf-grenoble.fr/linux/xcas/freebsd/ \
 		http://people.math.jussieu.fr/~han/xcas/sources/
 DISTFILES=	fltkdev.tgz CoCoALib.tgz giac-${PORTVERSION}.tar.gz
 DIST_SUBDIR=	${PORTNAME}
@@ -24,7 +24,6 @@ BUILD_DEPENDS=	latex:${PORTSDIR}/print/teTeX-base \
 		${LOCALBASE}/lib/libntl.a:${PORTSDIR}/math/ntl
 PATCH_DEPENDS=	${LOCALBASE}/bin/bash:${PORTSDIR}/shells/bash
 LIB_DEPENDS=	gmp:${PORTSDIR}/math/gmp \
-		pari:${PORTSDIR}/math/pari \
 		mpfr:${PORTSDIR}/math/mpfr \
 		gsl:${PORTSDIR}/math/gsl
 
@@ -39,14 +38,13 @@ USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${FLTKDEV-GIAC} -I${COCOALIB-GIAC}/include -I${LOCALBASE}/include
 LDFLAGS+=	-L${FLTKDEV-GIAC}/lib -L${COCOALIB-GIAC}/lib -L${LOCALBASE}/lib
 CXXFLAGS+=	-I${LOCALBASE}/include
+CONFIGURE_ARGS=	--disable-pari
 
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == "amd64"
 CXXFLAGS+=	-DSMARTPTR64 -D_I386_ -fPIC
 .endif
-
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 
 WRKSRC=		${WRKDIR}/giac-${PORTVERSION}
 FLTKDEV-GIAC=	${WRKDIR}/fltk-1.3.x-r6916

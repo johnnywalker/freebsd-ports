@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	gnome-commander
-PORTVERSION=	1.2.8.11
+PORTVERSION=	1.2.8.13
 PORTEPOCH=	1
 CATEGORIES=	x11-fm gnome
 MASTER_SITES=	GNOME
@@ -24,13 +24,13 @@ LIB_DEPENDS=	id3-3.8.3:${PORTSDIR}/audio/id3lib \
 CONFLICTS=	gnome-commander-[0-9]*
 
 USE_BZIP2=	yes
-USE_GNOME=	gnomedocutils gnomehack gnomeprefix gnometarget intlhack libgnomeui
+USE_GNOME=	gnomedocutils gnomehack gnomeprefix intlhack libgnomeui
 USE_GMAKE=	yes
 USE_LDCONFIG=	yes
 USE_AUTOTOOLS=	libtool autoconf:env aclocal:env automake:env
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALLS_OMF=	yes
 
 MAN1=		gnome-commander.1

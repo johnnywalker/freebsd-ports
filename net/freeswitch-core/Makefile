@@ -7,7 +7,7 @@
 
 PORTNAME=	freeswitch-core
 PORTVERSION=	201044
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.secure-computing.net/pub/freeswitch/ \
 		ftp://ftp2.secure-computing.net/pub/freeswitch/ \
@@ -61,8 +61,8 @@ CONFIGURE_ARGS=	--prefix=${PREFIX} \
 		--with-ogg-libraries=${LOCALBASE}/lib \
 		--with-ogg-includes=${LOCALBASE}/include
 
-CONFIGURE_ENV+=	CPPFLAGS="${CXXFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	${CXXFLAGS} -I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${PREFIX}/include
 

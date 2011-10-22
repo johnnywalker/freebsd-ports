@@ -1,7 +1,7 @@
 # -*- mode: Makefile; tab-width: 4; -*-
 # ex: ts=4
 #
-# $FreeBSD: ports/Mk/bsd.python.mk,v 1.135 2011/07/22 15:12:07 lwhsu Exp $
+# $FreeBSD: ports/Mk/bsd.python.mk,v 1.140 2011/09/05 01:28:56 wen Exp $
 #
 
 .if !defined(_POSTMKINCLUDED) && !defined(Python_Pre_Include)
@@ -202,7 +202,7 @@ Python_Include_MAINTAINER=	python@FreeBSD.org
 #
 
 _PYTHON_PORTBRANCH=		2.7
-_PYTHON_ALLBRANCHES=		2.7 2.6 2.5 2.4 3.2 3.1	# preferred first
+_PYTHON_ALLBRANCHES=	2.7 2.6 2.5 2.4 3.2 3.1	# preferred first
 _ZOPE_PORTBRANCH=		2.7
 _ZOPE_ALLBRANCHES=		2.7 2.8 2.9 2.10 3.2
 
@@ -256,7 +256,7 @@ _ZOPE_VERSION=	${_ZOPE_PORTBRANCH} # just to avoid version sanity checking.
 
 ZOPE_VERSION?=	${_ZOPE_VERSION}
 
-PYTHON_VERSION=         python2.4
+PYTHON_VERSION=	python2.4
 .endif	# defined(USE_ZOPE)
 
 
@@ -359,9 +359,9 @@ PYTHON_PORTVERSION=	${PYTHON_DEFAULT_PORTVERSION}
 
 # Python-3.2
 .if ${PYTHON_VERSION} == "python3.2"
-PYTHON_PORTVERSION?=3.2.1
+PYTHON_PORTVERSION?=3.2.2
 PYTHON_PORTSDIR=	${PORTSDIR}/lang/python32
-PYTHON_REL=			321
+PYTHON_REL=			322
 PYTHON_SUFFIX=		32
 PYTHON_VER=			3.2
 .if exists(${PYTHON_CMD}-config)
@@ -644,6 +644,7 @@ lore_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/lore/__init__.py:${PORTSDIR}/textproc
 mail_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/mail/__init__.py:${PORTSDIR}/mail/py-twistedMail
 names_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/names/__init__.py:${PORTSDIR}/dns/py-twistedNames
 news_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/news/__init__.py:${PORTSDIR}/news/py-twistedNews
+pair_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/pair/__init__.py:${PORTSDIR}/net/py-twistedPair
 runner_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/runner/__init__.py:${PORTSDIR}/devel/py-twistedRunner
 web2_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/web2/__init__.py:${PORTSDIR}/www/py-twistedWeb2
 web_DEPENDS=	${PYTHON_SITELIBDIR}/twisted/web/__init__.py:${PORTSDIR}/www/py-twistedWeb

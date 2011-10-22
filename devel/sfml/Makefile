@@ -7,6 +7,7 @@
 
 PORTNAME=	sfml
 PORTVERSION=	1.6
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	SF
 DISTNAME=	SFML-${PORTVERSION}-sdk-linux-32
@@ -36,8 +37,11 @@ post-extract:
 	@${RM} -f ${WRKSRC}/lib/*
 	@${FIND} ${WRKSRC}/samples/bin/ -type f -maxdepth 1 -delete
 
-.if !defined(NOPORTDOCS)
 post-install:
+.for lib in audio graphics network system window
+	@${LN} -s libsfml-${lib}.so.${PORTVERSION} ${PREFIX}/lib/libsfml-${lib}.so.${PORTVERSION:C/^([0-9]).*/\1/}
+.endfor
+.if !defined(NOPORTDOCS)
 	${MKDIR} ${DOCSDIR}
 	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} "*" ${DOCSDIR}/
 .endif

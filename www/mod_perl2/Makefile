@@ -7,6 +7,7 @@
 
 PORTNAME=	mod_perl
 PORTVERSION=	2.0.5
+PORTREVISION=	1
 PORTEPOCH=	3
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_APACHE}
@@ -26,8 +27,8 @@ MAKE_JOBS_SAFE=	yes
 
 SUB_FILES=	pkg-message
 SUB_LIST=	APACHEMODDIR=${APACHEMODDIR}
-USE_APACHE=	2.0+
-PERL_CONFIGURE=	5.8.0+
+USE_APACHE=	20+
+PERL_CONFIGURE=	yes
 GMAKE=		yes
 
 # Using apxs in this way is problematic if apache2 is installed under a

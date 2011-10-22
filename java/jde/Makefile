@@ -7,13 +7,15 @@
 
 PORTNAME=	jde
 PORTVERSION=	2.3.5
-PORTREVISION=	7
+PORTREVISION=	9
 CATEGORIES=	java elisp
 MASTER_SITES=	http://jdee.sunsite.dk/
 PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Java Development Environment for Emacs
+
+BROKEN=	does not fetch
 
 USE_EMACS=	yes
 

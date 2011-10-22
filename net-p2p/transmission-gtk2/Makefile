@@ -5,14 +5,14 @@
 # $FreeBSD$
 #
 
-PORTREVISION=	0
+PORTREVISION=	1
 PKGNAMESUFFIX=	-gtk2
 
 MAINTAINER=	crees@FreeBSD.org
 COMMENT=	A fast and lightweight GTK+2 BitTorrent client
 
 LIB_DEPENDS=	${GEN_LIB_DEPENDS} \
-		notify.1:${PORTSDIR}/devel/libnotify \
+		notify.4:${PORTSDIR}/devel/libnotify \
 		dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib
 RUN_DEPENDS=	${GEN_RUN_DEPENDS} \
 		xdg-open:${PORTSDIR}/devel/xdg-utils
@@ -22,7 +22,7 @@ MASTERDIR=	${.CURDIR}/../transmission-cli
 PLIST=		${.CURDIR}/pkg-plist
 SLAVEPORT=	gtk2
 
-USE_GNOME=	gnometarget gnomehack gtk20 desktopfileutils intlhack
+USE_GNOME=	gnomehack gtk20 desktopfileutils intlhack
 USE_GETTEXT=	yes
 INSTALLS_ICONS=	yes
 

@@ -81,23 +81,23 @@ PATCH_SITES=	http://www.squid-cache.org/%SUBDIR%/ \
 		http://www1.jp.squid-cache.org/%SUBDIR%/ \
 		http://www2.tw.squid-cache.org/%SUBDIR%/
 PATCH_SITE_SUBDIR=	Versions/v3/3.1/changesets
-PATCHFILES=	# empty
+PATCHFILES=	squid-3.1-10373.patch
 
 MAINTAINER=	tmseck@web.de
 COMMENT=	HTTP Caching Proxy
 
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
 LATEST_LINK=	squid31
 
-SQUID_STABLE_VER=	14
+SQUID_STABLE_VER=	15
 
 CONFLICTS_INSTALL=	squid-2.[0-9].* squid-3.[^1].* cacheboy-[0-9]* lusca-head-[0-9]*
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes
 USE_PERL5=	yes
 USE_RC_SUBR=	squid
-
-LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/COPYING
 
 SQUID_UID?=	squid
 SQUID_GID?=	squid
@@ -414,8 +414,6 @@ WITH_DEBUG?=		yes
 
 # Finally, add additional user specified configuration options:
 CONFIGURE_ARGS+=	${SQUID_CONFIGURE_ARGS}
-
-CONFIGURE_ENV+=		LDFLAGS="${LDFLAGS}"
 
 PLIST_DIRS=	%%ETCDIR%%/icons libexec/squid
 PLIST_FILES=	${etc_files:S,^,etc/,} ${icon_files:S,^,%%ETCDIR%%/icons/,} \

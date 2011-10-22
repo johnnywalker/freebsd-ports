@@ -9,17 +9,17 @@ PORTNAME=	rdbc1
 PORTVERSION=	001103
 PORTREVISION=	2
 CATEGORIES=	databases ruby
-MASTER_SITES=	http://member.nifty.ne.jp/guion/SOFT/RDBC/ \
+MASTER_SITES=	http://homepage3.nifty.com/guion/SOFT/RDBC/ \
 		ftp://ftp.dinoex.de/pub/approved/
 PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 EXTRACT_SUFX=	.tgz
 DIST_SUBDIR=	ruby
 
-MAINTAINER=	dinoex@FreeBSD.org
+MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Ruby Database Connectivity
 
-RUN_DEPENDS=	rubygem-postgres>=0:${PORTSDIR}/databases/rubygem-postgres
+RUN_DEPENDS=	rubygem-pg>=0:${PORTSDIR}/databases/rubygem-pg
 
 USE_RUBY=	yes
 

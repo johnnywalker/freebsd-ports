@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	Shapely
-PORTVERSION=	1.2.10
-PORTREVISION=	1
+PORTVERSION=	1.2.12
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -18,7 +17,6 @@ COMMENT=	Python Package for Manipulation 2D Geospatial Geometry
 LIB_DEPENDS=	geos_c.8:${PORTSDIR}/graphics/geos
 
 CFLAGS+=	-I${LOCALBASE}/include
-MAKE_ENV+=	CFLAGS="${CFLAGS}"
 USE_PYTHON=	2.5+
 USE_PYDISTUTILS=	easy_install
 

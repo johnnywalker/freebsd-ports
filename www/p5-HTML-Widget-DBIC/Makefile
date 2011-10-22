@@ -14,11 +14,14 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Subclass of HTML::Widget for dealing with DBIx::Class
 
+DEPRECATED=	Disappear from CPAN
+EXPIRATION_DATE=	2011-09-01
+
 RUN_DEPENDS=	p5-DBIx-Class>=0:${PORTSDIR}/databases/p5-DBIx-Class \
 		p5-HTML-Widget>=1.11:${PORTSDIR}/www/p5-HTML-Widget
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
-PERL_CONFIGURE=	5.8.1+
+PERL_CONFIGURE=	yes
 
 MAN3=	HTML::Widget::DBIC.3
 

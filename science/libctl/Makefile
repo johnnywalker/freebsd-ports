@@ -8,13 +8,14 @@
 
 PORTNAME=	libctl
 PORTVERSION=	3.1
+PORTREVISION=	1
 CATEGORIES=	science math
 MASTER_SITES=	http://ab-initio.mit.edu/libctl/
 
 MAINTAINER=	devel@stasyan.com
 COMMENT=	Control Language Library
 
-LIB_DEPENDS=	guile.20:${PORTSDIR}/lang/guile
+LIB_DEPENDS=	guile.21:${PORTSDIR}/lang/guile
 
 USE_AUTOTOOLS=	libtool
 USE_FORTRAN=	yes
@@ -26,10 +27,6 @@ MAN1=		gen-ctl-io.1
 
 .if ${ARCH} == "i386" || ${ARCH} == "sparc64"
 BROKEN=		Does not compile on i386 or sparc64
-.endif
-
-.if ${OSVERSION} < 700000
-USE_FORTRAN=	g77
 .endif
 
 post-install:

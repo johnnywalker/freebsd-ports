@@ -17,6 +17,9 @@ COMMENT=	A Half-Life plugin for phpUA
 BUILD_DEPENDS=	${LOCALBASE}/${PHPUA}/index.php:${PORTSDIR}/games/phpua-engine
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
+DEPRECATED=	depends on phpua-engine
+EXPIRATION_DATE=	2011-11-01
+
 # Some variables you can change
 PHPUA?=		www/phpua
 PHPUA_USER?=	${WWWOWN}

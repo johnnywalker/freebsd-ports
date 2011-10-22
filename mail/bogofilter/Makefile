@@ -7,7 +7,7 @@
 
 PORTNAME=	bogofilter
 PORTVERSION=	1.2.2
-PORTREVISION?=	2
+PORTREVISION?=	3
 CATEGORIES?=	mail
 MASTER_SITES=	SF/bogofilter/bogofilter-current/bogofilter-${PORTVERSION}
 
@@ -22,7 +22,7 @@ USE_BDB=	41+
 OPTIONS=	GSL     "Link with system-wide GSL dynamically (recommended)" on
 OPTIONS+=	UNICODE "Normalize tokens to Unicode (UTF-8)" on
 
-CONFLICTS?=	bogofilter-sqlite-[0-9]* bogofilter-qdbm-[0-9]* bogofilter-tc-[0-9]* [a-z][a-z]-bogofilter-[0-9]*
+CONFLICTS_INSTALL?=	bogofilter-sqlite-[0-9]* bogofilter-qdbm-[0-9]* bogofilter-tc-[0-9]* [a-z][a-z]-bogofilter-[0-9]*
 
 USE_BZIP2=	yes
 USE_PERL5_RUN=	yes
@@ -50,8 +50,10 @@ LIB_DEPENDS+=		gsl.16:${PORTSDIR}/math/gsl
 .else
 CONFIGURE_ARGS+=	--with-included-gsl
 .endif
-CONFIGURE_ENV+=	LDFLAGS="-L${LOCALBASE}/lib" LIBS="${BF_LIBS}" \
-		PERL="${PERL}" CPPFLAGS="${BF_CPPFLAGS}"
+CPPFLAGS+=	${BF_CPPFLAGS}
+CONFIGURE_ENV+=	LIBS="${BF_LIBS}" \
+		PERL="${PERL}"
+LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip prefix=${PREFIX} mandir=${MANPREFIX}/man
 
 MAN1=		bogofilter.1 bogoutil.1 bogoupgrade.1 bogolexer.1 bogotune.1 \

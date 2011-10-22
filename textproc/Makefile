@@ -4,6 +4,8 @@
     COMMENT = Text processing utilities (does not include desktop publishing)
 
     SUBDIR += 2bsd-diff
+    SUBDIR += R-cran-XML
+    SUBDIR += R-cran-xtable
     SUBDIR += add-css-links
     SUBDIR += af-aspell
     SUBDIR += aft
@@ -23,7 +25,6 @@
     SUBDIR += ascii2pdf
     SUBDIR += asciidoc
     SUBDIR += asm-xml
-    SUBDIR += asm2html
     SUBDIR += aspell
     SUBDIR += aspell-without-dicten
     SUBDIR += ast-aspell
@@ -52,7 +53,6 @@
     SUBDIR += btparse
     SUBDIR += c2html
     SUBDIR += ca-aspell
-    SUBDIR += carthage
     SUBDIR += catdoc
     SUBDIR += cbedic
     SUBDIR += cdif
@@ -70,6 +70,7 @@
     SUBDIR += clucene-contrib
     SUBDIR += coco
     SUBDIR += code2html
+    SUBDIR += codespell
     SUBDIR += cole
     SUBDIR += colordiff
     SUBDIR += confget
@@ -96,7 +97,6 @@
     SUBDIR += dictem-xemacs21-mule
     SUBDIR += dictfmt
     SUBDIR += dictionary
-    SUBDIR += diff-mode.el
     SUBDIR += diffmark
     SUBDIR += diffsplit
     SUBDIR += diffstat
@@ -166,7 +166,6 @@
     SUBDIR += etoile-lucenekit
     SUBDIR += etoile-ogrekit
     SUBDIR += etoile-opmlkit
-    SUBDIR += europass-xsl
     SUBDIR += exempi
     SUBDIR += exmpp
     SUBDIR += expat2
@@ -215,6 +214,7 @@
     SUBDIR += groonga
     SUBDIR += gsed
     SUBDIR += gtk-doc
+    SUBDIR += gtkdiff
     SUBDIR += gtkspell
     SUBDIR += gtkspell-reference
     SUBDIR += gu-aspell
@@ -232,9 +232,15 @@
     SUBDIR += hr-aspell
     SUBDIR += hs-Diff
     SUBDIR += hs-HaXml
+    SUBDIR += hs-attoparsec
+    SUBDIR += hs-attoparsec-enumerator
+    SUBDIR += hs-attoparsec-text
+    SUBDIR += hs-blaze-html
     SUBDIR += hs-bytestring-csv
     SUBDIR += hs-case-insensitive
     SUBDIR += hs-citeproc-hs
+    SUBDIR += hs-csv
+    SUBDIR += hs-double-conversion
     SUBDIR += hs-feed
     SUBDIR += hs-highlighting-kate
     SUBDIR += hs-hs-bibutils
@@ -243,8 +249,8 @@
     SUBDIR += hs-hxt-charproperties
     SUBDIR += hs-hxt-regex-xmlschema
     SUBDIR += hs-hxt-unicode
-    SUBDIR += hs-libxml
     SUBDIR += hs-lhs2tex
+    SUBDIR += hs-libxml
     SUBDIR += hs-pandoc
     SUBDIR += hs-pandoc-types
     SUBDIR += hs-parsec
@@ -259,6 +265,7 @@
     SUBDIR += hs-xhtml
     SUBDIR += hs-xhtml-docs
     SUBDIR += hs-xml
+    SUBDIR += hs-xmlhtml
     SUBDIR += hsb-aspell
     SUBDIR += htdig
     SUBDIR += html
@@ -304,6 +311,7 @@
     SUBDIR += it-hyphen
     SUBDIR += it-ispell
     SUBDIR += it-mythes
+    SUBDIR += itstool
     SUBDIR += jade
     SUBDIR += jakarta-commons-digester
     SUBDIR += jakarta-poi
@@ -361,6 +369,7 @@
     SUBDIR += libtre
     SUBDIR += libuninameslist
     SUBDIR += libupskirt
+    SUBDIR += libvisio
     SUBDIR += libwpd
     SUBDIR += libwpd08
     SUBDIR += libwps
@@ -405,6 +414,7 @@
     SUBDIR += man2html
     SUBDIR += manued.el
     SUBDIR += markdown
+    SUBDIR += markdown-mode.el
     SUBDIR += mathml-xsd
     SUBDIR += mdocml
     SUBDIR += meld
@@ -464,6 +474,7 @@
     SUBDIR += p5-CQL-Parser
     SUBDIR += p5-CSS
     SUBDIR += p5-CSS-Croco
+    SUBDIR += p5-CSS-Minifier
     SUBDIR += p5-CSS-Minifier-XS
     SUBDIR += p5-CSS-Packer
     SUBDIR += p5-CSS-SAC
@@ -494,6 +505,7 @@
     SUBDIR += p5-HTML-CTPP2
     SUBDIR += p5-HTML-Copy
     SUBDIR += p5-HTML-Entities-ImodePictogram
+    SUBDIR += p5-HTML-Entities-Interpolate
     SUBDIR += p5-HTML-Entities-Numbered
     SUBDIR += p5-HTML-EscapeEvil
     SUBDIR += p5-HTML-Format
@@ -503,6 +515,7 @@
     SUBDIR += p5-HTML-HTMLDoc
     SUBDIR += p5-HTML-Packer
     SUBDIR += p5-HTML-QRCode
+    SUBDIR += p5-HTML-Quoted
     SUBDIR += p5-HTML-RewriteAttributes
     SUBDIR += p5-HTML-SBC
     SUBDIR += p5-HTML-SuperForm
@@ -510,10 +523,12 @@
     SUBDIR += p5-HTML-Tidy
     SUBDIR += p5-HTML-Tiny
     SUBDIR += p5-HTML-Truncate
+    SUBDIR += p5-Hailo
     SUBDIR += p5-Hash-Merge
     SUBDIR += p5-Hatena-Keyword
     SUBDIR += p5-IDNA-Punycode
     SUBDIR += p5-IO-CSVHeaderFile
+    SUBDIR += p5-JavaScript-Minifier
     SUBDIR += p5-JavaScript-Minifier-XS
     SUBDIR += p5-JavaScript-Packer
     SUBDIR += p5-KinoSearch
@@ -645,9 +660,11 @@
     SUBDIR += p5-Regex-PreSuf
     SUBDIR += p5-Regexp-Common
     SUBDIR += p5-Regexp-Common-Email-Address
+    SUBDIR += p5-Regexp-Common-net-CIDR
     SUBDIR += p5-Regexp-Common-profanity_us
     SUBDIR += p5-Regexp-Copy
     SUBDIR += p5-Regexp-DefaultFlags
+    SUBDIR += p5-Regexp-IPv6
     SUBDIR += p5-Regexp-Log
     SUBDIR += p5-Regexp-Log-Common
     SUBDIR += p5-SGML-DTDParse
@@ -673,6 +690,7 @@
     SUBDIR += p5-Spreadsheet-WriteExcel-FromXML
     SUBDIR += p5-Spreadsheet-WriteExcel-Styler
     SUBDIR += p5-Spreadsheet-WriteExcelXML
+    SUBDIR += p5-Spreadsheet-XLSX
     SUBDIR += p5-String-BufferStack
     SUBDIR += p5-String-CamelCase
     SUBDIR += p5-String-Divert
@@ -696,6 +714,10 @@
     SUBDIR += p5-Template-Extract
     SUBDIR += p5-Template-Magic
     SUBDIR += p5-Template-Plugin-Autoformat
+    SUBDIR += p5-Template-Plugin-Filter-Minify-CSS
+    SUBDIR += p5-Template-Plugin-Filter-Minify-CSS-XS
+    SUBDIR += p5-Template-Plugin-Filter-Minify-JavaScript
+    SUBDIR += p5-Template-Plugin-Filter-Minify-JavaScript-XS
     SUBDIR += p5-Template-Plugin-HTML-SuperForm
     SUBDIR += p5-Template-Plugin-Lingua-EN-Inflect
     SUBDIR += p5-Template-Plugin-XML-Escape
@@ -753,6 +775,7 @@
     SUBDIR += p5-Text-Greeking
     SUBDIR += p5-Text-Hatena
     SUBDIR += p5-Text-Highlight
+    SUBDIR += p5-Text-HikiDoc
     SUBDIR += p5-Text-Language-Guess
     SUBDIR += p5-Text-Markdown
     SUBDIR += p5-Text-Match-FastAlternatives
@@ -1038,7 +1061,6 @@
     SUBDIR += php52-xmlreader
     SUBDIR += php52-xmlwriter
     SUBDIR += php52-xsl
-    SUBDIR += pl-hunspell
     SUBDIR += po4a
     SUBDIR += pocketreader
     SUBDIR += pootle
@@ -1152,27 +1174,20 @@
     SUBDIR += rubber
     SUBDIR += ruby-amatch
     SUBDIR += ruby-amrita
-    SUBDIR += ruby-csv
     SUBDIR += ruby-deplate
     SUBDIR += ruby-diff
     SUBDIR += ruby-erbscan
     SUBDIR += ruby-escape
     SUBDIR += ruby-format
-    SUBDIR += ruby-formvalidator
-    SUBDIR += ruby-gdome
     SUBDIR += ruby-hikidoc
     SUBDIR += ruby-html-fillinform
     SUBDIR += ruby-html-template
     SUBDIR += ruby-htmlrepair
     SUBDIR += ruby-htmlsplit
-    SUBDIR += ruby-htmltools
     SUBDIR += ruby-htree
     SUBDIR += ruby-libxml
     SUBDIR += ruby-liquid
     SUBDIR += ruby-mwdom
-    SUBDIR += ruby-nqxml
-    SUBDIR += ruby-quixml
-    SUBDIR += ruby-raspell
     SUBDIR += ruby-rd-mode.el
     SUBDIR += ruby-rdtool
     SUBDIR += ruby-rss
@@ -1180,18 +1195,18 @@
     SUBDIR += ruby-rttool
     SUBDIR += ruby-sablot
     SUBDIR += ruby-sary
-    SUBDIR += ruby-tempura
     SUBDIR += ruby-xmlconfigfile
     SUBDIR += ruby-xmlparser
     SUBDIR += ruby-xmlscan
     SUBDIR += ruby-xmlscan-old
     SUBDIR += ruby-xslt
-    SUBDIR += ruby-xtemplate
     SUBDIR += rubygem-augeas
+    SUBDIR += rubygem-coderay
     SUBDIR += rubygem-diff-lcs
     SUBDIR += rubygem-ezamar
     SUBDIR += rubygem-ferret
     SUBDIR += rubygem-formosa
+    SUBDIR += rubygem-heredoc_unindent
     SUBDIR += rubygem-htmlentities
     SUBDIR += rubygem-htmltools
     SUBDIR += rubygem-ini
@@ -1344,6 +1359,7 @@
     SUBDIR += uim-el-xemacs21-mule
     SUBDIR += uim-gnome
     SUBDIR += uim-gtk
+    SUBDIR += uim-gtk3
     SUBDIR += uim-kde
     SUBDIR += uim-kde4
     SUBDIR += uim-m17nlib
@@ -1427,6 +1443,7 @@
     SUBDIR += yi-hunspell
     SUBDIR += yodl
     SUBDIR += yould
+    SUBDIR += zorba
     SUBDIR += zu-aspell
     SUBDIR += zu-hunspell
 

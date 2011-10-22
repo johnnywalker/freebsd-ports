@@ -7,8 +7,8 @@
 #
 
 PORTNAME?=	libpurple
-PORTVERSION=	2.9.0
-PORTREVISION?=	2
+PORTVERSION=	2.10.0
+PORTREVISION?=	0
 CATEGORIES?=	net-im
 MASTER_SITES=	SF/pidgin/Pidgin/${PORTVERSION}
 DISTNAME=	pidgin-${PORTVERSION}
@@ -25,9 +25,9 @@ CONFIGURE_ARGS?=--disable-gtkui \
 		--with-dynamic_prpls=${PRPL_MODULES:S/,$//} \
 		--enable-static \
 		--disable-nm
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include ${PTHREAD_CFLAGS}" \
-		LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}" \
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}" \
 		PTHREAD_LIB="${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
 
 .if !defined(PIDGIN_SLAVE)
 # Pidgin slave ports that require the following functionality, must explicitly

@@ -6,9 +6,9 @@
 #
 
 PORTNAME=	couchdb
-PORTVERSION=	1.0.0
-PORTREVISION=	3
+PORTVERSION=	1.1.0
 PORTEPOCH=	1
+PORTREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_APACHE}
 MASTER_SITE_SUBDIR=	couchdb/${PORTVERSION}
@@ -20,17 +20,11 @@ COMMENT=	A document database server, accessible via a RESTful JSON API
 LIB_DEPENDS=	icudata:${PORTSDIR}/devel/icu \
 		js:${PORTSDIR}/lang/spidermonkey \
 		curl.6:${PORTSDIR}/ftp/curl
-BUILD_DEPENDS=	${LOCALBASE}/lib/erlang/usr/include/erl_driver.h:${PORTSDIR}/lang/erlang-lite
-RUN_DEPENDS=	${BUILD_DEPENDS}
+BUILD_DEPENDS=	${LOCALBASE}/bin/help2man:${PORTSDIR}/misc/help2man
 
-COUCH_VARDIR?=	/var
-COUCH_DBDIR?=	${COUCH_VARDIR}/db/couchdb
-COUCH_LOGDIR?=	${COUCH_VARDIR}/log/couchdb
-COUCH_LIBDIR?=	${COUCH_VARDIR}/lib/couchdb
-COUCH_USER?=	couchdb
+USERS=		couchdb
+GROUPS=		couchdb
 
-USERS=		${COUCH_USER}
-GROUPS=		${USERS}
 USE_RC_SUBR=	couchdb
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
@@ -42,7 +36,20 @@ CONFIGURE_ARGS=	--with-erlang=${LOCALBASE}/lib/erlang/usr/include \
 		--with-js-lib=${LOCALBASE}/lib
 PLIST_SUB+=	PORTVERSION="${PORTVERSION}"
 
+OPTIONS=	ERLANG	"Use lang/erlang instead of lang/erlang-lite"	off
+
 MAN1=	couchdb.1 couchjs.1
+
+.include <bsd.port.options.mk>
+
+.if defined(WITH_ERLANG)
+ERLANG_PORT=	${PORTSDIR}/lang/erlang
+.else
+ERLANG_PORT=	${PORTSDIR}/lang/erlang-lite
+.endif
+
+BUILD_DEPENDS+=	erlc:${ERLANG_PORT}
+RUN_DEPENDS+=	erl:${ERLANG_PORT}
 
 pre-fetch:
 	@${ECHO_MSG} ""
@@ -57,10 +64,12 @@ post-patch:
 .endif
 
 post-install:
+.ifndef PACKAGE_BUILDING
+	@PKG_PREFIX=${PREFIX} ${SH} ${PKGINSTALL} ${PKGNAME} POST-INSTALL
+.endif
 	@${CAT} ${PKGMESSAGE}
-	${MKDIR} ${COUCH_DBDIR}
-	${CHOWN} ${COUCH_USER} ${COUCH_DBDIR}
-	${CHOWN} ${COUCH_USER} ${COUCH_LOGDIR}
-	${CHOWN} ${COUCH_USER} ${COUCH_LIBDIR}
+
+post-deinstall:
+	@PKG_PREFIX=${PREFIX} ${SH} ${PKGDEINSTALL} ${PKGNAME} POST-DEINSTALL
 
 .include <bsd.port.mk>

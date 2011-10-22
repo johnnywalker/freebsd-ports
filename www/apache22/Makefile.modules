@@ -9,7 +9,7 @@
 #	gsed 's/^\(.*\)mod\(.*\)\.so/%%\MOD\U\2%%\L\1mod\2\.so/' pkg-plist > tmp
 #	mv tmp pkg-plist
 #
-# $FreeBSD: ports/www/apache22/Makefile.modules,v 1.37 2010/05/20 21:43:47 pgollucci Exp $
+# $FreeBSD: ports/www/apache22/Makefile.modules,v 1.38 2011/03/31 17:00:36 ohauer Exp $
 #
 
 .if !defined(Module_inc)
@@ -101,7 +101,7 @@ PLIST_SUB+=	BDB="@comment "
 .   if ${WITH_DBM:L} == "sdbm"
 CONFIGURE_ARGS+=	--with-dbm=sdbm
 .   elif ${WITH_DBM:L} == "gdbm"
-LIB_DEPENDS+=		gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=		gdbm.4:${PORTSDIR}/databases/gdbm
 CONFIGURE_ARGS+=	--with-gdbm=${LOCALBASE}
 .   elif ${WITH_DBM:L} == "db" || ${WITH_DBM:L} == "bdb"
 .	if defined(WITH_BDB_BASE)

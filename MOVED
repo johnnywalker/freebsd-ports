@@ -1,7 +1,7 @@
 #
 # MOVED -- A list of (recently) moved or removed ports
 #
-# $FreeBSD: ports/MOVED,v 1.2534 2011/07/30 09:07:44 kwm Exp $
+# $FreeBSD: ports/MOVED,v 1.2599 2011/09/23 01:52:47 wen Exp $
 #
 # Each entry consists of a single line containing the following four
 # fields in the order named, separated with the pipe (`|') character:
@@ -1781,12 +1781,10 @@ x11-clocks/wmtz||2011-05-01|Has expired: Upstream disapear and distfile is no mo
 x11-clocks/xmms-alarm||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/buttonbox||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/cnslock||2011-05-01|Has expired: Upstream disapear and distfile is no more available
-x11/gcursor||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/gnome-launch-box||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/gtk-themepreview||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/gxset||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/portoseguro||2011-05-01|Has expired: Upstream disapear and distfile is no more available
-x11/props||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/wmfstatus||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/wmoldmenu2new||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 x11/xbindkeys_config||2011-05-01|Has expired: Upstream disapear and distfile is no more available
@@ -1811,7 +1809,6 @@ chinese/iiimf-le-ude||2011-05-01|Removed, depends on expired library
 textproc/ctpp|textproc/ctpp2|2011-05-01|Has expired: Deprecated please use ctpp2 textproc/ctpp2
 textproc/dsssl-docbook-cygnus||2011-05-01|Has expired: Distfile is no more available
 textproc/fdp-tools||2011-05-01|Has expired: Distfile is no more available
-textproc/gtkdiff||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 textproc/iiimf-client-lib||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 textproc/iiimf-csconv||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 textproc/iiimf-headers||2011-05-01|Has expired: Upstream disapear and distfile is no more available
@@ -1834,7 +1831,6 @@ sysutils/deleted||2011-05-01|Has expired: Upstream disapear and distfile is no m
 sysutils/dolly+||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 sysutils/durep||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 sysutils/dvdtape||2011-05-01|Has expired: Upstream disapear and distfile is no more available
-sysutils/flock||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 sysutils/fontedit||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 sysutils/ftrace||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 sysutils/gfslicer||2011-05-01|Has expired: Upstream disapear and distfile is no more available
@@ -1872,7 +1868,6 @@ security/aafid2||2011-05-01|Has expired: Upstream disapear and distfile is no mo
 security/bjorb||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 security/borzoi||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 security/cmd5checkpw||2011-05-01|Has expired: Upstream disapear and distfile is no more available
-security/cops||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 security/find_ddos||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 security/ftpmap||2011-05-01|Has expired: Upstream disapear and distfile is no more available
 security/hafiye||2011-05-01|Has expired: Upstream disapear and distfile is no more available
@@ -2250,7 +2245,7 @@ devel/acovea||2011-07-02|Has expired: Looks like abandonware.
 devel/acovea-gtk||2011-07-02|Has expired: Looks like abandonware.
 sysutils/service-config||2011-07-02|Has expired: "mastersite disappeared"
 print/lyx-devel||2011-07-03|print/lyx has been updated to a newer version, use it instead
-archivers/lzo|archivers/lzo2|2011-07-07|Use lzo2 instead.
+archivers/lzo||2011-07-07|Use archivers/lzo2 instead.
 www/horde4-browser||2011-07-07|Removed
 www/horde4-template||2011-07-07|Removed
 deskutils/horde4-itip||2011-07-07|Removed
@@ -2299,3 +2294,373 @@ graphics/gir-repository-goocanvas||2010-07-30|Removed
 graphics/gir-repository-poppler||2010-07-30|Removed
 x11-toolkits/gir-repository-vte||2010-07-30|Removed
 mail/rubygem-smtp_tls||2011-07-30|Has expired: no supported version of FreeBSD have < 1.8.7.p72
+textproc/pl-hunspell|polish/hunspell|2011-07-31|Move to a better place via repocopy
+www/mod_roaming||2011-08-01|Has expired: no supported browser and no further upstream development; see PR 73383
+archivers/zipios++||2011-08-01|Has expired: No more public distfiles
+astro/sattrack||2011-08-01|Has expired: No more public distfiles
+audio/bladeenc||2011-08-01|Has expired: Looks like an abandonware
+audio/cdplayer.app||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+audio/linux-vsound||2011-08-01|Has expired: Abandonware
+audio/mpegaudio||2011-08-01|Has expired: No more public distfiles
+audio/mpmf20||2011-08-01|Has expired: Abandonware
+audio/mutemix||2011-08-01|Has expired: abandonware, no more public distfiles
+audio/phatbeat||2011-08-01|Has expired: abandonware, no more public distfiles
+audio/pimp3||2011-08-01|Has expired: No more public distfiles
+audio/rbscrobbler||2011-08-01|Has expired: Looks like abandonware, no more public distfile
+audio/ripenc||2011-08-01|Has expired: Looks like and abandonware, No more distfile
+audio/wmcdplay||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+audio/wmfmixer||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+audio/wmmixer||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+audio/wmmp3||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+audio/wmusic||2011-08-01|Has expired: Looks like an abandonware, no more distfiles
+audio/xmms-kj||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+audio/xmms-pipe||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+audio/xmms-speex||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+audio/xsidplay||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+audio/xtuner||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+benchmarks/rawio||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+benchmarks/tmetric||2011-08-01|Has expired: Looks like abandonware, no more public distfiles
+biology/L-Breeder||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+biology/crimap||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+biology/distribfold||2011-08-01|Has expired: No more upstream, looks like an abandonware
+biology/kinemage||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+biology/lsysexp||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+chinese/chm2html||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+chinese/ntuttf||2011-08-01|Has expired: No more public distfiles available
+chinese/reciteword||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+chinese/tocps||2011-08-01|Has expired: No more pulic distfiles
+chinese/xttmgr||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+comms/mserver||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+comms/qicosi||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+comms/sms_client||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+comms/smstools||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+converters/siconv||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+converters/utf8conv||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+databases/pgcluster||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+databases/py-MySQL||2011-08-01|Has expired: Please use databases/py-MySQLdb instead
+databases/py-SQLDict||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+databases/py-rrdpipe||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+databases/sybase_ase||2011-08-01|Has expired: no more public distfiles available
+deskutils/gkrellm-timers||2011-08-01|Has expired: No more public distfile
+deskutils/multi-backgrounds-daemon||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+deskutils/py-tagfu||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+deskutils/taskstep||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+devel/c_c++_reference||2011-08-01|Has expired: No more public distfiles
+devel/libcoyotl||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+devel/libfs++||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+devel/mkmf||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+devel/p5-Include||2011-08-01|Has expired: No more public distfiles
+devel/rubygem-newgem||2011-08-01|Has expired: broken since 2010/09/22
+devel/tpg||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+games/amphetamine||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+games/anagramarama||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+games/connect4||2011-08-01|Has expired
+games/wrogue||2011-08-01|Has expired: No more public distfiles, looks like an abandonware
+graphics/xmms-msa||2011-08-01|Has expired: Looks like an abandonware, no more public distfile
+japanese/chimera||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/drpl||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/dvi2tty||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/easypr||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/elisp-manual||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/emacs-manual||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/ewipe||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/ircII||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/jhd||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/libjconv||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/mimekit||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/nethack32||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/paledit||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/plain2||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/recjis||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/typist||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/weblint97||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/xmsgsaver||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/xshodo||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+japanese/xvi-euc||2011-08-01|Has expired: No more public distfiles
+japanese/xvi-sjis||2011-08-01|Has expired: No more public distfiles
+japanese/xyagamo||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+korean/a2ps||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+korean/bitchx||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+korean/elm||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+korean/linuxdoc-sgml||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+korean/mod_url||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+korean/nh2ps||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+korean/pinetreefonts||2011-08-01|Has expired: No more public distfile
+mail/bincimap||2011-08-01|Has expired: No more public distfile
+mail/cmail||2011-08-01|Has expired: No more public distfile
+math/hexcalc||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+math/qgfe||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+misc/ewipe||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+misc/gkrellmfmonitor2||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+misc/gkx86info||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+multimedia/goggles||2011-08-01|Has expired: Abandonware, see: http://www.fifthplanet.net/2010/01/dead-projects-goggles-dvd-player.html
+multimedia/ldvd||2011-08-01|Has expired: Abandonware
+multimedia/linux-divx4linux||2011-08-01|Has expired: No more needed
+multimedia/linux-divx4linux4||2011-08-01|Has expired: No more needed
+multimedia/ogle||2011-08-01|Has expired: Abandonware
+multimedia/ogle-gui||2011-08-01|Has expired: Abandonware
+multimedia/okle||2011-08-01|Has expired: Abandonware
+multimedia/subconv||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+net/callgen323||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+net/lyntin||2011-08-01|Has expired: No longer under active development
+net/py-rt||2011-08-01|Has expired: No more public distfiles, looks like an abandonware
+net/rwhoisd||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+net/traffic||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+net-im/gnomeicu||2011-08-01|Has expired: No longer maintain by upstream, use net-im/empathy instead
+net-mgmt/trafd||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+net-p2p/gkrellm-gift||2011-08-01|Has expired: Look like an abandonware, no more public distifles
+news/bgrab||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+news/rkive||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+polish/sap||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+devel/eboxy||2011-08-01|Removed: depends on expired sdl_gui
+russian/messarge||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+russian/pgp.language||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+security/ifd-gempc410||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+security/libidea||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+security/rain||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+sysutils/Tee||2011-08-01|Has expired: No more public distfile
+sysutils/curly||2011-08-01|Has expired: No more public distfiles
+sysutils/i855vidctl10||2011-08-01|Has expired: No more public distfiles
+sysutils/ltrace||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+sysutils/rsyslog3-snmp||2011-08-01|Has expired: unsupported upstream
+sysutils/xapply||2011-08-01|Has expired: No more public distfiles
+textproc/asm2html||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+textproc/diff-mode.el||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+vietnamese/gtk-im-vi||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+www/campsite||2011-08-01|Has expired: Does not work
+www/p5-PLP||2011-08-01|Has expired: No more upstream, looks like an abandonware
+www/wcol||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+x11-toolkits/sdl_gui||2011-08-01|Has expired: Looks like an abandonware, no more public distfiles
+www/contenido||2011-08-01|Has expired: ancient version of PHP needed
+audio/rio||2011-08-02|Has expired: Look like an abandonware, no more public distfile
+audio/ruby-musicextras||2011-08-02|Has expired: Upcoming ruby-gnome removes dependencies
+deskutils/sshmenu||2011-08-02|Has expired: Upcoming ruby-gnome removes dependencies
+japanese/gsuica||2011-08-02|Has expired: Upcoming ruby-gnome removes dependencies
+science/gave||2011-08-02|Has expired: Upcoming ruby-gnome removes dependencies
+x11-themes/gnome-art||2011-08-02|Has expired: Upcoming ruby-gnome removes dependencies
+x11-themes/gnome-splashscreen-manager||2011-08-02|Has expired: Upcoming ruby-gnome removes dependencies
+devel/simian||2011-08-02|Removed BROKEN for more than 6 month
+databases/mysql-gui-tools||2011-08-02|Removed BROKEN for more than 6 month
+www/adblock|www/xpi-adblock|2011-08-02|Depends on obsolete SeaMonkey 1.1
+www/bugmenot|www/bugmenot-firefox|2011-08-02|Depends on obsolete SeaMonkey 1.1
+www/mozex|www/xpi-mozex|2011-08-02|Depends on obsolete SeaMonkey 1.1
+www/preferential||2011-08-02|Depends on obsolete SeaMonkey 1.1
+comms/ruby-serialport||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+databases/ruby-search-namazu||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+databases/ruby-sqlite||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+databases/rubygem-kirbybase||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-eet||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-filelock||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-filemagic||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-metaruby||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-poll||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-rrb||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-strongtyping||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+devel/ruby-textbuf||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+graphics/ruby-graph||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+graphics/ruby-libpng||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+japanese/ruby-kakasi||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+lang/ruby-extensions||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+lang/ruby-lua||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+lang/ruby-perl||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+mail/ruby-tmail||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+math/ruby-bitset||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+math/ruby-bitvector||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+math/ruby-gmp||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+net/ruby-mpi||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+net/ruby-nis||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+net/ruby-pcap||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+net/ruby-romp||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+net/ruby-spread||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+print/ruby-pdflib||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+security/ruby-aes||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+security/ruby-blowfish||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+security/ruby-cast_256||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+security/ruby-mcrypt||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+security/ruby-pam||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+sysutils/ruby-log4r||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-csv||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-formvalidator||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-gdome||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-htmltools||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-nqxml||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-quixml||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-raspell||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-tempura||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+textproc/ruby-xtemplate||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+www/ruby-tmpl||2011-08-03|Has expired: Doesn't work with Ruby 1.9
+x11/gcursor||2011-08-03|No longer maintained by upline.
+www/firefox35||2011-08-03|Has expired: Upstream support dropped. Please consider using www/firefox instead.
+www/firefox35-i18n||2011-08-03|Has expired: Upstream support dropped. Please consider using www/firefox-i18n instead.
+graphics/leptonlib|graphics/leptonica|2011-08-05|Follow upstream name change
+lang/gnustep-libobjc|lang/libobjc2|2011-08-06|Replaced with libobjc2
+sysutils/p5-mogilefs-server|sysutils/p5-MogileFS-Server|2011-08-08|Move to a better place via repocopy
+devel/fossology||2011-08-09|Has expired: Broken for four months with no-one caring
+deskutils/alexandria||2011-08-10|Has expired: Upcoming ruby-gnome removes dependencies
+security/drweb||2011-08-10|Has expired: fails to fetch (website rearranged)
+security/drweb-postfix||2011-08-10|Has expired: fails to fetch (website rearranged)
+security/drweb-qmail||2011-08-10|Has expired: fails to fetch (website rearranged)
+security/drweb-sendmail||2011-08-10|Has expired: fails to fetch (website rearranged)
+math/hs-category-extras||2011-08-14|Removed: this package is obsolete.
+lang/p5-POE-Component-Hailo||2011-08-14|Removed
+java/jdk14-doc|java/jdk16-doc|2011-08-14|Removed: jdk14 has been removed
+audio/coverhunter||2011-08-14|Has expired: required Amazon Developer Tokens are no longer available
+databases/gauche-gdbm||2011-08-14|Has expired: has been broken for more than a year
+www/wiliki||2011-08-14|Removed: depends on expired gauche-gdbm
+mail/scmail||2011-08-14|Removed: depends on expired gauche-gdbm
+x11-themes/fluxbox-sid-pack||2011-08-14|Has expired: No longer maintained by upstream
+japanese/ical||2011-08-15|Removed
+lang/ocamlduce||2011-08-16|Has expired: has been broken for over a year
+devel/cl-asdf-binary-locations||2011-08-16|Obsoleted by ASDF 2 capabilities
+devel/py-istring||2011-08-17|Has expired: port is unmaintained and broken
+mail/sylpheed3|mail/sylpheed|2011-08-22|Removed: please use mail/sylpheed instead
+www/p5-FastCGI|www/p5-FCGI|2011-08-23|Rename to reflect official module name
+databases/db51|databases/db5|2011-08-26|Removed: please use the newer databases/db5 instead
+chinese/firebird||2011-08-30|Has expired: Broken, maintainer timed out, untouched for five years
+www/drupal5-securepages||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-xmlsitemap||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-token||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-cck||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-disknode||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-views||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-ubercart||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-taxonomy_access||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-insert-view||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-thickbox||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-taxonomy_ticker||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-tinymce||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-adsense||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-tagadelic||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-imagefield||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-nodewords||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-bluebreeze||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-imagecache||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-nice_menus||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-ubrowser||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-google_analytics||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-bookreview||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-tapir||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-i18n||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-simplenews||2011-08-30|Has expired: Use drupal[67] instead
+www/drupal5-workflow_ng||2011-08-30|Has expired: Use drupal[67] instead
+astro/gkrellmoon||2011-09-01|Has expired: Abandonware
+astro/spacechart||2011-09-01|Has expired: Abandonware
+audio/adpcm||2011-09-01|Has expired: No more public distfiles
+audio/aube||2011-09-01|Has expired: Abandonware
+audio/festvox-aec||2011-09-01|Has expired: BROKEN for more than 6 month
+audio/gtkgep||2011-09-01|Has expired: Abandonware
+audio/gtkhirad||2011-09-01|Has expired: No more public distfiles
+audio/opmixer||2011-09-01|Has expired: No more upstream
+audio/swami||2011-09-01|Has expired: Abandonware
+audio/x11amp||2011-09-01|Has expired: Abandonware
+audio/xmms-sndstretch||2011-09-01|Has expired: No Master Site
+cad/linux-gid||2011-09-01|Has expired: No more public distfiles
+chinese/gbscript||2011-09-01|Has expired: No more public distfiles
+chinese/mplayer-fonts||2011-09-01|Has expired: No more public distfiles
+chinese/oxford||2011-09-01|Has expired: No more public distfiles
+chinese/vflib||2011-09-01|Has expired: No more public distfiles
+databases/mysql++||2011-09-01|Has expired: No more public distfiles
+databases/mysql_last_value||2011-09-01|Has expired: No Master Site
+databases/p5-DBIx-Table||2011-09-01|Has expired: No more public distfiles
+deskutils/gkrellm-gtodo||2011-09-01|Has expired: No more public distfiles
+deskutils/xopps||2011-09-01|Has expired: No more public distfiles
+devel/adocman||2011-09-01|Has expired: No more public distfiles
+devel/bisongen||2011-09-01|Has expired: No more public distfiles
+devel/crow||2011-09-01|Has expired: BROKEN for more than 6 month
+devel/p5-Config-INI-MVP||2011-09-01|Has expired: Disappear from CPAN
+devel/p5-Date-Set||2011-09-01|Has expired: Disappear from CPAN
+devel/p5-File-FTS||2011-09-01|Has expired: No more public distfiles
+devel/p5-PerlMenu||2011-09-01|Has expired: No more public distfiles
+devel/p5-Proc-PIDFile||2011-09-01|Has expired: No more public distfiles
+devel/p5-UNIVERSAL-exports||2011-09-01|Has expired: Disappear from CPAN
+devel/ruby-rbtree||2011-09-01|Has expired: No Master Site
+dns/host||2011-09-01|Has expired: No more public distfiles
+emulators/linux-padjoy||2011-09-01|Has expired: No more public distfiles
+emulators/mame-extras||2011-09-01|Has expired: No more public distfiles
+emulators/snespp||2011-09-01|Has expired: BROKEN for more than 6 months
+emulators/xgs||2011-09-01|Has expired: No more public distfiles
+ftp/gproftpd||2011-09-01|Has expired: No more public distfiles
+ftp/muddleftpd||2011-09-01|Has expired: No more public distfiles
+audio/gx2osd||2011-09-03|Has expired: No more public distfiles
+devel/p5-Getopt-Mixed||2011-09-03|Use devel/p5-Getopt-Long instead
+net/AquaGatekeeper2||2011-09-03|Binary port of software abandoned by the vendor
+net/xwhois||2011-09-03|Unmaintained upstream for several years
+www/p5-Catalyst-Engine-HTTP-POE||2011-09-03|Use p5-Catalyst-Engine-HTTP-Prefork instead
+www/p5-Catalyst-Model-DBIC||2011-09-03|Obsoleted by www/p5-Catalyst-Model-DBIC-Schema
+www/p5-Catalyst-Plugin-Cache-Store-FastMmap||2011-09-03|Deprecated, not depended on
+p5-HTTP-MobileAttribute||2011-09-03|Use www/p5-HTTP-MobileAgent instead
+irc/ptlink-ircd||2011-09-03|Has expired: No upstream source, no distfile and no maintainer
+irc/ptlink-services||2011-09-03|Has expired: No upstream source, no distfile and no maintainer
+www/mediawiki115||2011-09-03|unsupported upstream
+www/p5-Catalyst-Plugin-Authentication-Store-DBIC||2011-09-03|Use p5-Catalyst-Authentication-Store-DBIx-Class instead
+net/uproxy||2011-09-04|Master site disappeared, abandonware
+x11/ebuttons||2011-09-05|Has expired: Website has disappeared
+cad/oregano||2011-09-05|Has expired: Website has disappeared
+devel/jakelib2||2011-09-05|Has expired: Website has disappeared
+x11-wm/epiwm||2011-09-07|Has expired: Abandonware
+x11-toolkits/p5-GdkPixbuf||2011-09-07|Has expired: Disappear from CPAN
+x11-toolkits/XawPlus||2011-09-07|Has expired: No more public distfiles
+x11-fonts/gnome-font-sampler||2011-09-07|Has expired: No more public distfiles
+www/xitami||2011-09-07|Has expired: No more public distfiles
+www/webredirect||2011-09-07|Has expired: No more public distfiles
+www/webglimpse||2011-09-07|Has expired: No more public distfiles
+www/squishdot||2011-09-07|Has expired: No more public distfiles
+www/py-forgethtml||2011-09-07|Has expired: No more public distfiles
+www/mmosaic||2011-09-07|Has expired: No more public distfiles
+www/ljsm||2011-09-07|Has expired: No more public distfiles
+www/ljpms||2011-09-07|Has expired: No more public distfiles
+www/ashe||2011-09-07|Has expired: No more public distfiles
+textproc/europass-xsl||2011-09-07|Has expired: BROKEN for more than 6 month
+textproc/carthage||2011-09-07|Has expired: No more public distfiles
+korean/hlatexfonts-ocf||2011-09-07|Has expired: No more public distfiles
+korean/pgp.language||2011-09-07|Has expired: No more public distfiles
+games/xgammon||2011-09-07|Has expired: No more public distfiles
+korean/hanIM||2011-09-07|Has expired: No more public distfiles
+misc/gplbp||2011-09-07|Has expired: No more public distfiles
+net/vyqchat||2011-09-07|Has expired: No more public distfiles
+news/xmitbin||2011-09-07|Has expired: No more public distfiles
+games/tvp||2011-09-07|Has expired: No more public distfiles
+games/glasteroids||2011-09-07|Has expired: No more public distfiles
+games/xscrabble||2011-09-07|Has expired: No more public distfiles
+games/xbat||2011-09-07|Has expired: No more public distfiles
+korean/hanmiscutils||2011-09-07|Has expired: No more public distfiles
+net-p2p/hagelslag||2011-09-07|Has expired: No more public distfiles
+games/cgoban2||2011-09-07|Has expired: No more public distfiles
+games/krosswordplayer||2011-09-07|Has expired: No more public distfiles
+korean/helvis||2011-09-07|Has expired: No more public distfiles
+print/mgv||2011-09-07|Has expired: No more public distfiles
+japanese/linux-JM||2011-09-07|Has expired: No more public distfiles
+games/xlines||2011-09-07|Has expired: No more public distfiles
+games/xgame||2011-09-07|Has expired: No more public distfiles
+net/ttt||2011-09-07|Has expired: No more public distfiles
+games/merlin||2011-09-07|Has expired: No more public distfiles
+games/xshisen||2011-09-07|Has expired: No more public distfiles
+games/slige||2011-09-07|Has expired: No more public distfiles
+games/wmtimebomb||2011-09-07|Has expired: No more public distfiles
+net-mgmt/cfgstoragemk||2011-09-07|Has expired: No more public distfiles
+mail/libspf2-10||2011-09-09|Vulnerable, use mail/libspf2 instead
+mail/postfix-policyd-spf||2011-09-09|Relies on vulnerable mail/libspf2-10
+multimedia/bmpx||2011-09-11|Has expired: BROKEN for more than 6 month
+editors/openoffice.org-2|editors/openoffice.org-3|2011-09-20|unsupported upstream and vulnerable
+devel/monodevelop-boo||2011-09-21|Removed
+www/ruby-http-access||2011-09-22|Has expired: Deprecated upstream, please use www/rubygem-httpclient
+sysutils/wots||2011-09-22|Has expired: No more public distfiles
+sysutils/gpart||2011-09-22|Has expired: Upstream disappeared
+sysutils/plod||2011-09-22|Has expired: No more public distfiles
+sysutils/checkservice||2011-09-22|Has expired: BROKEN for more than 6 month
+security/nsm-console||2011-09-22|Has expired: BROKEN for more than 6 month
+security/fressh||2011-09-22|Has expired: No more public distfiles
+palm/pose||2011-09-22|Has expired: No more public distfiles
+palm/isilo||2011-09-22|Has expired: No more public distfiles
+news/ija||2011-09-22|Has expired: BROKEN for more than 6 month
+news/PicMonger||2011-09-22|Has expired: Abandonware
+net/py-zopeproxy|net/py-zope.proxy|2011-09-23|Removed: please use net/py-zope.proxy instead
+devel/libnotifymm||2011-09-23|Has expired: Doesn't build and isn't used by anything.
+games/abuse||2011-09-23|Has expired: BROKEN after games/abuse_sdl update
+security/donkey||2011-09-23|Has expired: No more public distfiles
+graphics/moth||2011-09-23|Has expired: No more public distfiles
+net-mgmt/aguri||2011-09-23|Has expired: No more public distfiles
+games/senso||2011-09-23|Has expired: No more public distfiles
+net-im/jabber-users-agent||2011-09-23|Has expired: No more public distfiles
+games/cchess||2011-09-23|Has expired: No more public distfiles

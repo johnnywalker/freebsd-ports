@@ -8,12 +8,12 @@
 
 PORTNAME=	gossip
 PORTVERSION=	0.31
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	net-im gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome2
 
-MAINTAINER=	gnome@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	GTK2 Jabber Instant Messaging client
 
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/iso-codes.pc:${PORTSDIR}/misc/iso-codes
@@ -21,6 +21,9 @@ LIB_DEPENDS=	loudmouth-1.0:${PORTSDIR}/net-im/loudmouth \
 		dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
 		aspell.16:${PORTSDIR}/textproc/aspell
 RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/iso-codes.pc:${PORTSDIR}/misc/iso-codes
+
+DEPRECATED=	No longer maintain by upstream, use net-im/empathy instead
+EXPIRATION_DATE=2011-09-24
 
 USE_XORG=	x11 xext ice xscrnsaver
 USE_BZIP2=	yes
@@ -32,8 +35,8 @@ USE_GNOME=	gnomeprefix intlhack gnomehack gnomepanel gnomedocutils \
 INSTALLS_OMF=	yes
 INSTALLS_ICONS=	yes
 CONFIGURE_ARGS=	--enable-dbus=yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 GCONF_SCHEMAS=	gossip.schemas
 
@@ -44,7 +47,7 @@ OPTIONS=	NOTIFY "Enable libnotify support" on \
 .include <bsd.port.pre.mk>
 
 .if !defined(WITHOUT_NOTIFY)
-LIB_DEPENDS+=		notify.1:${PORTSDIR}/devel/libnotify
+LIB_DEPENDS+=		notify.4:${PORTSDIR}/devel/libnotify
 .else
 CONFIGURE_ARGS+=	--enable-libnotify=no
 .endif

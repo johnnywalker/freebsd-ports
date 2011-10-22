@@ -7,11 +7,11 @@
 #
 
 PORTNAME=	ised
-PORTVERSION=	2.2.5
+PORTVERSION=	2.3.0
 CATEGORIES=	math
 MASTER_SITES=	SF/${PORTNAME}
 
-MAINTAINER=	ports@eitanadler.com
+MAINTAINER=	eadler@FreeBSD.org
 COMMENT=	A tool for generating number sequences and arithmetic evaluation
 
 LICENSE=	GPLv3

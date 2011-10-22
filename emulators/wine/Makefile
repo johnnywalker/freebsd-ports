@@ -7,7 +7,7 @@
 #
 
 PORTNAME=	wine
-DISTVERSION=	1.3.25
+DISTVERSION=	1.3.29
 PORTEPOCH=	1
 CATEGORIES=	emulators
 MASTER_SITES=	SF/${PORTNAME}/Source \
@@ -15,6 +15,10 @@ MASTER_SITES=	SF/${PORTNAME}/Source \
 
 MAINTAINER=	gerald@FreeBSD.org
 COMMENT=	Microsoft Windows compatibility layer for Unix-like systems
+
+LICENSE=	LGPL21 LGPL3
+LICENSE_COMB=	dual
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex
 LIB_DEPENDS=	fontconfig.1:${PORTSDIR}/x11-fonts/fontconfig \
@@ -24,19 +28,16 @@ LIB_DEPENDS=	fontconfig.1:${PORTSDIR}/x11-fonts/fontconfig \
 		png.6:${PORTSDIR}/graphics/png \
 		xml2:${PORTSDIR}/textproc/libxml2
 
-LICENSE=	LGPL21 LGPL3
-LICENSE_COMB=	dual
-LICENSE_FILE=	${WRKSRC}/LICENSE
-
-CPPFLAGS=	"-I${LOCALBASE}/include"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--verbose --disable-tests \
-		--with-glu --with-opengl --with-xrandr \
-		--without-capi --without-gphoto --without-gsm \
-		--without-mpg123 --with-oss --without-sane \
-		--without-v4l --without-xcomposite --without-xinerama
-CONFIGURE_ENV=	LDFLAGS="-L${LOCALBASE}/lib" \
-		FLEX="${LOCALBASE}/bin/flex"
+		--without-alsa --without-capi --with-glu \
+		--without-gphoto --without-gsm --without-gstreamer \
+		--with-opengl --without-mpg123 --with-oss --without-sane \
+		--without-v4l --without-xcomposite --without-xinerama \
+		--with-xinput2 --with-xrandr
+CONFIGURE_ENV=	FLEX="${LOCALBASE}/bin/flex"
 WINELIBDIR?=	${PREFIX}/lib
 .if !defined(USE_LDCONFIG32)
 USE_LDCONFIG=	${WINELIBDIR} ${WINELIBDIR}/wine
@@ -53,7 +54,7 @@ USE_BISON=	build
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 USE_GL=		glu
-USE_XORG=	xcursor xpm xrandr xrender
+USE_XORG=	xcursor xi xpm xrandr xrender
 
 SUB_FILES=	pkg-message
 PKGMESSAGE=	${WRKDIR}/pkg-message
@@ -65,6 +66,8 @@ OPTIONS=	CUPS	"Use CUPS (Common UNIX Printing System)"	Off \
 		LIBXSLT	"Use libxslt (only used by msxml3.dll)"		Off \
 		OPENAL	"Use OpenAL (3D audio library)"			Off \
 		WINEMAKER "Fully support winemaker (requires Perl)"	Off
+
+PORTDATA=	fonts/ generic.ppd l_intl.nls wine.inf
 
 .include <bsd.port.pre.mk>
 
@@ -106,10 +109,10 @@ CONFIGURE_ARGS+=	--without-xslt
 .ifdef WITH_OPENAL
 CONFIGURE_ARGS+=	--with-openal
 USE_OPENAL=		yes
-PLIST_SUB=		OPENAL=""
+PLIST_SUB+=		OPENAL=""
 .else
 CONFIGURE_ARGS+=	--without-openal
-PLIST_SUB=		OPENAL="@comment "
+PLIST_SUB+=		OPENAL="@comment "
 .endif
 
 .ifdef WITH_WINEMAKER

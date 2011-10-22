@@ -44,8 +44,7 @@ INCLUDES+=	-I${LOCALBASE}/include
 CONFIGURE_ARGS+=--with-libraries=${PREFIX}/lib \
 		--with-includes=${PREFIX}/include \
 		--enable-thread-safety
-CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}" \
-		INCLUDES="${INCLUDES}" \
+CONFIGURE_ENV+=	INCLUDES="${INCLUDES}" \
 		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		PTHREAD_LIBS="${PTHREAD_LIBS}"
 
@@ -160,7 +159,7 @@ INSTALL_TARGET=	install
 INSTALL_TARGET=	install-strip
 .  endif
 
-.if !defined(WITHOUT_GSSAPI)
+.if defined(WITH_GSSAPI)
 CONFIGURE_ARGS+=--with-gssapi
 .if ${OSVERSION} >= 900000
 BROKEN=		does not link on FreeBSD 9.X

@@ -7,7 +7,7 @@
 
 PORTNAME=	vorbis-tools
 PORTVERSION=	1.4.0
-PORTREVISION=	1
+PORTREVISION=	2
 PORTEPOCH=	3
 CATEGORIES=	audio
 MASTER_SITES=	http://downloads.xiph.org/releases/vorbis/
@@ -18,15 +18,15 @@ COMMENT=	Play, encode, and manage Ogg Vorbis files
 LIB_DEPENDS=	ao.4:${PORTSDIR}/audio/libao \
 		curl.6:${PORTSDIR}/ftp/curl \
 		FLAC.10:${PORTSDIR}/audio/flac \
-		kate.3:${PORTSDIR}/multimedia/libkate \
+		kate.4:${PORTSDIR}/multimedia/libkate \
 		speex.1:${PORTSDIR}/audio/speex \
 		vorbis.4:${PORTSDIR}/audio/libvorbis
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
+CONFIGURE_ENV=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		PTHREAD_LIBS="${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 MAKE_JOBS_SAFE=	yes
 
 .if !defined(WITHOUT_NLS)

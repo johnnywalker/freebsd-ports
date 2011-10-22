@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	kcd
-PORTVERSION=	7.14.0
-PORTREVISION=	2
+PORTVERSION=	7.15.0
 PORTEPOCH=	1
 CATEGORIES=	misc
 MASTER_SITES=	SF
@@ -15,12 +14,14 @@ MASTER_SITES=	SF
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Change directory in full-screen visual mode
 
+LICENSE=	GPLv2
+
 USE_GETTEXT=	yes
 USE_PERL5=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib -lintl"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib -lintl
 
 MAN1=		kcd.1
 

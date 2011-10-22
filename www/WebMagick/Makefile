@@ -7,13 +7,13 @@
 
 PORTNAME=	WebMagick
 PORTVERSION=	2.03p3
-PORTREVISION=	43
+PORTREVISION=	45
 PORTEPOCH=	1
 CATEGORIES=	www graphics
 MASTER_SITES=	SF/${PORTNAME:L}/${PORTNAME:L}-beta/2.03pre3
 DISTNAME=	${PORTNAME}-2.03pre3
 
-MAINTAINER=	ache@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Image Web Generator - recursively build HTMLs, imagemaps, thumbnails
 
 LIB_DEPENDS=	MagickWand.4:${PORTSDIR}/graphics/ImageMagick

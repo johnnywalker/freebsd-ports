@@ -6,8 +6,7 @@
 #
 
 PORTNAME?=	wireshark
-PORTVERSION=	1.6.0
-PORTREVISION=	2
+PORTVERSION=	1.6.2
 CATEGORIES=	net ipv6
 MASTER_SITES=	http://www.wireshark.org/download/src/ \
     		http://wireshark.osmirror.nl/download/src/ \
@@ -29,7 +28,6 @@ USE_ICONV=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 MAKE_JOBS_SAFE=	yes
-USE_GNOME=	gnometarget
 WANT_GNOME=	yes
 USE_OPENSSL=	yes
 CONFIGURE_ENV=	LIBS="${WIRESHARK_LIBS}"

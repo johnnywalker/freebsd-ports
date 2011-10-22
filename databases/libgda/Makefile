@@ -8,7 +8,7 @@
 
 PORTNAME=	libgda
 PORTVERSION=	0.2.96
-PORTREVISION=	14
+PORTREVISION=	15
 CATEGORIES=	databases gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome
@@ -16,7 +16,7 @@ DIST_SUBDIR=	gnome
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Provides uniform access to different kinds of data sources
 
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm
 
 CONFLICTS=	libgda2*-[0-9]*
 
@@ -29,8 +29,8 @@ USE_LDCONFIG=	yes
 USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-gtk-doc
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib -lintl -lgdbm"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib -lintl -lgdbm"
+CPPFLAGS+=	-I${LOCALBASE}/include
 PLIST_SUB=	VERSION=${PORTVERSION}
 MAKE_JOBS_UNSAFE=yes
 

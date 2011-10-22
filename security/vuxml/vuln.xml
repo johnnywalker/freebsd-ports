@@ -28,12 +28,1096 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-  $FreeBSD: ports/security/vuxml/vuln.xml,v 1.2402 2011/07/28 07:10:38 delphij Exp $
+  $FreeBSD: ports/security/vuxml/vuln.xml,v 1.2450 2011/09/22 20:47:10 nox Exp $
 
 Note:  Please add new entries to the beginning of this file.
 
 -->
 <vuxml xmlns="http://www.vuxml.org/apps/vuxml-1">
+  <vuln vid="53e531a7-e559-11e0-b481-001b2134ef46">
+    <topic>linux-flashplugin -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>linux-flashplugin</name>
+	<range><le>9.0r289</le></range>
+      </package>
+      <package>
+	<name>linux-f10-flashplugin</name>
+	<range><lt>10.3r183.10</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Adobe Product Security Incident Response Team reports:</p>
+	<blockquote cite="https://www.adobe.com/support/security/bulletins/apsb11-26.html">
+	  <p>Critical vulnerabilities have been identified in Adobe Flash
+	    Player 10.3.183.7 and earlier versions for Windows, Macintosh,
+	    Linux and Solaris, and Adobe Flash Player 10.3.186.6 and earlier
+	    versions for Android.  These vulnerabilities could cause a crash
+	    and potentially allow an attacker to take control of the
+	    affected system.</p>
+	  <p>There are reports that one of these vulnerabilities
+	    (CVE-2011-2444) is being exploited in the wild in active
+	    targeted attacks designed to trick the user into clicking on
+	    a malicious link delivered in an email message. This universal
+	    cross-site scripting issue could be used to take actions on a
+	    user's behalf on any website or webmail provider if the user
+	    visits a malicious website.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://www.adobe.com/support/security/bulletins/apsb11-26.html</url>
+      <cvename>CVE-2011-2426</cvename>
+      <cvename>CVE-2011-2427</cvename>
+      <cvename>CVE-2011-2428</cvename>
+      <cvename>CVE-2011-2429</cvename>
+      <cvename>CVE-2011-2430</cvename>
+      <cvename>CVE-2011-2444</cvename>
+    </references>
+    <dates>
+      <discovery>2011-06-06</discovery>
+      <entry>2011-09-22</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="e44fe906-df27-11e0-a333-001cc0a36e12">
+    <topic>phpmyadmin -- multiple XSS vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>phpMyAdmin</name>
+	<range><lt>3.4.5</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>phpMyAdmin development team reports:</p>
+	<blockquote cite="http://www.phpmyadmin.net/home_page/security/PMASA-2011-14.php">
+	  <p>Firstly, if a row contains javascript code, after inline
+	    editing this row and saving, the code is executed. Secondly,
+	    missing sanitization on the db, table and column names leads
+	    to XSS vulnerabilities.</p>
+	  <p>Versions 3.4.0 to 3.4.4 were found vulnerable.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.phpmyadmin.net/home_page/security/PMASA-2011-14.php</url>
+    </references>
+    <dates>
+      <discovery>2011-09-11</discovery>
+      <entry>2011-09-14</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="d01d10c7-de2d-11e0-b215-00215c6a37bb">
+    <topic>django -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>py23-django</name>
+	<name>py24-django</name>
+	<name>py25-django</name>
+	<name>py26-django</name>
+	<name>py27-django</name>
+	<name>py30-django</name>
+	<name>py31-django</name>
+	<range><gt>1.3</gt><lt>1.3.1</lt></range>
+	<range><gt>1.2</gt><lt>1.2.7</lt></range>
+      </package>
+      <package>
+	<name>py23-django-devel</name>
+	<name>py24-django-devel</name>
+	<name>py25-django-devel</name>
+	<name>py26-django-devel</name>
+	<name>py27-django-devel</name>
+	<name>py30-django-devel</name>
+	<name>py31-django-devel</name>
+	<range><lt>16758,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Django project reports:</p>
+	<blockquote cite="https://www.djangoproject.com/weblog/2011/sep/09/security-releases-issued/">
+	  <p>Today the Django team is issuing multiple releases --
+	    Django 1.2.6 and Django 1.3.1 -- to remedy security issues
+	    reported to us. Additionally, this announcement contains
+	    advisories for several other issues which, while not
+	    requiring changes to Django itself, will be of concern
+	    to users of Django.</p>
+	  <p>All users are encouraged to upgrade Django, and to
+	    implement the recommendations in these advisories,
+	    immediately.</p>
+	  <h3>Session manipulation</h3>
+	  <p>Django's session framework, django.contrib.sessions, is
+	    configurable to use any of multiple backends for storage
+	    of session data. One such backend, provided with Django
+	    itself, integrates with Django's cache framework to use
+	    the cache as storage for session data.</p>
+	  <p>When configured in this fashion using memory-based
+	    sessions and caching, Django sessions are stored
+	    directly in the root namespace of the cache, using
+	    session identifiers as keys.</p>
+	  <p>This results in a potential attack when coupled with
+	    an application storing user-supplied data in the cache;
+	    if an attacker can cause data to be cached using a key
+	    which is also a valid session identifier, Django's
+	    session framework will treat that data -- so long as
+	    it is a dictionary-like object -- as the session,
+	    thus allowing arbitrary data to be inserted into a
+	    session so long as the attacker knows the session
+	    key.</p>
+	  <h3>Denial of service attack via URLField</h3>
+	  <p>Django's model system includes a field type --
+	    URLField -- which validates that the supplied value
+	    is a valid URL, and if the boolean keyword argument
+	    verify_exists is true, attempts to validate that the
+	    supplied URL also resolves, by issuing a request to
+	    it.</p>
+	  <p>By default, the underlying socket libraries in
+	    Python do not have a timeout. This can manifest as
+	    a security problem in three different ways:</p>
+	  <ol>
+	    <li>An attacker can supply a slow-to-respond URL. Each
+	      request will tie up a server process for a period of
+	      time; if the attacker is able to make enough
+	      requests, they can tie up all available server
+	      processes.</li>
+	    <li>An attacker can supply a URL under his or her
+	      control, and which will simply hold an open
+	      connection indefinitely. Due to the lack of
+	      timeout, the Django process attempting to verify
+	      the URL will similarly spin indefinitely.
+	      Repeating this can easily tie up all available
+	      server processes.</li>
+	    <li>An attacker can supply a URL under his or her
+	      control which not only keeps the connection open,
+	      but also sends an unending stream of random garbage
+	      data. This data will cause the memory usage of
+	      the Django process (which will hold the response
+	      in memory) to grow without bound, thus consuming
+	      not only server processes but also server memory.</li>
+	  </ol>
+	  <h3>URLField redirection</h3>
+	  <p>The regular expression which validates URLs is used
+	    to check the supplied URL before issuing a check to
+	    verify that it exists, but if that URL issues a
+	    redirect in response to the request, no validation
+	    of the resulting redirected URL is performed,
+	    including basic checks for supported protocols
+	    (HTTP, HTTPS and FTP).</p>
+	  <p>This creates a small window for an attacker to gain
+	    knowledge of, for example, server layout; a redirect
+	    to a file:// URL, for example, will tell an attacker
+	    whether a given file exists locally on the server.</p>
+	  <p>Additionally, although the initial request issued
+	    by Django uses the HEAD method for HTTP/HTTPS, the
+	    request to the target of the redirect is issued using
+	    GET. This may create further issues for systems which
+	    implicitly trust GET requests from the local
+	    machine/network.</p>
+	  <h3>Host header cache poisoning</h3>
+	  <p>In several places, Django itself -- independent of
+	    the developer -- generates full URLs (for example,
+	    when issuing HTTP redirects). Currently this uses
+	    the value of the HTTP Host header from the request
+	    to construct the URL, which opens a potential
+	    cache-poisoning vector: an attacker can submit
+	    a request with a Host header of his or her choice,
+	    receive a response which constructs URLs using that
+	    Host header, and -- if that response is cached --
+	    further requests will be served out of cache using
+	    URLs containing the attacker's host of choice.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://www.djangoproject.com/weblog/2011/sep/09/security-releases-issued/</url>
+    </references>
+    <dates>
+      <discovery>2011-09-09</discovery>
+      <entry>2011-09-13</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="4ae68e7c-dda4-11e0-a906-00215c6a37bb">
+    <topic>roundcube -- XSS vulnerability</topic>
+    <affects>
+      <package>
+	<name>roundcube</name>
+	<range><lt>0.5.4,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>RoundCube development Team reports:</p>
+	<blockquote cite="http://sourceforge.net/news/?group_id=139281&amp;id=302769">
+	  <p>We just published a new release which fixes a recently
+	    reported XSS vulnerability as an update to the stable
+	    0.5 branch. Please update your installations with this
+	    new version or patch them with the fix which is also
+	    published in the downloads section or our sourceforge.net
+	    page.</p>
+	</blockquote>
+	<p>and:</p>
+	<blockquote cite="http://trac.roundcube.net/ticket/1488030">
+	  <p>During one of pen-tests I found that _mbox parameter
+	    is not properly sanitized and reflected XSS attack is
+	    possible.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+       <cvename>CVE-2011-2937</cvename>
+    </references>
+    <dates>
+      <discovery>2011-08-09</discovery>
+      <entry>2011-09-13</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="b9f3ffa3-dd6c-11e0-b7fc-000a5e1e33c6">
+    <topic>libsndfile -- PAF file processing integer overflow</topic>
+    <affects>
+      <package>
+	<name>libsndfile</name>
+	<range><lt>1.0.25</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Secunia reports:</p>
+	<blockquote cite="http://secunia.com/advisories/45125/">
+	  <p>Hossein Lotfi has discovered a vulnerability in
+	   libsndfile, which can be exploited by malicious people
+	   to potentially compromise an application using the
+	   library. The vulnerability is caused due to an integer
+	   overflow error in the "paf24_init()" function (src/paf.c)
+	   when processing Paris Audio (PAF) files. This can be
+	   exploited to cause a heap-based buffer overflow via a
+	   specially crafted file. Successful exploitation may allow
+	   execution of arbitrary code. The vulnerability is confirmed
+	   in version 1.0.24. Other versions may also be affected.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-2696</cvename>
+      <url>http://secunia.com/advisories/45125/</url>
+    </references>
+    <dates>
+      <discovery>2011-07-12</discovery>
+      <entry>2011-09-12</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="2ecb7b20-d97e-11e0-b2e2-00215c6a37bb">
+    <topic>openssl -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+        <name>openssl</name>
+        <range><ge>1.0.0</ge><lt>1.0.0_6</lt></range>
+        <range><ge>0.9.8</ge><lt>1.0.0</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p>OpenSSL Team reports:</p>
+        <blockquote cite="http://openssl.org/news/secadv_20110906.txt">
+	  <p>Two security flaws have been fixed in OpenSSL 1.0.0e</p>
+	  <p>Under certain circumstances OpenSSL's internal certificate
+	    verification routines can incorrectly accept a CRL whose
+	    nextUpdate field is in the past.  (CVE-2011-3207)</p>
+	  <p>OpenSSL server code for ephemeral ECDH ciphersuites is
+	    not thread-safe, and furthermore can crash if a client
+	    violates the protocol by sending handshake messages in
+	    incorrect order. (CVE-2011-3210)</p>
+        </blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-3207</cvename>
+      <cvename>CVE-2011-3210</cvename>
+      <url>http://www.openssl.org/news/secadv_20110906.txt</url>
+    </references>
+    <dates>
+      <discovery>2011-09-06</discovery>
+      <entry>2011-09-07</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="a83f25df-d775-11e0-8bf1-003067b2972c">
+    <topic>XSS issue in MantisBT</topic>
+    <affects>
+      <package>
+        <name>mantis</name>
+        <range><ge>1.2.0</ge><lt>1.2.7</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <blockquote cite="http://www.mantisbt.org/blog/?p=142">
+          <p>Net.Edit0r from BlACK Hat Group reported an XSS issue in 
+            search.php. All MantisBT users (including anonymous users that
+            are not logged in to public bug trackers) could be impacted by
+            this vulnerability.</p>
+        </blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/160368</freebsdpr>
+      <cvename>CVE-2011-2938</cvename>
+    </references>
+    <dates>
+      <discovery>2011-08-18</discovery>
+      <entry>2011-09-05</entry>
+    </dates>
+  </vuln>
+  <vuln vid="e55f948f-d729-11e0-abd1-0017f22d6707">
+    <topic>security/cfs -- buffer overflow</topic>
+    <affects>
+      <package>
+	<name>cfs</name>
+	<range><le>1.4.1_6</le></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Debian reports:</p>
+	<blockquote cite="http://www.debian.org/security/2002/dsa-116">
+	  <p>Zorgon found several buffer overflows in cfsd, a daemon that
+	    pushes encryption services into the Unix(tm) file system.
+	    We are not yet sure if these overflows can successfully be
+	    exploited to gain root access to the machine running the CFS daemon.
+	    However, since cfsd can easily be forced to die, a malicious user
+	    can easily perform a denial of service attack to it.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2002-0351</cvename>
+      <url>http://www.debian.org/security/2002/dsa-116</url>
+    </references>
+    <dates>
+      <discovery>2002-03-02</discovery>
+      <entry>2011-09-04</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="1b27af46-d6f6-11e0-89a6-080027ef73ec">
+    <topic>ca_root_nss -- Extraction of unsafe certificates into trust bundle.</topic>
+    <affects>
+      <package>
+	<name>ca_root_nss</name>
+	<range><lt>3.12.11</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Matthias Andree reports that the ca-bundle.pl used in older versions
+	  of the ca_root_nss FreeBSD port before 3.12.11 did not take the
+	  Mozilla/NSS/CKBI untrusted markers into account and would add
+	  certificates to the trust bundle that were marked unsafe by
+	  mozilla.</p>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/160455</freebsdpr>
+    </references>
+    <dates>
+      <discovery>2011-09-04</discovery>
+      <entry>2011-09-04</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="aa5bc971-d635-11e0-b3cf-080027ef73ec">
+    <topic>nss/ca_root_nss -- Fraudulent Certificates issued by DigiNotar.nl</topic>
+    <affects>
+      <package>
+        <name>nss</name>
+	<range><lt>3.12.11</lt></range>
+	<!-- this builds on the assumption that 3.12.11 in ports actually
+	     contains the CKBI 1.87 update to the built-in certificates
+	     as commited by kwm@ on September 3rd, 2011 -->
+      </package>
+      <package>
+        <name>ca_root_nss</name>
+	<range><lt>3.12.11</lt></range>
+	<!-- this builds on the assumption that 3.12.11 in ports actually
+	     contains the CKBI 1.87 update to the built-in certificates
+	     as commited by mandree@ on September 4th, 2011 -->
+      </package>
+      <package>
+	<name>firefox</name>
+	<range><gt>3.6.*,1</gt><lt>3.6.22,1</lt></range>
+	<range><gt>4.0.*,1</gt><lt>6.0.2,1</lt></range>
+      </package>
+      <package>
+	<name>seamonkey</name>
+	<range><lt>2.3.2</lt></range>
+      </package>
+      <package>
+	<name>linux-firefox</name>
+	<range><lt>3.6.22,1</lt></range>
+      </package>
+      <package>
+	<name>thunderbird</name>
+	<range><gt>3.1.*</gt><lt>3.1.14</lt></range>
+	<range><gt>5.0.*</gt><lt>6.0.2</lt></range>
+      </package>
+      <package>
+	<name>linux-thunderbird</name>
+	<range><lt>3.1.14</lt></range>
+      </package>
+      <package>
+	<name>linux-seamonkey</name>
+	<range><lt>2.3.2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Heather Adkins, Google's Information Security Manager, reported that
+	Google received</p>
+	<blockquote cite="http://googleonlinesecurity.blogspot.com/2011/08/update-on-attempted-man-in-middle.html">
+	  <p>[...] reports of attempted SSL man-in-the-middle (MITM)
+	    attacks against Google users, whereby someone tried to get between
+	    them and encrypted Google services. The people affected were
+	    primarily located in Iran. The attacker used a fraudulent SSL
+	    certificate issued by DigiNotar, a root certificate authority that
+	    should not issue certificates for Google (and has since revoked
+	    it).[...]</p>
+	</blockquote>
+	<p>VASCO Data Security International Inc., owner of DigiNotar, issued a
+	  press statement confirming this incident:</p>
+	<blockquote cite="http://www.vasco.com/company/press_room/news_archive/2011/news_diginotar_reports_security_incident.aspx">
+	  <p>On July 19th 2011, DigiNotar detected an intrusion
+	    into its Certificate Authority (CA) infrastructure, which resulted in
+	    the fraudulent issuance of public key certificate requests for a
+	    number of domains, including Google.com. [...] an external security
+	    audit concluded that all fraudulently issued certificates were
+	    revoked. Recently, it was discovered that at least one fraudulent
+	    certificate had not been revoked at the time. [...]</p>
+	</blockquote>
+	<p>Mozilla, maintainer of the NSS package, from which FreeBSD derived
+	  ca_root_nss, stated that they</p>
+	<blockquote cite="https://blog.mozilla.com/security/2011/09/02/diginotar-removal-follow-up/">
+	  <p>revoked our trust in the DigiNotar certificate authority from all
+	    Mozilla software. This is not a temporary suspension, it is a
+	    complete removal from our trusted root program. Complete revocation
+	    of trust is a decision we treat with careful consideration, and
+	    employ as a last resort.
+	  </p><p>Three central issues informed our decision:</p>
+	  <ol><li>Failure to notify. [...]</li>
+	    <li>The scope of the breach remains unknown. [...]</li>
+	    <li>The attack is not theoretical.</li></ol>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.vasco.com/company/press_room/news_archive/2011/news_diginotar_reports_security_incident.aspx</url>
+      <url>http://www.mozilla.org/security/announce/2011/mfsa2011-34.html</url>
+      <url>http://googleonlinesecurity.blogspot.com/2011/08/update-on-attempted-man-in-middle.html</url>
+    </references>
+    <dates>
+      <discovery>2011-07-19</discovery>
+      <entry>2011-09-03</entry>
+      <modified>2011-09-06</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="7f6108d2-cea8-11e0-9d58-0800279895ea">
+    <topic>apache -- Range header DoS vulnerability</topic>
+    <affects>
+      <package>
+	<name>apache</name>
+	<name>apache-event</name>
+	<name>apache-itk</name>
+	<name>apache-peruser</name>
+	<name>apache-worker</name>
+	<range><gt>2.*</gt><lt>2.2.20</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Apache HTTP server project reports:</p>
+	<blockquote cite="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192">
+	  <p>A denial of service vulnerability has been found in the way the
+	  multiple overlapping ranges are handled by Apache HTTPD server.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+	<cvename>CVE-2011-3192</cvename>
+	<url>https://people.apache.org/~dirkx/CVE-2011-3192.txt</url>
+	<url>https://svn.apache.org/viewvc?view=revision&amp;revision=1161534</url>
+	<url>https://svn.apache.org/viewvc?view=revision&amp;revision=1162874</url>
+    </references>
+    <dates>
+      <discovery>2011-08-24</discovery>
+      <entry>2011-08-30</entry>
+      <modified>2011-09-01</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="cdeb34e6-d00d-11e0-987e-00215c6a37bb">
+    <topic>stunnel -- heap corruption vulnerability</topic>
+    <affects>
+      <package>
+	<name>stunnel</name>
+	<range><ge>4.40</ge><lt>4.42</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Michal Trojnara reports:</p>
+	<blockquote cite="http://www.stunnel.org/pipermail/stunnel-announce/2011-August/000059.html">
+	  <p>Version 4.42, 2011.08.18, urgency: HIGH:</p>
+	  <p>Fixed a heap corruption vulnerability in versions
+	    4.40 and 4.41.  It may possibly be leveraged to
+	    perform DoS or remote code execution  attacks.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <bid>49254</bid>
+      <cvename>CVE-2011-2940</cvename>
+    </references>
+    <dates>
+      <discovery>2011-08-25</discovery>
+      <entry>2011-08-26</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="75e26236-ce9e-11e0-b26a-00215c6a37bb">
+    <topic>phpmyadmin -- multiple XSS vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>phpMyAdmin</name>
+	<range><lt>3.4.4</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The phpMyAdmin development team reports:</p>
+	<blockquote cite="http://www.phpmyadmin.net/home_page/security/PMASA-2011-13.php">
+	  <p>Multiple XSS in the Tracking feature.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-3181</cvename>
+    </references>
+    <dates>
+      <discovery>2011-08-24</discovery>
+      <entry>2011-08-24</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="3f1df2f9-cd22-11e0-9bb2-00215c6a37bb">
+    <topic>php -- crypt() returns only the salt for MD5</topic>
+    <affects>
+      <package>
+	<name>php5</name>
+	<range><ge>5.3.7</ge><lt>5.3.7_2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>PHP development team reports:</p>
+	<blockquote cite="https://bugs.php.net/bug.php?id=55439">
+	  <p>If crypt() is executed with MD5 salts, the return
+	    value conists of the salt only.  DES and BLOWFISH
+	    salts work as expected.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://bugs.php.net/bug.php?id=55439</url>
+    </references>
+    <dates>
+      <discovery>2011-08-17</discovery>
+      <entry>2011-08-23</entry>
+      <modified>2011-08-30</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="057bf770-cac4-11e0-aea3-00215c6a37bb">
+    <topic>php -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>php5</name>
+	<name>php5-sockets</name>
+	<range><lt>5.3.7</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>PHP development team reports:</p>
+	<blockquote cite="http://www.php.net/ChangeLog-5.php#5.3.7">
+          <p>Security Enhancements and Fixes in PHP 5.3.7:</p> 
+          <ul> 
+            <li>Updated crypt_blowfish to 1.2. (CVE-2011-2483)</li>
+            <li>Fixed crash in error_log(). Reported by Mateusz Kocielski</li>
+            <li>Fixed buffer overflow on overlog salt in crypt().</li>
+            <li>Fixed bug #54939 (File path injection vulnerability
+	      in RFC1867 File upload filename). Reported by Krzysztof Kotowicz.
+	      (CVE-2011-2202)</li> 
+            <li>Fixed stack buffer overflow in socket_connect().
+	      (CVE-2011-1938)</li> 
+            <li>Fixed bug #54238 (use-after-free in substr_replace()).
+	      (CVE-2011-1148)</li> 
+          </ul> 
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <bid>49241</bid>
+      <cvename>CVE-2011-2483</cvename>
+      <cvename>CVE-2011-2202</cvename>
+      <cvename>CVE-2011-1938</cvename>
+      <cvename>CVE-2011-1148</cvename>
+    </references>
+    <dates>
+      <discovery>2011-08-18</discovery>
+      <entry>2011-08-20</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="be77eff6-ca91-11e0-aea3-00215c6a37bb">
+    <topic>rubygem-rails -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>rubygem-rails</name>
+	<range><lt>3.0.10</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>SecurityFocus reports:</p>
+	<blockquote cite="http://www.securityfocus.com/bid/49179/discuss">
+	  <p>Ruby on Rails is prone to multiple vulnerabilities
+	    including SQL-injection, information-disclosure,
+	    HTTP-header-injection, security-bypass and cross-site
+	    scripting issues.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <bid>49179</bid>
+      <url>http://groups.google.com/group/rubyonrails-security/browse_thread/thread/6a1e473744bc389b</url>
+      <url>http://groups.google.com/group/rubyonrails-security/browse_thread/thread/3420ac71aed312d6</url>
+      <url>http://groups.google.com/group/rubyonrails-security/browse_thread/thread/6ffc93bde0298768</url>
+      <url>http://groups.google.com/group/rubyonrails-security/browse_thread/thread/2b9130749b74ea12</url>
+      <url>http://groups.google.com/group/rubyonrails-security/browse_thread/thread/56bffb5923ab1195</url>
+    </references>
+    <dates>
+      <discovery>2011-08-16</discovery>
+      <entry>2011-08-19</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="0b53f5f7-ca8a-11e0-aea3-00215c6a37bb">
+    <topic>dovecot -- denial of service vulnerability</topic>
+    <affects>
+      <package>
+	<name>dovecot</name>
+	<range><lt>1.2.17</lt></range>
+	<range><gt>2.0</gt><lt>2.0.13</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Timo Sirainen reports:</p>
+	<blockquote cite="http://dovecot.org/pipermail/dovecot/2011-May/059086.html">
+	  <p> - Fixed potential crashes and other problems when
+	    parsing header names that contained NUL characters.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <bid>47930</bid>
+      <cvename>CVE-2011-1929</cvename>
+    </references>
+    <dates>
+      <discovery>2011-05-25</discovery>
+      <entry>2011-08-19</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="86baa0d4-c997-11e0-8a8e-00151735203a">
+    <topic>OTRS -- Vulnerabilities in OTRS-Core allows read access to any file on local file system</topic>
+    <affects>
+      <package>
+	<name>otrs</name>
+	<range><gt>2.1.*</gt><lt>3.0.10</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>OTRS Security Advisory reports:</p>
+	<blockquote cite="http://otrs.org/advisory/OSA-2011-03-en/">
+          <ul>
+	    <li>An attacker with valid session and admin permissions could
+              get read access to any file on the servers local operating system.
+              For this it would be needed minimum one installed OTRS package.</li>
+          </ul>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-2746</cvename>
+      <url>http://otrs.org/advisory/OSA-2011-03-en/</url>
+    </references>
+    <dates>
+      <discovery>2011-08-16</discovery>
+      <entry>2011-08-18</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="834591a9-c82f-11e0-897d-6c626dd55a41">
+    <topic>mozilla -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>firefox</name>
+	<range><gt>3.6.*,1</gt><lt>3.6.20,1</lt></range>
+	<range><gt>5.0.*,1</gt><lt>6.0,1</lt></range>
+      </package>
+      <package>
+	<name>seamonkey</name>
+	<range><lt>2.3</lt></range>
+      </package>
+      <package>
+	<name>linux-firefox</name>
+	<range><lt>3.6.20,1</lt></range>
+      </package>
+      <package>
+	<name>thunderbird</name>
+	<range><lt>3.1.12</lt></range>
+      </package>
+      <package>
+	<name>linux-thunderbird</name>
+	<range><lt>3.1.12</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Mozilla Project reports:</p>
+	<blockquote cite="http://www.mozilla.org/security/known-vulnerabilities/">
+	  <p>MFSA 2011-29 Security issues addressed in Firefox 6</p>
+	  <p>MFSA 2011-28 Security issues addressed in Firefox 3.6.20</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.mozilla.org/security/announce/2011/mfsa2011-29.html</url>
+      <url>http://www.mozilla.org/security/announce/2011/mfsa2011-30.html</url>
+      <cvename>CVE-2011-2982</cvename>
+      <cvename>CVE-2011-0084</cvename>
+      <cvename>CVE-2011-2981</cvename>
+      <cvename>CVE-2011-2378</cvename>
+      <cvename>CVE-2011-2984</cvename>
+      <cvename>CVE-2011-2980</cvename>
+      <cvename>CVE-2011-2983</cvename>
+      <cvename>CVE-2011-2989</cvename>
+      <cvename>CVE-2011-2991</cvename>
+      <cvename>CVE-2011-2992</cvename>
+      <cvename>CVE-2011-2985</cvename>
+      <cvename>CVE-2011-2993</cvename>
+      <cvename>CVE-2011-2988</cvename>
+      <cvename>CVE-2011-2987</cvename>
+      <cvename>CVE-2011-0084</cvename>
+      <cvename>CVE-2011-2990</cvename>
+      <cvename>CVE-2011-2986</cvename>
+    </references>
+    <dates>
+      <discovery>2011-08-16</discovery>
+      <entry>2011-08-16</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="56f4b3a6-c82c-11e0-a498-00215c6a37bb">
+    <topic>samba -- cross site scripting and request forgery vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>samba34</name>
+	<range><gt>3.4.*</gt><lt>3.4.14</lt></range>
+      </package>
+      <package>
+	<name>samba35</name>
+	<range><gt>3.5.*</gt><lt>3.5.10</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Samba security advisory reports:</p>
+	<blockquote cite="http://www.samba.org/samba/security/CVE-2011-2522">
+	  <p>All current released versions of Samba are vulnerable to
+	    a cross-site request forgery in the Samba Web Administration
+	    Tool (SWAT). By tricking a user who is authenticated with SWAT
+	    into clicking a manipulated URL on a different web page, it
+	    is possible to manipulate SWAT.</p>
+	</blockquote>
+	<blockquote cite="http://www.samba.org/samba/security/CVE-2011-2694">
+	  <p>All current released versions of Samba are vulnerable
+	    to a cross-site scripting issue in the Samba Web
+	    Administration Tool (SWAT). On the "Change Password"
+	    field, it is possible to insert arbitrary content
+	    into the "user" field.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <bid>48901</bid>
+      <bid>48899</bid>
+      <cvename>CVE-2011-2522</cvename>
+      <cvename>CVE-2011-2694</cvename>
+    </references>
+    <dates>
+      <discovery>2011-07-27</discovery>
+      <entry>2011-08-16</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="510b630e-c43b-11e0-916c-00e0815b8da8">
+    <topic>isc-dhcp-server -- server halt upon processing certain packets</topic>
+    <affects>
+      <package>
+	<name>isc-dhcp31-server</name>
+	<range><lt>3.1.ESV_1,1</lt></range>
+      </package>
+      <package>
+	<name>isc-dhcp41-server</name>
+	<range><lt>4.1.e_2,2</lt></range>
+      </package>
+      <package>
+	<name>isc-dhcp42-server</name>
+	<range><lt>4.2.2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>ISC reports:</p>
+	<blockquote cite="http://www.isc.org/software/dhcp/advisories/cve-2011-2748">
+	  <p>A pair of defects cause the server to halt upon processing certain
+	    packets. The patch is to properly discard or process those packets. 
+	  </p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-2748</cvename>
+      <cvename>CVE-2011-2749</cvename>
+    </references>
+    <dates>
+      <discovery>2011-08-10</discovery>
+      <entry>2011-08-13</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="dc8741b9-c5d5-11e0-8a8e-00151735203a">
+    <topic>bugzilla -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>bugzilla</name>
+	<range><ge>2.4.*</ge><lt>3.6.6</lt></range>
+	<range><ge>4.0.*</ge><lt>4.0.2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>A Bugzilla Security Advisory reports:</p>
+	<blockquote cite="http://www.bugzilla.org/security/3.4.11/">
+	  <p>The following security issues have been discovered in Bugzilla:</p>
+	  <ul>
+	    <li>Internet Explorer 8 and older, and Safari before 5.0.6 do
+              content sniffing when viewing a patch in "Raw Unified" mode,
+              which could trigger a cross-site scripting attack due to
+              the execution of malicious code in the attachment.</li>
+	    <li>It is possible to determine whether or not certain group names
+              exist while creating or updating bugs.</li>
+	    <li>Attachment descriptions with a newline in them could lead
+              to the injection of crafted headers in email notifications sent
+              to the requestee or the requester when editing an attachment
+              flag.</li>
+	    <li>If an attacker has access to a user's session, he can modify
+              that user's email address without that user being notified
+              of the change.</li>
+	    <li>Temporary files for uploaded attachments are not deleted
+              on Windows, which could let a user with local access to
+              the server read them.</li>
+	    <li>Up to Bugzilla 3.4.11, if a BUGLIST cookie is compromised,
+              it can be used to inject HTML code when viewing a bug report,
+              leading to a cross-site scripting attack.</li>
+	  </ul>
+	  <p>All affected installations are encouraged to upgrade as soon as
+            possible.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-2379</cvename>
+      <cvename>CVE-2011-2380</cvename>
+      <cvename>CVE-2011-2979</cvename>
+      <cvename>CVE-2011-2381</cvename>
+      <cvename>CVE-2011-2978</cvename>
+      <cvename>CVE-2011-2977</cvename>
+      <cvename>CVE-2011-2976</cvename>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=637981</url>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=653477</url>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=674497</url>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=657158</url>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=670868</url>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=660502</url>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=660053</url>
+    </references>
+    <dates>
+      <discovery>2011-08-04</discovery>
+      <entry>2011-08-13</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="879b0242-c5b6-11e0-abd1-0017f22d6707">
+    <topic>dtc -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>dtc</name>
+	<range><lt>0.32.9</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Ansgar Burchardt reports:</p>
+	<blockquote cite="http://www.debian.org/security/2011/dsa-2179">
+	  <p>Ansgar Burchardt discovered several vulnerabilities in DTC, a
+	     web control panel for admin and accounting hosting services:
+	     The bw_per_moth.php graph contains an SQL injection vulnerability;
+	     Insufficient checks in bw_per_month.php can lead to bandwidth
+	     usage information disclosure; After a registration, passwords are
+	     sent in cleartext email messages and Authenticated users could
+	     delete accounts using an obsolete interface which was incorrectly
+	     included in the package.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-0434</cvename>
+      <cvename>CVE-2011-0435</cvename>
+      <cvename>CVE-2011-0436</cvename>
+      <cvename>CVE-2011-0437</cvename>
+      <url>http://www.debian.org/security/2011/dsa-2179</url>
+    </references>
+    <dates>
+      <discovery>2011-03-02</discovery>
+      <entry>2011-08-13</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="304409c3-c3ef-11e0-8aa5-485d60cb5385">
+    <topic>libXfont -- possible local privilege escalation</topic>
+    <affects>
+      <package>
+	<name>libXfont</name>
+	<range><lt>1.4.4,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Tomas Hoger reports:</p>
+	<blockquote cite="https://bugzilla.redhat.com/show_bug.cgi?id=725760">
+	  <p>The compress/ LZW decompress implentation does notcorrectly handle
+	     compressed streams that contain code words that were not yet added
+	     to the decompression table. This may lead to arbitrary memory 
+	     corruption. Successfull exploitation may possible lead to a local
+	     privilege escalation.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-2895</cvename>
+      <url>https://bugzilla.redhat.com/show_bug.cgi?id=725760</url>
+    </references>
+    <dates>
+      <discovery>2011-07-26</discovery>
+      <entry>2011-08-11</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="5d374b01-c3ee-11e0-8aa5-485d60cb5385">
+    <topic>freetype2 -- execute arbitrary code or cause denial of service</topic>
+    <affects>
+      <package>
+	<name>freetype2</name>
+	<range><lt>2.4.6</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Vincent Danen reports:</p>
+	<blockquote cite="https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2011-0226">
+	  <p>Due to an error within the t1_decoder_parse_charstrings() function
+	     (src/psaux/t1decode.c) and can be exploited to corrupt memory by 
+	     tricking a user into processing a specially-crafted postscript 
+	     type1 font in an application that uses the freetype library.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-0226</cvename>
+      <url>https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2011-0226</url>
+    </references>
+    <dates>
+      <discovery>2011-07-19</discovery>
+      <entry>2011-08-11</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="2c12ae0c-c38d-11e0-8eb7-001b2134ef46">
+    <topic>linux-flashplugin -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>linux-flashplugin</name>
+	<range><le>9.0r289</le></range>
+      </package>
+      <package>
+	<name>linux-f10-flashplugin</name>
+	<range><lt>10.3r183.5</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Adobe Product Security Incident Response Team reports:</p>
+	<blockquote cite="https://www.adobe.com/support/security/bulletins/apsb11-21.html">
+	  <p>Critical vulnerabilities have been identified in Adobe Flash
+	    Player 10.3.181.36 and earlier versions for Windows,
+	    Macintosh, Linux and Solaris, and Adobe Flash Player
+	    10.3.185.25 and earlier versions for Android.  These
+	    vulnerabilities could cause a crash and potentially allow
+	    an attacker to take control of the affected system.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2011-2130</cvename>
+      <cvename>CVE-2011-2134</cvename>
+      <cvename>CVE-2011-2135</cvename>
+      <cvename>CVE-2011-2136</cvename>
+      <cvename>CVE-2011-2137</cvename>
+      <cvename>CVE-2011-2138</cvename>
+      <cvename>CVE-2011-2139</cvename>
+      <cvename>CVE-2011-2140</cvename>
+      <cvename>CVE-2011-2414</cvename>
+      <cvename>CVE-2011-2415</cvename>
+      <cvename>CVE-2011-2416</cvename>
+      <cvename>CVE-2011-2417</cvename>
+      <cvename>CVE-2011-2425</cvename>
+      <url>https://www.adobe.com/support/security/bulletins/apsb11-21.html</url>
+    </references>
+    <dates>
+      <discovery>2011-05-13</discovery>
+      <entry>2011-08-10</entry>
+    </dates>
+  </vuln>
+
   <vuln vid="30cb4522-b94d-11e0-8182-485d60cb5385">
     <topic>libsoup -- unintentionally allow access to entire local filesystem</topic>
     <affects>
@@ -888,8 +1972,7 @@ Note:  Please add new entries to the beginning of this file.
     <description>
       <body xmlns="http://www.w3.org/1999/xhtml">
 	<p>Unbound developer reports:</p>
-	<blockquote
-	  cite="http://unbound.nlnetlabs.nl/downloads/CVE-2011-1922.txt">
+	<blockquote cite="http://unbound.nlnetlabs.nl/downloads/CVE-2011-1922.txt">
 	  <p>NLnet Labs was notified of an error in Unbound's code-path
 	    for error replies which is triggered under special conditions.
 	    The error causes the program to abort.</p>
@@ -1534,7 +2617,9 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.7</ge><le>1.9</le></range>
+	<range><ge>1.7</ge><lt>1.7.2</lt></range>
+	<range><ge>1.8</ge><lt>1.8.4</lt></range>
+	<range><eq>1.9</eq></range>
       </package>
     </affects>
     <description>
@@ -1569,7 +2654,9 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.7</ge><le>1.9</le></range>
+	<range><ge>1.7</ge><lt>1.7.2</lt></range>
+	<range><ge>1.8</ge><lt>1.8.4</lt></range>
+	<range><eq>1.9</eq></range>
       </package>
     </affects>
     <description>
@@ -1603,7 +2690,9 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.6</ge><le>1.9</le></range>
+	<range><ge>1.7</ge><lt>1.7.2</lt></range>
+	<range><ge>1.8</ge><le>1.8.4</le></range>
+	<range><eq>1.9</eq></range>
       </package>
     </affects>
     <description>
@@ -1651,7 +2740,9 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.7</ge><le>1.9</le></range>
+	<range><ge>1.7</ge><lt>1.7.2</lt></range>
+	<range><ge>1.8</ge><lt>1.8.4</lt></range>
+	<range><eq>1.9</eq></range>
       </package>
     </affects>
     <description>
@@ -2631,11 +3722,11 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>plone</name>
-	<range><ge>2.5</ge></range>
+	<range><ge>2.5</ge><lt>3</lt></range>
       </package>
       <package>
 	<name>plone3</name>
-	<range><ge>3</ge></range>
+	<range><ge>3</ge><le>3.3</le></range>
       </package>
     </affects>
     <description>
@@ -4117,7 +5208,7 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.7.0</ge><lt>1.8.0</lt></range>
+	<range><ge>1.7.0</ge><lt>1.7.2</lt></range>
       </package>
     </affects>
     <description>
@@ -4194,7 +5285,7 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.7.0</ge><lt>1.8.0</lt></range>
+	<range><ge>1.7.0</ge><lt>1.7.2</lt></range>
       </package>
     </affects>
     <description>
@@ -4227,7 +5318,8 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.7.0</ge><le>1.8.3</le></range>
+	<range><ge>1.7.0</ge><lt>1.7.2</lt></range>
+	<range><ge>1.8.0</ge><le>1.8.3</le></range>
       </package>
     </affects>
     <description>
@@ -4266,7 +5358,8 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.3.0</ge><le>1.8.3</le></range>
+	<range><ge>1.3.0</ge><lt>1.7.2</lt></range>
+	<range><ge>1.8.0</ge><le>1.8.3</le></range>
       </package>
     </affects>
     <description>
@@ -4306,13 +5399,175 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>chromium</name>
-	<range><lt>12.0.742.112</lt></range>
+	<range><lt>14.0.835.163</lt></range>
       </package>
     </affects>
     <description>
       <body xmlns="http://www.w3.org/1999/xhtml">
 	<p>Google Chrome Releases reports:</p>
 	<blockquote cite="http://googlechromereleases.blogspot.com/search/label/Stable%20updates">
+	  <p>Fixed in 14.0.835.163:<br/>
+	    [49377] High CVE-2011-2835: Race condition in the certificate cache.	      Credit to Ryan Sleevi of the Chromium development community.<br/>
+	    [51464] Low CVE-2011-2836: Infobar the Windows Media Player plug-in
+	      to avoid click-free access to the system Flash. Credit to
+	      electronixtar.<br/>
+	    [Linux only] [57908] Low CVE-2011-2837: Use PIC / pie compiler
+	      flags. Credit to wbrana.<br/>
+	    [75070] Low CVE-2011-2838: Treat MIME type more authoritatively when
+	      loading plug-ins. Credit to Michal Zalewski of the Google Security
+	      Team.<br/>
+	    [76771] High CVE-2011-2839: Crash in v8 script object wrappers.
+	      Credit to Kostya Serebryany of the Chromium development
+	      community.<br/>
+	    [78427] [83031] Low CVE-2011-2840: Possible URL bar spoofs with
+	      unusual user interaction. Credit to kuzzcc.<br/>
+	    [78639] High CVE-2011-2841: Garbage collection error in PDF. Credit
+	      to Mario Gomes.<br/>
+	    [82438] Medium CVE-2011-2843: Out-of-bounds read with media buffers.
+	      Credit to Kostya Serebryany of the Chromium development
+	      community.<br/>
+	    [85041] Medium CVE-2011-2844: Out-of-bounds read with mp3 files.
+	      Credit to Mario Gomes.<br/>
+	    [89219] High CVE-2011-2846: Use-after-free in unload event handling.
+	      Credit to Arthur Gerkis.<br/>
+	    [89330] High CVE-2011-2847: Use-after-free in document loader.
+	      Credit to miaubiz.<br/>
+	    [89564] Medium CVE-2011-2848: URL bar spoof with forward button.
+	      Credit to Jordi Chancel.<br/>
+	    [89795] Low CVE-2011-2849: Browser NULL pointer crash with
+	      WebSockets. Credit to Arthur Gerkis.<br/>
+	    [89991] Medium CVE-2011-3234: Out-of-bounds read in box handling.
+	      Credit to miaubiz.<br/>
+	    [90134] Medium CVE-2011-2850: Out-of-bounds read with Khmer
+	      characters. Credit to miaubiz.<br/>
+	    [90173] Medium CVE-2011-2851: Out-of-bounds read in video handling.
+	      Credit to Google Chrome Security Team (Inferno).<br/>
+	    [91120] High CVE-2011-2852: Off-by-one in v8. Credit to Christian
+	      Holler.<br/>
+	    [91197] High CVE-2011-2853: Use-after-free in plug-in handling.
+	      Credit to Google Chrome Security Team (SkyLined).<br/>
+	    [92651] [94800] High CVE-2011-2854: Use-after-free in ruby / table
+	      style handing. Credit to Slawomir Blazek, and independent later
+	      discoveries by miaubiz and Google Chrome Security Team
+	      (Inferno).<br/>
+	    [92959] High CVE-2011-2855: Stale node in stylesheet handling.
+	      Credit to Arthur Gerkis.<br/>
+	    [93416] High CVE-2011-2856: Cross-origin bypass in v8. Credit to
+	      Daniel Divricean.<br/>
+	    [93420] High CVE-2011-2857: Use-after-free in focus controller.
+	      Credit to miaubiz.<br/>
+	    [93472] High CVE-2011-2834: Double free in libxml XPath handling.
+	      Credit to Yang Dingning from NCNIPC, Graduate University of
+	      Chinese Academy of Sciences.<br/>
+	    [93497] Medium CVE-2011-2859: Incorrect permissions assigned to
+	      non-gallery pages. Credit to Bernhard "Bruhns" Brehm of Recurity
+	      Labs.<br/>
+	    [93587] High CVE-2011-2860: Use-after-free in table style handling.
+	      Credit to miaubiz.<br/>
+	    [93596] Medium CVE-2011-2861: Bad string read in PDF. Credit to Aki
+	      Helin of OUSPG.<br/>
+	    [93906] High CVE-2011-2862: Unintended access to v8 built-in
+	      objects. Credit to Sergey Glazunov.<br/>
+	    [95563] Medium CVE-2011-2864: Out-of-bounds read with Tibetan
+	      characters. Credit to Google Chrome Security Team (Inferno).<br/>
+	    [95625] Medium CVE-2011-2858: Out-of-bounds read with triangle
+	      arrays. Credit to Google Chrome Security Team (Inferno).<br/>
+	    [95917] Low CVE-2011-2874: Failure to pin a self-signed cert for a
+	      session. Credit to Nishant Yadant of VMware and Craig Chamberlain
+	      (@randomuserid).<br/>
+	    High CVE-2011-2875: Type confusion in v8 object sealing. Credit to
+	      Christian Holler.</p>
+
+	  <p>Fixed in 13.0.782.215:<br/>
+	    [89402] High CVE-2011-2821: Double free in libxml XPath handling.
+	      Credit to Yang Dingning from NCNIPC, Graduate University of
+	      Chinese Academy of Sciences.<br/>
+	    [82552] High CVE-2011-2823: Use-after-free in line box handling.
+	      Credit to Google Chrome Security Team (SkyLined) and independent
+	      later discovery by miaubiz.<br/>
+	    [88216] High CVE-2011-2824: Use-after-free with counter nodes.
+	      Credit to miaubiz.<br/>
+	    [88670] High CVE-2011-2825: Use-after-free with custom fonts. Credit
+	      to wushi of team509 reported through ZDI (ZDI-CAN-1283), plus
+	      indepdendent later discovery by miaubiz.<br/>
+	    [87453] High CVE-2011-2826: Cross-origin violation with empty
+	      origins. Credit to Sergey Glazunov.<br/>
+	    [90668] High CVE-2011-2827: Use-after-free in text searching. Credit
+	      to miaubiz.<br/>
+	    [91517] High CVE-2011-2828: Out-of-bounds write in v8. Credit to
+	      Google Chrome Security Team (SkyLined).<br/>
+	    [32-bit only] [91598] High CVE-2011-2829: Integer overflow in
+	      uniform arrays. Credit to Sergey Glazunov.<br/>
+	    [Linux only] [91665] High CVE-2011-2839: Buggy memset() in PDF.
+	      Credit to Aki Helin of OUSPG.</p>
+
+	  <p>Fixed in 13.0.782.107:<br/>
+	    [75821] Medium CVE-2011-2358: Always confirm an extension install
+	      via a browser dialog. Credit to Sergey Glazunov.<br/>
+	    [78841] High CVE-2011-2359: Stale pointer due to bad line box
+	      tracking in rendering. Credit to miaubiz and Martin Barbella.<br/>
+	    [79266] Low CVE-2011-2360: Potential bypass of dangerous file
+	      prompt. Credit to kuzzcc.<br/>
+	    [79426] Low CVE-2011-2361: Improve designation of strings in the
+	      basic auth dialog. Credit to kuzzcc.<br/>
+	    [Linux only] [81307] Medium CVE-2011-2782: File permissions error
+	      with drag and drop. Credit to Evan Martin of the Chromium
+	      development community.<br/>
+	    [83273] Medium CVE-2011-2783: Always confirm a developer mode NPAPI
+	      extension install via a browser dialog. Credit to Sergey
+	      Glazunov.<br/>
+	    [83841] Low CVE-2011-2784: Local file path disclosure via GL
+	      program log. Credit to kuzzcc.<br/>
+	    [84402] Low CVE-2011-2785: Sanitize the homepage URL in extensions.
+	      Credit to kuzzcc.<br/>
+	    [84600] Low CVE-2011-2786: Make sure the speech input bubble is
+	      always on-screen. Credit to Olli Pettay of Mozilla.<br/>
+	    [84805] Medium CVE-2011-2787: Browser crash due to GPU lock
+	      re-entrancy issue. Credit to kuzzcc.<br/>
+	    [85559] Low CVE-2011-2788: Buffer overflow in inspector
+	      serialization. Credit to Mikolaj Malecki.<br/>
+	    [85808] Medium CVE-2011-2789: Use after free in Pepper plug-in
+	      instantiation. Credit to Mario Gomes and kuzzcc.<br/>
+	    [86502] High CVE-2011-2790: Use-after-free with floating styles.
+	      Credit to miaubiz.<br/>
+	    [86900] High CVE-2011-2791: Out-of-bounds write in ICU. Credit to
+	      Yang Dingning from NCNIPC, Graduate University of Chinese Academy
+	      of Sciences.<br/>
+	    [87148] High CVE-2011-2792: Use-after-free with float removal.
+	      Credit to miaubiz.<br/>
+	    [87227] High CVE-2011-2793: Use-after-free in media selectors.
+	      Credit to miaubiz.<br/>
+	    [87298] Medium CVE-2011-2794: Out-of-bounds read in text iteration.
+	      Credit to miaubiz.<br/>
+	    [87339] Medium CVE-2011-2795: Cross-frame function leak. Credit to
+	      Shih Wei-Long.<br/>
+	    [87548] High CVE-2011-2796: Use-after-free in Skia. Credit to Google
+	      Chrome Security Team (Inferno) and Kostya Serebryany of the
+	      Chromium development community.<br/>
+	    [87729] High CVE-2011-2797: Use-after-free in resource caching.
+	      Credit to miaubiz.<br/>
+	    [87815] Low CVE-2011-2798: Prevent a couple of internal schemes from
+	      being web accessible. Credit to sirdarckcat of the Google Security
+	      Team.<br/>
+	    [87925] High CVE-2011-2799: Use-after-free in HTML range handling.
+	      Credit to miaubiz.<br/>
+	    [88337] Medium CVE-2011-2800: Leak of client-side redirect target.
+	      Credit to Juho Nurminen.<br/>
+	    [88591] High CVE-2011-2802: v8 crash with const lookups. Credit to
+	      Christian Holler.<br/>
+	    [88827] Medium CVE-2011-2803: Out-of-bounds read in Skia paths.
+	      Credit to Google Chrome Security Team (Inferno).<br/>
+	    [88846] High CVE-2011-2801: Use-after-free in frame loader. Credit
+	      to miaubiz.<br/>
+	    [88889] High CVE-2011-2818: Use-after-free in display box rendering.
+	      Credit to Martin Barbella.<br/>
+	    [89142] High CVE-2011-2804: PDF crash with nested functions. Credit
+	      to Aki Helin of OUSPG.<br/>
+	    [89520] High CVE-2011-2805: Cross-origin script injection. Credit to
+	      Sergey Glazunov.<br/>
+	    [90222] High CVE-2011-2819: Cross-origin violation in base URI
+	      handling. Credit to Sergey Glazunov.</p>
+
 	  <p>Fixed in 12.0.742.112:<br/>
 	    [77493] Medium CVE-2011-2345: Out-of-bounds read in NPAPI string
 	      handling. Credit to Philippe Arteau.<br/>
@@ -4769,11 +6024,81 @@ Note:  Please add new entries to the beginning of this file.
       <cvename>CVE-2011-2349</cvename>
       <cvename>CVE-2011-2350</cvename>
       <cvename>CVE-2011-2351</cvename>
+      <cvename>CVE-2011-2358</cvename>
+      <cvename>CVE-2011-2359</cvename>
+      <cvename>CVE-2011-2360</cvename>
+      <cvename>CVE-2011-2361</cvename>
+      <cvename>CVE-2011-2782</cvename>
+      <cvename>CVE-2011-2783</cvename>
+      <cvename>CVE-2011-2784</cvename>
+      <cvename>CVE-2011-2785</cvename>
+      <cvename>CVE-2011-2786</cvename>
+      <cvename>CVE-2011-2787</cvename>
+      <cvename>CVE-2011-2788</cvename>
+      <cvename>CVE-2011-2789</cvename>
+      <cvename>CVE-2011-2790</cvename>
+      <cvename>CVE-2011-2791</cvename>
+      <cvename>CVE-2011-2792</cvename>
+      <cvename>CVE-2011-2793</cvename>
+      <cvename>CVE-2011-2794</cvename>
+      <cvename>CVE-2011-2795</cvename>
+      <cvename>CVE-2011-2796</cvename>
+      <cvename>CVE-2011-2797</cvename>
+      <cvename>CVE-2011-2798</cvename>
+      <cvename>CVE-2011-2799</cvename>
+      <cvename>CVE-2011-2800</cvename>
+      <cvename>CVE-2011-2801</cvename>
+      <cvename>CVE-2011-2802</cvename>
+      <cvename>CVE-2011-2803</cvename>
+      <cvename>CVE-2011-2804</cvename>
+      <cvename>CVE-2011-2805</cvename>
+      <cvename>CVE-2011-2818</cvename>
+      <cvename>CVE-2011-2819</cvename>
+      <cvename>CVE-2011-2821</cvename>
+      <cvename>CVE-2011-2823</cvename>
+      <cvename>CVE-2011-2824</cvename>
+      <cvename>CVE-2011-2825</cvename>
+      <cvename>CVE-2011-2826</cvename>
+      <cvename>CVE-2011-2827</cvename>
+      <cvename>CVE-2011-2828</cvename>
+      <cvename>CVE-2011-2829</cvename>
+      <cvename>CVE-2011-2834</cvename>
+      <cvename>CVE-2011-2835</cvename>
+      <cvename>CVE-2011-2836</cvename>
+      <cvename>CVE-2011-2837</cvename>
+      <cvename>CVE-2011-2838</cvename>
+      <cvename>CVE-2011-2839</cvename>
+      <cvename>CVE-2011-2840</cvename>
+      <cvename>CVE-2011-2841</cvename>
+      <cvename>CVE-2011-2842</cvename>
+      <cvename>CVE-2011-2843</cvename>
+      <cvename>CVE-2011-2844</cvename>
+      <cvename>CVE-2011-2846</cvename>
+      <cvename>CVE-2011-2847</cvename>
+      <cvename>CVE-2011-2848</cvename>
+      <cvename>CVE-2011-2849</cvename>
+      <cvename>CVE-2011-2850</cvename>
+      <cvename>CVE-2011-2851</cvename>
+      <cvename>CVE-2011-2852</cvename>
+      <cvename>CVE-2011-2853</cvename>
+      <cvename>CVE-2011-2854</cvename>
+      <cvename>CVE-2011-2855</cvename>
+      <cvename>CVE-2011-2856</cvename>
+      <cvename>CVE-2011-2857</cvename>
+      <cvename>CVE-2011-2858</cvename>
+      <cvename>CVE-2011-2859</cvename>
+      <cvename>CVE-2011-2860</cvename>
+      <cvename>CVE-2011-2861</cvename>
+      <cvename>CVE-2011-2862</cvename>
+      <cvename>CVE-2011-2864</cvename>
+      <cvename>CVE-2011-2874</cvename>
+      <cvename>CVE-2011-2875</cvename>
+      <cvename>CVE-2011-3234</cvename>
     </references>
     <dates>
       <discovery>2010-10-19</discovery>
       <entry>2010-12-07</entry>
-      <modified>2011-06-29</modified>
+      <modified>2011-09-20</modified>
     </dates>
   </vuln>
 
@@ -5892,7 +7217,8 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>horde-imp</name>
-	<range><lt>4.3.8,1</lt></range>
+	<range><gt>4.2,1</gt><lt>4.3.8,1</lt></range>
+	<range><lt>4.3.8</lt></range>
       </package>
     </affects>
     <description>
@@ -5913,6 +7239,7 @@ Note:  Please add new entries to the beginning of this file.
     <dates>
       <discovery>2010-09-28</discovery>
       <entry>2010-09-28</entry>
+      <modified>2011-09-23</modified>
     </dates>
   </vuln>
 
@@ -8113,7 +9440,8 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>krb5</name>
-	<range><ge>1.7</ge><lt>1.8.2</lt></range>
+	<range><ge>1.7</ge><lt>1.7.2</lt></range>
+	<range><ge>1.8</ge><lt>1.8.2</lt></range>
       </package>
     </affects>
     <description>
@@ -18101,7 +19429,7 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>emacs</name>
-	<range><le>22.2_1</le></range>
+	<range><ge>22</ge><le>22.2_1</le></range>
       </package>
     </affects>
     <description>
@@ -25147,15 +26475,10 @@ Note:  Please add new entries to the beginning of this file.
     <topic>tcl/tk -- buffer overflow in ReadImage function</topic>
     <affects>
       <package>
-	<name>tcl</name>
-	<name>tcl-threads</name>
-	<range><lt>8.4.16</lt></range>
-	<range><gt>8.4.*,1</gt><lt>8.4.16,1</lt></range>
-      </package>
-      <package>
 	<name>tk</name>
 	<name>tk-threads</name>
-	<range><lt>8.4.16</lt></range>
+	<range><gt>8.2.*</gt><lt>8.2.3_11</lt></range>
+	<range><gt>8.3.*</gt><lt>8.3.5_10</lt></range>
 	<range><gt>8.4.*,2</gt><lt>8.4.16,2</lt></range>
       </package>
     </affects>
@@ -25175,7 +26498,7 @@ Note:  Please add new entries to the beginning of this file.
     <dates>
       <discovery>2007-09-27</discovery>
       <entry>2007-10-05</entry>
-      <modified>2007-12-31</modified>
+      <modified>2011-09-04</modified>
     </dates>
   </vuln>
 
@@ -32492,7 +33815,7 @@ Note:  Please add new entries to the beginning of this file.
     <affects>
       <package>
 	<name>hlstats</name>
-	<range><ge>0</ge></range>
+	<range><le>1.35</le></range>
       </package>
     </affects>
     <description>
@@ -32506,10 +33829,14 @@ Note:  Please add new entries to the beginning of this file.
     <references>
       <bid>19745</bid>
       <cvename>CVE-2006-4454</cvename>
+      <cvename>CVE-2006-6780</cvename>
+      <cvename>CVE-2006-6781</cvename>
+      <cvename>CVE-2007-2812</cvename>
     </references>
     <dates>
       <discovery>2006-08-29</discovery>
       <entry>2006-09-02</entry>
+      <modified>2011-09-03</modified>
     </dates>
   </vuln>
 

@@ -1,4 +1,4 @@
-@comment $FreeBSD: ports/devel/libvirt/pkg-plist,v 1.2 2011/05/28 13:18:34 sunpoet Exp $
+@comment $FreeBSD: ports/devel/libvirt/pkg-plist,v 1.3 2011/06/10 21:44:41 jlaffaye Exp $
 bin/virsh
 bin/virt-pki-validate
 bin/virt-xml-validate
@@ -151,11 +151,13 @@ share/gtk-doc/html/libvirt/right.png
 share/gtk-doc/html/libvirt/style.css
 share/gtk-doc/html/libvirt/up.png
 %%DATADIR%%/cpu_map.xml
+%%DATADIR%%/schemas/basictypes.rng
 %%DATADIR%%/schemas/capability.rng
 %%DATADIR%%/schemas/domain.rng
 %%DATADIR%%/schemas/domainsnapshot.rng
 %%DATADIR%%/schemas/interface.rng
 %%DATADIR%%/schemas/network.rng
+%%DATADIR%%/schemas/networkcommon.rng
 %%DATADIR%%/schemas/nodedev.rng
 %%DATADIR%%/schemas/nwfilter.rng
 %%DATADIR%%/schemas/secret.rng

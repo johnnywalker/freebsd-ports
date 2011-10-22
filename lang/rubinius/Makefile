@@ -7,6 +7,7 @@
 
 PORTNAME=	rubinius
 PORTVERSION=	1.2.4
+PORTREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	ftp://ftp.SpringDaemons.com/soft/ \
 		http://asset.rubini.us/prebuilt/:llvm
@@ -30,6 +31,7 @@ CONFIGURE_ARGS=	--without-execinfo \
 
 LLVMDIST=	llvm-2.8.tgz
 USE_RUBY=	yes
+RUBY_NO_RUN_DEPENDS=	yes
 USE_RAKE=	yes
 USE_PERL5_BUILD=	yes
 USE_GMAKE=	yes
@@ -43,9 +45,12 @@ OPTIONS=	GDBM	"Enable GDBM support"	on
 MANUAL_PACKAGE_BUILD=	hangs on pointyhat
 .endif
 
+.if ${ARCH} == "sparc64"
+BROKEN=		Does not compile on sparc64
+.endif
 
 .if !defined(WITHOUT_GDBM) || exists(${LOCALBASE}/include/gdbm.h)
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm
 PLIST_SUB+=	GDBM=""
 .else
 PLIST_SUB+=	GDBM="@comment "

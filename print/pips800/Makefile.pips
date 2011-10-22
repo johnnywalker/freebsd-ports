@@ -2,7 +2,7 @@
 # Date created:		26 Aug 2004
 # Whom:			Hajimu UMEMOTO <ume@FreeBSD.org>
 #
-# $FreeBSD: ports/print/pips800/Makefile.pips,v 1.39 2010/10/28 21:00:17 erwin Exp $
+# $FreeBSD: ports/print/pips800/Makefile.pips,v 1.40 2010/12/04 07:33:18 ade Exp $
 #
 
 PORTNAME=	pips${PRTYPE}
@@ -95,8 +95,8 @@ PLIST_SUB=	PRTYPE=${PRTYPE} \
 
 .include <bsd.port.pre.mk>
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 .if ${PIPS_MAJOR} >= 2
 CONFLICTS=	pips*-2.*
 USE_RC_SUBR=	yes
@@ -129,7 +129,6 @@ USE_ICONV=	yes
 LDFLAGS+=	${PTHREAD_LIBS}
 CPPFLAGS+=	${PTHREAD_CFLAGS}
 .endif
-CONFIGURE_ENV+=	CFLAGS="${CFLAGS}" CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 MAKE_ENV+=	SED="${SED}"
 
 LIB_FILE=	lib${PRT_MODEL:L}.so

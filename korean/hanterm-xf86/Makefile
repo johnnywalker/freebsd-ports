@@ -7,7 +7,7 @@
 
 PORTNAME=	hanterm
 PORTVERSION=	2.0.5.173
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	korean x11
 MASTER_SITES=	http://kldp.net/frs/download.php/282/
 PKGNAMESUFFIX=	-xf
@@ -18,14 +18,16 @@ COMMENT=	X11R6-based xterm hacked for managing Korean languages
 
 RUN_DEPENDS=	${LOCALBASE}/lib/X11/fonts/local/gulim12.pcf.gz:${PORTSDIR}/korean/baekmukfonts-bdf
 
+BROKEN=		does not compile
+
 USE_XORG=	xaw xext x11
 CONFLICTS=	ko-hanterm-3.*
 USE_ICONV=	yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-boxchar --enable-ansi-color \
 			--enable-256-color --enable-chat --enable-now-chat
-CONFIGURE_ENV+=		LIBS="${LDFLAGS} -L${LOCALBASE}/lib -liconv" \
-			CFLAGS="${CFLAGS} -I${LOCALBASE}/include"
+CONFIGURE_ENV+=		LIBS="${LDFLAGS} -L${LOCALBASE}/lib -liconv"
+CFLAGS+=	-I${LOCALBASE}/include
 MAKE_ENV+=		INSTALL_SCRIPT="${INSTALL_SCRIPT}"
 MAN1=		hanterm.1
 

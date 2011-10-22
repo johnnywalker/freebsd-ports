@@ -5,9 +5,10 @@
 # $FreeBSD$
 
 PORTNAME=	rpm
-PORTVERSION=	4.9.1
+PORTVERSION=	4.9.1.1
+PORTREVISION=	1
 CATEGORIES=	archivers
-MASTER_SITES=	http://rpm.org/releases/rpm-${PORTVERSION:R}.x/ \
+MASTER_SITES=	http://rpm.org/releases/rpm-${PORTVERSION:R:R}.x/ \
 		ftp://ftp.mirrorservice.org/sites/ftp.rpm.org/pub/rpm/dist/rpm-${PORTVERSION:E}.x/
 
 MAINTAINER=	johans@FreeBSD.org
@@ -66,7 +67,6 @@ PLIST_SUB+=	NLS=""
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS+=--without-db \
 		--with-popt-prefix="${LOCALBASE}" \
 		--sysconfdir=${PREFIX}/etc \

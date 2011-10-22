@@ -6,16 +6,18 @@
 #
 
 PORTNAME=	pg
-PORTVERSION=	0.8.0
+PORTVERSION=	0.9.0
 CATEGORIES=	databases ruby
-MASTER_SITES=	RF
-MASTER_SITE_SUBDIR=	ruby-${PORTNAME}
+MASTER_SITES=	http://cdn.bitbucket.org/ged/ruby-pg/downloads/
 PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
-DISTNAME=	ruby-pg-${PORTVERSION}
 DIST_SUBDIR=	ruby
 
 MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	Ruby interface to PostgreSQL library
+
+IGNORE=		is replaced by rubygem-pg
+DEPRECATED=	is replaced by rubygem-pg
+EXPIRATION_DATE=	2011-10-01
 
 USE_PGSQL=	yes
 USE_RUBY=	yes
@@ -25,14 +27,10 @@ WRKSRC=		${WRKDIR}/${DISTNAME}/ext
 CONFIGURE_ARGS=	--with-pgsql-include-dir="${LOCALBASE}/include"
 INSTALL_TARGET=	site-install
 
-DOCS_EN=	ChangeLog README doc/postgres.html
-DOCS_JA=	README.ja doc/postgres.jp.html
+DOCS_EN=	ChangeLog Contributors README
+DOCS_JA=	README.ja
 
 post-install:
-.if !defined(NOPORTEXAMPLES)
-	${MKDIR} ${RUBY_MODEXAMPLESDIR}
-	${INSTALL_DATA} ${WRKSRC}/../sample/*.rb ${RUBY_MODEXAMPLESDIR}/
-.endif
 .if !defined(NOPORTDOCS)
 	${MKDIR} ${RUBY_MODDOCDIR}/ja
 .for f in ${DOCS_EN}

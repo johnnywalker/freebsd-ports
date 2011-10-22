@@ -19,12 +19,12 @@ USE_GMAKE=	yes
 USE_GETTEXT=	yes
 USE_LDCONFIG=	yes
 USE_PYTHON=	yes
-USE_GNOME=	gnomehack pkgconfig glib20 ltverhack gnometarget \
+USE_GNOME=	gnomehack pkgconfig glib20 ltverhack \
 		pygtk2
 USE_GSTREAMER=	core good bad python
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 

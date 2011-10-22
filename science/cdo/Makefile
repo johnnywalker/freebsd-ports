@@ -6,9 +6,9 @@
 #
 
 PORTNAME=	cdo
-PORTVERSION=	1.5.1
+PORTVERSION=	1.5.2
 CATEGORIES=	science
-MASTER_SITES=	https://code.zmaw.de/attachments/download/1531/ \
+MASTER_SITES=	https://code.zmaw.de/attachments/download/1690/ \
 		LOCAL/sunpoet
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -20,16 +20,16 @@ OPTIONS=	HDF5	"HDF5 support"		on \
 		PROJ	"PROJ support"		on \
 		SZIP	"SZIP support"		on
 
-CFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+CFLAGS+=	${PTHREAD_CFLAGS}
+CPPFLAGS+=	-I${LOCALBASE}/include
 CONFIGURE_ARGS=	--enable-cdi-lib --program-transform-name="" --with-zlib=/usr
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 USE_GNOME=	gnomehack
 USE_LDCONFIG=	yes
 
-NETCDF_VER?=	4
 HDF5_VER?=	18
+NETCDF_VER?=	4
 
 .include <bsd.port.options.mk>
 

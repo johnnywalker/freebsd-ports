@@ -33,14 +33,12 @@ DILLOVERSION=	0.8.6
 I18NVERSION=	20060709
 
 USE_BZIP2=	yes
-USE_GNOME=	gnometarget gtk12
+USE_GNOME=	gtk12
 USE_GMAKE=	yes
 USE_ICONV=	yes
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" \
-		LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--enable-cookies --enable-threaded-dns \
 		--libdir=${PREFIX}/libexec
 

@@ -7,7 +7,7 @@
 
 PORTNAME=	clisp
 PORTVERSION=	2.49
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	lang lisp
 MASTER_SITES=	GNU/${PORTNAME}/release/${PORTVERSION}
 
@@ -29,14 +29,13 @@ HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--prefix="${PREFIX}" --mandir="${MANPREFIX}/man" \
 		--elispdir="${DATADIR}/emacs" --vimdir="${DATADIR}/vim" \
 		--docdir="${DOCSDIR}"
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_TARGET=	${ARCH:S/amd64/x86_64/}-portbld-freebsd${OSREL}
 # Complaints if the environment changes between build stages.
 MAKE_ENV=	${CONFIGURE_ENV}
 BUILD_WRKSRC=	${WRKSRC}/src
 INSTALL_WRKSRC=	${BUILD_WRKSRC}
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 MAKE_JOBS_UNSAFE=yes
 
 OPTIONS=	BDB "Build Berkeley Database module" Off \
@@ -123,7 +122,7 @@ CONFIGURE_ARGS+=--with-module=fastcgi
 .endif
 
 .if defined(WITH_GDBM)
-LIB_DEPENDS+=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS+=	gdbm.4:${PORTSDIR}/databases/gdbm
 CONFIGURE_ARGS+=--with-module=gdbm
 .endif
 

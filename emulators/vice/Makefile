@@ -8,8 +8,7 @@ PORTNAME=	vice
 PORTVERSION=	2.3
 PORTREVISION=	1
 CATEGORIES=	emulators
-MASTER_SITES=	http://www.viceteam.org/online/ \
-		http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/VICE/ \
+MASTER_SITES=	http://www.zimmers.net/anonftp/pub/cbm/crossplatform/emulators/VICE/ \
 		ftp://ftp.zimmers.net/pub/cbm/crossplatform/emulators/VICE/
 PKGNAMESUFFIX?=	${GNOME_SUFFIX}${PKGNAMESUFFIX2}
 
@@ -57,7 +56,6 @@ CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
 PKG_CONFIG?=	${LOCALBASE}/bin/pkg-config
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ENV+=	PKG_CONFIG="${LOCALBASE}/bin/pkg-config"
 CONFIGURE_ARGS+=	--enable-fullscreen --enable-ipv6 --disable-dependency-tracking
 MAN1=		vice.1 c1541.1 petcat.1

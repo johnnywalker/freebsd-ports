@@ -7,6 +7,7 @@
 
 PORTNAME=	xfce4-power-manager
 PORTVERSION=	1.0.10
+PORTREVISION=	1
 CATEGORIES=	sysutils xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/xfce/${PORTNAME}/${PORTVERSION:R}
@@ -15,13 +16,13 @@ DIST_SUBDIR=	xfce4
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	XFce4 power manager
 
-LIB_DEPENDS=	notify.1:${PORTSDIR}/devel/libnotify
+LIB_DEPENDS=	notify.4:${PORTSDIR}/devel/libnotify
 
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget gtk20 intltool intlhack pkgconfig
+USE_GNOME=	gtk20 intltool intlhack pkgconfig
 USE_XFCE=	configenv libutil libgui panel
 INSTALLS_ICONS=	yes
 CONFIGURE_ARGS=	--disable-network-manager \

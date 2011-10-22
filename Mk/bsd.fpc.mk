@@ -1,5 +1,5 @@
 #
-# $FreeBSD: ports/Mk/bsd.fpc.mk,v 1.12 2010/11/15 22:50:00 acm Exp $
+# $FreeBSD: ports/Mk/bsd.fpc.mk,v 1.13 2011/06/23 05:05:29 acm Exp $
 #
 # bsd.fpc.mk - Support for FreePascal based ports.
 #
@@ -45,6 +45,10 @@ IGNORE=	incompatible fpc ${FPC_CURRENT_VER} compiler, please install ${FPC_VER} 
 PPNAME=			ppc386
 .elif ${ARCH} == "amd64"
 PPNAME=			ppcx64
+.else
+PPNAME=			ppc_not_yet_ported
+ONLY_FOR_ARCHS=		i386 amd64
+ONLY_FOR_ARCHS_REASON=	not yet ported to anything other than i386 and amd64
 .endif
 
 BUILD_DEPENDS+=		${PPNAME}:${PORTSDIR}/lang/fpc

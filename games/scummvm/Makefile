@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	scummvm
-DISTVERSION=	1.3.0
+DISTVERSION=	1.3.1
 CATEGORIES=	games emulators
 MASTER_SITES=	SF
 MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${DISTVERSION}
@@ -26,16 +26,15 @@ CONFIGURE_ARGS=	--prefix=${PREFIX} \
 		--disable-alsa \
 		--with-zlib-prefix=/usr \
 		--disable-debug \
+		--disable-nasm \
 		--disable-tremor
-CONFIGURE_ENV=	CXX="${CXX}"
- 		LDFLAGS="${PTHREAD_LIBS}"
+LDFLAGS+=	${PTHREAD_LIBS}
 
 OPTIONS=	VORBIS "Enable Ogg Vorbis support" on \
 		MP3 "Enable MP3 support" on \
 		FLAC "Enable FLAC support" off \
 		FLUIDSYNTH "Enable FluidSynth MIDI synthesizer" off \
  		MT32EMU "Enable MT-32 emulator" on \
- 		X86_ASM "Enable assembly code (i386 only)" off
 
 MAN6=		scummvm.6
 
@@ -57,15 +56,6 @@ PLIST_FILES=	bin/scummvm \
 PLIST_DIRS=	%%DATADIR%%
 
 .include <bsd.port.pre.mk>
-
-.if ${ARCH} == "i386"
-.if defined(WITH_X86_ASM)
-BUILD_DEPENDS+=	nasm:${PORTSDIR}/devel/nasm
-CONFIGURE_ARGS+=--with-nasm-prefix=${LOCALBASE}
-.else
-CONFIGURE_ARGS+=--disable-nasm
-.endif
-.endif
 
 .if defined(WITH_VORBIS)
 LIB_DEPENDS+=	ogg.7:${PORTSDIR}/audio/libogg \
@@ -99,10 +89,6 @@ CONFIGURE_ARGS+=--disable-fluidsynth
 
 .if defined(WITHOUT_MT32EMU)
 CONFIGURE_ARGS+=--disable-mt32emu
-.endif
-
-.if ${ARCH} == "sparc64"
-BROKEN=		Does not compile on sparc64: invokes i386 asm
 .endif
 
 do-install:

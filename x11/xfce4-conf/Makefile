@@ -21,7 +21,7 @@ USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-USE_GNOME=	glib20 gnometarget gnomehack gtk20 intltool intlhack pkgconfig
+USE_GNOME=	glib20 gnomehack gtk20 intltool intlhack pkgconfig
 USE_LDCONFIG=	yes
 USE_XFCE=	configenv libutil
 USE_XORG=	x11
@@ -69,11 +69,5 @@ PLIST_SUB+=	NLS="@comment "
 post-patch:
 	@${REINPLACE_CMD} -e 's|--module-dir|--module=xfconf &|' \
 		${WRKSRC}/docs/reference/Makefile.in
-
-post-build:
-.if defined(WITH_PERL)
-	@${REINPLACE_CMD} -E -e 's! doc_(perl|site|\$$\(INSTALLDIRS\))_install$$!!' \
-		${WRKSRC}/xfconf-perl/Makefile.perl
-.endif
 
 .include <bsd.port.post.mk>

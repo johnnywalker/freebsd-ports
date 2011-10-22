@@ -7,6 +7,7 @@
 
 PORTNAME=	xneur
 PORTVERSION=	0.13.0
+PORTREVISION=	1
 CATEGORIES=	deskutils
 MASTER_SITES=	http://dists.xneur.ru/release-${DISTVERSION}/tgz/ \
 		http://mirror.amdmi3.ru/distfiles/
@@ -14,7 +15,7 @@ MASTER_SITES=	http://dists.xneur.ru/release-${DISTVERSION}/tgz/ \
 MAINTAINER=	admin@lissyara.su
 COMMENT=	Auto keyboard switcher
 
-LIB_DEPENDS=	notify.1:${PORTSDIR}/devel/libnotify \
+LIB_DEPENDS=	notify.4:${PORTSDIR}/devel/libnotify \
 		pcre.0:${PORTSDIR}/devel/pcre
 
 USE_BZIP2=	yes
@@ -24,7 +25,6 @@ USE_ICONV=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
 CONFIGURE_ARGS=	--disable-static --libdir=${PREFIX}/lib/xneur
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 
 USE_LDCONFIG=	yes
 INSTALLS_ICONS=	yes

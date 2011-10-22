@@ -9,6 +9,7 @@
     SUBDIR += acidrip
     SUBDIR += aegisub
     SUBDIR += arista
+    SUBDIR += asdcplib
     SUBDIR += atomicparsley
     SUBDIR += audacious
     SUBDIR += audacious-plugins
@@ -22,7 +23,6 @@
     SUBDIR += banshee
     SUBDIR += beep-media-player
     SUBDIR += bmp-extra-plugins
-    SUBDIR += bmpx
     SUBDIR += bombono
     SUBDIR += bsdbktr_tvtune
     SUBDIR += camserv
@@ -69,6 +69,7 @@
     SUBDIR += fxtv
     SUBDIR += gaupol
     SUBDIR += gavl
+    SUBDIR += gcap
     SUBDIR += gcfilms
     SUBDIR += gdialog
     SUBDIR += gdvrecv
@@ -80,7 +81,6 @@
     SUBDIR += gnome-mplayer
     SUBDIR += gnome-subtitles
     SUBDIR += gnustep-mplayer
-    SUBDIR += goggles
     SUBDIR += gopchop
     SUBDIR += gpac-libgpac
     SUBDIR += gpac-mp4box
@@ -143,7 +143,6 @@
     SUBDIR += kplayer
     SUBDIR += kplayer-kde4
     SUBDIR += ksubeditor
-    SUBDIR += ldvd
     SUBDIR += libaacs
     SUBDIR += libass
     SUBDIR += libbluray
@@ -171,8 +170,6 @@
     SUBDIR += libvpx
     SUBDIR += libxine
     SUBDIR += libxspf
-    SUBDIR += linux-divx4linux
-    SUBDIR += linux-divx4linux4
     SUBDIR += linux-f10-libtheora
     SUBDIR += linux-f10-libv4l
     SUBDIR += linux-gspca-kmod
@@ -188,6 +185,7 @@
     SUBDIR += lsdvd
     SUBDIR += lxdvdrip
     SUBDIR += m2tstoavi
+    SUBDIR += m2vrequantiser
     SUBDIR += mandvd
     SUBDIR += mediadownloader
     SUBDIR += mediainfo
@@ -222,6 +220,7 @@
     SUBDIR += mplayerxp
     SUBDIR += mplex
     SUBDIR += msdl
+    SUBDIR += mxflib
     SUBDIR += mythplugin-mythvideo
     SUBDIR += mythtv
     SUBDIR += mythtv-frontend
@@ -229,11 +228,9 @@
     SUBDIR += noatun-plugins
     SUBDIR += nxtvepg
     SUBDIR += oggvideotools
-    SUBDIR += ogle
-    SUBDIR += ogle-gui
     SUBDIR += ogmrip
     SUBDIR += ogmtools
-    SUBDIR += okle
+    SUBDIR += opencinematools
     SUBDIR += openmovieeditor
     SUBDIR += openquicktime
     SUBDIR += openshot
@@ -304,7 +301,6 @@
     SUBDIR += spigot
     SUBDIR += spook
     SUBDIR += streamanalyze
-    SUBDIR += subconv
     SUBDIR += subtitlecomposer
     SUBDIR += subtitlecomposer-kde4
     SUBDIR += subtitleeditor
@@ -346,6 +342,7 @@
     SUBDIR += vdr-plugin-reelchannelscan
     SUBDIR += vdr-plugin-remote
     SUBDIR += vdr-plugin-skinenigmang
+    SUBDIR += vdr-plugin-sleeptimer
     SUBDIR += vdr-plugin-softdevice
     SUBDIR += vdr-plugin-streamdev
     SUBDIR += vdr-plugin-ttxtsubs

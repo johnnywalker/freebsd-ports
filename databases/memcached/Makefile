@@ -6,14 +6,13 @@
 #
 
 PORTNAME=	memcached
-PORTVERSION=	1.4.5
-PORTREVISION=	3
+PORTVERSION=	1.4.7
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE} \
 		${MASTER_SITE_GENTOO}
 MASTER_SITE_SUBDIR=	distfiles
 
-MAINTAINER=	mnag@FreeBSD.org
+MAINTAINER=	swills@FreeBSD.org
 COMMENT=	High-performance distributed memory object cache system
 
 LIB_DEPENDS=	event-1.4:${PORTSDIR}/devel/libevent
@@ -34,7 +33,7 @@ PLIST_FILES=	bin/memcached \
 		include/memcached/protocol_binary.h
 PLIST_DIRS=	include/memcached /var/run/memcached
 
-PORTDOCS=	protocol.txt threads.txt readme.txt
+PORTDOCS=	protocol.txt readme.txt
 
 .include <bsd.port.pre.mk>
 
@@ -54,9 +53,8 @@ CONFIGURE_ARGS+=	--enable-replication
 LIB_DEPENDS+=		sasl2.2:${PORTSDIR}/security/cyrus-sasl2
 CONFIGURE_ARGS+=	--enable-sasl
 CFLAGS+=		-I${LOCALBASE}/include
-CPPFLAGS=		${CFLAGS}
+CPPFLAGS+=		${CFLAGS}
 LDFLAGS+=		-L${LOCALBASE}/lib
-CONFIGURE_ENV+=		CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 .else
 CONFIGURE_ARGS+=	--disable-sasl
 .endif

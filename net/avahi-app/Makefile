@@ -8,7 +8,7 @@
 
 PORTNAME=	avahi
 PORTVERSION=	0.6.29
-PORTREVISION?=	0
+PORTREVISION?=	1
 CATEGORIES?=	net dns
 MASTER_SITES=	http://www.avahi.org/download/
 PKGNAMESUFFIX?=	-app
@@ -20,7 +20,7 @@ BUILD_DEPENDS?=	g-ir-scanner:${PORTSDIR}/devel/gobject-introspection
 LIB_DEPENDS?=	expat.6:${PORTSDIR}/textproc/expat2 \
 		daemon.0:${PORTSDIR}/devel/libdaemon \
 		dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-		gdbm.3:${PORTSDIR}/databases/gdbm
+		gdbm.4:${PORTSDIR}/databases/gdbm
 RUN_DEPENDS?=	g-ir-scanner:${PORTSDIR}/devel/gobject-introspection
 
 USE_GNOME?=	gnomehack ltverhack glib20 intltool
@@ -37,10 +37,10 @@ CONFIGURE_ARGS?=--with-distro=freebsd \
 		--disable-doxygen-dot \
 		--localstatedir=/var \
 		--enable-compat-howl
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include -DHAVE_KQUEUE" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
+CONFIGURE_ENV=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		PTHREAD_LIBS="${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include -DHAVE_KQUEUE
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if ${AVAHI_SLAVE}=="no"
 CONFLICTS=	howl-[0-9]*

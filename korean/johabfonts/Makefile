@@ -15,9 +15,14 @@ DISTNAME=	hanterm-font-${PORTVERSION}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Hangul fonts for X11(johab) used in many hangul-related programs
 
+DEPRECATED=	No more public distfiles
+EXPIRATION_DATE=	2011-09-01
+
 BUILD_DEPENDS=	bdftopcf:${PORTSDIR}/x11-fonts/bdftopcf \
 		mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir \
 		mkfontscale:${PORTSDIR}/x11-fonts/mkfontscale
+
+BROKEN=		installs into /
 
 USE_IMAKE=	yes
 

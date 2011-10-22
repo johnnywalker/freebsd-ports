@@ -9,21 +9,24 @@ PORTNAME=	tux_aqfh
 PORTVERSION=	1.0.14
 PORTREVISION=	6
 CATEGORIES=	games
-MASTER_SITES=	http://tuxaqfh.sourceforge.net/dist/
+MASTER_SITES=	SF/tuxaqfh/tuxaqfh/${PORTVERSION}-classic
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	An OpenGL adventure game
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	${LOCALBASE}/lib/libplibsl.a:${PORTSDIR}/x11-toolkits/plib
 
 USE_GL=		glut
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--with-plib=${LOCALBASE}
+MAKE_JOBS_SAFE=	yes
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib -lusbhid ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib -lusbhid ${PTHREAD_LIBS}
 
 .include <bsd.port.pre.mk>
 

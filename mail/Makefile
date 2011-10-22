@@ -32,7 +32,6 @@
     SUBDIR += bbmail
     SUBDIR += biabam
     SUBDIR += biffer
-    SUBDIR += bincimap
     SUBDIR += bmf
     SUBDIR += bogofilter
     SUBDIR += bogofilter-sqlite
@@ -67,7 +66,6 @@
     SUBDIR += claws-mail-tnef
     SUBDIR += claws-mail-vcalendar
     SUBDIR += clawsker
-    SUBDIR += cmail
     SUBDIR += cone
     SUBDIR += contact-lookup-applet
     SUBDIR += coolmail
@@ -235,7 +233,6 @@
     SUBDIR += libspamtest
     SUBDIR += libspf
     SUBDIR += libspf2
-    SUBDIR += libspf2-10
     SUBDIR += libsrs2
     SUBDIR += libsrs_alt
     SUBDIR += libvmime
@@ -518,8 +515,8 @@
     SUBDIR += postfix
     SUBDIR += postfix-current
     SUBDIR += postfix-gps
+    SUBDIR += postfix-logwatch
     SUBDIR += postfix-policyd-sf
-    SUBDIR += postfix-policyd-spf
     SUBDIR += postfix-policyd-spf-perl
     SUBDIR += postfix-policyd-spf-python
     SUBDIR += postfix-policyd-weight
@@ -610,7 +607,6 @@
     SUBDIR += rss2email
     SUBDIR += ruby-rfilter
     SUBDIR += ruby-rmail
-    SUBDIR += ruby-tmail
     SUBDIR += rubygem-actionmailer
     SUBDIR += rubygem-mail
     SUBDIR += rubygem-mailfactory
@@ -624,7 +620,6 @@
     SUBDIR += sastatd
     SUBDIR += scam-backscatter
     SUBDIR += sccmilter
-    SUBDIR += scmail
     SUBDIR += sendmail
     SUBDIR += sendmail-ldap
     SUBDIR += sendmail-sasl
@@ -710,7 +705,6 @@
     SUBDIR += svnmailer
     SUBDIR += swaks
     SUBDIR += sylpheed
-    SUBDIR += sylpheed3
     SUBDIR += sympa
     SUBDIR += sympa5
     SUBDIR += synonym

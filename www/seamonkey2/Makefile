@@ -7,6 +7,7 @@
 
 PORTNAME=	seamonkey
 DISTVERSION=	2.0.14
+PORTREVISION=	1
 CATEGORIES?=	www ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA_EXTENDED}
 MASTER_SITE_SUBDIR=	seamonkey/releases/${DISTVERSION}/source
@@ -15,8 +16,11 @@ DISTNAME=	seamonkey-${DISTVERSION}.source
 MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	The open source, standards compliant web browser
 
+DEPRECATED=	Upstream support dropped. Please consider using www/seamonkey instead.
+EXPIRATION_DATE=	2011-10-01
+FORBIDDEN=	several security vulnerabilities
+
 CONFLICTS_BUILD=	spidermonkey-1.[0-7]*
-CONFLICTS_INSTALL=	seamonkey-1*
 LATEST_LINK=	seamonkey2
 USE_BZIP2=	yes
 USE_GMAKE=	yes
@@ -28,12 +32,16 @@ ALL_TARGET=	default
 MAKE_JOBS_SAFE=	yes
 MOZ_PIS_SCRIPTS=	moz_pis_S50cleanhome
 MAKE_ENV=	LD_LIBRARY_PATH=${WRKSRC}/dist/bin
-CONFIGURE_ENV=	LOCALBASE=${LOCALBASE} CPPFLAGS="-I${LOCALBASE}/include/cairo" \
+CONFIGURE_ENV=	LOCALBASE=${LOCALBASE} \
 		ac_cv_func__Unwind_Backtrace=no
+CPPFLAGS+=	-I${LOCALBASE}/include/cairo
 USE_GCC=	4.2+
 
 MOZ_EXTENSIONS=	default
-MOZ_OPTIONS+=	--with-default-mozilla-five-home=${PREFIX}/lib/${MOZILLA} \
+MOZILLA_SUFX=	2
+MOZILLA=	${PORTNAME}${MOZILLA_SUFX}
+MOZ_OPTIONS+=	--program-transform-name='s/seamonkey/${MOZILLA}/' \
+		--with-default-mozilla-five-home=${PREFIX}/lib/${MOZILLA} \
 		--enable-svg \
 		--enable-application=suite	\
 		--enable-svg-renderer=cairo	\
@@ -73,9 +81,6 @@ CFLAGS+=	-mminimal-toc
 
 MOZSRC:=	${WRKDIR}/comm-1.9.1/mozilla
 WRKSRC=		${WRKDIR}/comm-1.9.1
-
-GECKO_PTHREAD_LIBS!=${CC} -dumpspecs | ${GREP} -m 1 '%{\!pg: %{pthread:' | ${SED
-} -e 's|^.*%{\!pg: %{pthread:|| ; s|}.*$$||' || ${TRUE}
 
 .if ${HAVE_GNOME:Mlibgnomeui}!=""
 USE_GNOME+=	libgnomeui
@@ -125,7 +130,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
 		${WRKSRC}/mozilla/security/manager/ssl/src/Makefile.in \
 		${WRKSRC}/mozilla/js/src/config/mkdepend/Makefile.in
-	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS:C/-pthread/${GECKO_PTHREAD_LIBS}/}|' \
+	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS}|' \
 		${WRKSRC}/mozilla/storage/build/Makefile.in
 	@${REINPLACE_CMD} -e '/accessibility.typeaheadfind.enablesound/s/true/false/' \
 		${WRKSRC}/mozilla/modules/libpref/src/init/all.js
@@ -144,22 +149,19 @@ post-patch:
 		${WRKSRC}/mozilla/js/src/configure \
 		${WRKSRC}/mozilla/configure \
 		${WRKSRC}/configure
-	@${SED} -e 's|%%PREFIX%%|${PREFIX}|g' \
+	@${SED} -e 's|%%MOZILLA%%|${MOZILLA}|g' \
 		< ${FILESDIR}/seamonkey.desktop.in > \
-		${WRKDIR}/seamonkey.desktop
-
-port-pre-install:
-	@${REINPLACE_CMD} -e 's|seamonkey-${PORTVERSION}|seamonkey|' \
-		${FAKEDIR}/bin/seamonkey
-	@${RM} -f ${FAKEDIR}/bin/seamonkey.bak
-	${MV} ${FAKEDIR}/lib/seamonkey-${PORTVERSION} ${FAKEDIR}/lib/seamonkey
+		${WRKDIR}/${MOZILLA}.desktop
 
 pre-install:
-	${ECHO_CMD} share/applications/seamonkey.desktop >> ${PLIST}
+	${ECHO_CMD} share/applications/${MOZILLA}.desktop >> ${PLIST}
 	${ECHO_CMD} "@unexec ${RMDIR} %D/share/applications 2>/dev/null || ${TRUE}" >> ${PLIST}
+	${ECHO_CMD} 'share/pixmaps/${MOZILLA}.png' >> ${PLIST}
 
 do-install:
 	${MKDIR} ${PREFIX}/share/applications
-	${INSTALL_DATA} ${WRKDIR}/seamonkey.desktop ${PREFIX}/share/applications
+	${INSTALL_DATA} ${WRKDIR}/${MOZILLA}.desktop ${PREFIX}/share/applications
+	${LN} -sf ${PREFIX}/lib/${MOZILLA}/chrome/icons/default/default48.png \
+		${PREFIX}/share/pixmaps/${MOZILLA}.png
 
 .include <bsd.port.post.mk>

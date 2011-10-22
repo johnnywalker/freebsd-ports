@@ -16,18 +16,16 @@ COMMENT=	A command-line frontend to libgphoto2
 LIB_DEPENDS=	popt.0:${PORTSDIR}/devel/popt \
 		gphoto2.2:${PORTSDIR}/graphics/libgphoto2
 
-USE_GNOME=	gnometarget
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--without-cdk
 MAKE_JOBS_SAFE=	yes
 
 MAN1=		gphoto2.1
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 OPTIONS=	AALIB "Enable command line capture preview (aalib)" on
 

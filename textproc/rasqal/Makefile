@@ -18,14 +18,13 @@ COMMENT=	A high-level interface for RDF
 LIB_DEPENDS=	raptor.3:${PORTSDIR}/textproc/raptor \
 		pcre.0:${PORTSDIR}/devel/pcre
 
-USE_GNOME=	gnomehack gnometarget lthack pkgconfig
+USE_GNOME=	gnomehack lthack pkgconfig
 USE_OPENSSL=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-raptor=system
 
 USE_LDCONFIG=	yes

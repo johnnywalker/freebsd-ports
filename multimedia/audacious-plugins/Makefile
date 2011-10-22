@@ -7,6 +7,7 @@
 
 PORTNAME=	audacious-plugins
 PORTVERSION=	2.5.4
+PORTREVISION=	1
 CATEGORIES=	multimedia audio
 MASTER_SITES=	http://distfiles.atheme.org/
 
@@ -18,9 +19,8 @@ BUILD_DEPENDS=	audacious:${PORTSDIR}/multimedia/audacious
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_LDCONFIG=	yes
-CONFIGURE_ENV+=	LDFLAGS="-L${LOCALBASE}/lib" \
-		CFLAGS="-I${LOCALBASE}/include" \
-		CPP=${CPP}
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-I${LOCALBASE}/include
 CONFIGURE_ARGS=	--disable-evdevplug --disable-alsa \
 		--disable-pulse --disable-projectm-1.0
 WANT_GNOME=	yes
@@ -80,7 +80,7 @@ CONFIGURE_ARGS+=--disable-sdlout
 .endif
 
 .if defined(WITH_NOTIFY) || exists(${LOCALBASE}/lib/libnotify.so.1)
-LIB_DEPENDS+=	notify.1:${PORTSDIR}/devel/libnotify
+LIB_DEPENDS+=	notify.4:${PORTSDIR}/devel/libnotify
 CONFIGURE_ARGS+=--enable-notify
 PLIST_SUB+=     NOTIFY=""
 .else

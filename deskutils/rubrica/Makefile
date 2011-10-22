@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	rubrica
-PORTVERSION=	2.0.8
-PORTREVISION=	3
+PORTVERSION=	2.0.10
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	BERLIOS
 DISTNAME=	${PORTNAME}2-${PORTVERSION}
@@ -15,7 +14,10 @@ DISTNAME=	${PORTNAME}2-${PORTVERSION}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	An addressbook for the GNOME 2 desktop
 
-LIB_DEPENDS=	notify.1:${PORTSDIR}/devel/libnotify
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	notify.4:${PORTSDIR}/devel/libnotify
 RUN_DEPENDS=	${LOCALBASE}/share/icons/gnome/index.theme:${PORTSDIR}/misc/gnome-icon-theme
 
 USE_BZIP2=	yes
@@ -23,12 +25,12 @@ USE_GNOME=	gconf2 gnomehack gnomeprefix libglade2
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
+MAKE_JOBS_SAFE=	yes
 
 GCONF_SCHEMAS=	rubrica2.schemas
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 post-patch:
 	@${FIND} ${WRKSRC} -name "Makefile.in" | ${XARGS} ${REINPLACE_CMD} -e \

@@ -6,12 +6,11 @@
 #
 
 PORTNAME=	wget
-DISTVERSION=	1.12
-PORTREVISION=	4
+DISTVERSION=	1.13.4
+PORTREVISION=	1
 CATEGORIES=	ftp www ipv6
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	wget
-EXTRACT_SUFX=	.tar.lzma
 
 MAINTAINER=	vd@FreeBSD.org
 COMMENT=	Retrieve files from the Net via HTTP(S) and FTP
@@ -20,8 +19,6 @@ USE_XZ=		yes
 USE_GMAKE=	yes
 USE_PERL5_BUILD=yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" \
-		LDFLAGS="${LDFLAGS}"
 MAKE_JOBS_SAFE=	yes
 
 OPTIONS=	GNUTLS "Support for SSL via GnuTLS" Off \
@@ -37,7 +34,7 @@ OPTIONS=	GNUTLS "Support for SSL via GnuTLS" Off \
 IGNORE=		GNUTLS and OPENSSL are mutually exclusive, enable at most one of them
 .endif
 .include "${PORTSDIR}/Mk/bsd.openssl.mk"
-CONFIGURE_ARGS+=--with-ssl
+CONFIGURE_ARGS+=--with-ssl=openssl
 CPPFLAGS+=	-I${OPENSSLINC}
 LDFLAGS+=	-L${OPENSSLLIB}
 .elif !defined(WITHOUT_GNUTLS)

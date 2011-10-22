@@ -15,6 +15,9 @@ DISTNAME=	giftui-0.4.1
 MAINTAINER=	joeldiaz@bellsouth.net
 COMMENT=	GTK2 client for giFT daemon
 
+DEPRECATED=	unmaintained upstream for several years
+EXPIRATION_DATE=	2011-09-30
+
 LIB_DEPENDS=	gift.0:${PORTSDIR}/net-p2p/gift
 
 USE_BZIP2=	yes

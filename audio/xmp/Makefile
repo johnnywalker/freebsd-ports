@@ -6,8 +6,8 @@
 #
 
 PORTNAME=	xmp
-PORTVERSION=	3.3.0
-PORTREVISION=	2
+PORTVERSION=	3.4.1
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	audio
 MASTER_SITES=	SF
@@ -15,18 +15,18 @@ MASTER_SITES=	SF
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	A player for many different Amiga and PC module formats
 
+LICENSE=	GPLv2
+
 USE_GMAKE=	yes
 WANT_GNOME=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
-CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc --disable-arts \
+		--disable-audacious-plugin
 
 MAN1=		xmp.1
 
 OPTIONS=	ALSA    "ALSA output driver" off \
-		ARTS	"aRts output driver" off \
-		AUDACIOUS	"Audacious plugin" off \
 		BMP	"BeepMP plugin" off \
 		ESOUND	"EsounD output driver" off \
 		NAS	"Network Audio System ouptut driver" off \
@@ -36,7 +36,7 @@ OPTIONS=	ALSA    "ALSA output driver" off \
 
 MAKE_JOBS_SAFE=	yes
 
-LICENSE=	GPLv2
+CFLAGS+=	-I${LOCALBASE}/include
 
 .include <bsd.port.pre.mk>
 
@@ -50,22 +50,6 @@ RUN_DEPENDS+=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:${PORTSDIR}/
 CONFIGURE_ARGS+=	--enable-alsa
 .else
 CONFIGURE_ARGS+=	--disable-alsa
-.endif
-
-.if defined(WITH_ARTS)
-LIB_DEPENDS+=	artsc.0:${PORTSDIR}/audio/arts
-CONFIGURE_ARGS+=	--enable-arts
-.else
-CONFIGURE_ARGS+=	--disable-arts
-.endif
-
-.if defined(WITH_AUDACIOUS)
-LIB_DEPENDS+=	audclient.2:${PORTSDIR}/multimedia/audacious
-CONFIGURE_ARGS+=	--enable-audacious-plugin
-PLIST_SUB+=	AUDACIOUS=""
-.else
-CONFIGURE_ARGS+=	--disable-audacious-plugin
-PLIST_SUB+=	AUDACIOUS="@comment "
 .endif
 
 .if defined(WITH_BMP)
@@ -120,6 +104,9 @@ post-patch:	.SILENT
 	${REINPLACE_CMD} -e \
 		'/$$(INSTALL_DATA)/s|\([[:alnum:]]*\.conf\).*$$|&\1.sample|' \
 		${WRKSRC}/etc/Makefile
+	@${REINPLACE_CMD} -e \
+		's|-Wno-unknown-warning-option -Wno-unused-but-set-variable||' \
+		${WRKSRC}/configure
 
 post-install:	.SILENT
 	if  [ ! -f ${ETCDIR}/${PORTNAME}.conf ]; then \

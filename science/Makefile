@@ -7,6 +7,8 @@
     SUBDIR += 2dhf
     SUBDIR += InsightToolkit
     SUBDIR += R-cran-AMORE
+    SUBDIR += R-cran-DCluster
+    SUBDIR += R-cran-Epi
     SUBDIR += R-cran-bayesm
     SUBDIR += abinit
     SUBDIR += afni
@@ -47,7 +49,6 @@
     SUBDIR += fvm
     SUBDIR += g3data
     SUBDIR += gamess
-    SUBDIR += gave
     SUBDIR += gchemutils
     SUBDIR += gdis
     SUBDIR += gerris

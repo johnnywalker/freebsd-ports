@@ -1,4 +1,4 @@
-@comment $FreeBSD$
+@comment $FreeBSD: ports/security/py-openssl/pkg-plist,v 1.7 2010/11/04 08:14:40 jadawin Exp $
 %%PYTHON_SITELIBDIR%%/OpenSSL/SSL.so
 %%PYTHON_SITELIBDIR%%/OpenSSL/__init__.py
 %%PYTHON_SITELIBDIR%%/OpenSSL/__init__.pyc
@@ -32,9 +32,17 @@
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/simple/README
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/simple/client.py
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/simple/server.py
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/sni/README
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/sni/another.invalid.crt
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/sni/another.invalid.key
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/sni/client.py
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/sni/example.invalid.crt
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/sni/example.invalid.key
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/sni/server.py
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/SecureXMLRPCServer.py
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/certgen.py
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/mk_simple_certs.py
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/proxy.py
+%%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%/sni
 %%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%/simple
 %%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%

@@ -13,11 +13,9 @@ MASTER_SITES=	ftp://ftp.lexa.ru/pub/apache-rus/contrib/
 MAINTAINER=	leeym@FreeBSD.org
 COMMENT=	A module issuing the "correct" cookies for counting the site visitors
 
-MAKE_JOBS_SAFE=  yes
+MAKE_JOBS_SAFE=	yes
 
-# Changed to apache13 exclusive, else apache13 ports
-# are broken if apache22 is set as default
-USE_APACHE=	13
+USE_APACHE=	22
 
 PORTDOCS=	README.html
 
@@ -29,7 +27,6 @@ AP_GENPLIST=	yes
 .if ${APACHE_VERSION} == 13
 MODULENAME=	mod_uid
 .else
-IGNORE=		does not build with latest apache20/22
 MODULENAME=	mod_uid2
 .endif
 

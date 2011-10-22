@@ -1,5 +1,5 @@
 # portaudit text based database
-# $FreeBSD: ports/security/portaudit-db/database/portaudit.txt,v 1.118 2004/10/27 12:25:06 nectar Exp $
+# $FreeBSD: ports/ports-mgmt/portaudit-db/database/portaudit.txt,v 1.119 2005/01/05 10:51:21 thierry Exp $
 apache>=2.*<2.0.49_1|http://www.osvdb.org/6472 http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=2004-0488|mod_ssl stack-based buffer overflow|662cd99e-bc9d-11d8-916c-000347dd607f
 apache+mod_ssl*<1.3.31+2.8.18|http://www.osvdb.org/6472 http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=2004-0488|mod_ssl stack-based buffer overflow|662cd99e-bc9d-11d8-916c-000347dd607f
 ru-apache+mod_ssl<1.3.31+30.20+2.8.18|http://www.osvdb.org/6472 http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=2004-0488|mod_ssl stack-based buffer overflow|662cd99e-bc9d-11d8-916c-000347dd607f
@@ -17,7 +17,6 @@ webmin<1.150|http://www.webmin.com/changes-1.150.html http://www.osvdb.org/6729 
 racoon<20040617a|http://lists.netsys.com/pipermail/full-disclosure/2004-June/022617.html http://www.securityfocus.com/archive/1/366023 http://securitytracker.com/alerts/2004/Jun/1010495.html http://orange.kame.net/dev/cvsweb.cgi/kame/kame/kame/racoon/crypto_openssl.c#rev1.86 http://www.securityfocus.com/bid/10546 http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CAN-2004-0607|Racoon may validate invalid certificates|a96c1d37-c033-11d8-b00e-000347a4fa7d
 ircd-hybrid<=7.0_1|http://lists.netsys.com/pipermail/full-disclosure/2004-June/022820.html http://www.securityfocus.com/archive/1/366486 http://www.osvdb.org/7242|ircd-hybrid-7 low-bandwidth DoS|23aafa20-c28a-11d8-864c-02e0185c0b53
 ircd-hybrid-ru<=7.1_2|http://lists.netsys.com/pipermail/full-disclosure/2004-June/022820.html http://www.securityfocus.com/archive/1/366486 http://www.osvdb.org/7242|ircd-hybrid-7 low-bandwidth DoS|23aafa20-c28a-11d8-864c-02e0185c0b53
-{,??-}aspell<=0.50.5_2|http://nettwerked.mg2.org/advisories/wlc http://marc.theaimsgroup.com/?l=bugtraq&m=108761564006503&w=2 http://www.securityfocus.com/bid/10497|Buffer overflow in word-list-compress|b7b03bab-c296-11d8-bfb2-000bdb1444a4
 linux-aspell<=0.50.4.1|http://nettwerked.mg2.org/advisories/wlc http://marc.theaimsgroup.com/?l=bugtraq&m=108761564006503&w=2 http://www.securityfocus.com/bid/10497|Buffer overflow in word-list-compress|b7b03bab-c296-11d8-bfb2-000bdb1444a4
 bnbt<7.5b3|http://www.osvdb.org/6336|BNBT Authorization Header DoS|0f9b3542-c35f-11d8-8898-000d6111a684
 scorched3d<0.37.2|http://marc.theaimsgroup.com/?l=bugtraq&m=108152473130133&w=2 http://www.osvdb.org/5086 http://www.freebsd.org/cgi/query-pr.cgi?pr=67541 http://secunia.com/advisories/11319 http://security.gentoo.org/glsa/glsa-200404-12.xml|Scorched 3D server chat box format string vulnerability|36808860-c363-11d8-8898-000d6111a684

@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/net-mgmt/ndpmon/files/ndpmonitor.in,v 1.2 2008/02/03 08:14:59 rafan Exp $
+# $FreeBSD: ports/net-mgmt/ndpmon/files/ndpmonitor.in,v 1.3 2010/03/27 00:14:23 dougb Exp $
 #
 # PROVIDE: ndpmonitor
 # REQUIRE: DAEMON NETWORKING
@@ -12,7 +12,7 @@ name="ndpmonitor"
 rcvar=`set_rcvar`
 
 command="%%PREFIX%%/sbin/ndpmon"
-required_files=%%PREFIX%%/etc/ndpmon/config_ndpmon.xml
+required_files=%%ETCDIR%%/config_ndpmon.xml
 
 load_rc_config $name
 

@@ -6,10 +6,11 @@
 #
 
 PORTNAME=	systempreferences
-PORTVERSION=	1.0.1
-PORTREVISION=	2
+PORTVERSION=	1.1.0
 CATEGORIES=	deskutils gnustep
-MASTER_SITES=	http://www.gnustep.it/enrico/system-preferences/
+MASTER_SITES=	${MASTER_SITE_GNUSTEP}
+MASTER_SITE_SUBDIR=usr-apps
+DISTNAME=	SystemPreferences-${PORTVERSION}
 
 MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	System Preferences application for GNUstep

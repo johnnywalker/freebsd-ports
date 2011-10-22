@@ -8,7 +8,7 @@ PORTNAME=	xgospel
 PORTVERSION=	1.12d
 PORTREVISION=	3
 CATEGORIES=	games
-MASTER_SITES=	http://www.teaser.fr/~jlgailly/
+MASTER_SITES=	http://gailly.net/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	An X11 Go (weiqi, baduk) client for the Internet Go Server

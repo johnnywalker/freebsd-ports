@@ -33,17 +33,15 @@ RESTRICTED_FILES=	\
 		macopix-mascot-marimite-euc-ja-2.20.tar.gz \
 		macopix-mascot-HxB-euc-ja-0.30.tar.gz
 
-USE_GNOME=	gnometarget
 WANT_GNOME=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 
 MAN1=		macopix.1
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .if defined(WITH_GNUTLS)
 LIB_DEPENDS+=	gnutls.47:${PORTSDIR}/security/gnutls

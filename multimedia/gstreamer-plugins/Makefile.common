@@ -1,4 +1,4 @@
-# $FreeBSD: ports/multimedia/gstreamer-plugins/Makefile.common,v 1.123 2011/06/06 04:31:52 bapt Exp $
+# $FreeBSD: ports/multimedia/gstreamer-plugins/Makefile.common,v 1.124 2011/06/23 18:09:45 mm Exp $
 #    $MCom: ports/multimedia/gstreamer-plugins/Makefile.common,v 1.81 2010/03/16 19:33:10 mezz Exp $
 # base
 BASE_GST_ALL_PLUGINS= \
@@ -431,8 +431,7 @@ gst_ogg_PLIST_FILES=	${GST_LIB_DIR}/libgstogg.la \
 gst_ogg_DIST=	base
 
 # opencv
-gst_opencv_BUILD_DEPENDS+=opencv<2.3:${PORTSDIR}/graphics/opencv
-gst_opencv_RUN_DEPENDS+=opencv<2.3:${PORTSDIR}/graphics/opencv
+gst_opencv_LIB_DEPENDS+=opencv_highgui.2:${PORTSDIR}/graphics/opencv
 gst_opencv_PLIST_FILES= ${GST_LIB_DIR}/libgstopencv.la \
 			${GST_LIB_DIR}/libgstopencv.a \
 			${GST_LIB_DIR}/libgstopencv.so

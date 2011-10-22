@@ -1,5 +1,0 @@
-%%SITE_PERL%%/%%PERL_ARCH%%/FCGI.pm
-%%SITE_PERL%%/%%PERL_ARCH%%/auto/FCGI/.packlist
-%%SITE_PERL%%/%%PERL_ARCH%%/auto/FCGI/FCGI.so
-%%SITE_PERL%%/%%PERL_ARCH%%/auto/FCGI/FCGI.bs
-@dirrm %%SITE_PERL%%/%%PERL_ARCH%%/auto/FCGI

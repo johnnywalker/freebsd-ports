@@ -23,12 +23,11 @@ COMMENT=	Multiplayer graphical arcade and adventure game made for X11
 USE_PERL5=	yes
 USE_XORG=	xpm
 WANT_GNOME=	yes
-USE_GNOME=	gnometarget
 USE_GMAKE=	yes
 USE_SDL=	image sdl
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS=	--with-sound-dir=${DATADIR}/sounds
 
 MAN6=		cfclient.6

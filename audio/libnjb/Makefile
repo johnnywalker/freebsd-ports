@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	libnjb
-PORTVERSION=	2.2.6
-PORTREVISION=	7
+PORTVERSION=	2.2.7
 CATEGORIES=	audio
 MASTER_SITES=	SF
 
@@ -16,8 +15,8 @@ COMMENT=	C library, API for communicating with Creative and Dell audio players
 
 USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 USE_LDCONFIG=	yes
 
 .include <bsd.port.pre.mk>

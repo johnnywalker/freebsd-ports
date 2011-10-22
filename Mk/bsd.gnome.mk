@@ -1,7 +1,7 @@
 #-*- mode: Fundamental; tab-width: 4; -*-
 # ex:ts=4
 #
-# $FreeBSD$
+# $FreeBSD: ports/Mk/bsd.gnome.mk,v 1.172 2011/08/09 09:32:18 kwm Exp $
 #	$NetBSD: $
 #     $MCom: ports/Mk/bsd.gnome.mk,v 1.549 2011/06/10 22:16:59 mezz Exp $
 #
@@ -70,7 +70,7 @@ Gnome_Pre_Include=			bsd.gnome.mk
 # non-version specific components
 _USE_GNOME_ALL= esound intlhack intltool ltasneededhack lthack ltverhack \
 		gnomehack referencehack gnomehier gnomemimedata gnomeprefix \
-		gnometarget pkgconfig
+		pkgconfig
 
 # GNOME 1 components
 _USE_GNOME_ALL+= bonobo gal gconf gdkpixbuf glib12 \

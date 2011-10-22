@@ -54,9 +54,9 @@ USE_GMAKE=	yes
 USE_AUTOTOOLS=	autoconf aclocal libtool
 CONFIGURE_SCRIPT=	autogen.sh
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		QMAKESPEC=${LOCALBASE}/share/qt/mkspecs/freebsd-g++
+CONFIGURE_ENV=	QMAKESPEC=${LOCALBASE}/share/qt/mkspecs/freebsd-g++
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS+=	--with-docdir=${DOCSDIR} --with-qtdir=${QTDIR}
 MAKE_ARGS+=	QTDIR="${QTDIR}" \
 		QMAKESPEC=${LOCALBASE}/share/qt/mkspecs/freebsd-g++
@@ -80,10 +80,6 @@ PORTDOCS=	*
 
 .if ${OSVERSION} >= 800107
 MAKE_ENV+=	CCACHE_DISABLE=yes
-.endif
-
-.if ${OSVERSION} > 900007
-BROKEN=		fails to build with new utmpx
 .endif
 
 post-install:

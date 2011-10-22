@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	Find-Lib
-PORTVERSION=	1.02
+PORTVERSION=	1.04
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -14,7 +14,7 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Helper to smartly find libs to use in the filesystem tree
 
-PERL_CONFIGURE=	5.8.0+
+PERL_CONFIGURE=	yes
 
 MAN3=		Find::Lib.3
 

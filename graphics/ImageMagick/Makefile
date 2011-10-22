@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	ImageMagick
-DISTVERSION=	6.7.0-10
-PORTREVISION=	1
+DISTVERSION=	6.7.1-10
 CATEGORIES=	graphics perl5
 MASTER_SITES=	ftp://ftp.imagemagick.org/pub/ImageMagick/ \
 		ftp://ftp.nluug.nl/pub/ImageMagick/ \
@@ -18,12 +17,11 @@ COMMENT=	Image processing tools
 
 USE_XZ=		yes
 USE_PERL5=	yes
-USE_GNOME=	gnomehack gnometarget pkgconfig
+USE_GNOME=	gnomehack pkgconfig
 USE_AUTOTOOLS=	libltdl
 # For some reason, using our libtool breaks the build into pieces:
 #USE_AUTOTOOLS+=	libtool
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 CONFIGURE_ARGS=	--enable-shared --without-dps
 USE_GMAKE=	yes
 MAKE_JOBS_SAFE=	yes
@@ -34,8 +32,8 @@ MAN1=		ImageMagick.1 Magick++-config.1 Magick-config.1 Wand-config.1 \
 		MagickCore-config.1 MagickWand-config.1 \
 		identify.1 import.1 mogrify.1 montage.1 stream.1
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 PLIST_SUB=	PORTVERSION=${PORTVERSION:R}
 
@@ -65,8 +63,7 @@ OPTIONS=\
 	IMAGEMAGICK_TIFF	"TIFF format support" on \
 	IMAGEMAGICK_TTF		"Freetype support" on \
 	IMAGEMAGICK_WMF		"WMF format support" off \
-	THREADS			"Threads support" off \
-	X11			"X11 support" on
+	THREADS			"Threads support" off
 
 .include <bsd.port.pre.mk>
 
@@ -318,7 +315,7 @@ PLIST_SUB+=		WMF="@comment "
 USE_GNOME+=		libxml2
 LIB_DEPENDS+=		rsvg-2:${PORTSDIR}/graphics/librsvg2
 CONFIGURE_ARGS+=	--with-rsvg --with-xml
-CONFIGURE_ENV+=		RSVG_CFLAGS="-I${LOCALBASE}/include/librsvg-2" \
+CONFIGURE_ENV+=		RSVG_CFLAGS="-I${LOCALBASE}/include/librsvg-2.0" \
 			RSVG_LIBS="-L${LOCALBASE}/lib"
 .else
 CONFIGURE_ARGS+=	--without-rsvg --without-xml

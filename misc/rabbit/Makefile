@@ -6,10 +6,9 @@
 #
 
 PORTNAME=	rabbit
-PORTVERSION=	0.9.2
-PORTREVISION=	1
+PORTVERSION=	1.0.4
 CATEGORIES=	misc ruby
-MASTER_SITES=	http://www.cozmixng.org/~kou/download/ \
+MASTER_SITES=	http://rabbit-shockers.org/download/ \
 		${MASTER_SITE_LOCAL:S|%SUBDIR%|tota/rabbit|}
 
 MAINTAINER=	tota@FreeBSD.org
@@ -19,11 +18,15 @@ LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/GPL
 
 RUN_DEPENDS=	${RUBY_SITEARCHLIBDIR}/gtk2.so:${PORTSDIR}/x11-toolkits/ruby-gtk2 \
+		${RUBY_SITEARCHLIBDIR}/rsvg2.so:${PORTSDIR}/graphics/ruby-rsvg2 \
+		${RUBY_SITEARCHLIBDIR}/poppler.so:${PORTSDIR}/x11-toolkits/ruby-poppler \
+		hikidoc:${PORTSDIR}/textproc/ruby-hikidoc \
+		rubygem-nokogiri>0:${PORTSDIR}/textproc/rubygem-nokogiri \
+		rubygem-sinatra>0:${PORTSDIR}/www/rubygem-sinatra \
+		rubygem-rack>0:${PORTSDIR}/www/rubygem-rack \
+		rubygem-haml>0:${PORTSDIR}/www/rubygem-haml \
 		rd2:${PORTSDIR}/textproc/ruby-rdtool \
-		${RUBY_SITELIBDIR}/div.rb:${PORTSDIR}/www/ruby-div \
-		rubygem-net-irc>=0.0.9:${PORTSDIR}/irc/rubygem-net-irc \
-		ruby-pwgen:${PORTSDIR}/security/ruby-password \
-		rubygem-tweetstream>=0.0.0:${PORTSDIR}/net/rubygem-tweetstream
+		rubygem-coderay>0:${PORTSDIR}/textproc/rubygem-coderay
 
 USE_RUBY=	yes
 USE_RUBY_SETUP=	yes
@@ -35,31 +38,54 @@ RUN_DEPENDS+=	rubygem-gettext>0:${PORTSDIR}/devel/rubygem-gettext
 PLIST_SUB+=	NLS=""
 .endif
 
-RUBY_SHEBANG_FILES=	bin/rabbirc bin/rabbit bin/rabbit-command \
-			bin/rabbit-theme-manager bin/rabbiter bin/rabrick
+RUBY_SHEBANG_FILES=	bin/rabbirack \
+			bin/rabbirc \
+			bin/rabbit \
+			bin/rabbit-command \
+			bin/rabbit-theme-manager \
+			bin/rabbiter \
+			bin/rabrick
 
-DOCS_EN=	NEWS.en README.en
-DOCS_JA=	NEWS.ja README.ja
+PORTDOCS=	*
+PORTEXAMPLES=	*
+PORTDATA=	*
 
-pre-install:
-	@${RM} -f ${WRKSRC}/bin/rabbit.bat
-.if defined(WITHOUT_NLS)
-	@${RM} -rf ${WRKSRC}/data/locale
+OPTIONS=	MIMETEX "Run with mimetex" off \
+		TWITTER "Run with Twitter" off
+
+.include <bsd.port.options.mk>
+
+.if defined(WITH_MIMETEX)
+RUN_DEPENDS+=	${LOCALBASE}/www/mimetex/cgi-bin/mimetex.cgi:${PORTSDIR}/www/mimetex
+.endif
+
+.if defined(WITH_TWITTER)
+RUN_DEPENDS+=	rubygem-twitter_oauth>=0:${PORTSDIR}/security/rubygem-twitter_oauth \
+		rubygem-twitter-stream>=0:${PORTSDIR}/net/rubygem-twitter-stream
+.endif
+
+post-patch:
+	${RM} ${WRKSRC}/bin/rabwii
+	${RUBY} -i -pe 'sub %r|((\s*)require "rack")|, %Q|\\2require "rubygems"\n\\1|' ${WRKSRC}/bin/rabbirack
+	${RUBY} -i -pe 'sub %r|(require "hikidoc")|, %Q|require "rubygems"\n\\1|' ${WRKSRC}/lib/rabbit/parser/wiki.rb
+	${RUBY} -i -pe "sub %r|((\s*)require 'twitter_oauth')|, %Q|\\\2require 'rubygems'\n\\\1|" ${WRKSRC}/lib/rabbit/twitter.rb
+.if defined(WITH_MIMETEX)
+	${REINPLACE_CMD} -e 's|"mimetex.cgi"|"${PREFIX}/www/mimetex/cgi-bin/mimetex.cgi"|' \
+		${WRKSRC}/lib/rabbit/parser/ext/tex.rb
 .endif
 
 post-install:
 .if !defined(NOPORTDOCS)
-	@${MKDIR} ${DOCSDIR}/ja
-.for f in ${DOCS_EN}
-	@${INSTALL_DATA} ${WRKSRC}/${f} ${DOCSDIR}
-.endfor
-.for f in ${DOCS_JA}
-	@${INSTALL_DATA} ${WRKSRC}/${f} ${DOCSDIR}/ja
-.endfor
+	@${MKDIR} ${DOCSDIR}
+	@${INSTALL_DATA} ${WRKSRC}/README ${DOCSDIR}
+	@cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${DOCSDIR}
 .endif
 .if !defined(NOPORTEXAMPLES)
 	@${MKDIR} ${EXAMPLESDIR}
 	@cd ${WRKSRC}/sample && ${COPYTREE_SHARE} . ${EXAMPLESDIR}
+.endif
+.if defined(NOPORTDATA)
+	@${RM} -r ${DATADIR}
 .endif
 
 # This target is only meant to be used by the port maintainer.
@@ -69,15 +95,7 @@ x-generate-plist:
 	${ECHO} ${f} >> pkg-plist.new
 .endfor
 	${FIND} ${RUBY_SITELIBDIR}/rabbit -type f | ${SORT} | ${SED} -e 's,${RUBY_SITELIBDIR},%%RUBY_SITELIBDIR%%,' >> pkg-plist.new
-	${FIND} ${RUBY_SITELIBDIR}/rwiki -type f | ${SORT} | ${SED} -e 's,${RUBY_SITELIBDIR},%%RUBY_SITELIBDIR%%,' >> pkg-plist.new
-	${FIND} ${DATADIR} -type f | ${SORT} | ${SED} -e 's,${DATADIR},%%DATADIR%%,' >> pkg-plist.new
 	${FIND} ${PREFIX}/share/locale -type f -name rabbit.mo | ${SORT} | ${SED} -e 's,^${PREFIX}/,%%NLS%%,' >> pkg-plist.new
-	${FIND} ${DOCSDIR} -type f | ${SORT} | ${SED} -e 's,${DOCSDIR},%%PORTDOCS%%%%DOCSDIR%%,' >> pkg-plist.new
-	${FIND} ${EXAMPLESDIR} -type f | ${SORT} | ${SED} -e 's,${EXAMPLESDIR},%%PORTEXAMPLES%%%%EXAMPLESDIR%%,' >> pkg-plist.new
-	${FIND} ${EXAMPLESDIR} -type d -depth | ${SORT} -r | ${SED} -e 's,${EXAMPLESDIR},%%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%,' >> pkg-plist.new
-	${FIND} ${DOCSDIR} -type d -depth | ${SORT} -r | ${SED} -e 's,${DOCSDIR},%%PORTDOCS%%@dirrm %%DOCSDIR%%,' >> pkg-plist.new
-	${FIND} ${DATADIR} -type d -depth | ${SORT} -r | ${SED} -e 's,${DATADIR},@dirrm %%DATADIR%%,' >> pkg-plist.new
-	${FIND} ${RUBY_SITELIBDIR}/rwiki -type d -depth | ${SORT} -r | ${SED} -e 's,${RUBY_SITELIBDIR},@dirrm %%RUBY_SITELIBDIR%%,' >> pkg-plist.new
 	${FIND} ${RUBY_SITELIBDIR}/rabbit -type d -depth | ${SORT} -r | ${SED} -e 's,${RUBY_SITELIBDIR},@dirrm %%RUBY_SITELIBDIR%%,' >> pkg-plist.new
 
 .include <bsd.port.mk>

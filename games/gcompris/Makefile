@@ -6,18 +6,20 @@
 #
 
 PORTNAME=	gcompris
-PORTVERSION=	9.2
-PORTREVISION=	5
+PORTVERSION=	9.6.1
+PORTREVISION=	1
 CATEGORIES=	games gnome
-MASTER_SITES=	SF
-DISTNAME=	gcompris-9.2-2
+MASTER_SITES=	SF/${PORTNAME}/${PORTVERSION}/
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Gnome2 educational games and activities for kids ages 2 to 10
 
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
 BUILD_DEPENDS=	texi2html:${PORTSDIR}/textproc/texi2html \
 		gnuchess:${PORTSDIR}/games/gnuchess \
-		${PYTHON_SITELIBDIR}/pysqlite2/__init__.py:${PORTSDIR}/databases/py-pysqlite20
+		${PYTHON_SITELIBDIR}/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3
 LIB_DEPENDS=	vorbis.4:${PORTSDIR}/audio/libvorbis \
 		ao.4:${PORTSDIR}/audio/libao \
 		assetml.0:${PORTSDIR}/devel/libassetml \
@@ -25,22 +27,22 @@ LIB_DEPENDS=	vorbis.4:${PORTSDIR}/audio/libvorbis \
 		gnet-2.0.0:${PORTSDIR}/net/gnet2 \
 		dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib
 RUN_DEPENDS=	gnuchess:${PORTSDIR}/games/gnuchess \
-		${PYTHON_SITELIBDIR}/pysqlite2/__init__.py:${PORTSDIR}/databases/py-pysqlite20
+		${PYTHON_SITELIBDIR}/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3 \
+		gnucap:${PORTSDIR}/cad/gnucap
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 USE_GMAKE=	yes
 USE_GETTEXT=	yes
 GNU_CONFIGURE=	yes
 USE_GSTREAMER=	yes
-USE_PYTHON=	yes
+USE_PYTHON=	2.5+
 USE_SDL=	mixer
 USE_DISPLAY=	yes
 USE_GNOME=	gnomehack intlhack gnomeprefix gtk20 pygtk2 libxml2 librsvg2
 CONFIGURE_ARGS=	--enable-gnet \
 		--enable-dbus
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		LIBS="${PTHREAD_LIBS} -lm"
+CONFIGURE_ENV=	LIBS="${PTHREAD_LIBS} -lm"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAN6=		gcompris.6
 INFO=		gcompris
@@ -48,14 +50,12 @@ INFO=		gcompris
 .include <bsd.port.pre.mk>
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|echo aout|echo elf|g ; \
-	    	s|-Werror||g' \
-		${WRKSRC}/configure
 	@${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' \
 	    	${WRKSRC}/src/gcompris/gcompris.c
 	@${FIND} ${WRKSRC} -name Makefile.in | ${XARGS} ${REINPLACE_CMD} -e \
 		's|-DGTK_DISABLE_DEPRECATED||g' -e \
 		's|-DGNOME_DISABLE_DEPRECATED||g'
+	@${FIND} ${WRKSRC} -type f -name "*.bak" -delete
 
 .if !defined(DISPLAY)
 pre-configure:

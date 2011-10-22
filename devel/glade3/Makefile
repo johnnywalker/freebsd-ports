@@ -18,15 +18,15 @@ COMMENT=	A user interface builder for GTK+/GNOME
 INSTALLS_ICONS=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-USE_GNOME=	gnometarget gtk20 libxml2 gnomeprefix gnomehack \
+USE_GNOME=	gtk20 libxml2 gnomeprefix gnomehack \
 		gnomedocutils desktopfileutils ltverhack:10
 WANT_GNOME=	yes
 USE_GETTEXT=	yes
 INSTALLS_OMF=	yes
 USE_LDCONFIG=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS} -I${LOCALBASE}/include" \
-		LDFLAGS="${LDFLAGS} -L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 DOCSDIR=	${PREFIX}/share/doc/gladeui
 

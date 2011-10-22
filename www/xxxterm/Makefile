@@ -6,17 +6,18 @@
 #
 
 PORTNAME=	xxxterm
-PORTVERSION=	1.425
+PORTVERSION=	1.518
 CATEGORIES=	www
-MASTER_SITES=	http://opensource.conformal.com/snapshots/xxxterm/
+MASTER_SITES=	https://opensource.conformal.com/snapshots/xxxterm/ \
+		SF/xxxterm/
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	aldis@bsdroot.lv
+MAINTAINER=	graudeejs@gmail.com
 COMMENT=	Minimalists vi-like web browser based on webkit and GTK+
 
 LIB_DEPENDS=	gnutls.47:${PORTSDIR}/security/gnutls \
 		soup-2.4:${PORTSDIR}/devel/libsoup \
-		webkit-1.0:${PORTSDIR}/www/webkit-gtk2
+		webkitgtk-1.0:${PORTSDIR}/www/webkit-gtk2
 
 USE_GNOME=	gtk20 pkgconfig
 USE_PERL5_BUILD=YES
@@ -36,6 +37,7 @@ ICONS=	16 32 48 64 128
 .for i in ${ICONS}
 PLIST_FILES+=	share/xxxterm/xxxtermicon${i}.png
 .endfor
+PLIST_FILES+=	share/xxxterm/style.css
 
 do-build:
 	(cd ${WRKSRC}/freebsd && make)
@@ -47,6 +49,7 @@ do-install:
 .for i in ${ICONS}
 	${INSTALL_DATA}  ${WRKSRC}/xxxtermicon${i}.png ${PREFIX}/share/xxxterm/
 .endfor
+	${INSTALL_DATA}  ${WRKSRC}/style.css ${PREFIX}/share/xxxterm/
 .if !defined(NOPORTEXAMPLES)
 	${MKDIR} ${EXAMPLESDIR}
 	${INSTALL_DATA} ${WRKSRC}/favorites ${EXAMPLESDIR}/

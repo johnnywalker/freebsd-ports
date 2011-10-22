@@ -9,9 +9,10 @@ PORTNAME=	hyphen
 PORTVERSION=	2007.09.30
 PORTREVISION=	1
 CATEGORIES=	textproc
-MASTER_SITES=	http://ftp.osuosl.org/pub/openoffice/contrib/dictionaries/
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
 PKGNAMEPREFIX=	da-
-DISTNAME=	hyph_da_DK
+DISTNAME=	hyph_da_DK-${PORTVERSION:C/\.//g}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Danish hyphenation rules
@@ -20,12 +21,13 @@ LICENSE=	LGPL21
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	%%DATADIR%%/hyph_da_DK.dic
 PLIST_DIRSTRY=	%%DATADIR%%
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKDIR}/hyph_da_DK.dic ${DATADIR}/
+	${INSTALL_DATA} ${WRKSRC}/hyph_da_DK.dic ${DATADIR}/
 
 .include <bsd.port.mk>

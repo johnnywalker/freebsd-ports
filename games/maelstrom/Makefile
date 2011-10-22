@@ -7,10 +7,11 @@
 
 PORTNAME=	maelstrom
 PORTVERSION=	3.0.6
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	games
-MASTER_SITES=	http://www.devolution.com/~slouken/projects/Maelstrom/src/
+MASTER_SITES=	http://slouken.libsdl.org/projects/Maelstrom/src/
 DISTNAME=	Maelstrom-${PORTVERSION}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Asteroids-style game for X Window System
@@ -18,6 +19,7 @@ COMMENT=	Asteroids-style game for X Window System
 USE_SDL=	sdl net
 USE_XORG=	xpm
 GNU_CONFIGURE=	yes
+MAKE_JOBS_SAFE=	yes
 
 .if !defined(NOPORTDOCS)
 INSTALL_TARGET=	install install_gamedocs

@@ -9,15 +9,17 @@ PORTNAME=	hyphen
 PORTVERSION=	2005.11.18
 PORTREVISION=	1
 CATEGORIES=	textproc
-MASTER_SITES=	http://ftp.osuosl.org/pub/openoffice/contrib/dictionaries/
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
 PKGNAMEPREFIX=	es-
-DISTNAME=	hyph_es_ES
+DISTNAME=	hyph_es_ES-${PORTVERSION:C/\.//g}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Spanish hyphenation rules
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	%%DATADIR%%/hyph_es_ES.dic
 PLIST_DIRSTRY=	%%DATADIR%%
@@ -30,7 +32,7 @@ PLIST_FILES+=	%%DATADIR%%/hyph_${ALIAS}.dic
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKDIR}/hyph_es_ES.dic ${DATADIR}/
+	${INSTALL_DATA} ${WRKSRC}/hyph_es_ES.dic ${DATADIR}/
 .for ALIAS in ${ESALIASES}
 	${LN} -s hyph_es_ES.dic ${DATADIR}/hyph_${ALIAS}.dic
 .endfor

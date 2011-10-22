@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	thunderbird
-DISTVERSION=	5.0
+DISTVERSION=	6.0.2
 CATEGORIES=	mail ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA}
 MASTER_SITE_SUBDIR=	${PORTNAME}/releases/${DISTVERSION}/source
@@ -20,9 +20,10 @@ BUILD_DEPENDS=	nspr>=4.8.7:${PORTSDIR}/devel/nspr \
 LIB_DEPENDS=	execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		event-1.4:${PORTSDIR}/devel/libevent
 
+CONFLICTS_BUILD=	spidermonkey-*
+
 USE_AUTOTOOLS=	autoconf213
 USE_GECKO=	gecko
-CONFLICTS_INSTALL=	thunderbird-3.1*
 USE_MOZILLA=	-png -nss -dbm -jpeg -xft
 MOZ_TOOLKIT=	cairo-gtk2
 
@@ -36,20 +37,19 @@ USE_BZIP2=	yes
 USE_GMAKE=	yes
 USE_GL=		gl
 
-MOZ_PROTOCOLS=	http,ftp,file,viewsource,res,data,wyciwyg
+MOZ_PROTOCOLS=	http,ftp,file,viewsource,res,data,wyciwyg,websocket
 MOZ_GRAPHICS=	default,-xbm
-MOZ_OPTIONS=	--with-default-mozilla-five-home=${PREFIX}/lib/${MOZILLA} \
+MOZ_OPTIONS=	--program-transform-name='s/thunderbird/${MOZILLA}/' \
+	--with-default-mozilla-five-home=${PREFIX}/lib/${MOZILLA} \
 	--enable-single-profile --disable-profilesharing \
 	--enable-application=mail --enable-official-branding \
 	--disable-updater --disable-necko-wifi \
 	--with-system-libevent=${LOCALBASE}
 MOZ_MK_OPTIONS=	MOZ_MOZ_THUNDERBIRD=1 MAIL_PKG_SHARED=1
 MOZ_EXPORT=		MOZ_THUNDERBIRD=1 MAIL_PKG_SHARED=1
-GECKO_PLIST_PRE_DIRS=	lib/${MOZILLA}/bin lib/${MOZILLA}/idl \
-			lib/${MOZILLA}/include lib/${MOZILLA}/lib
 MOZ_PKGCONFIG_FILES=
 
-PORTNAME_ICON=	${PORTNAME}.png
+PORTNAME_ICON=	${MOZILLA}.png
 PORTNAME_ICON_SRC=	${PREFIX}/lib/${MOZILLA}/chrome/icons/default/default48.png
 
 SYSTEM_PREFS=	${FAKEDIR}/lib/${PORTNAME}/defaults/pref/${PORTNAME}.js
@@ -59,7 +59,7 @@ OPTIONS=	LIGHTNING       "Enable calendar extension" off
 
 .include <bsd.port.pre.mk>
 
-WRKSRC=		${WRKDIR}/comm-miramar
+WRKSRC=		${WRKDIR}/comm-release
 MOZSRC:=	${WRKSRC}/mozilla
 
 .if ${ARCH} == powerpc64
@@ -70,8 +70,6 @@ CONFIGURE_ENV+=	UNAME_m="powerpc64"
 CFLAGS+=	-mminimal-toc
 .endif
 .endif
-
-GECKO_PTHREAD_LIBS!=${CC} -dumpspecs | ${GREP} -m 1 '%{\!pg: %{pthread:' | ${SED} -e 's|^.*%{\!pg: %{pthread:|| ; s|}.*$$||' || ${TRUE}
 
 .if ${HAVE_GNOME:Mlibgnomeui}!=""
 USE_GNOME+=	libgnomeui
@@ -84,7 +82,7 @@ MOZ_OPTIONS+=	--disable-gnomeui
 MOZ_OPTIONS+=	--disable-dbus --disable-libnotify
 .else
 LIB_DEPENDS+=	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-		notify.1:${PORTSDIR}/devel/libnotify
+		notify.4:${PORTSDIR}/devel/libnotify
 .endif
 
 .if ${ARCH} == amd64 || ${ARCH} == i386
@@ -101,15 +99,15 @@ PKGMESSAGE=	${WRKDIR}/pkg-message
 MOZ_OPTIONS+=	--disable-calendar
 .endif
 
-post-extract::
-	${SED} -e 's|@PORTNAME_ICON@|${PORTNAME_ICON}|' \
+post-extract:
+	@${SED} -e 's|@PORTNAME_ICON@|${PORTNAME_ICON}|;s|@MOZILLA@|${MOZILLA}|' \
 		<${FILESDIR}/thunderbird.desktop.in >${WRKDIR}/${MOZILLA_EXEC_NAME}.desktop
 
 post-patch:
 	@${GREP} -Flr \"/proc ${MOZSRC}/ipc/chromium/src/base | ${XARGS} ${REINPLACE_CMD} \
 		-e 's|/proc/self/fd|/dev/fd|' \
 		-e 's|/proc["/]|/compat/linux&|'
-	${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS:C/-pthread/${GECKO_PTHREAD_LIBS}/}|' \
+	@${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS}|' \
 		${MOZSRC}/storage/build/Makefile.in \
 		${MOZSRC}/toolkit/library/Makefile.in \
 		${MOZSRC}/db/sqlite3/src/Makefile.in

@@ -11,14 +11,14 @@ PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.kokkonen.net/tjko/src/
 
-MAINTAINER=	ache@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Generate listing and MD5, check jpegs for error, delete broken ones
 
 LIB_DEPENDS=	jpeg.11:${PORTSDIR}/graphics/jpeg
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
 MAKE_ARGS=	mandir=${MANPREFIX}/man
 
 MAN1=		jpeginfo.1

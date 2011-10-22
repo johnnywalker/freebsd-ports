@@ -7,13 +7,14 @@
 
 PORTNAME=	newsstar
 PORTVERSION=	1.5.4
+PORTREVISION=	1
 CATEGORIES=	news
 MASTER_SITES=	SF
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Transfer news between a local NNTP server (INN, sn, s-news)
 
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm
 BUILD_DEPENDS=	xmlto:${PORTSDIR}/textproc/xmlto \
 		${LOCALBASE}/share/xml/docbook/4.5/docbookx.dtd:${PORTSDIR}/textproc/docbook-xml
 
@@ -29,8 +30,8 @@ CONFIGURE_ARGS+=--prefix=${PREFIX} \
 		--with-rc-dir=/var/spool/newsstar/lib \
 		--with-incoming-dir=/var/spool/newsstar/incoming
 
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LIBS="-L${LOCALBASE}/lib"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
 
 .if defined(NOPORTDOCS)
 INSTALL_TARGET=	install-am

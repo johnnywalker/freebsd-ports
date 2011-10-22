@@ -15,16 +15,15 @@ MASTER_SITES=	SF/purify/Default/${PORTVERSION}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Management utility for the PureFTPd
 
-USE_GNOME=	pkgconfig gnomehack gnometarget libglade2
+USE_GNOME=	pkgconfig gnomehack libglade2
 USE_FAM=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 INSTALLS_ICONS=	yes
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 PORTDOCS=	index.txt introduction.txt main_window.txt \
 		preferences.txt user_manager.txt

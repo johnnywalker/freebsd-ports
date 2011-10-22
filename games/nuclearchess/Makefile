@@ -9,17 +9,17 @@ PORTNAME=	nuclearchess
 PORTVERSION=	1.0.0
 PORTREVISION=	4
 CATEGORIES=	games
-MASTER_SITES=	http://user.cs.tu-berlin.de/~karlb/${PORTNAME}/
+MASTER_SITES=	http://www.linux-games.com/nuclearchess/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A chess variant designed to be short and fun for all players
 
-GNU_CONFIGURE=	yes
+LICENSE=	GPLv2 GPLv3
+LICENSE_COMB=	dual
 
 USE_SDL=	sdl image
-
-CONFIGURE_ARGS=	--prefix=${PREFIX}		\
-		--localstatedir=${DATADIR}	\
-		--program-prefix=
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--localstatedir=${DATADIR}
+MAKE_JOBS_SAFE=	yes
 
 .include <bsd.port.mk>

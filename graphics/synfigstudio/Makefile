@@ -17,13 +17,13 @@ BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/ETL.pc:${PORTSDIR}/devel/etl
 LIB_DEPENDS=	synfig.0:${PORTSDIR}/devel/synfig \
 		gtkmm-2.4.1:${PORTSDIR}/x11-toolkits/gtkmm24
 
-USE_GNOME=	gnomehack gnometarget gtk20
+USE_GNOME=	gnomehack gtk20
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 INSTALLS_ICONS=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 USE_LDCONFIG=	yes
 
 post-patch:

@@ -1,8 +1,14 @@
 
-$FreeBSD$
+$FreeBSD: ports/net-mgmt/ndpmon/files/patch-create__html__table.py,v 1.1 2007/10/26 13:33:43 pav Exp $
 
---- create_html_table.py.orig
-+++ create_html_table.py
+--- create_html_table.py.orig	2010-12-18 23:33:50.000000000 +0100
++++ create_html_table.py	2010-12-18 23:35:24.000000000 +0100
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!%%LOCALBASE%%/bin/python
+ 
+ # takes in input the alerts via the pipe
+ # write the alerts in a file in XML format
 @@ -11,7 +11,7 @@
  from xml.dom import Node
  

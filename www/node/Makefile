@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	node
-PORTVERSION=	0.4.10
+PORTVERSION=	0.4.12
 CATEGORIES=	www
 MASTER_SITES=	http://nodejs.org/dist/
 DISTNAME=	${PORTNAME}-v${PORTVERSION}
@@ -23,6 +23,8 @@ USE_LDCONFIG=	yes
 USE_PYTHON=	yes
 USE_GNOME=	pkgconfig
 
+CONFLICTS=	node-0.5.[0-9]*
+
 ONLY_FOR_ARCHS=	i386 amd64
 MAKE_JOBS_SAFE=	yes
 CONFIGURE_ARGS=	--prefix=${PREFIX_RELDEST}
@@ -34,6 +36,7 @@ PREFIX_RELDEST=	${PREFIX:S,^${DESTDIR},,}
 LIB_DEPENDS+=	v8.1:${PORTSDIR}/lang/v8
 CONFIGURE_ARGS+=	--shared-v8-includes=${LOCALBASE}/include --shared-v8-libpath=${LOCALBASE}/lib
 PLIST_SUB+=	SHAREDV8="@comment "
+EXTRA_PATCHES=	${FILESDIR}/extra-patch-src__node_buffer.cc
 .else
 PLIST_SUB+=	SHAREDV8=""
 .endif

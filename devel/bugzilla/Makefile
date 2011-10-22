@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	bugzilla
-PORTVERSION=	4.0.1
+PORTVERSION=	4.0.2
 PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_MOZILLA}
@@ -14,6 +14,8 @@ MASTER_SITE_SUBDIR=	webtools webtools/archived
 
 MAINTAINER=	skv@FreeBSD.org
 COMMENT=	Bug-tracking system developed by Mozilla Project
+
+LICENSE=	MPL
 
 RUN_DEPENDS=	\
 		p5-TimeDate>=1.19:${PORTSDIR}/devel/p5-TimeDate \
@@ -27,8 +29,6 @@ RUN_DEPENDS=	\
 		p5-CGI.pm>=3.51:${PORTSDIR}/www/p5-CGI.pm \
 		p5-Email-Send>=2.00:${PORTSDIR}/mail/p5-Email-Send \
 		p5-Email-MIME>=1.904:${PORTSDIR}/mail/p5-Email-MIME
-
-LICENSE=	MPL
 
 USE_PERL5=	yes
 

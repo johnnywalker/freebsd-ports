@@ -20,19 +20,19 @@ LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png \
 USE_AUTOTOOLS=	libtool
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}" \
-		CPPFLAGS="-I${LOCALBASE}/include -I${LOCALBASE}/include/ming"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/ming
 
 MAN1=		autotrace.1
 
-OPTIONS=	MING "Enable swf interface" on \
+OPTIONS=	MING "Enable swf interface" off \
 		PSTOEDIT "Convert postscript to other formats" on
 
 .include <bsd.port.pre.mk>
 
 .if !defined (WITHOUT_MING)
-LIB_DEPENDS+=	ming.4:${PORTSDIR}/graphics/ming
-CONFIGURE_ENV?=	CPPFLAGS="-I${LOCALBASE}/include -I${LOCALBASE}/include/ming"
+LIB_DEPENDS+=	ming.5:${PORTSDIR}/graphics/ming
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/ming
 .endif
 
 .if !defined (WITHOUT_PSTOEDIT)

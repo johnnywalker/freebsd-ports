@@ -18,7 +18,6 @@ COMMENT=	Berkeley Open Infrastructure for Network Computing client
 LIB_DEPENDS=	curl:${PORTSDIR}/ftp/curl
 
 USE_BZIP2=	yes
-USE_GNOME=	gnometarget
 GNU_CONFIGURE=	yes
 MAKE_JOBS_UNSAFE=	yes
 
@@ -37,12 +36,16 @@ CONFIGURE_ARGS=	--disable-server
 CPPFLAGS+=	-I${LOCALBASE}/include
 CXXFLAGS:=	${CXXFLAGS:N-O*:N-f*} -O3
 CFLAGS:=	${CFLAGS:N-O*:N-f*} -O3
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" CXXFLAGSS="${CXXFLAGS}" CFLAGS="${CFLAGS}"
+CONFIGURE_ENV=	CXXFLAGSS="${CXXFLAGS}"
 
 OPTIONS=	X11 "Build Boinc Manager GUI" on \
 		ALT "Accept Linux science applications" off
 
 .include <bsd.port.pre.mk>
+
+.if ${ARCH} == "sparc64"
+BROKEN=		Does not install on sparc64
+.endif
 
 .if !defined(WITHOUT_X11)
 USE_GL=		glut

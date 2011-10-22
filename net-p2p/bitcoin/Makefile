@@ -6,11 +6,11 @@
 #
 
 PORTNAME=	bitcoin
-PORTVERSION=	0.3.23
+PORTVERSION=	0.4.0
 CATEGORIES=	net-p2p finance
-MASTER_SITES=	https://download.github.com/		\
+MASTER_SITES=	https://nodeload.github.com/${PORTNAME}/${PORTNAME}/tarball/	\
 		http://mirror.inerd.com/FreeBSD/distfiles/${PORTNAME}/
-DISTFILES=	bitcoin-bitcoin-v${PORTVERSION}-0-gce14894.tar.gz
+DISTFILES=	v${PORTVERSION}
 
 MAINTAINER=	shaun@FreeBSD.org
 COMMENT=	Virtual Peer-to-Peer Currency Client
@@ -30,9 +30,11 @@ CXXFLAGS+=	-I${LOCALBASE}/include -I${BDB_INCLUDE_DIR}
 CXXFLAGS+=	-L${LOCALBASE}/lib -L${BDB_LIB_DIR}
 CXXFLAGS+=	-Wno-invalid-offsetof
 
-WRKSRC=		${WRKDIR}/bitcoin-bitcoin-ebdab6d/src
+WRKSRC=		${WRKDIR}/bitcoin-bitcoin-72274ed/src
 
-LOCALES=	cs de eo es fr it lt nl pt ru zh_cn
+DIST_SUBDIR=	${PORTNAME}
+
+LOCALES=	cs de eo es fr it lt nl pt ro ru sv zh_cn
 
 .include <bsd.port.options.mk>
 
@@ -68,21 +70,17 @@ PLIST_DIRSTRY+=	${LOCALES:C|^|share/locale/|}
 
 .include <bsd.port.pre.mk>
 
-pre-fetch:
-.if ${MASTER_SITES:M*github.com*} != "" && !exists(${DISTDIR}/${DISTFILES})
-	@${ECHO_MSG} "===>  Pinging github to vivify tarball..."
-	@(cd ${DISTDIR} && \
-		${FETCH_BINARY} -Ap https://nodeload.github.com/bitcoin/bitcoin/tarball/v${PORTVERSION} 2>/dev/null \
-		|| ${TRUE} \
-	)
-.endif
-
 post-patch:
+	@${CP} ${WRKSRC}/protocol.h ${WRKSRC}/protocol.h.orig
+	@${AWK} 'BEGIN { f = 0 } { if ( $$0 ~ /^#include/ && f == 0 ) { f = 1; print "#include <sys/socket.h>"; print "#include <netinet/in.h>" }; print }' \
+		${WRKSRC}/protocol.h.orig > ${WRKSRC}/protocol.h
+
 	@cd ${WRKSRC} && ${CP} -p makefile.unix Makefile
 	@${REINPLACE_CMD} \
 		-e 's|wx-config|${WX_CONFIG}|g' \
 		-e 's|^CXXFLAGS=.*$$|CXXFLAGS += $$(DEFS)|' \
 		-e 's|^USE_UPNP.*$$||' \
+		-e 's|-l pthread|${PTHREAD_LIBS}|g' \
 		-e 's:-O3::' -e 's:-\(march=[A-Za-z0-9]*\)::g' \
 		-e 's:-l dl::' \
 		${WRKSRC}/Makefile
@@ -93,7 +91,7 @@ do-install:
 
 .if !defined(WITHOUT_NLS)
 .  for lo in ${LOCALES}
-	${MKDIR} -p ${PREFIX}/share/locale/${lo}/LC_MESSAGES
+	@${MKDIR} ${PREFIX}/share/locale/${lo}/LC_MESSAGES
 	${INSTALL_DATA} ${WRKSRC}/../locale/${lo}/LC_MESSAGES/bitcoin.mo \
 		${PREFIX}/share/locale/${lo}/LC_MESSAGES/
 .  endfor

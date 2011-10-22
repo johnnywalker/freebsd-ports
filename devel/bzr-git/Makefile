@@ -6,23 +6,24 @@
 #
 
 PORTNAME=	bzr-git
-PORTVERSION=	0.6.1
+PORTVERSION=	0.6.2
+PORTREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	https://launchpadlibrarian.net/73756120/ \
+MASTER_SITES=	https://launchpadlibrarian.net/76814124/ \
 		http://www.c-s.li/ports/
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Plugin for bzr to work with git trees
-
-BUILD_DEPENDS=	bzr:${PORTSDIR}/devel/bazaar-ng
-RUN_DEPENDS=	bzr:${PORTSDIR}/devel/bazaar-ng \
-		${PYTHON_SITELIBDIR}/dulwich/__init__.py:${PORTSDIR}/devel/dulwich \
-		py*-pysqlite>=2.3:${PORTSDIR}/databases/py-pysqlite23
 
 LICENSE=	GPLv2
 
+BUILD_DEPENDS=	bzr:${PORTSDIR}/devel/bazaar-ng
+RUN_DEPENDS=	bzr:${PORTSDIR}/devel/bazaar-ng \
+		py*-dulwich>=0.8.0:${PORTSDIR}/devel/dulwich \
+		${PYTHON_SITELIBDIR}/_sqlite3.so:${PORTSDIR}/databases/py-sqlite3
+
 WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}
-USE_PYTHON=	yes
+USE_PYTHON=	2.5+
 USE_PYDISTUTILS=	yes
 PYDISTUTILS_PKGNAME=	bzr_git
 

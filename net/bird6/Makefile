@@ -6,13 +6,15 @@
 #
 
 PORTNAME=	bird6
-PORTVERSION=	1.3.1
+PORTVERSION=	1.3.3
 CATEGORIES=	net
 MASTER_SITES=	ftp://bird.network.cz/pub/bird/
 DISTNAME=	bird-${PORTVERSION}
 
 MAINTAINER=	melifaro@ipfw.ru
 COMMENT=	Dynamic IP routing daemon (IPv6 version)
+
+LICENSE=	GPLv2
 
 USE_BISON=	build
 USE_GMAKE=	yes

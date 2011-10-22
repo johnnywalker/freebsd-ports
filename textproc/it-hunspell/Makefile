@@ -12,6 +12,7 @@ CATEGORIES=	textproc
 MASTER_SITES=	SF/linguistico/Dizionario%20italiano%20per%20OOo/${PORTVERSION:S/./_/g}/
 PKGNAMEPREFIX=	it-
 DISTNAME=	italiano_${PORTVERSION:S/./_/g}
+DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	office@FreeBSD.org
 COMMENT=	Italian hunspell dictionaries
@@ -20,6 +21,7 @@ LICENSE=	GPLv3
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
 PLIST_FILES=	%%DATADIR%%/it_IT.aff \
 		%%DATADIR%%/it_IT.dic
@@ -27,6 +29,6 @@ PLIST_DIRSTRY=	%%DATADIR%%
 
 do-install:
 	${MKDIR} ${DATADIR}/
-	${INSTALL_DATA} ${WRKDIR}/it_IT.aff ${WRKDIR}/it_IT.dic ${DATADIR}/
+	${INSTALL_DATA} ${WRKSRC}/it_IT.aff ${WRKSRC}/it_IT.dic ${DATADIR}/
 
 .include <bsd.port.mk>

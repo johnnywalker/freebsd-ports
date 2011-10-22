@@ -16,15 +16,14 @@ MAINTAINER=	acm@FreeBSD.org
 COMMENT=	GNU project portable class framework for C++
 
 USE_LDCONFIG=	yes
-USE_GNOME=	gnomehack gnometarget
+USE_GNOME=	gnomehack
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}" \
-		ac_cv_path_DOXYGEN=no
+CONFIGURE_ENV=	ac_cv_path_DOXYGEN=no
 
 INFO=		commoncpp2
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .include <bsd.port.mk>

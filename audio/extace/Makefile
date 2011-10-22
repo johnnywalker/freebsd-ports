@@ -16,10 +16,10 @@ COMMENT=	An Audio Visualization plugin for the X Window System
 
 LIB_DEPENDS=	fftw3.5:${PORTSDIR}/math/fftw3
 
-USE_GNOME=	esound gnomehack gnomehier gnometarget gtk20
+USE_GNOME=	esound gnomehack gnomehier gtk20
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 PLIST_FILES=	bin/extace \
 		share/gnome/apps/Multimedia/extace.desktop

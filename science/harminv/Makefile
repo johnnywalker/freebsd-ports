@@ -7,6 +7,7 @@
 
 PORTNAME=	harminv
 PORTVERSION=	1.3.1
+PORTREVISION=	1
 CATEGORIES=	science
 MASTER_SITES=	http://ab-initio.mit.edu/harminv/
 
@@ -20,12 +21,12 @@ USE_GCC=	4.4+
 CPPFLAGS+=	-I${LOCALBASE}/include
 LD_LIBRARY_PATH=	-L${LOCALBASE}/lib -L/usr/lib
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LD_LIBRARY_PATH="${LD_LIBRARY_PATH}" LDFLAGS="${LDFLAGS}"
+CONFIGURE_ENV+=	LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 USE_LDCONFIG=	yes
 
 MAN1=	harminv.1
 
-LIB_DEPENDS+=	guile.20:${PORTSDIR}/lang/guile \
+LIB_DEPENDS+=	guile.21:${PORTSDIR}/lang/guile \
 		blas.2:${PORTSDIR}/math/blas \
 		lapack.4:${PORTSDIR}/math/lapack
 

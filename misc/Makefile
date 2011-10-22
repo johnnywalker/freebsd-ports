@@ -51,6 +51,7 @@
     SUBDIR += compat5x
     SUBDIR += compat6x
     SUBDIR += compat7x
+    SUBDIR += compat8x
     SUBDIR += countrycodes
     SUBDIR += cpuid
     SUBDIR += crosspad
@@ -81,7 +82,6 @@
     SUBDIR += elscreen
     SUBDIR += esniper
     SUBDIR += estic
-    SUBDIR += ewipe
     SUBDIR += explosions
     SUBDIR += felis
     SUBDIR += fep
@@ -140,13 +140,11 @@
     SUBDIR += gkrellm-xkb
     SUBDIR += gkrellmbgchg2
     SUBDIR += gkrellmfmonitor
-    SUBDIR += gkrellmfmonitor2
     SUBDIR += gkrellmlaunch
     SUBDIR += gkrellmlaunch2
     SUBDIR += gkrellshoot
     SUBDIR += gkrellshoot2
     SUBDIR += gkrellweather2
-    SUBDIR += gkx86info
     SUBDIR += gkx86info2
     SUBDIR += gman
     SUBDIR += gnome-devel-docs
@@ -164,7 +162,6 @@
     SUBDIR += gone
     SUBDIR += gonvert
     SUBDIR += gopod
-    SUBDIR += gplbp
     SUBDIR += gplink
     SUBDIR += gpt
     SUBDIR += gpt31
@@ -388,6 +385,7 @@
     SUBDIR += p5-Asterisk
     SUBDIR += p5-Bot-Training
     SUBDIR += p5-Bot-Training-MegaHAL
+    SUBDIR += p5-Bot-Training-StarCraft
     SUBDIR += p5-Business-Hours
     SUBDIR += p5-Business-ISBN
     SUBDIR += p5-Business-ISBN-Data

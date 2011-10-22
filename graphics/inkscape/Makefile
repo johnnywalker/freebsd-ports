@@ -7,7 +7,7 @@
 
 PORTNAME=	inkscape
 PORTVERSION=	0.48.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics gnome
 MASTER_SITES=	SF
 MASTER_SITE_SUBDIR=${PORTNAME:L}/${PORTNAME:L}/0.48.1
@@ -35,8 +35,8 @@ USE_GETTEXT=	yes
 GNU_CONFIGURE=	yes
 USE_PERL5=	yes
 INSTALLS_ICONS=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include ${PTHREAD_CFLAGS}" \
-		LDFLAGS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 MAN1=		inkscape.1
 MAN1_EN=	inkview.1
@@ -54,7 +54,7 @@ CONFIGURE_ARGS+=	--without-gnome-vfs
 .endif
 
 .if defined(WITH_POPPLER)
-LIB_DEPENDS+=		poppler-glib.5:${PORTSDIR}/graphics/poppler-gtk
+LIB_DEPENDS+=		poppler-glib.6:${PORTSDIR}/graphics/poppler-gtk
 CONFIGURE_ARGS+=	--enable-poppler-cairo
 .else
 CONFIGURE_ARGS+=	--enable-poppler-cairo=no

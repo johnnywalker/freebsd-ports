@@ -7,6 +7,7 @@
 
 PORTNAME=	epdfview
 PORTVERSION=	0.1.8
+PORTREVISION=	1
 CATEGORIES=	graphics print gnome
 MASTER_SITES=	http://trac.emma-soft.com/epdfview/chrome/site/releases/ \
 		http://mirror.slitaz.org/sources/packages/e/
@@ -15,7 +16,7 @@ MAINTAINER=	sylvio@FreeBSD.org
 COMMENT=	A lightweight PDF document viewer
 
 BUILD_DEPENDS=	cppunit-config:${PORTSDIR}/devel/cppunit
-LIB_DEPENDS=	poppler-glib.5:${PORTSDIR}/graphics/poppler-gtk
+LIB_DEPENDS=	poppler-glib.6:${PORTSDIR}/graphics/poppler-gtk
 
 LICENSE=	GPLv2
 
@@ -25,8 +26,8 @@ INSTALLS_ICONS=	yes
 USE_ICONV=	yes
 USE_GMAKE=	yes
 USE_GNOME=	gtk20 intlhack
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=	CUPS	"Use cups printing system"		off \
 		NLS	"Native language support"		on
@@ -47,7 +48,6 @@ USE_GETTEXT=	yes
 PLIST_SUB+=	NLS=""
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-CONFIGURE_ENV+=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 .else
 CONFIGURE_ARGS+=--disable-nls
 PLIST_SUB+=	NLS="@comment "

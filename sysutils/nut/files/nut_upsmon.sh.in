@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/sysutils/nut/files/nut_upsmon.sh.in,v 1.1 2006/03/29 12:03:54 pav Exp $
+# $FreeBSD: ports/sysutils/nut/files/nut_upsmon.sh.in,v 1.2 2010/03/27 00:15:00 dougb Exp $
 #
 
 # PROVIDE: nut_upsmon
@@ -30,5 +30,11 @@ required_files="${nut_upsmon_prefix}/etc/nut/upsmon.conf"
 command="${nut_upsmon_prefix}/sbin/upsmon"
 pidfile="%%STATEDIR%%/upsmon.pid"
 nut_upsmon_flags=${nut_upsmon_flags-"localhost"}
+
+extra_commands=reload
+reload()
+{
+	${command} -c reload
+}
 
 run_rc_command "$1"

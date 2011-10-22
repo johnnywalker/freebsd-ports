@@ -4,10 +4,11 @@
     COMMENT = Ports related to the World Wide Web
 
     SUBDIR += MT
+    SUBDIR += R-cran-Rpad
+    SUBDIR += R-cran-scrapeR
     SUBDIR += WebMagick
     SUBDIR += abyssws
     SUBDIR += ach
-    SUBDIR += adblock
     SUBDIR += admuser
     SUBDIR += adzap
     SUBDIR += amphetadesk
@@ -36,7 +37,6 @@
     SUBDIR += aria2
     SUBDIR += aria2fe
     SUBDIR += arora
-    SUBDIR += ashe
     SUBDIR += asp2php
     SUBDIR += asql
     SUBDIR += asterisk-fop
@@ -53,6 +53,7 @@
     SUBDIR += aws
     SUBDIR += awstats
     SUBDIR += axis
+    SUBDIR += axis2
     SUBDIR += b2evolution
     SUBDIR += bacula-web
     SUBDIR += bannerfilter
@@ -67,7 +68,6 @@
     SUBDIR += boa
     SUBDIR += bookmarkbridge
     SUBDIR += bozohttpd
-    SUBDIR += bugmenot
     SUBDIR += bugmenot-firefox
     SUBDIR += c-icap
     SUBDIR += cacheboy15-devel
@@ -75,8 +75,8 @@
     SUBDIR += cadaver
     SUBDIR += cakephp11
     SUBDIR += cakephp12
+    SUBDIR += cakephp13
     SUBDIR += calamaris
-    SUBDIR += campsite
     SUBDIR += castget
     SUBDIR += caudium14
     SUBDIR += cblog
@@ -113,7 +113,6 @@
     SUBDIR += codeigniter17
     SUBDIR += comclear
     SUBDIR += commonist
-    SUBDIR += contenido
     SUBDIR += coppermine
     SUBDIR += cplanet
     SUBDIR += crawl
@@ -144,33 +143,6 @@
     SUBDIR += dpsearch
     SUBDIR += drood
     SUBDIR += drraw
-    SUBDIR += drupal5
-    SUBDIR += drupal5-adsense
-    SUBDIR += drupal5-bluebreeze
-    SUBDIR += drupal5-bookreview
-    SUBDIR += drupal5-cck
-    SUBDIR += drupal5-disknode
-    SUBDIR += drupal5-google_analytics
-    SUBDIR += drupal5-i18n
-    SUBDIR += drupal5-imagecache
-    SUBDIR += drupal5-imagefield
-    SUBDIR += drupal5-insert-view
-    SUBDIR += drupal5-nice_menus
-    SUBDIR += drupal5-nodewords
-    SUBDIR += drupal5-securepages
-    SUBDIR += drupal5-simplenews
-    SUBDIR += drupal5-tagadelic
-    SUBDIR += drupal5-tapir
-    SUBDIR += drupal5-taxonomy_access
-    SUBDIR += drupal5-taxonomy_ticker
-    SUBDIR += drupal5-thickbox
-    SUBDIR += drupal5-tinymce
-    SUBDIR += drupal5-token
-    SUBDIR += drupal5-ubercart
-    SUBDIR += drupal5-ubrowser
-    SUBDIR += drupal5-views
-    SUBDIR += drupal5-workflow_ng
-    SUBDIR += drupal5-xmlsitemap
     SUBDIR += drupal6
     SUBDIR += drupal6-advanced_help
     SUBDIR += drupal6-cck
@@ -198,6 +170,8 @@
     SUBDIR += drupal6-webform
     SUBDIR += drupal6-wysiwyg
     SUBDIR += drupal6-zeropoint
+    SUBDIR += drupal7
+    SUBDIR += drupal7-wysiwyg
     SUBDIR += drush
     SUBDIR += dtse
     SUBDIR += dummyflash
@@ -239,8 +213,6 @@
     SUBDIR += firefox-i18n
     SUBDIR += firefox-remote
     SUBDIR += firefox-sync
-    SUBDIR += firefox35
-    SUBDIR += firefox35-i18n
     SUBDIR += firefox36
     SUBDIR += firefox36-i18n
     SUBDIR += flashplugin-mozilla
@@ -299,6 +271,7 @@
     SUBDIR += harvest
     SUBDIR += hastymail
     SUBDIR += hastymail2
+    SUBDIR += hastymail2-devel
     SUBDIR += havp
     SUBDIR += helixplugin
     SUBDIR += helma
@@ -314,11 +287,16 @@
     SUBDIR += hotcrp
     SUBDIR += hs-HTTP
     SUBDIR += hs-cgi
+    SUBDIR += hs-hS3
+    SUBDIR += hs-heist
     SUBDIR += hs-fastcgi
     SUBDIR += hs-http-server
     SUBDIR += hs-http-types
     SUBDIR += hs-oeis
     SUBDIR += hs-scgi
+    SUBDIR += hs-snap
+    SUBDIR += hs-snap-core
+    SUBDIR += hs-snap-server
     SUBDIR += hs-url
     SUBDIR += hs-wai
     SUBDIR += hs-warp
@@ -397,6 +375,7 @@
     SUBDIR += linkchecker
     SUBDIR += linklint
     SUBDIR += links
+    SUBDIR += links-hacked
     SUBDIR += links1
     SUBDIR += linux-f10-flashplugin10
     SUBDIR += linux-firefox
@@ -411,8 +390,6 @@
     SUBDIR += lionwiki
     SUBDIR += ljdeps
     SUBDIR += ljdump
-    SUBDIR += ljpms
-    SUBDIR += ljsm
     SUBDIR += llgal
     SUBDIR += logtools
     SUBDIR += lusca-head
@@ -425,7 +402,6 @@
     SUBDIR += mathopd
     SUBDIR += mawstats
     SUBDIR += mediawiki
-    SUBDIR += mediawiki115
     SUBDIR += mediawiki116
     SUBDIR += mergelog
     SUBDIR += metacafe_dl
@@ -438,11 +414,11 @@
     SUBDIR += mini_httpd
     SUBDIR += mkapachepw
     SUBDIR += mknmz-wwwoffle
-    SUBDIR += mmosaic
     SUBDIR += mnogosearch
     SUBDIR += mod_access_identd
     SUBDIR += mod_access_referer
     SUBDIR += mod_accounting
+    SUBDIR += mod_amazon_proxy
     SUBDIR += mod_antiloris
     SUBDIR += mod_asn
     SUBDIR += mod_auth_cas
@@ -548,7 +524,6 @@
     SUBDIR += mod_realip
     SUBDIR += mod_remoteip
     SUBDIR += mod_rivet
-    SUBDIR += mod_roaming
     SUBDIR += mod_rpaf
     SUBDIR += mod_rpaf2
     SUBDIR += mod_ruby
@@ -557,6 +532,7 @@
     SUBDIR += mod_security21
     SUBDIR += mod_sed
     SUBDIR += mod_sequester
+    SUBDIR += mod_setenvifplus
     SUBDIR += mod_shapvh
     SUBDIR += mod_smooth_streaming
     SUBDIR += mod_sqlinclude
@@ -583,7 +559,6 @@
     SUBDIR += moodle
     SUBDIR += moodle2
     SUBDIR += moonshine
-    SUBDIR += mozex
     SUBDIR += mozplugger
     SUBDIR += multisort
     SUBDIR += mybb
@@ -795,7 +770,6 @@
     SUBDIR += p5-Catalyst-Controller-RequestToken
     SUBDIR += p5-Catalyst-Devel
     SUBDIR += p5-Catalyst-Engine-Apache
-    SUBDIR += p5-Catalyst-Engine-HTTP-POE
     SUBDIR += p5-Catalyst-Engine-HTTP-Prefork
     SUBDIR += p5-Catalyst-Engine-PSGI
     SUBDIR += p5-Catalyst-Enzyme
@@ -807,7 +781,6 @@
     SUBDIR += p5-Catalyst-Model-CDBI
     SUBDIR += p5-Catalyst-Model-CDBI-Plain
     SUBDIR += p5-Catalyst-Model-CDBI-Sweet
-    SUBDIR += p5-Catalyst-Model-DBIC
     SUBDIR += p5-Catalyst-Model-DBIC-Plain
     SUBDIR += p5-Catalyst-Model-DBIC-Schema
     SUBDIR += p5-Catalyst-Model-DynamicAdaptor
@@ -820,7 +793,6 @@
     SUBDIR += p5-Catalyst-Plugin-Authentication
     SUBDIR += p5-Catalyst-Plugin-Authentication-CDBI
     SUBDIR += p5-Catalyst-Plugin-Authentication-OpenID
-    SUBDIR += p5-Catalyst-Plugin-Authentication-Store-DBIC
     SUBDIR += p5-Catalyst-Plugin-Authentication-Store-Htpasswd
     SUBDIR += p5-Catalyst-Plugin-Authorization-ACL
     SUBDIR += p5-Catalyst-Plugin-Authorization-Roles
@@ -832,7 +804,6 @@
     SUBDIR += p5-Catalyst-Plugin-Cache-FastMmap
     SUBDIR += p5-Catalyst-Plugin-Cache-Memcached
     SUBDIR += p5-Catalyst-Plugin-Cache-Memcached-Fast
-    SUBDIR += p5-Catalyst-Plugin-Cache-Store-FastMmap
     SUBDIR += p5-Catalyst-Plugin-Captcha
     SUBDIR += p5-Catalyst-Plugin-ConfigLoader
     SUBDIR += p5-Catalyst-Plugin-ConfigLoader-Environment
@@ -919,6 +890,7 @@
     SUBDIR += p5-Data-Validate-URI
     SUBDIR += p5-Emplacken
     SUBDIR += p5-FAQ-OMatic
+    SUBDIR += p5-FCGI
     SUBDIR += p5-FCGI-Async
     SUBDIR += p5-FCGI-Client
     SUBDIR += p5-FCGI-Engine
@@ -926,7 +898,6 @@
     SUBDIR += p5-FCGI-Spawn
     SUBDIR += p5-FEAR-API
     SUBDIR += p5-Facebook-Graph
-    SUBDIR += p5-FastCGI
     SUBDIR += p5-Feed-Find
     SUBDIR += p5-Feersum
     SUBDIR += p5-File-Mork
@@ -975,6 +946,7 @@
     SUBDIR += p5-HTML-Location
     SUBDIR += p5-HTML-Macro
     SUBDIR += p5-HTML-Mason
+    SUBDIR += p5-HTML-Mason-PSGIHandler
     SUBDIR += p5-HTML-MobileConverter
     SUBDIR += p5-HTML-Pager
     SUBDIR += p5-HTML-Parser
@@ -1068,7 +1040,6 @@
     SUBDIR += p5-HTTP-MobileAgent
     SUBDIR += p5-HTTP-MobileAgent-Plugin-Charset
     SUBDIR += p5-HTTP-MobileAgent-Plugin-Locator
-    SUBDIR += p5-HTTP-MobileAttribute
     SUBDIR += p5-HTTP-Negotiate
     SUBDIR += p5-HTTP-Parser
     SUBDIR += p5-HTTP-Parser-XS
@@ -1079,6 +1050,7 @@
     SUBDIR += p5-HTTP-Response-Encoding
     SUBDIR += p5-HTTP-Router
     SUBDIR += p5-HTTP-Server-Simple
+    SUBDIR += p5-HTTP-Server-Simple-Authen
     SUBDIR += p5-HTTP-Server-Simple-Mason
     SUBDIR += p5-HTTP-Server-Simple-PSGI
     SUBDIR += p5-HTTP-Server-Simple-Recorder
@@ -1123,10 +1095,10 @@
     SUBDIR += p5-MediaWiki-API
     SUBDIR += p5-Mobile-UserAgent
     SUBDIR += p5-ModPerl-VersionUtil
+    SUBDIR += p5-MojoMojo
     SUBDIR += p5-Mojolicious
     SUBDIR += p5-Mojolicious-Plugin-Database
     SUBDIR += p5-Mojolicious-Plugin-Mongodb
-    SUBDIR += p5-MojoMojo
     SUBDIR += p5-Mozilla-CA
     SUBDIR += p5-Net-Akismet
     SUBDIR += p5-Net-Amazon-AWIS
@@ -1143,7 +1115,6 @@
     SUBDIR += p5-Newsletter
     SUBDIR += p5-Nginx-ReadBody
     SUBDIR += p5-PHP-Session
-    SUBDIR += p5-PLP
     SUBDIR += p5-POE-Component-Client-HTTP
     SUBDIR += p5-POE-Component-Client-UserAgent
     SUBDIR += p5-POE-Component-Server-HTTP
@@ -1163,6 +1134,7 @@
     SUBDIR += p5-Plack-Handler-AnyEvent-HTTPD
     SUBDIR += p5-Plack-Handler-AnyEvent-ReverseHTTP
     SUBDIR += p5-Plack-Handler-AnyEvent-SCGI
+    SUBDIR += p5-Plack-Handler-CLI
     SUBDIR += p5-Plack-Handler-SCGI
     SUBDIR += p5-Plack-Middleware-AMF
     SUBDIR += p5-Plack-Middleware-AddDefaultCharset
@@ -1186,9 +1158,11 @@
     SUBDIR += p5-Plack-Server-Coro
     SUBDIR += p5-Plack-Server-POE
     SUBDIR += p5-Plack-Server-ReverseHTTP
+    SUBDIR += p5-Plack-Test-ExternalServer
     SUBDIR += p5-Pod-Site
     SUBDIR += p5-PodToHTML
     SUBDIR += p5-Protocol-WebSocket
+    SUBDIR += p5-Protocol-XMLRPC
     SUBDIR += p5-REST-Google-Apps-Provisioning
     SUBDIR += p5-RT-Authen-ExternalAuth
     SUBDIR += p5-RT-Client-REST
@@ -1331,6 +1305,7 @@
     SUBDIR += p5-WWW-Shorten
     SUBDIR += p5-WWW-Shorten-0rz
     SUBDIR += p5-WWW-Shorten-Bitly
+    SUBDIR += p5-WWW-Shorten-Googl
     SUBDIR += p5-WWW-Shorten-KUSO
     SUBDIR += p5-WWW-Shorten-NotLong
     SUBDIR += p5-WWW-Shorten-isgd
@@ -1482,7 +1457,6 @@
     SUBDIR += polipo
     SUBDIR += pound
     SUBDIR += prado
-    SUBDIR += preferential
     SUBDIR += privoxy
     SUBDIR += privoxy+ipv6
     SUBDIR += protovis
@@ -1539,7 +1513,6 @@
     SUBDIR += py-flask-uploads
     SUBDIR += py-flexget
     SUBDIR += py-flup
-    SUBDIR += py-forgethtml
     SUBDIR += py-formalchemy
     SUBDIR += py-formencode
     SUBDIR += py-funkload
@@ -1566,12 +1539,14 @@
     SUBDIR += py-pylons
     SUBDIR += py-pyquery
     SUBDIR += py-pyramid
+    SUBDIR += py-pyramid_rpc
     SUBDIR += py-pysearch
     SUBDIR += py-pywebdav
     SUBDIR += py-qp
     SUBDIR += py-qpy
     SUBDIR += py-qt4-webkit
     SUBDIR += py-recaptcha
+    SUBDIR += py-requests
     SUBDIR += py-restclient
     SUBDIR += py-routes
     SUBDIR += py-rssdler
@@ -1640,9 +1615,7 @@
     SUBDIR += ruby-google
     SUBDIR += ruby-gtkhtml2
     SUBDIR += ruby-gtkmozembed
-    SUBDIR += ruby-http-access
     SUBDIR += ruby-nora
-    SUBDIR += ruby-tmpl
     SUBDIR += ruby-wgettsv
     SUBDIR += rubygem-actionpack
     SUBDIR += rubygem-activeresource
@@ -1712,6 +1685,7 @@
     SUBDIR += screem
     SUBDIR += script4rss
     SUBDIR += seamonkey
+    SUBDIR += seamonkey-i18n
     SUBDIR += seamonkey2
     SUBDIR += seamonkey2-i18n
     SUBDIR += selenium
@@ -1720,6 +1694,7 @@
     SUBDIR += serf
     SUBDIR += servlet-api
     SUBDIR += session2
+    SUBDIR += sfnt2woff
     SUBDIR += shellinabox
     SUBDIR += shttpd
     SUBDIR += simplog
@@ -1749,8 +1724,8 @@
     SUBDIR += squidstats
     SUBDIR += squidview
     SUBDIR += squirm
-    SUBDIR += squishdot
     SUBDIR += srg
+    SUBDIR += subsonic
     SUBDIR += suphp
     SUBDIR += surf
     SUBDIR += surfraw
@@ -1803,6 +1778,7 @@
     SUBDIR += trac-customfieldadmin
     SUBDIR += trac-customroadmap
     SUBDIR += trac-datefield
+    SUBDIR += trac-defaultcc
     SUBDIR += trac-discussion
     SUBDIR += trac-down
     SUBDIR += trac-downloads
@@ -1810,6 +1786,7 @@
     SUBDIR += trac-estimator
     SUBDIR += trac-fivestarvote
     SUBDIR += trac-fullblog
+    SUBDIR += trac-fullblognotification
     SUBDIR += trac-gantt
     SUBDIR += trac-gitplugin
     SUBDIR += trac-graphviz
@@ -1838,6 +1815,7 @@
     SUBDIR += trac-themeengine
     SUBDIR += trac-ticketdelete
     SUBDIR += trac-ticketimport
+    SUBDIR += trac-tickettemplate
     SUBDIR += trac-timingandestimation
     SUBDIR += trac-tocmacro
     SUBDIR += trac-tweakui
@@ -1904,6 +1882,8 @@
     SUBDIR += uzbl
     SUBDIR += validator
     SUBDIR += varnish
+    SUBDIR += varnish-libvmod-header
+    SUBDIR += varnish2
     SUBDIR += vdr-plugin-live
     SUBDIR += vdradmin-am
     SUBDIR += vee
@@ -1920,7 +1900,6 @@
     SUBDIR += waccess
     SUBDIR += wacko
     SUBDIR += wadcomblog
-    SUBDIR += wcol
     SUBDIR += web-traceroute
     SUBDIR += web2ldap
     SUBDIR += webalizer
@@ -1930,7 +1909,6 @@
     SUBDIR += webcopy
     SUBDIR += webcrawl
     SUBDIR += webfs
-    SUBDIR += webglimpse
     SUBDIR += webgo
     SUBDIR += webinject
     SUBDIR += webkit-gtk2
@@ -1939,7 +1917,6 @@
     SUBDIR += weblint++
     SUBDIR += webobjects
     SUBDIR += webpy
-    SUBDIR += webredirect
     SUBDIR += webreport
     SUBDIR += webresolve
     SUBDIR += webserver
@@ -1953,7 +1930,6 @@
     SUBDIR += wgetpaste
     SUBDIR += wikicalc
     SUBDIR += wikindx
-    SUBDIR += wiliki
     SUBDIR += wml
     SUBDIR += woof
     SUBDIR += wordpress
@@ -1969,12 +1945,12 @@
     SUBDIR += xcache
     SUBDIR += xfce4-smartbookmark-plugin
     SUBDIR += xist
-    SUBDIR += xitami
     SUBDIR += xoops
     SUBDIR += xpi-adblock
     SUBDIR += xpi-adblock_plus
     SUBDIR += xpi-autobrowse
     SUBDIR += xpi-bookmarkdd
+    SUBDIR += xpi-clear_cache_button
     SUBDIR += xpi-clearfields
     SUBDIR += xpi-close-all-tabs
     SUBDIR += xpi-colorfultabs

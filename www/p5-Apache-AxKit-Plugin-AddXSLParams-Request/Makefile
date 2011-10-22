@@ -20,6 +20,9 @@ RUN_DEPENDS+=		${SITE_PERL}/${PERL_ARCH}/mod_perl.pm:${PORTSDIR}/www/mod_perl
 RUN_DEPENDS+=		${SITE_PERL}/${PERL_ARCH}/AxKit.pm:${PORTSDIR}/www/p5-AxKit
 BUILD_DEPENDS=		${RUN_DEPENDS}
 
+DEPRECATED=	depends on p5-AxKit
+EXPIRATION_DATE=	2011-11-01
+
 PERL_CONFIGURE=		yes
 
 MAN3=				Apache::AxKit::Plugin::AddXSLParams::Request.3

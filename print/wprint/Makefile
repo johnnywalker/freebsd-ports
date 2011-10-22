@@ -10,21 +10,25 @@ PORTNAME=	wprint
 PORTVERSION=	2.05
 PORTREVISION=	1
 CATEGORIES=	print
-MASTER_SITES=	http://mirror2.unixfreunde.de/ \
-		http://freebsd.unixfreunde.de/sources/
+MASTER_SITES=	http://programoj.esperanto.org.uy/angle/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Mozilla/HtmlDoc/Netscape Postscript Filter
+
+LICENSE=	GPLv2 # (or later)
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	freetype:${PORTSDIR}/print/freetype2
 
 USE_ICONV=	yes
 USE_PERL5=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+MAKE_JOBS_SAFE=	yes
 
-MAN1=	wprint.1
+MAN1=		wprint.1
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 post-patch:
 .for file in man/wprint.1.pod src/wprint.c

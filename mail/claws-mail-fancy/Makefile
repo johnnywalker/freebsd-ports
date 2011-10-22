@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	fancy
-PORTVERSION=	0.9.13
+PORTVERSION=	0.9.14
 CATEGORIES=	mail
 MASTER_SITES=	http://www.claws-mail.org/downloads/plugins/
 PKGNAMEPREFIX=	claws-mail-
@@ -14,12 +14,12 @@ PKGNAMEPREFIX=	claws-mail-
 MAINTAINER=	pawel@FreeBSD.org
 COMMENT=	Webkit based HTML renderer plugin for claws-mail
 
-LIB_DEPENDS=	curl:${PORTSDIR}/ftp/curl \
-		webkit:${PORTSDIR}/www/webkit-gtk2
-BUILD_DEPENDS=	claws-mail>=3.7.9:${PORTSDIR}/mail/claws-mail
-RUN_DEPENDS=	claws-mail>=3.7.9:${PORTSDIR}/mail/claws-mail
-
 LICENSE=	GPLv3
+
+LIB_DEPENDS=	curl:${PORTSDIR}/ftp/curl \
+		webkitgtk-1.0:${PORTSDIR}/www/webkit-gtk2
+BUILD_DEPENDS=	claws-mail>=3.7.10:${PORTSDIR}/mail/claws-mail
+RUN_DEPENDS=	claws-mail>=3.7.10:${PORTSDIR}/mail/claws-mail
 
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	autoconf
@@ -28,7 +28,7 @@ USE_GNOME=	gtk20
 MAKE_JOBS_SAFE=	yes
 
 CPPFLAGS+=	-I${LOCALBASE}/include
-CONFIGURE_ENV+=	LDFLAGS="-L${LOCALBASE}/lib"
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 CONFIGURE_ARGS=	--with-libiconv-prefix=${LOCALBASE} \
 		--with-libintl-prefix=${LOCALBASE}

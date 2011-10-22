@@ -15,6 +15,9 @@ EXTRACT_SUFX=	.tgz
 MAINTAINER=	sec@42.org
 COMMENT=	A Commodore SID-chip emulator that plays SID music files
 
+DEPRECATED=	No Master Site
+EXPIRATION_DATE=	2011-09-30
+
 LIB_DEPENDS=	sidplay.1:${PORTSDIR}/audio/libsidplay
 
 CONFIGURE_ARGS=	--with-sidplay-includes=${LOCALBASE}/include \

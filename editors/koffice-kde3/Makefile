@@ -7,7 +7,7 @@
 
 PORTNAME=	koffice
 PORTVERSION=	1.6.3
-PORTREVISION=	17
+PORTREVISION=	18
 PORTEPOCH=	2
 CATEGORIES=	editors kde
 MASTER_SITES=	${MASTER_SITE_KDE}
@@ -26,10 +26,12 @@ LIB_DEPENDS=	GraphicsMagick++.1:${PORTSDIR}/graphics/GraphicsMagick \
 		freetype.9:${PORTSDIR}/print/freetype2 \
 		lcms.1:${PORTSDIR}/graphics/lcms \
 		paper.2:${PORTSDIR}/print/libpaper \
-		poppler-qt.2:${PORTSDIR}/graphics/poppler-qt \
+		poppler-qt.3:${PORTSDIR}/graphics/poppler-qt \
 		wpd-0.8.8:${PORTSDIR}/textproc/libwpd08 \
 		wv2.4:${PORTSDIR}/textproc/wv2
 RUN_DEPENDS=	${LOCALBASE}/lib/libpqxx.a:${PORTSDIR}/databases/postgresql-libpqxx
+
+BROKEN=		does not compile
 
 USE_AUTOTOOLS=	libtool
 USE_LDCONFIG=	yes
@@ -53,4 +55,12 @@ CONFIGURE_ARGS+=--with-pgsqlincdir=${LOCALBASE}/include \
 post-patch:
 	${REINPLACE_CMD} -e 's|%%PYTHON_VER%%|${PYTHON_VER}|g' ${WRKSRC}/configure
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${RUBY_VER} == 1.9
+PLIST_SUB+=	KROSS="@comment "
+.else
+PLIST_SUB+=	KROSS=""
+.endif
+
+.include <bsd.port.post.mk>

@@ -7,6 +7,7 @@
 
 PORTNAME=	ogmrip
 PORTVERSION=	0.13.6
+PORTREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION:R}/${PORTVERSION}
 
@@ -39,13 +40,12 @@ USE_GNOME=	glib20 gnomehack intlhack libxml2
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 USE_LDCONFIG=	yes
 
 MAN1=		dvdcpy.1 avibox.1
 
-CPPFLAGS=	-I${LOCALBASE}/include
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 
@@ -57,7 +57,7 @@ PLIST_SUB+=		GUI_SUPPORT="@comment "
 CONFIGURE_ARGS+=	--enable-gtk-support --enable-dbus-support \
 			--enable-libnotify-support
 LIB_DEPENDS+=		dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib \
-			notify.1:${PORTSDIR}/devel/libnotify
+			notify.4:${PORTSDIR}/devel/libnotify
 USE_GNOME+=		gconf2 libglade2
 GCONF_SCHEMAS=		ogmrip.schemas
 PLIST_SUB+=		GUI_SUPPORT=""

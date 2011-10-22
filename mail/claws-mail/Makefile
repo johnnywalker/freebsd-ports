@@ -6,13 +6,14 @@
 #
 
 PORTNAME=	claws-mail
-PORTVERSION=	3.7.9
-PORTREVISION=	1
+PORTVERSION=	3.7.10
 CATEGORIES=	mail news ipv6
 MASTER_SITES=	SF/sylpheed-claws/Claws%20Mail/${PORTVERSION}
 
 MAINTAINER=	pawel@FreeBSD.org
 COMMENT=	A lightweight and very featureful GTK+ based e-mail and news client
+
+LICENSE=	GPLv3
 
 LIB_DEPENDS=	etpan:${PORTSDIR}/mail/libetpan \
 		cairo:${PORTSDIR}/graphics/cairo \
@@ -25,8 +26,6 @@ LIB_DEPENDS=	etpan:${PORTSDIR}/mail/libetpan \
 RUN_DEPENDS=	${LOCALBASE}/etc/mime.types:${PORTSDIR}/misc/mime-support
 
 CONFLICTS=	sylpheed-claws
-
-LICENSE=	GPLv3
 
 USE_BZIP2=	yes
 USE_GETTEXT=	yes
@@ -47,8 +46,8 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 
 CONFIGURE_ARGS=	--with-libiconv-prefix=${LOCALBASE}
 
-CONFIGURE_ENV=	LDFLAGS="-L${LOCALBASE}/lib" \
-		LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+CONFIGURE_ENV=	LIBS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=	ALL		"Enable all options."			off \
 		ENCHANT		"Enable spell checking support."	on \

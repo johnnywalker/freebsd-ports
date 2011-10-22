@@ -6,7 +6,7 @@
 #
 
 PORTNAME?=	postgresql
-DISTVERSION?=	9.1beta3
+DISTVERSION?=	9.1.0
 CATEGORIES?=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL}
 MASTER_SITE_SUBDIR=	source/v${DISTVERSION}
@@ -43,8 +43,7 @@ INCLUDES+=	-I${LOCALBASE}/include
 CONFIGURE_ARGS+=--with-libraries=${PREFIX}/lib \
 		--with-includes=${PREFIX}/include \
 		--enable-thread-safety
-CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}" \
-		INCLUDES="${INCLUDES}" \
+CONFIGURE_ENV+=	INCLUDES="${INCLUDES}" \
 		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		PTHREAD_LIBS="${PTHREAD_LIBS}"
 
@@ -90,8 +89,6 @@ USE_OPENSSL=	yes
 CONFIGURE_ARGS+=--with-openssl
 .endif
 
-.include <bsd.port.pre.mk>
-
 .if !defined(SLAVE_ONLY)
 OPTIONS+=	DTRACE "Build with DTrace probes (server only)" off
 OPTIONS+=	PAM "Build with PAM support (server only)" off
@@ -119,6 +116,11 @@ OPTIONS+=	INTDATE "Builds with 64-bit date/time type (server)" on
 #LIB_DEPENDS+=	icudata.46:${PORTSDIR}/devel/icu
 #EXTRA_PATCHES+=	${FILESDIR}/extra-patch-icu4
 #.  endif
+.endif
+
+.include <bsd.port.pre.mk>
+
+.if !defined(SLAVE_ONLY)
 
 PATCH_DIST_STRIP=-p1
 

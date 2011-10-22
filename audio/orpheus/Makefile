@@ -16,12 +16,15 @@ COMMENT=	Light-weight console UI audio player application
 
 RUN_DEPENDS=	mpg321:${PORTSDIR}/audio/mpg321
 
+DEPRECATED=	Contains problem with autotools, security CVE-2005-3863. Use audio/cmus instead
+EXPIRATION_DATE=2011-10-01
+
 USE_BZIP2=	yes
 HAS_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	autoconf
 
-CONFIGURE_ENV=	LDFLAGS="-L${LOCALBASE}/lib"
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS=	NLS	"Native language support"	on \
 		CDDB	"CDDB audio CD' auto fetch track info support"	on \

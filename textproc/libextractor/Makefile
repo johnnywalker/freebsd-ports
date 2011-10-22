@@ -7,7 +7,7 @@
 
 PORTNAME=	libextractor
 PORTVERSION=	0.6.2
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	${PORTNAME}
@@ -15,14 +15,14 @@ MASTER_SITE_SUBDIR=	${PORTNAME}
 MAINTAINER=	vd@FreeBSD.org
 COMMENT=	Library for keyword extraction
 
-USE_GNOME=	glib20 gtk20
+USE_GNOME=	gnomehack glib20 gtk20
 USE_PYTHON=	yes
 USE_AUTOTOOLS=	libltdl
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/libextractor
 CONFIGURE_ARGS=	--disable-ltdl-install
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 MAKE_JOBS_UNSAFE=	yes
 
 EXTRACT_AFTER_ARGS=	| ${TAR} -xf - --exclude libltdl
@@ -53,6 +53,10 @@ check: build install
 #regression-test: check
 
 .include <bsd.port.pre.mk>
+
+.if ${ARCH} == i386
+BROKEN=	does not package
+.endif
 
 # libextractor's configure logic is: if exiv2 is present it will add support
 # for it, if not present then it will not add support for it, but it cannot
@@ -109,7 +113,7 @@ PLIST_SUB+=	RPM="@comment "
 # QT can be disabled
 .if !defined(WITHOUT_QT)
 LIB_DEPENDS+=	QtGui:${PORTSDIR}/x11-toolkits/qt4-gui
-CONFIGURE_ENV+=	LDFLAGS="-L${LOCALBASE}/lib -L${LOCALBASE}/lib/qt4"
+LDFLAGS+=	-L${LOCALBASE}/lib -L${LOCALBASE}/lib/qt4
 CONFIGURE_ARGS+=--with-qt=${LOCALBASE}
 PLIST_SUB+=	QT=""
 .else

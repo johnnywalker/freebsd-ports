@@ -9,11 +9,14 @@ PORTNAME=	wmminichess
 PORTVERSION=	0.8
 PORTREVISION=	3
 CATEGORIES=	games
-MASTER_SITES=	http://www.insanum.com/miniCHESS/
+MASTER_SITES=	http://web.cs.mun.ca/~gstarkes/wmaker/dockapps/files/
 DISTNAME=	miniCHESS-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Window Maker chess dockapp game
+
+LICENSE=	GPLv2 # (or later)
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 RUN_DEPENDS=	${LOCALBASE}/bin/gnuchess:${PORTSDIR}/games/gnuchess
 

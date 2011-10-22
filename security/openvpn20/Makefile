@@ -7,7 +7,7 @@
 
 PORTNAME=	openvpn
 PORTVERSION=	2.0.9
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	security net
 # MASTER_SITES points to hosts in distinct data centers,
 # so just one MASTER_SITES entry should be OK.
@@ -35,6 +35,10 @@ LIB_DEPENDS+=	lzo2.2:${PORTSDIR}/archivers/lzo2
 
 SUB_FILES=	pkg-message
 SUB_LIST+=	OSVERSION=${OSVERSION}
+
+.if defined(PACKAGE_BUILDING)
+WITHOUT_CHECK=	yes
+.endif
 
 .include <bsd.port.pre.mk>
 

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	Bio-GFF3
-PORTVERSION=	0.5
+PORTVERSION=	0.6
 CATEGORIES=	biology perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -14,10 +14,11 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Fast, low-level functions for parsing and formatting GFF3
 
-RUN_DEPENDS=	p5-File-ReadBackwards>=0:${PORTSDIR}/devel/p5-File-ReadBackwards \
+BUILD_DEPENDS=	p5-File-ReadBackwards>=0:${PORTSDIR}/devel/p5-File-ReadBackwards \
 		p5-IO-String>=0:${PORTSDIR}/devel/p5-IO-String \
 		p5-IO-stringy>=0:${PORTSDIR}/devel/p5-IO-stringy \
 		p5-URI>=0:${PORTSDIR}/net/p5-URI
+RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 PERL_CONFIGURE=	YES
 

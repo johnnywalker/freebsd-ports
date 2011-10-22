@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	grep
-PORTVERSION=	2.8
-PORTREVISION=	1
+PORTVERSION=	2.9
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	${PORTNAME}
@@ -17,6 +16,8 @@ MAINTAINER=	gabor@FreeBSD.org
 COMMENT=	GNU grep
 
 CONFLICTS=	bsd-grep-*
+
+LICENSE=	GPLv3
 
 USE_XZ=		yes
 GNU_CONFIGURE=	yes
@@ -32,7 +33,6 @@ OPTIONS=	PCRE	"Compile with Perl-compatible regex support"	off
 
 .if !defined(WITHOUT_NLS)
 USE_GETTEXT=	yes
-CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}"
 LDFLAGS+=	-lintl -L${LOCALBASE}/lib
 PLIST_SUB+=	NLS=
 .else

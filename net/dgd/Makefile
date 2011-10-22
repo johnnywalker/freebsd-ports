@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	dgd
-PORTVERSION=	1.4.8
+PORTVERSION=	1.4.11
 CATEGORIES=	net lang games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:S|%SUBDIR%|${PORTNAME}-osr|} \
 		${MASTER_SITE_SOURCEFORGE:S|%SUBDIR%|${PORTNAME}-osr/old|}
@@ -18,6 +18,7 @@ LICENSE=	GPLv3
 
 OPTIONS=	NETWORKING	"With networking kfuns"		off \
 		DUMP		"With dump kfuns"		off \
+		CLOSURES	"With function pointer support"	off \
 		LPC_EXTENSION	"With LPC extension interface"	off
 
 DIST_SUBDIR=	dgd
@@ -30,6 +31,9 @@ MAKE_ENV+=	EXTRA_DEFINES="$(EXTRA_DEFINES)"
 .if !defined(NOPORTDOCS)
 PORTDOCS=	*
 .endif
+
+USERS=		mud
+GROUPS=		mud
 
 .include <bsd.port.pre.mk>
 
@@ -45,6 +49,10 @@ EXTRA_DEFINES+=	-DDUMP_FUNCS
 
 .if defined(WITH_LPC_EXTENSION)
 EXTRA_DEFINES+=	-DLPC_EXTENSION
+.endif
+
+.if defined(WITH_CLOSURES)
+EXTRA_DEFINES+=	-DCLOSURES
 .endif
 
 post-patch:
@@ -70,10 +78,5 @@ do-install:
 	${INSTALL_DATA} ${WRKDIR}/dgd/README ${DOCSDIR}
 	cd ${WRKDIR}/dgd/doc && ${COPYTREE_SHARE} . ${DOCSDIR}
 .endif
-
-post-install:
-	@# Run package installation script
-	@${SETENV} PKG_PREFIX=${PREFIX} ${SH} ${PKGDIR}/pkg-install ${PKGNAME} \
-		POST-INSTALL
 
 .include <bsd.port.post.mk>

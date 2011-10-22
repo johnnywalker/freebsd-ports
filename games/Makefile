@@ -15,7 +15,6 @@
     SUBDIR += HeroesOfMightAndMagic
     SUBDIR += KnightCap
     SUBDIR += abe
-    SUBDIR += abuse
     SUBDIR += abuse_sdl
     SUBDIR += acm
     SUBDIR += actx
@@ -35,9 +34,7 @@
     SUBDIR += alienwave
     SUBDIR += allacrost
     SUBDIR += amoebax
-    SUBDIR += amphetamine
     SUBDIR += an
-    SUBDIR += anagramarama
     SUBDIR += angband
     SUBDIR += anki
     SUBDIR += annelid
@@ -118,10 +115,8 @@
     SUBDIR += cardpics
     SUBDIR += cave9
     SUBDIR += cavezofphear
-    SUBDIR += cchess
     SUBDIR += ceferino
     SUBDIR += cgoban
-    SUBDIR += cgoban2
     SUBDIR += chanta
     SUBDIR += chapping
     SUBDIR += cheech
@@ -134,7 +129,6 @@
     SUBDIR += colorcode
     SUBDIR += columns
     SUBDIR += concentration
-    SUBDIR += connect4
     SUBDIR += connectfive
     SUBDIR += conquest
     SUBDIR += construo
@@ -300,7 +294,6 @@
     SUBDIR += gillo
     SUBDIR += gish-demo
     SUBDIR += gl-117
-    SUBDIR += glasteroids
     SUBDIR += glaxium
     SUBDIR += glbsp
     SUBDIR += glchess
@@ -432,7 +425,6 @@
     SUBDIR += kpicframer
     SUBDIR += kpictorial
     SUBDIR += kpuzzle
-    SUBDIR += krosswordplayer
     SUBDIR += kslide
     SUBDIR += ksudoku
     SUBDIR += ktritoc
@@ -531,7 +523,6 @@
     SUBDIR += memonix
     SUBDIR += meqcc
     SUBDIR += meritous
-    SUBDIR += merlin
     SUBDIR += mindfocus
     SUBDIR += mindguard
     SUBDIR += minetest
@@ -802,7 +793,6 @@
     SUBDIR += secretmaryochronicles
     SUBDIR += secretmaryochronicles-music
     SUBDIR += senken
-    SUBDIR += senso
     SUBDIR += sex
     SUBDIR += sfbol
     SUBDIR += shaaft
@@ -813,7 +803,6 @@
     SUBDIR += sjeng
     SUBDIR += sl
     SUBDIR += slashem-tty
-    SUBDIR += slige
     SUBDIR += slump
     SUBDIR += slune
     SUBDIR += smiley
@@ -837,6 +826,7 @@
     SUBDIR += steelstorm
     SUBDIR += stepbill
     SUBDIR += stepmania-devel
+    SUBDIR += stockfish
     SUBDIR += stonesoup
     SUBDIR += stonesoup-sdl
     SUBDIR += stormbaancoureur
@@ -907,7 +897,6 @@
     SUBDIR += tuxracer
     SUBDIR += tuxracer_golf
     SUBDIR += tuxtype
-    SUBDIR += tvp
     SUBDIR += twitch
     SUBDIR += tycho
     SUBDIR += typespeed
@@ -959,20 +948,17 @@
     SUBDIR += wmquake
     SUBDIR += wmshuffle
     SUBDIR += wmtictactoe
-    SUBDIR += wmtimebomb
     SUBDIR += wolf3d
     SUBDIR += wolfpack
     SUBDIR += wop
     SUBDIR += wordplay
     SUBDIR += worldofpadman
-    SUBDIR += wrogue
     SUBDIR += wtf
     SUBDIR += xabacus
     SUBDIR += xarchon
     SUBDIR += xasteroids
     SUBDIR += xataxx
     SUBDIR += xbaby
-    SUBDIR += xbat
     SUBDIR += xbattle
     SUBDIR += xbill
     SUBDIR += xbl
@@ -1003,8 +989,6 @@
     SUBDIR += xflame
     SUBDIR += xfrisk
     SUBDIR += xgalaga
-    SUBDIR += xgame
-    SUBDIR += xgammon
     SUBDIR += xglk
     SUBDIR += xgospel
     SUBDIR += xhexagons
@@ -1021,7 +1005,6 @@
     SUBDIR += xkoules
     SUBDIR += xlaby
     SUBDIR += xlife
-    SUBDIR += xlines
     SUBDIR += xlogical
     SUBDIR += xmahjongg
     SUBDIR += xmastermind
@@ -1041,6 +1024,7 @@
     SUBDIR += xoids
     SUBDIR += xoj
     SUBDIR += xonix
+    SUBDIR += xonotic
     SUBDIR += xorgramana
     SUBDIR += xosmulti
     SUBDIR += xpacman
@@ -1070,8 +1054,6 @@
     SUBDIR += xsc
     SUBDIR += xscavenger
     SUBDIR += xscorch
-    SUBDIR += xscrabble
-    SUBDIR += xshisen
     SUBDIR += xshogi
     SUBDIR += xskat
     SUBDIR += xskewb

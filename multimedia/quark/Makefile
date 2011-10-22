@@ -17,12 +17,12 @@ LIB_DEPENDS=	xine.1:${PORTSDIR}/multimedia/libxine
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USE_GNOME=	gnomehack gnomeprefix gnometarget gnomevfs2
+USE_GNOME=	gnomehack gnomeprefix gnomevfs2
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 MAKE_JOBS_SAFE=	yes
 

@@ -37,7 +37,7 @@ krrkp.nbw.emd krrpk.nbb.emd krrpk.nbw.emd
 DIST_SUBDIR=	crafty
 EXTRACT_ONLY=
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	conrads@cox.net
 COMMENT=	These are the pawn tablebases (3,4,5 man) for crafty
 
 RUN_DEPENDS=	crafty:${PORTSDIR}/games/crafty

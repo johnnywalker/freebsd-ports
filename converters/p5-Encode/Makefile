@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	Encode
-PORTVERSION=	2.42
+PORTVERSION=	2.44
 CATEGORIES=	converters perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:DANKOGAI
@@ -15,7 +15,7 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	rafan@FreeBSD.org
 COMMENT=	Provides interfaces between strings and the rest of the system
 
-PERL_CONFIGURE=	5.7.3+
+PERL_CONFIGURE=	yes
 
 MAN3=		Encode.3 \
 		Encode::Alias.3 \

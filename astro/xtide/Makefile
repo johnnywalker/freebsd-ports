@@ -14,7 +14,7 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
 		${TCD_DISTNAME}${EXTRACT_SUFX} \
 		${HARM_DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	c-s@c-s.li
+MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Harmonic tide clock and tide predictor
 
 LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png
@@ -24,13 +24,12 @@ LICENSE=	GPLv3
 USE_BZIP2=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 
 MAN1=		tide.1
 MAN8=		xttpd.8
 
-CPPFLAGS=	-I../${TCD_DISTNAME} -I${LOCALBASE}/include/libpng
-LDFLAGS=	-L../${TCD_DISTNAME}/.libs -L${LOCALBASE}/lib
+CPPFLAGS+=	-I../${TCD_DISTNAME} -I${LOCALBASE}/include/libpng
+LDFLAGS+=	-L../${TCD_DISTNAME}/.libs -L${LOCALBASE}/lib
 MAKE_JOBS_SAFE=	yes
 
 TCD_DISTNAME=	libtcd-2.2.5

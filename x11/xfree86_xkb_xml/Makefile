@@ -19,10 +19,9 @@ USE_GETTEXT=	yes
 USE_XORG=	x11
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-USE_GNOME=	gnometarget
 USE_PERL5_BUILD=yes
 CONFIGURE_ARGS=	--with-xkb-base=${LOCALBASE}/lib/X11/xkb
-CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
-		LDFLAGS="-L${LOCALBASE}/lib"
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.mk>

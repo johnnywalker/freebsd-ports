@@ -44,19 +44,19 @@ USE_XZ=		yes
 USE_ICONV=	yes
 GNU_CONFIGURE=	yes
 WANT_GNOME=	yes
-USE_GNOME=	gnomehack gnometarget
+USE_GNOME=	gnomehack
 USE_GMAKE=	yes
 USE_XORG=	x11 xv xinerama
 USE_GL=		gl glu
 USE_PERL5_BUILD=yes
 USE_SDL=	sdl
 USE_LDCONFIG=	yes
-CONFIGURE_ENV=	CFLAGS="${CFLAGS} -fno-force-addr -I${LOCALBASE}/include -I${LOCALBASE}/include/dvdread -I${LOCALBASE}/include/ffmeg" \
-		CPPFLAGS="-I${LOCALBASE}/include -I${LOCALBASE}/include/ffmpeg" \
-		LDFLAGS="-L${LOCALBASE}/lib" \
-		THREAD_CFLAGS="${PTHREAD_CFLAGS}" \
+CONFIGURE_ENV=	THREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		THREAD_LIBS="${PTHREAD_LIBS}" \
 		EXTRA_X_LIBS="-lGL -lGLU -lXext -lX11 -lm"
+CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/ffmpeg
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-fno-force-addr -I${LOCALBASE}/include -I${LOCALBASE}/include/dvdread -I${LOCALBASE}/include/ffmeg
 CONFIGURE_ARGS=	--with-w32-path=${LOCALBASE}/lib/win32 \
 		--enable-ipv6 \
 		--with-external-libmad \

@@ -7,32 +7,35 @@
 
 PORTNAME=	librep
 PORTVERSION=	0.92.0
+PORTREVISION=	1
 CATEGORIES=	lang elisp gnome
 MASTER_SITES=	http://download.tuxfamily.org/librep/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	An Emacs Lisp like runtime library
 
-LIB_DEPENDS=	gdbm.3:${PORTSDIR}/databases/gdbm \
+LIB_DEPENDS=	gdbm.4:${PORTSDIR}/databases/gdbm \
 		ffi.5:${PORTSDIR}/devel/libffi \
     		gmp.10:${PORTSDIR}/math/gmp
 RUN_DEPENDS=	gtar:${PORTSDIR}/archivers/gtar
+
+USE_CSTD=	gnu89
 
 USE_XZ=		yes
 USE_GNOME=	gnomehack
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
 USE_AUTOTOOLS=	libtool
-CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
-CONFIGURE_ARGS=	--with-aclocaldir=${PREFIX}/share/aclocal
+CONFIGURE_ARGS=	--with-aclocaldir=${PREFIX}/share/aclocal \
+		--with-stack-direction=-1
 USE_LDCONFIG=	yes
 
 MANCOMPRESSED=	yes
 MAN1=		rep.1 rep-remote.1 rep-xgettext.1 repdoc.1
 INFO=		librep
 
-CPPFLAGS=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
+LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .include <bsd.port.pre.mk>
 

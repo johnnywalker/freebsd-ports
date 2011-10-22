@@ -1,7 +1,7 @@
 #-*- mode: Makefile; tab-width: 4; -*-
 # ex:ts=4
 #
-# $FreeBSD: ports/Mk/bsd.kde.mk,v 1.80 2008/08/29 11:29:41 miwi Exp $
+# $FreeBSD: ports/Mk/bsd.kde.mk,v 1.81 2009/06/11 09:09:28 erwin Exp $
 #
 # Please view me with 4 column tabs!
 
@@ -92,8 +92,9 @@ QTCPPFLAGS+=		-D_GETOPT_H		# added to work around broken getopt.h #inc
 .if !defined (QT_NONSTANDARD)
 CONFIGURE_ARGS+=--with-extra-libs="${LOCALBASE}/lib" \
 				--with-extra-includes="${LOCALBASE}/include"
-CONFIGURE_ENV+=	MOC="${MOC}" CPPFLAGS="${CPPFLAGS} ${QTCPPFLAGS}" LIBS="${QTCFGLIBS}" \
+CONFIGURE_ENV+=	MOC="${MOC}" LIBS="${QTCFGLIBS}" \
 				QTDIR="${QT_CVS_PREFIX}" KDEDIR="${KDE_CVS_PREFIX}"
+CPPFLAGS+=		${QTCPPFLAGS}
 .endif
 
 .elif ${USE_QT_VER} == 3
@@ -123,8 +124,9 @@ CONFIGURE_ARGS+=--with-qt-includes=${QT_PREFIX}/include \
 				--with-qt-libraries=${QT_PREFIX}/lib \
 				--with-extra-libs=${LOCALBASE}/lib \
 				--with-extra-includes=${LOCALBASE}/include
-CONFIGURE_ENV+=	MOC="${MOC}" CPPFLAGS="${CPPFLAGS} ${QTCPPFLAGS}" LIBS="${QTCFGLIBS}" \
+CONFIGURE_ENV+=	MOC="${MOC}" LIBS="${QTCFGLIBS}" \
 				QTDIR="${QT_PREFIX}" KDEDIR="${KDE_PREFIX}"
+CPPFLAGS+=		${QTCPPFLAGS}
 .endif # !defined(QT_NONSTANDARD)
 
 .else

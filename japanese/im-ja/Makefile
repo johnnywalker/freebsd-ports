@@ -19,17 +19,16 @@ OPTIONS+=	CANNA		"Use Canna" on
 OPTIONS+=	WNN		"Use FreeWnn" on
 OPTIONS+=	GNOMEPANEL	"Build GNOME Panel Applet" off
 
-USE_GNOME=	gconf2 gnomehack gnomeprefix gnometarget intlhack libglade2
+USE_GNOME=	gconf2 gnomehack gnomeprefix intlhack libglade2
 USE_PERL5_BUILD=	yes
 USE_GMAKE=	yes
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS="${CPPFLAGS}" LDFLAGS="${LDFLAGS}"
 
 MAN1=		im-ja-conf.1 im-ja-xim-server.1
 GCONF_SCHEMAS=	im-ja.schemas
 
-CPPFLAGS=	-I${LOCALBASE}/include -DNO_MALLOC_H
-LDFLAGS=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${LOCALBASE}/include -DNO_MALLOC_H
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 
