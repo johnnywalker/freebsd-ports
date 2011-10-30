@@ -6,10 +6,9 @@
 #
 
 PORTNAME=	netatalk
-PORTVERSION=	2.2.1
+PORTVERSION=	2.2.1.johnny
 PORTEPOCH=	1
 CATEGORIES=	net print
-MASTER_SITES=	SF
 
 MAINTAINER=	marcus@FreeBSD.org
 COMMENT=	File server for Mac OS X
@@ -38,7 +37,8 @@ OPTIONS=	APPLETALK	"Enable AppleTalk protocol support" on \
 		PAM		"Enable PAM support" off \
 		TIMELORD	"Enable Timelord network time service" off \
 		KRB5		"Enable Kerberos V UAM" off \
-		ZEROCONF	"Enable Zeroconf (Bonjour) support" on
+		ZEROCONF	"Enable Zeroconf (Bonjour) support" on \
+		ACL		"Enable NFSv4 ACL support" off
 
 FILES=		AppleVolumes.default AppleVolumes.system afpd.conf netatalk.conf
 LINKS=		unbin unhex unsingle hqx2bin single2bin macbinary \
@@ -54,7 +54,19 @@ MAN8=		afpd.8 cnid_dbd.8 cnid_metad.8 timelord.8
 
 CONFLICTS=	bigloo-2.* cap-6.0.* tct-1.* netatalk-1* yudit-[0-9]*
 
+GIT_URL=	git://github.com/johnnywalker/netatalk.git
+GIT_BRANCH=	master-freebsd-with-acls-new
+
 .include <bsd.port.pre.mk>
+
+do-fetch:
+	@true
+
+do-extract:
+	@${RM} -rf ${WRKDIR}
+	@${MKDIR} ${WRKDIR}
+	@cd ${WRKDIR}
+	@git clone ${GIT_URL} ${WRKSRC} && cd ${WRKSRC} && git checkout ${GIT_BRANCH} && ./bootstrap
 
 .if defined(WITH_KRB5)
 CONFIGURE_ARGS+=	--enable-krbV-uam
@@ -108,6 +120,11 @@ USE_GNOME+=		pkgconfig
 SUB_LIST+=		ZEROCONF="avahi_daemon"
 .else
 SUB_LIST+=		ZEROCONF=""
+.endif
+
+.if defined (WITH_ACL)
+CONFIGURE_ARGS+=	--with-acls
+LIB_DEPENDS+=		sunacl:${PORTSDIR}/sysutils/libsunacl
 .endif
 
 .if ${OSVERSION} < 800031
