@@ -1,0 +1,89 @@
+--- src/racoon/ipsec_doi.c.orig	2011-11-26 22:06:44.184223926 -0600
++++ src/racoon/ipsec_doi.c	2011-11-26 21:49:46.609371840 -0600
+@@ -80,6 +80,12 @@
+ #include "strnames.h"
+ #include "gcmalloc.h"
+ 
++#ifdef ENABLE_HYBRID
++#include <resolv.h>
++#include "isakmp_xauth.h"
++#include "isakmp_cfg.h"
++#endif
++
+ #ifdef ENABLE_NATT
+ #include "nattraversal.h"
+ #endif
+@@ -3670,6 +3676,8 @@
+ 		ident = vdup(iph1->rmconf->idv);
+ 		break;
+ 	case IDTYPE_KEYID:
++		id_b.proto_id = IPPROTO_UDP;
++		id_b.port = htons(PORT_ISAKMP);
+ 		id_b.type = IPSECDOI_ID_KEY_ID;
+ 		ident = vdup(iph1->rmconf->idv);
+ 		break;
+@@ -3929,6 +3937,11 @@
+ 	struct ph2handle *iph2;
+ {
+ 	struct secpolicy *sp;
++#ifdef ENABLE_HYBRID
++        struct sockaddr_in fake_sin;
++#endif
++        struct sockaddr *src_sa;
++        uint prefixlen;
+ 
+ 	/* check there is phase 2 handler ? */
+ 	sp = getspbyspid(iph2->spid);
+@@ -3938,9 +3951,22 @@
+ 		return -1;
+ 	}
+ 
+-	if (!ipsecdoi_transportmode(iph2->proposal))
+-		iph2->id = ipsecdoi_sockaddr2id((struct sockaddr *)&sp->spidx.src,
+-				sp->spidx.prefs, sp->spidx.ul_proto);
++	if (!ipsecdoi_transportmode(iph2->proposal)) {
++                src_sa = (struct sockaddr *)&sp->spidx.src;
++                prefixlen = sp->spidx.prefs;
++#ifdef ENABLE_HYBRID
++                if (iph2->ph1->mode_cfg) {
++                        bzero((void*)&fake_sin, sizeof(struct sockaddr_in));
++                        fake_sin.sin_len = sizeof(struct sockaddr_in);
++                        fake_sin.sin_family = AF_INET;
++                        fake_sin.sin_addr = iph2->ph1->mode_cfg->addr4;
++                        src_sa = (struct sockaddr *)&fake_sin;
++                        prefixlen = 32;
++                }
++#endif
++		iph2->id = ipsecdoi_sockaddr2id(src_sa,
++				prefixlen, sp->spidx.ul_proto);
++        }
+ 	else if (iph2->sa_src != NULL) {
+ 		/* He have a specific hint indicating that the transport
+ 		 * mode SA will be negotiated using addresses that differ
+@@ -3967,10 +3993,22 @@
+ 		s_ipsecdoi_ident(((struct ipsecdoi_id_b *)iph2->id->v)->type));
+ 
+ 	/* remote side */
+-	if (!ipsecdoi_transportmode(iph2->proposal))
+-		iph2->id_p = ipsecdoi_sockaddr2id((struct sockaddr *)&sp->spidx.dst,
+-				sp->spidx.prefd, sp->spidx.ul_proto);
+-	else if (iph2->sa_dst != NULL) {
++	if (!ipsecdoi_transportmode(iph2->proposal)) {
++#ifdef ENABLE_HYBRID
++                //pass 0.0.0.0/0 for the dst ID so we can handle
++                //multiple subnets
++                bzero((void*)&fake_sin, sizeof(struct sockaddr_in));
++                fake_sin.sin_len = sizeof(struct sockaddr_in);
++                fake_sin.sin_family = AF_INET;
++                src_sa = (struct sockaddr *)&fake_sin;
++                prefixlen = 0;
++#else
++                src_sa = (struct sockaddr *)&sp->spidx.dst;
++                prefixlen = sp->spidx.prefd;
++#endif
++		iph2->id_p = ipsecdoi_sockaddr2id(src_sa,
++				prefixlen, sp->spidx.ul_proto);
++        } else if (iph2->sa_dst != NULL) {
+ 		/* See comment above for local side. */
+ 		iph2->id_p = ipsecdoi_sockaddr2id(iph2->sa_dst,
+ 						  IPSECDOI_PREFIX_HOST,
