@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/textproc/pootle/files/pootle.sh.in,v 1.3 2010/06/28 17:43:08 mm Exp $
+# $FreeBSD: ports/textproc/pootle/files/pootle.sh.in,v 1.4 2011/05/15 02:49:15 dougb Exp $
 #
 # PROVIDE: pootle
 # REQUIRE: DAEMON
@@ -46,7 +46,7 @@ start_cmd="pootle_start_cmd"
 
 pootle_start_cmd () {
 	[ -z "${rc_quiet}" ] && echo "Starting ${name}."
-	/usr/sbin/daemon -p ${pidfile} -u ${pootle_user} ${command} \
+	/usr/sbin/daemon -p ${pidfile} -u ${pootle_user} ${command} ${pootle_flags} \
 		>>${pootle_stdout} 2>>${pootle_stderr}
 }
 

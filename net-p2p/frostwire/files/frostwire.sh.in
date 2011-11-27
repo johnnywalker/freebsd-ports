@@ -1,8 +1,0 @@
-#!/bin/sh
-#
-# $FreeBSD: ports/net-p2p/frostwire/files/frostwire.sh.in,v 1.1 2007/04/26 00:04:16 alepulver Exp $
-
-export J2SE_PREEMPTCLOSE=1
-export JAVA_VERSION="%%JAVA_VERSION%%"
-
-cd "%%DATADIR%%" && exec "%%LOCALBASE%%/bin/java" -jar FrostWire.jar "$@"

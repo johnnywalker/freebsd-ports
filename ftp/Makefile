@@ -33,12 +33,12 @@
     SUBDIR += ftpproxy
     SUBDIR += ftpsesame
     SUBDIR += ftpsync
-    SUBDIR += gambas2-gb-net-curl
     SUBDIR += gftp
     SUBDIR += gnusget
     SUBDIR += gnustep-ftp
     SUBDIR += gwget
     SUBDIR += horde-gollem
+    SUBDIR += horde4-gollem
     SUBDIR += hs-curl
     SUBDIR += hsftp
     SUBDIR += jftp
@@ -111,7 +111,6 @@
     SUBDIR += waiho
     SUBDIR += weex
     SUBDIR += wget
-    SUBDIR += wgetpro
     SUBDIR += wmget
     SUBDIR += wput
     SUBDIR += wu-ftpd+ipv6

@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/sysutils/syslog-ng/files/syslog-ng.sh.in,v 1.2 2006/12/03 22:52:09 itetcu Exp $
+# $FreeBSD$
 #
 
 # PROVIDE: syslogd
-# REQUIRE: mountcritremote cleanvar
+# REQUIRE: mountcritremote cleanvar ldconfig
 # BEFORE:  SERVERS
 
 #
@@ -24,7 +24,7 @@ name=syslog_ng
 rcvar=`set_rcvar`
 
 command=%%PREFIX%%/sbin/syslog-ng
-required_files=%%PREFIX%%/etc/syslog-ng/syslog-ng.conf
+required_files=%%PREFIX%%/etc/syslog-ng.conf
 extra_commands=reload
 
 if checkyesno syslog_ng_purgeklog; then

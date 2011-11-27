@@ -1,4 +1,4 @@
-# $FreeBSD: ports/lang/erlang/Makefile.man,v 1.25 2011/03/16 21:08:26 olgeni Exp $
+# $FreeBSD: ports/lang/erlang/Makefile.man,v 1.26 2011/05/25 21:04:58 olgeni Exp $
 
 MAN1=	ct_run.1 \
 	diameter_compile.1 \
@@ -484,6 +484,7 @@ MAN3=	CosEventChannelAdmin.3 \
 	wxListCtrl.3 \
 	wxListEvent.3 \
 	wxListItem.3 \
+	wxListItemAttr.3 \
 	wxListView.3 \
 	wxListbook.3 \
 	wxLogNull.3 \

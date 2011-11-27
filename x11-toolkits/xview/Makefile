@@ -7,7 +7,7 @@
 
 PORTNAME=	xview
 PORTVERSION=	3.2.1
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	ftp://ftp.efd.lth.se/pub/X11/ \
 		ftp://ftp.uni-heidelberg.de/pub/X11/contrib/libraries/ \
@@ -42,10 +42,6 @@ X11BASE2FIX=	clients/olwmslave/help_file.c	lib/libxview/help/help_file.c	\
 
 .if ${OSVERSION} > 800089
 CFLAGS+=	-DCOMPAT_43TTY
-.endif
-
-.if ${OSVERSION} > 900007
-BROKEN=		fails to build with new utmpx
 .endif
 
 pre-configure:

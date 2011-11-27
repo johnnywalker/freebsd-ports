@@ -19,6 +19,9 @@ DISTNAME=	SHA256-${PORTVERSION}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Perl5 interface to the SHA256 algorithm
 
+# Depended on by mail/rspamd
+DEPRECATED=	use the builtin Digest::SHA instead
+
 WRKSRC=		${WRKDIR}/SHA256-0.01
 PERL_CONFIGURE=	yes
 

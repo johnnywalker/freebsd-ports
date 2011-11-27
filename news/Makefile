@@ -9,7 +9,6 @@
     SUBDIR += c-nocem
     SUBDIR += cg
     SUBDIR += cleanfeed
-    SUBDIR += cleanscore
     SUBDIR += cnews
     SUBDIR += crashmail
     SUBDIR += diablo
@@ -59,17 +58,14 @@
     SUBDIR += nntp
     SUBDIR += nntpbtr
     SUBDIR += nntpcache
-    SUBDIR += nntpswitch
     SUBDIR += noffle
     SUBDIR += nzbget
     SUBDIR += nzbperl
-    SUBDIR += p5-Gateway
     SUBDIR += p5-NNML
     SUBDIR += p5-NNTPClient
     SUBDIR += p5-News-Article
     SUBDIR += p5-News-Article-NoCeM
     SUBDIR += p5-News-Newsrc
-    SUBDIR += p5-NewsLib
     SUBDIR += p5-POE-Component-Client-NNTP
     SUBDIR += p5-POE-Component-Server-NNTP
     SUBDIR += pan

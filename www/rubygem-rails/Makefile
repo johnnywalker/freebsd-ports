@@ -5,7 +5,7 @@
 # $FreeBSD$
 
 PORTNAME=	rails
-PORTVERSION=	3.0.10
+PORTVERSION=	3.1.1
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
@@ -18,8 +18,15 @@ RUN_DEPENDS=	rubygem-activesupport>=${PORTVERSION}:${PORTSDIR}/devel/rubygem-act
 		rubygem-actionmailer>=${PORTVERSION}:${PORTSDIR}/mail/rubygem-actionmailer \
 		rubygem-activeresource>=${PORTVERSION}:${PORTSDIR}/www/rubygem-activeresource \
 		rubygem-railties>=${PORTVERSION}:${PORTSDIR}/www/rubygem-railties \
-		rubygem-sqlite3>=1.3.3:${PORTSDIR}/databases/rubygem-sqlite3 \
-		rubygem-bundler>=1.0:${PORTSDIR}/sysutils/rubygem-bundler
+		rubygem-sass-rails>=${PORTVERSION}:${PORTSDIR}/textproc/rubygem-sass-rails \
+		rubygem-coffee-rails>=${PORTVERSION}:${PORTSDIR}/devel/rubygem-coffee-rails \
+		rubygem-jquery-rails>=1.0.14:${PORTSDIR}/www/rubygem-jquery-rails \
+		rubygem-sqlite3>=1.3.4:${PORTSDIR}/databases/rubygem-sqlite3 \
+		rubygem-uglifier>=1.0.4:${PORTSDIR}/www/rubygem-uglifier \
+		rubygem-bundler>=1.0:${PORTSDIR}/sysutils/rubygem-bundler \
+		rubygem-treetop>=1.4.9:${PORTSDIR}/devel/rubygem-treetop \
+		rubygem-json>=1.6.1:${PORTSDIR}/devel/rubygem-json \
+		js:${PORTSDIR}/lang/spidermonkey
 
 # XXX: rails3 gem no longer has a lib/ dir
 # XXX: which breaks devel/ruby-gems specification.
@@ -27,6 +34,7 @@ RUN_DEPENDS=	rubygem-activesupport>=${PORTVERSION}:${PORTSDIR}/devel/rubygem-act
 NOPORTDOCS=yes
 
 USE_RUBY=	yes
+USE_RUBY_RDOC=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=  yes
 PLIST_FILES=	bin/rails
@@ -34,9 +42,9 @@ PLIST_FILES=	bin/rails
 OPTIONS= \
 	FCGI 			"FastCGI backend" 			Off \
 	MONGREL			"Mongrel backend"			Off \
-	MONGRELCLUSTER	"Mongrel Cluster backend"	Off \
+	MONGRELCLUSTER		"Mongrel Cluster backend"		Off \
 	PASSENGER		"Passenger backend"			Off \
-	MEMCACHE_CLIENT "MemCache-Client support" 	Off
+	MEMCACHE_CLIENT		"MemCache-Client support" 		Off
 OPTIONSFILE=	${PORT_DBDIR}/rubygem-${PORTNAME}/options
 
 .include <bsd.port.options.mk>
@@ -61,4 +69,10 @@ RUN_DEPENDS+=	rubygem-mongrel_cluster>=1.0.5:${PORTSDIR}/www/rubygem-mongrel_clu
 RUN_DEPENDS+=	rubygem-passenger>=2.2.15:${PORTSDIR}/www/rubygem-passenger
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${RUBY_VER} == 1.9
+RUN_DEPENDS+=	rubygem-turn>=0.8.3:${PORTSDIR}/devel/rubygem-turn
+.endif
+
+.include <bsd.port.post.mk>

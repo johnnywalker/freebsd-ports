@@ -6,29 +6,28 @@
 #
 
 PORTNAME=	fwbuilder
-DISTVERSION=	4.2.2
+DISTVERSION=	5.0.0
 PORTVERSION=	${DISTVERSION}
-PORTREVISION=	1
 CATEGORIES=	security
-BUILD=		3541
-.if defined(DEVEL)
-MASTER_SITES=	http://www.fwbuilder.org/nightly_builds/fwbuilder-4.0/build-${BUILD}/
-PKGNAMESUFFIX=	-devel
+BUILD=		3568
+# XXX in developement version of this port: PKGNAMESUFFIX=	-devel
+.if defined(PKGNAMESUFFIX) && ${PKGNAMESUFFIX} == -devel
+MASTER_SITES=   http://www.fwbuilder.org/nightly_builds/fwbuilder-5.0/current_build/
 PORTVERSION=	${DISTVERSION}.b${BUILD}
 .else
 MASTER_SITES=	SF/${PORTNAME}/Current_Packages/${PORTVERSION}
-DISTVERSIONSUFFIX=	.${BUILD}
 .endif
+DISTVERSIONSUFFIX=	.${BUILD}
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Firewall Builder GUI and policy compilers
 
-.if defined(DEVEL)
-CONFLICTS=	fwbuilder-[23].* fwbuilder-devel-[23].* \
-		libfwbuilder-[23].* libfwbuilder-devel-[23].*
+.if defined(PKGNAMESUFFIX) && ${PKGNAMESUFFIX} == -devel
+CONFLICTS=	fwbuilder-[234].* fwbuilder-devel-[234].* \
+		libfwbuilder-[234].* libfwbuilder-devel-[234].*
 .else
-CONFLICTS=	fwbuilder-[23].* fwbuilder-devel-* \
-		libfwbuilder-[23].* libfwbuilder-devel-*
+CONFLICTS=	fwbuilder-[234].* fwbuilder-devel-* \
+		libfwbuilder-[234].* libfwbuilder-devel-*
 .endif
 LIB_DEPENDS=	xslt.2:${PORTSDIR}/textproc/libxslt \
 		netsnmp.30:${PORTSDIR}/net-mgmt/net-snmp

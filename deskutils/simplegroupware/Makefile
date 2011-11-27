@@ -6,29 +6,27 @@
 #
 
 PORTNAME=	simplegroupware
-PORTVERSION=	0.700
+PORTVERSION=	0.724
 CATEGORIES=	deskutils
-MASTER_SITES=	SF/simplgroup/${PORTNAME}/${PORTVERSION}/
+MASTER_SITES=	SF/simplgroup/${PORTNAME}/${PORTVERSION}/ \
+		GOOGLE_CODE
 DISTNAME=	SimpleGroupware_${PORTVERSION}
 
-MAINTAINER=	jamrich.majo@gmail.com
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Simple Groupware is an open source enterprise application
 
-USE_PHP+=	mysql
-USE_MYSQL=	yes
-USE_APACHE=	22
 NO_BUILD=	yes
-WWWOWN=		www
-WWWGRP=		${WWWOWN}
+USE_APACHE=	22
+USE_MYSQL=	yes
+USE_PHP=	mysql
 
 PKGMESSAGE=	${WRKDIR}/${PORTNAME}/pkg-message
-SUB_FILES=      pkg-message
-PLIST_DIRSTRY=	%%WWWDIR%%
+SUB_FILES=	pkg-message
 
 do-install:
-	@${MKDIR} ${WWWDIR}
-	@${CP} -r ${WRKDIR}/SimpleGroupware_${PORTVERSION}/* ${WWWDIR}
-	@${CHOWN} -R ${WWWOWN}:${WWWGRP} ${WWWDIR}
+	${MKDIR} ${WWWDIR}/
+	cd ${WRKSRC}/ && ${COPYTREE_SHARE} . ${WWWDIR}/
+	${CHOWN} -R ${WWWOWN}:${WWWGRP} ${WWWDIR}/
 
 post-install:
 	@${CAT} ${PKGMESSAGE}

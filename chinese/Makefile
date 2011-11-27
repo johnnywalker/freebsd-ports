@@ -36,6 +36,11 @@
     SUBDIR += enscript
     SUBDIR += eterm
     SUBDIR += fcitx
+    SUBDIR += fcitx-cloudpinyin
+    SUBDIR += fcitx-configtool
+    SUBDIR += fcitx-googlepinyin
+    SUBDIR += fcitx-sunpinyin
+    SUBDIR += fcitx-ui-light
     SUBDIR += fireflyttf
     SUBDIR += font-std
     SUBDIR += fortune
@@ -66,6 +71,7 @@
     SUBDIR += koffice-kde4-l10n-zh_TW
     SUBDIR += kon2
     SUBDIR += libchewing
+    SUBDIR += libgooglepinyin
     SUBDIR += libtabe
     SUBDIR += lunar
     SUBDIR += mingunittf
@@ -108,14 +114,15 @@
     SUBDIR += qt4-codecs-cn
     SUBDIR += qt4-codecs-tw
     SUBDIR += qterm
+    SUBDIR += reciteword
     SUBDIR += scim-array
-    SUBDIR += scim-chewing
     SUBDIR += scim-fcitx
     SUBDIR += scim-pinyin
     SUBDIR += scim-tables
     SUBDIR += srecite
     SUBDIR += stardict-dict-zh_CN
     SUBDIR += stardict-dict-zh_TW
+    SUBDIR += sunpinyin
     SUBDIR += tcl83
     SUBDIR += telnet
     SUBDIR += tin

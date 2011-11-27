@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	typo3
-PORTVERSION=	4.4.11
+PORTVERSION=	4.4.12
 CATEGORIES=	www
 MASTER_SITES=	SF/${PORTNAME}/TYPO3%20Source%20and%20Dummy/TYPO3%20${PORTVERSION}
 
@@ -14,6 +14,9 @@ MAINTAINER=	jumper99@gmx.de
 COMMENT=	The typo3 content management system
 
 LICENSE=	GPLv2
+
+DEPRECATED=	Support will end in the near future, see http://typo3.org/download/packages/ for details
+EXPIRATION_DATE=2012-04-30
 
 NO_LATEST_LINK=	yes
 NO_BUILD=	yes
@@ -49,7 +52,7 @@ USE_PHP+=	gd
 .endif
 
 .if defined(WITH_IMAGICK)
-LIB_DEPENDS+=	MagickWand.4:${PORTSDIR}/graphics/ImageMagick-nox11
+RUN_DEPENDS+=	${LOCALBASE}/bin/convert:${PORTSDIR}/graphics/ImageMagick
 .endif
 
 .if defined(WITH_MBSTRING)

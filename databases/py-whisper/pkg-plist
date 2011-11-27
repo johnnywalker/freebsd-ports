@@ -1,4 +1,4 @@
-@comment $FreeBSD$
+@comment $FreeBSD: ports/databases/py-whisper/pkg-plist,v 1.1 2011/06/22 18:23:38 skreuzer Exp $
 %%PYTHON_SITELIBDIR%%/whisper.py
 %%PYTHON_SITELIBDIR%%/whisper.pyc
 %%PYTHON_SITELIBDIR%%/whisper.pyo
@@ -8,3 +8,4 @@ bin/whisper-fetch.py
 bin/whisper-update.py
 bin/whisper-resize.py
 bin/whisper-create.py
+bin/whisper-set-aggregation-method.py

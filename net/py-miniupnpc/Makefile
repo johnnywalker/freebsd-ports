@@ -24,4 +24,8 @@ PLIST=		${.CURDIR}/pkg-plist
 .include "${.CURDIR}/Makefile.local"
 .endif
 
+post-patch:
+	@${REINPLACE_CMD} 's/\(version\)="[^"]*"/\1="${PORTVERSION}"/' \
+		${WRKSRC}/setup.py
+
 .include "${MASTERDIR}/Makefile"

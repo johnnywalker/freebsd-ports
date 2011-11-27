@@ -7,8 +7,6 @@
 #				Default: ${CONFIGURE_ENV}
 # CMAKE_ARGS		- Arguments passed to cmake
 #				Default: see below
-# CMAKE_USE_PTHREAD	- Instruct cmake to use pthreads when compiling/linking
-#				Default: not set
 # CMAKE_BUILD_TYPE	- Type of build (cmake predefined build types).
 #				Projects may have their own build profiles.
 #				CMake supports the following types: Debug,
@@ -28,7 +26,7 @@
 #				Default: ${PREFIX}
 #
 #
-# $FreeBSD: ports/Mk/bsd.cmake.mk,v 1.10 2011/09/11 02:04:08 rakuco Exp $
+# $FreeBSD: ports/Mk/bsd.cmake.mk,v 1.12 2011/10/16 22:51:26 avilla Exp $
 
 CMAKE_MAINTAINER=	kde@FreeBSD.org
 
@@ -58,11 +56,11 @@ CMAKE_ARGS+=	-DCMAKE_C_COMPILER:STRING="${CC}" \
 				-DCMAKE_CXX_FLAGS:STRING="${CXXFLAGS}" \
 				-DCMAKE_CXX_FLAGS_DEBUG:STRING="${CXXFLAGS}" \
 				-DCMAKE_CXX_FLAGS_RELEASE:STRING="${CXXFLAGS}" \
+				-DCMAKE_EXE_LINKER_FLAGS:STRING="${LDFLAGS}" \
+				-DCMAKE_MODULE_LINKER_FLAGS:STRING="${LDFLAGS}" \
+				-DCMAKE_SHARED_LINKER_FLAGS:STRING="${LDFLAGS}" \
 				-DCMAKE_INSTALL_PREFIX:PATH="${CMAKE_INSTALL_PREFIX}" \
 				-DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
-				-DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
-				-DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}" \
-				-DCMAKE_MODULE_LINKER_FLAGS="${LDFLAGS}" \
 				-DTHREADS_HAVE_PTHREAD_ARG:BOOL=YES
 
 #
@@ -80,22 +78,13 @@ CMAKE_INSTALL_PREFIX?=	${PREFIX}
 CMAKE_BUILD_TYPE?=	Debug
 .else
 CMAKE_BUILD_TYPE?=	Release
+.endif
+
+.if defined(STRIP) && ${STRIP} != ""
 INSTALL_TARGET?=	install/strip
 .endif
 
 PLIST_SUB+=	CMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE:L}"
-
-#
-# Instruct cmake to compile/link with pthreads
-#
-.if defined(CMAKE_USE_PTHREAD)
-CFLAGS+=		${PTHREAD_CFLAGS}
-CXXFLAGS+=		${PTHREAD_CFLAGS}
-LDFLAGS+=		${PTHREAD_LIBS}
-
-CMAKE_ARGS+=	-DCMAKE_THREAD_LIBS:STRING="${PTHREAD_LIBS}" \
-				-DCMAKE_USE_PTHREADS:BOOL=ON
-.endif
 
 #
 # Force makefile verbosity if needed

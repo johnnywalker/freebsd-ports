@@ -7,7 +7,7 @@
 
 PORTNAME=	murmur
 PORTVERSION=	1.2.3
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	audio net
 MASTER_SITES=	SF/mumble/Mumble/${PORTVERSION}
 DISTNAME=	mumble-${PORTVERSION}
@@ -53,9 +53,6 @@ CONFIG+=	no-bonjour
 .endif
 
 post-patch:
-.if ${OSVERSION} < 700000
-	@cd ${WRKSRC} && ${PATCH} -sp < ${PATCHDIR}/freebsd6-patch-compiler.pri
-.endif
 .if ${OSVERSION} >= 800000
 	@${ECHO_CMD} 'QMAKE_LFLAGS += -fstack-protector' >> ${WRKSRC}/src/murmur/murmur.pro
 .endif

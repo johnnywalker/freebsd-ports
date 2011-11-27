@@ -8,7 +8,7 @@
 
 PORTNAME=	kdebase
 PORTVERSION=	${KDE_VERSION}
-PORTREVISION=	8
+PORTREVISION=	9
 CATEGORIES=	x11 kde
 MASTER_SITES=	${MASTER_SITE_KDE}
 MASTER_SITE_SUBDIR=	stable/${PORTVERSION:S/.0//}/src
@@ -18,7 +18,8 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Basic applications for the KDE system
 
 RUN_DEPENDS=	${KDE_PREFIX}/env/xdg-env.sh:${PORTSDIR}/misc/kde-xdg-env \
-		kompmgr:${PORTSDIR}/x11-wm/kompmgr
+		kompmgr:${PORTSDIR}/x11-wm/kompmgr \
+		${LOCALBASE}/etc/pam.d/kde:${PORTSDIR}/security/pam_kde
 BUILD_DEPENDS=	imake:${PORTSDIR}/devel/imake \
 		bdftopcf:${PORTSDIR}/x11-fonts/bdftopcf \
 		mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir
@@ -42,6 +43,7 @@ PKGDEINSTALL=	${WRKDIR}/pkg-deinstall
 
 USE_AUTOTOOLS=	libtool
 USE_LDCONFIG=	yes
+MAKE_JOBS_SAFE=	yes
 
 CONFIGURE_ENV+=	RUN_KAPPFINDER=no kde_cv_utmp_file=/var/run/utmp
 CONFIGURE_ARGS+=--without-java			\

@@ -10,9 +10,9 @@
     SUBDIR += R-cran-DCluster
     SUBDIR += R-cran-Epi
     SUBDIR += R-cran-bayesm
+    SUBDIR += R-cran-eco
     SUBDIR += abinit
     SUBDIR += afni
-    SUBDIR += at
     SUBDIR += avogadro
     SUBDIR += bddsolve
     SUBDIR += bft
@@ -51,7 +51,6 @@
     SUBDIR += gamess
     SUBDIR += gchemutils
     SUBDIR += gdis
-    SUBDIR += gerris
     SUBDIR += getdp
     SUBDIR += ghemical
     SUBDIR += ghmm
@@ -73,6 +72,7 @@
     SUBDIR += isaac-cfd
     SUBDIR += jmol
     SUBDIR += jstrack
+    SUBDIR += kalzium
     SUBDIR += kmovisto
     SUBDIR += kst
     SUBDIR += kst2
@@ -167,7 +167,6 @@
     SUBDIR += pybrain
     SUBDIR += pycdf
     SUBDIR += pynn
-    SUBDIR += pyvox
     SUBDIR += qcl
     SUBDIR += qtresistors
     SUBDIR += ruby-dcl
@@ -175,6 +174,7 @@
     SUBDIR += rubygem-ai4r
     SUBDIR += silo
     SUBDIR += simlib
+    SUBDIR += step
     SUBDIR += svmlight
     SUBDIR += szip
     SUBDIR += udunits

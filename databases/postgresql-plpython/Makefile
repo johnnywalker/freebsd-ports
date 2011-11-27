@@ -10,10 +10,8 @@ PORTREVISION=	1
 CATEGORIES=	databases python
 PKGNAMESUFFIX=	-plpython
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	rm@FreeBSD.org
 COMMENT=	A module for using Python to write SQL functions
-
-BROKEN=		Does not configure without threaded Python
 
 RUN_DEPENDS=	postgres:${PORTSDIR}/${POSTGRESQL_PORT}
 
@@ -41,6 +39,7 @@ CONFIGURE_ARGS=	--with-python
 BUILD_DIRS=	src/pl/plpython
 SLAVE_ONLY=	yes
 
-POSTGRESQL_PORT=databases/postgresql${PGSQL_VER}-server
+POSTGRESQL_PORT=	databases/postgresql${PGSQL_VER}-server
+PLIST_SUB=	PYTHON_MAJOR_VER=${PYTHON_VER:R}
 
 .include "${MASTERDIR}/Makefile"

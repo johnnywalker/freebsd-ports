@@ -6,9 +6,9 @@
 #
 
 PORTNAME=	rosegarden
-PORTVERSION=	11.06
+PORTVERSION=	11.11.11
 CATEGORIES=	audio
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}/
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/11.11/
 
 MAINTAINER=	pawel@FreeBSD.org
 COMMENT=	The Rosegarden Editor and Sequencer suite
@@ -20,8 +20,8 @@ BUILD_DEPENDS=	dssi_osc_update:${PORTSDIR}/audio/dssi \
 RUN_DEPENDS=	dssi_osc_update:${PORTSDIR}/audio/dssi \
 		lilypond:${PORTSDIR}/print/lilypond
 LIB_DEPENDS+=	lrdf.2:${PORTSDIR}/textproc/liblrdf \
-		fftw3.5:${PORTSDIR}/math/fftw3 \
-		fftw3f.5:${PORTSDIR}/math/fftw3-float \
+		fftw3:${PORTSDIR}/math/fftw3 \
+		fftw3f:${PORTSDIR}/math/fftw3-float \
 		asound.2:${PORTSDIR}/audio/alsa-lib \
 		lirc_client:${PORTSDIR}/comms/lirc
 

@@ -98,7 +98,6 @@
     SUBDIR += ipv6gen
     SUBDIR += irrtoolset
     SUBDIR += isic
-    SUBDIR += jffnms
     SUBDIR += jnettop
     SUBDIR += kismet
     SUBDIR += lanmap
@@ -137,7 +136,6 @@
     SUBDIR += nagios-snmp-plugins
     SUBDIR += nagios-snmp-plugins-extras
     SUBDIR += nagios-spamd-plugin
-    SUBDIR += nagios2
     SUBDIR += nagiosagent
     SUBDIR += nagiosgraph
     SUBDIR += nagiosgrapher
@@ -170,7 +168,6 @@
     SUBDIR += nfdump-devel
     SUBDIR += nfsen
     SUBDIR += ng_ipacct
-    SUBDIR += nipper
     SUBDIR += nitpicker
     SUBDIR += noc
     SUBDIR += nocol
@@ -239,12 +236,10 @@
     SUBDIR += py-flowtools
     SUBDIR += py-ipy
     SUBDIR += py-pyang
-    SUBDIR += py-snmp
     SUBDIR += py-snmp2
     SUBDIR += py-snmp4
     SUBDIR += py-snmp4-apps
     SUBDIR += py-snmp4-mibs
-    SUBDIR += py-twistedSNMP
     SUBDIR += py-yapsnmp
     SUBDIR += qkismet
     SUBDIR += rackmonkey
@@ -301,5 +296,15 @@
     SUBDIR += zabbix-proxy
     SUBDIR += zabbix-server
     SUBDIR += zenoss
+    SUBDIR += zenpack-apachemonitor
+    SUBDIR += zenpack-checkping
+    SUBDIR += zenpack-dellmon
+    SUBDIR += zenpack-dellmonitor
+    SUBDIR += zenpack-deviceadvdetail
+    SUBDIR += zenpack-devicesearch
+    SUBDIR += zenpack-graphportlet
+    SUBDIR += zenpack-interfacegraphs
+    SUBDIR += zenpack-libvirt
+    SUBDIR += zenpack-macreport
 
 .include <bsd.port.subdir.mk>

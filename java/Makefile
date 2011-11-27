@@ -83,7 +83,6 @@
     SUBDIR += java-checkstyle
     SUBDIR += java-cup
     SUBDIR += java-getopt
-    SUBDIR += java-tutorial
     SUBDIR += java3d
     SUBDIR += javahelp
     SUBDIR += javamail
@@ -91,14 +90,12 @@
     SUBDIR += jaxen
     SUBDIR += jbootstrap
     SUBDIR += jboss2
-    SUBDIR += jboss4
     SUBDIR += jboss5
     SUBDIR += jc
     SUBDIR += jcalendar
     SUBDIR += jcckit
     SUBDIR += jcommon
     SUBDIR += jdbcpool
-    SUBDIR += jde
     SUBDIR += jdk15
     SUBDIR += jdk15-doc
     SUBDIR += jdk16
@@ -121,7 +118,6 @@
     SUBDIR += jtiger
     SUBDIR += jump
     SUBDIR += junit
-    SUBDIR += kaffe
     SUBDIR += langspec
     SUBDIR += linux-sun-jdk15
     SUBDIR += linux-sun-jdk16
@@ -135,6 +131,7 @@
     SUBDIR += netbeans61
     SUBDIR += netcomponents
     SUBDIR += netrexx
+    SUBDIR += netty
     SUBDIR += openjdk6
     SUBDIR += openjdk7
     SUBDIR += phpeclipse

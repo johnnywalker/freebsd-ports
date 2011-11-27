@@ -12,8 +12,8 @@ CATEGORIES=	net-im xfce
 MASTER_SITES=	ftp://ftp.berlios.de/pub/xfce-goodies/panel-plugins/4.4/
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	Messenger plugin for xfce
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Messenger plugin for Xfce
 
 LIB_DEPENDS=	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib
 

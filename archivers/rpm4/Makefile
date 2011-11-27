@@ -5,7 +5,7 @@
 # $FreeBSD$
 
 PORTNAME=	rpm
-PORTVERSION=	4.9.1.1
+PORTVERSION=	4.9.1.2
 PORTREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	http://rpm.org/releases/rpm-${PORTVERSION:R:R}.x/ \
@@ -92,9 +92,6 @@ PORTDOCS=	*
 
 .if ${OSVERSION} < 800502
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-rpmio_rpmsq.c
-.endif
-.if ${OSVERSION} < 700000
-EXTRA_PATCHES+=	${FILESDIR}/extra-patch-lib_fs.c
 .endif
 
 .if ${OSVERSION} < 800505 || (${OSVERSION} >= 900000 && ${OSVERSION} < 900012)

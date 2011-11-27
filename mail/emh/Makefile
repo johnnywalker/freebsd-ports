@@ -7,7 +7,7 @@
 
 PORTNAME=	emh
 PORTVERSION=	1.14.1
-PORTREVISION=	8
+PORTREVISION=	9
 CATEGORIES=	mail elisp
 MASTER_SITES=	ftp://ring.aist.go.jp/pub/elisp/semi/semi-1.14-for-flim-1.14/ \
 		http://www.kanji.zinbun.kyoto-u.ac.jp/~tomo/lemi/dist/semi/semi-1.14-for-flim-1.14/
@@ -37,7 +37,7 @@ RUN_DEPENDS+=	${LOCALBASE}/${EMACS_LIBDIR}/xemacs-packages/lisp/mh-e/mh-e.el:${P
 .if ${EMACS_PORT_NAME} == "emacs20"
 DEPPORT_SUFFIX=		-${EMACS_PORT_NAME}
 .else
-DEPPORT_SUFFIX=		
+DEPPORT_SUFFIX=
 .endif
 ALL_TARGET=	elc
 EMH_LISPDIR=	${EMACS_VERSION_SITE_LISPDIR}/semi

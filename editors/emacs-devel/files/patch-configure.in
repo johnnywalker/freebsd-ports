@@ -1,9 +1,9 @@
 
-$FreeBSD: ports/editors/emacs-devel/files/patch-configure.in,v 1.7 2011/05/01 09:56:45 ashish Exp $
+$FreeBSD: ports/editors/emacs-devel/files/patch-configure.in,v 1.9 2011/10/17 04:55:31 ashish Exp $
 
 --- configure.in.orig
 +++ configure.in
-@@ -1129,39 +1129,10 @@
+@@ -1167,39 +1167,10 @@
    AC_CHECK_LIB(ossaudio, _oss_ioctl, LIBSOUND=-lossaudio, LIBSOUND=)
    AC_SUBST(LIBSOUND)
  
@@ -44,3 +44,12 @@ $FreeBSD: ports/editors/emacs-devel/files/patch-configure.in,v 1.7 2011/05/01 09
       case "$opsys" in
         dnl defined __FreeBSD__ || defined __NetBSD__ || defined __linux__
         gnu-linux|freebsd|netbsd)
+@@ -1216,7 +1187,7 @@
+   linux/version.h sys/systeminfo.h \
+   stdio_ext.h fcntl.h coff.h pty.h sys/mman.h \
+   sys/vlimit.h sys/resource.h locale.h sys/_mbstate_t.h \
+-  sys/utsname.h pwd.h utmp.h dirent.h util.h)
++  sys/utsname.h pwd.h utmp.h dirent.h util.h libutil.h)
+
+ AC_MSG_CHECKING(if personality LINUX32 can be set)
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sys/personality.h>]], [[personality (PER_LINUX32)]])],

@@ -14,12 +14,14 @@
     SUBDIR += c64bdf
     SUBDIR += cantarell-fonts
     SUBDIR += charis
+    SUBDIR += charis-compact
     SUBDIR += code2000
     SUBDIR += code2001
     SUBDIR += cyberbit-ttfonts
     SUBDIR += cyr-rfx
     SUBDIR += dejavu
     SUBDIR += doulos
+    SUBDIR += doulos-compact
     SUBDIR += droid-fonts-ttf
     SUBDIR += ecofont
     SUBDIR += encodings
@@ -139,6 +141,7 @@
     SUBDIR += tolkien-ttf
     SUBDIR += ttmkfdir
     SUBDIR += tv-fonts
+    SUBDIR += ubuntu-font
     SUBDIR += urwfonts
     SUBDIR += urwfonts-ttf
     SUBDIR += webfonts

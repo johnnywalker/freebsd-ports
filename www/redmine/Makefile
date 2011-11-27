@@ -12,7 +12,7 @@ CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_RUBYFORGE}
 MASTER_SITE_SUBDIR=	${PORTNAME}
 
-MAINTAINER=	dinoex@FreeBSD.org
+MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	A flexible project management web application
 
 RUN_DEPENDS=	rackup:${PORTSDIR}/www/rubygem-rack \
@@ -24,8 +24,6 @@ USE_RUBY_FEATURES=	iconv
 USE_RAKE=	yes
 NO_BUILD=	yes
 SUB_LIST+=	RUBY_NAME=${RUBY_NAME}
-
-BROKEN=		Does not work with RubyGems 1.8
 
 OPTIONS=	MYSQL "Enable MySQL support" on \
 		POSTGRESQL "Enable PostgreSQL support" off \

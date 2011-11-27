@@ -6,16 +6,15 @@
 #
 
 PORTNAME=	xfce4-desktop
-PORTVERSION=	4.8.2
-PORTREVISION=	4
+PORTVERSION=	4.8.3
 CATEGORIES=	x11-wm xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/xfce/xfdesktop/${PORTVERSION:R}
 DISTNAME=	xfdesktop-${PORTVERSION}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	oliver@FreeBSD.org
-COMMENT=	XFce 4 desktop background manager and root menu
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce 4 desktop background manager and root menu
 
 DOCSDIR=	${PREFIX}/share/doc/xfdesktop
 

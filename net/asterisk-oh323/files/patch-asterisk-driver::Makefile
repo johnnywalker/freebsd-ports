@@ -1,5 +1,5 @@
 
-$FreeBSD$
+$FreeBSD: ports/net/asterisk-oh323/files/patch-asterisk-driver::Makefile,v 1.6 2009/01/26 09:04:20 sobomax Exp $
 
 --- asterisk-driver/Makefile.orig
 +++ asterisk-driver/Makefile

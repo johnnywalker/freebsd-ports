@@ -1,13 +1,13 @@
 # Date created:		2009-01-25
 # Whom:			Wen Heping <wenheping@gmail.com>
 #
-# $FreeBSD: ports/Mk/bsd.cran.mk,v 1.6 2011/04/30 07:16:53 bf Exp $
+# $FreeBSD: ports/Mk/bsd.cran.mk,v 1.9 2011/10/15 13:37:26 tota Exp $
 #
 
 CRAN_Include_MAINTAINER=	wen@FreeBSD.org
 
 .if defined(USE_R_MOD)
-MASTER_CRAN_SITES+=	http://mirrors.geoexpat.com/cran/src/contrib/ \
+MASTER_CRAN_SITES+=	http://ftp.ctex.org/mirrors/CRAN/src/contrib/ \
 			http://cran.rakanu.com/src/contrib/ \
 			http://cran.ms.unimelb.edu.au/src/contrib/ \
 			http://mirror.its.dal.ca/cran/src/contrib/ \
@@ -25,6 +25,8 @@ MASTER_SITES?=	${MASTER_CRAN_SITES}
 .if defined(USE_R_MOD)
 BUILD_DEPENDS+=	${LOCALBASE}/bin/R:${PORTSDIR}/math/R
 RUN_DEPENDS+=	${LOCALBASE}/bin/R:${PORTSDIR}/math/R
+
+PKGNAMEPREFIX?=	R-cran-
 .endif
 
 R_MOD_DIR?=	lib/R/library/${PORTNAME}

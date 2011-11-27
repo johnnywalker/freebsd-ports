@@ -6,21 +6,31 @@
 #
 
 PORTNAME=	dgen-sdl
-PORTVERSION=	1.23
-PORTREVISION=	4
+PORTVERSION=	1.28
 CATEGORIES=	emulators
-MASTER_SITES=	http://src4.narod.ru/
+MASTER_SITES=	SF/dgen/dgen/${PORTVERSION}
 
 MAINTAINER=	spam@rm-rf.kiev.ua
 COMMENT=	A wonderful Sega Genesis/MegaDrive emulator
-
-BUILD_DEPENDS=	nasm:${PORTSDIR}/devel/nasm
 
 USE_SDL=	sdl
 USE_GL=		yes
 GNU_CONFIGURE=	yes
 
-MAN1=		dgen.1 tobin.1
+CONFIGURE_ARGS+=	--with-extra-opt
+
+PLIST_FILES=	bin/dgen \
+		bin/dgen_tobin
+
+MAN1=		dgen.1 dgen_tobin.1
 MAN5=		dgenrc.5
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == i386
+BUILD_DEPENDS+=	nasm:${PORTSDIR}/devel/nasm
+.else
+CONFIGURE_ARGS+=	--disable-asm
+.endif
+
+.include <bsd.port.post.mk>

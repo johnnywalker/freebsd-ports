@@ -5,11 +5,11 @@
 # $FreeBSD$
 
 PORTNAME=	anemone
-PORTVERSION=	0.5.0
+PORTVERSION=	0.6.1
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	niels@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Anemone is a library that allows programs to spider websites
 
 RUN_DEPENDS=	rubygem-nokogiri>=1.3.0:${PORTSDIR}/textproc/rubygem-nokogiri \

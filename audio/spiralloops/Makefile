@@ -39,6 +39,10 @@ post-patch:
 		s:/usr/X11R6:${LOCALBASE}:g" \
 		< ${WRKSRC}/Makefile.in.orig > ${WRKSRC}/Makefile.in
 
+	@${FIND} ${WRKSRC} -type f -name "*.C" -o -name "*.cpp" -o -name "*.h" | ${XARGS} \
+	   ${REINPLACE_CMD} -e '/^#include <FL/s|.h>$$|.H>|; /^#include "FL/s|.h"$$|.H"|; \
+	   s|fl_file_chooser.H|Fl_File_Chooser.H|g'
+
 pre-install:
 	${ECHO_CMD} bin/SpiralLoops > ${PLIST}
 .if !defined(NOPORTDOCS)

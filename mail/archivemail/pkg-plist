@@ -1,12 +1,10 @@
-@comment $FreeBSD: ports/mail/archivemail/pkg-plist,v 1.5 2007/03/21 16:43:07 sergei Exp $
 bin/archivemail
 %%PORTDOCS%%%%DOCSDIR%%/CHANGELOG
 %%PORTDOCS%%%%DOCSDIR%%/FAQ
 %%PORTDOCS%%%%DOCSDIR%%/NEWS
 %%PORTDOCS%%%%DOCSDIR%%/README
 %%PORTDOCS%%%%DOCSDIR%%/TODO
-%%PORTDOCS%%%%DOCSDIR%%/archivemail.sgml
-%%PORTDOCS%%@dirrm %%DOCSDIR%%
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/archivemail_all
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/test_archivemail
 %%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%
+%%PORTDOCS%%@dirrm %%DOCSDIR%%

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	tt-rss
-PORTVERSION=	1.5.5
+PORTVERSION=	1.5.6
 CATEGORIES=	www
 MASTER_SITES=	http://tt-rss.org/download/
 
@@ -17,7 +17,7 @@ LICENSE=	GPLv2
 
 NO_BUILD=	yes
 
-USE_PHP=	json mbstring pcntl posix session xmlrpc
+USE_PHP=	ctype json mbstring pcntl posix session xmlrpc
 WANT_PHP_WEB=	yes
 WANT_PHP_CLI=	yes
 REINPLACE_ARGS=	-i ""

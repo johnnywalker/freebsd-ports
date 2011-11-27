@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	cups
-PORTVERSION=	1.4.8
+PORTVERSION=	1.5.0
 DISTVERSIONSUFFIX=	-source
 CATEGORIES=	print
 MASTER_SITES=	EASYSW/${PORTNAME}/${DISTVERSION}
@@ -95,6 +95,8 @@ LIB_DEPENDS+=	cups.2:${PORTSDIR}/${PKGCATEGORY}/cups-client \
 		jpeg.11:${PORTSDIR}/graphics/jpeg \
 		png.6:${PORTSDIR}/graphics/png \
 		tiff.4:${PORTSDIR}/graphics/tiff
+# force build if old cups is installed.
+BUILD_DEPENDS+=	cups-client${PKGNAMESUFFIX2}>=${PORTVERSION}:${PORTSDIR}/${PKGCATEGORY}/cups-client
 COMMENT2=	Library cupsimage
 CONFIGURE_ARGS+=	--disable-pdftops
 INSTALL_WRKSRC=	${WRKSRC}/filter
@@ -103,10 +105,11 @@ USE_LDCONFIG=	yes
 PKGMESSAGE=	${NONEXISTENT}
 DESCR=		${MASTERDIR}/pkg-descr.image
 .else
-LIB_DEPENDS+=	cups.2:${PORTSDIR}/${PKGCATEGORY}/cups-client \
-		cupsimage.2:${PORTSDIR}/${PKGCATEGORY}/cups-image
+LIB_DEPENDS+=	cups.2:${PORTSDIR}/${PKGCATEGORY}/cups-client
+LIB_DEPENDS+=	cupsimage.2:${PORTSDIR}/${PKGCATEGORY}/cups-image
 # force build if old cups is installed.
-BUILD_DEPENDS+=	${LOCALBASE}/lib/libcups.a:${PORTSDIR}/${PKGCATEGORY}/cups-client
+BUILD_DEPENDS+=	cups-client${PKGNAMESUFFIX2}>=${PORTVERSION}:${PORTSDIR}/${PKGCATEGORY}/cups-client
+BUILD_DEPENDS+=	cups-image${PKGNAMESUFFIX2}>=${PORTVERSION}:${PORTSDIR}/${PKGCATEGORY}/cups-image
 COMMENT2=	Server
 USE_RC_SUBR=	cupsd
 PLIST_SUB+=	CACHEDIR="${CUPS_CACHEDIR}"
@@ -124,10 +127,10 @@ CONFIGURE_ARGS+=	--with-printcap=${PREFIX}/etc/printcap
 .endif
 
 .if defined(WITH_GNUTLS)
-BROKEN=			gnutls does not support threads yet; disable the GNUTLS
 CONFIGURE_ARGS+=	--disable-openssl --enable-gnutls
 CONFIGURE_ENV+=		PKGCONFIG="${LOCALBASE}/bin/pkg-config"
-LIB_DEPENDS+=		gnutls-openssl.27:${PORTSDIR}/security/gnutls
+LIB_DEPENDS+=		gcrypt.18:${PORTSDIR}/security/libgcrypt
+LIB_DEPENDS+=		gnutls.47:${PORTSDIR}/security/gnutls
 BUILD_DEPENDS+=		pkg-config:${PORTSDIR}/devel/pkg-config
 .else
 CONFIGURE_ARGS+=	--disable-gnutls --enable-openssl
@@ -228,6 +231,7 @@ MAN1=	cups-config.1
 MAN1=	cancel.1 \
 	cupstestdsc.1 \
 	cupstestppd.1 \
+	ipptool.1 \
 	lp.1 \
 	lpoptions.1 \
 	lppasswd.1 \
@@ -244,6 +248,7 @@ MAN5=	classes.conf.5 \
 	client.conf.5 \
 	cups-snmp.conf.5 \
 	cupsd.conf.5 \
+	ipptoolfile.5 \
 	mailto.conf.5 \
 	mime.convs.5 \
 	mime.types.5 \
@@ -276,10 +281,6 @@ MLINKS=	accept.8 reject.8 \
 SUB_FILES+=	ulpt-cupsd.conf ulpt-cupsd.sh
 .endif
 
-pre-configure::
-	@${ECHO_MSG} Configuring CUPS with options:
-	@${ECHO_MSG} ${CONFIGURE_ARGS} | fmt
-
 post-patch:
 .if (${OSVERSION} >= 700000) || defined(WITH_PIEAMD64)
 .if ${ARCH} == "amd64" || defined(WITH_PIEAMD64)
@@ -297,32 +298,46 @@ post-patch:
 		${WRKSRC}/${CONFIGURE_SCRIPT}
 .if defined(CUPS_CLIENT)
 	@${REINPLACE_CMD} \
+		-e 's|cups test|cups|' \
 		-e 's|cups filter |cups |' \
-		-e 's|backend berkeley cgi-bin driver locale man monitor||' \
-		-e 's|notifier ppdc scheduler systemv test ||' \
-		-e 's|$$.PHPDIR. ||' \
-		-e 's|conf data doc $$.FONTS.ppd templates||' \
-		-e 's|/usr/share|${PREFIX}/share|g' \
+		-e 's|driver ppdc scheduler||' \
+		-e 's|$$.PHPDIR. $$.FONTS.||' \
 		${WRKSRC}/Makefile
 .elif defined(CUPS_IMAGE)
 	@${REINPLACE_CMD} \
+		-e 's|cups test||' \
 		-e 's|cups filter |filter |' \
-		-e 's|backend berkeley cgi-bin driver locale man monitor||' \
-		-e 's|notifier ppdc scheduler systemv test ||' \
-		-e 's|$$.PHPDIR. ||' \
-		-e 's|conf data doc $$.FONTS.ppd templates||' \
-		-e 's|/usr/share|${PREFIX}/share|g' \
+		-e 's|driver ppdc scheduler||' \
+		-e 's|$$.PHPDIR. $$.FONTS.||' \
 		${WRKSRC}/Makefile
 .else
 	@${REINPLACE_CMD} \
-		-e 's|cups filter backend|backend|' \
+		-e 's|cups test|test|' \
+		-e 's|cups filter driver|driver|' \
 		-e 's|$$.INSTALL_SCRIPT. cups-config|echo skip: cups-config|' \
-		-e 's|/usr/share|${PREFIX}/share|g' \
-		-e 's|installhdrs$$||' \
 		${WRKSRC}/Makefile
 	@${REINPLACE_CMD} \
 		-e 's|cups-config.$$.MAN1EXT. ||' \
 		${WRKSRC}/man/Makefile
+.endif
+
+pre-configure::
+	@${ECHO_MSG} Configuring CUPS with options:
+	@${ECHO_MSG} ${CONFIGURE_ARGS} | fmt
+
+post-configure:
+.if defined(CUPS_CLIENT)
+	@${REINPLACE_CMD} \
+		-e 's|filter .* templates||' \
+		${WRKSRC}/Makedefs
+.elif defined(CUPS_IMAGE)
+	@${REINPLACE_CMD} \
+		-e 's|filter .* templates|filter|' \
+		${WRKSRC}/Makedefs
+.else
+	@${REINPLACE_CMD} \
+		-e 's|filter backend|backend|' \
+		${WRKSRC}/Makedefs
 .endif
 
 .if !defined(CUPS_CLIENT)
@@ -336,15 +351,12 @@ pre-build:
 .endif
 .endif
 
-.if defined(CUPS_IMAGE)
-post-install:
-	${INSTALL_DATA} ${WRKSRC}/cups/raster.h ${PREFIX}/include/cups/
-.endif
-
 .if !defined(CUPS_CLIENT) && !defined(CUPS_IMAGE)
 post-build:
 	cd ${WRKSRC}/filter && ${MAKE} pdftops
+.endif
 
+.if !defined(CUPS_CLIENT) && !defined(CUPS_IMAGE)
 pre-su-install:
 	@${INSTALL} -d ${DESKTOPDIR}/
 	if ! pw groupshow ${CUPSGRP}; then pw groupadd ${CUPSGRP} -g 193; fi
@@ -357,8 +369,16 @@ pre-su-install:
 	if test -e /usr/bin/lprm; then ${CHMOD} -h 0 /usr/bin/lprm; fi
 	if test -e /usr/sbin/lpc; then ${CHMOD} -h 0 /usr/sbin/lpc; fi
 .endif
+.endif
 
 post-install:
+.if defined(CUPS_CLIENT)
+	${INSTALL_SCRIPT} ${WRKSRC}/cups-config ${PREFIX}/bin/
+	${INSTALL_DATA} ${WRKSRC}/cups/libcups.a ${PREFIX}/lib/
+	${INSTALL_MAN} ${WRKSRC}/man/cups-config.man ${PREFIX}/man/man1/cups-config.1
+.elif defined(CUPS_IMAGE)
+	${INSTALL_DATA} ${WRKSRC}/cups/raster.h ${PREFIX}/include/cups/
+.else
 .if !defined(WITHOUT_GHOSTSCRIPT) || defined(WITH_XPDF)
 	${INSTALL_PROGRAM} ${WRKSRC}/filter/pdftops ${PREFIX}/libexec/cups/filter/
 .endif
@@ -382,13 +402,6 @@ post-install:
 	${CHOWN} -R ${CUPSOWN}:${CUPSGRP} ${CUPS_SPOOLDIR}/
 	${CHMOD} -R g+w ${CUPS_SPOOLDIR}/
 	${INSTALL} -d -m 775 -g ${CUPSGRP} ${CUPS_CACHEDIR}
-.endif
-
-.if defined(CUPS_CLIENT)
-post-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/cups-config ${PREFIX}/bin/
-	${INSTALL_DATA} ${WRKSRC}/cups/libcups.a ${PREFIX}/lib/
-	${INSTALL_MAN} ${WRKSRC}/man/cups-config.man ${PREFIX}/man/man1/cups-config.1
 .endif
 
 .include <bsd.port.post.mk>

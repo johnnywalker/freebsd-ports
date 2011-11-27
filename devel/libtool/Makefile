@@ -7,6 +7,7 @@
 
 PORTNAME?=	libtool
 PORTVERSION=	2.4
+PORTREVISION?=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	libtool
@@ -17,6 +18,8 @@ COMMENT?=	Generic shared library support script
 
 LICENSE?=        GPLv2
 LICENSE_FILE?=   ${WRKSRC}/COPYING
+
+CONFLICTS=	libtool-fixed-[0-9]*
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS?= --disable-ltdl-install

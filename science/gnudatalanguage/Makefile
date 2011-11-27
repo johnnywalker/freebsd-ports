@@ -6,8 +6,8 @@
 #
 
 PORTNAME=	gnudatalanguage
-DISTVERSION=	0.9.1
-PORTREVISION=	2
+DISTVERSION=	0.9.2
+PORTREVISION=	1
 CATEGORIES=	science lang
 MASTER_SITES=	SF/${PORTNAME}/gdl/${DISTVERSION}
 .if defined(BUILD_PYTHON_MODULE)
@@ -17,6 +17,8 @@ DISTNAME=	gdl-${DISTVERSION}
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT?=	GDL, a free IDL compatible incremental compiler
+
+LICENSE=	GPLv2
 
 #---------------------------------------------------------------------------
 # You may define these options:
@@ -30,11 +32,12 @@ COMMENT?=	GDL, a free IDL compatible incremental compiler
 #
 #---------------------------------------------------------------------------
 
-LIB_DEPENDS+=	plplotd.10:${PORTSDIR}/math/plplot	\
+LIB_DEPENDS+=	plplotd.11:${PORTSDIR}/math/plplot	\
+		ps.4:${PORTSDIR}/print/pslib		\
 		gsl.16:${PORTSDIR}/math/gsl		\
 		dps.0:${PORTSDIR}/x11/dgs
 
-USE_GCC=	4.4+
+USE_GCC=	4.5+
 USE_WX=		2.8
 GNU_CONFIGURE=	yes
 # Disable ncurses and readline from ports
@@ -56,7 +59,7 @@ PLIST_SUB+=	MASTER=""
 .endif
 
 .if !defined(WITHOUT_IMAGEMAGICK)
-LIB_DEPENDS+=	MagickWand.4:${PORTSDIR}/graphics/ImageMagick
+LIB_DEPENDS+=	MagickWand.5:${PORTSDIR}/graphics/ImageMagick
 CONFIGURE_ARGS+=--with-Magick=${LOCALBASE}
 .else
 CONFIGURE_ARGS+=--with-Magick=no
@@ -105,8 +108,8 @@ BROKEN=	Does not build with ancient binutils
 WITH_FFTW3=	yes
 .endif
 .if defined(WITH_FFTW3)
-LIB_DEPENDS+=	fftw3.5:${PORTSDIR}/math/fftw3		\
-		fftw3f.5:${PORTSDIR}/math/fftw3-float
+LIB_DEPENDS+=	fftw3:${PORTSDIR}/math/fftw3		\
+		fftw3f:${PORTSDIR}/math/fftw3-float
 CONFIGURE_ARGS+=--with-fftw=${LOCALBASE}
 .endif
 

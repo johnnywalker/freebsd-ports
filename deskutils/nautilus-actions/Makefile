@@ -32,12 +32,6 @@ PORTDOCS=	AUTHORS COPYING ChangeLog ChangeLog-2008 ChangeLog-2009 INSTALL \
 		MAINTAINERS NEWS README TODO export-format-id io-provider-id \
 		objects-hierarchy.odg
 
-.include <bsd.port.pre.mk>
-
-.if ${OSVERSION} < 700000
-EXTRA_PATCHES+=	${FILESDIR}/extra-patch-configure
-.endif
-
 post-patch:
 .if defined(NOPORTDOCS)
 	@${REINPLACE_CMD} -e 's| install-dist_pkgdocDATA||g' \
@@ -45,6 +39,12 @@ post-patch:
 .else
 	@${REINPLACE_CMD} -e 's|doc/@PACKAGE@-@VERSION@|doc/@PACKAGE@|g' \
 		${WRKSRC}/Makefile.in ${WRKSRC}/doc/Makefile.in
+.endif
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "powerpc"
+BROKEN=		Does not compile on powerpc
 .endif
 
 .include <bsd.port.post.mk>

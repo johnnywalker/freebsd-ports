@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	typo3
-PORTVERSION=	4.5.6
+PORTVERSION=	4.6.1
 CATEGORIES=	www
 MASTER_SITES=	SF/${PORTNAME}/TYPO3%20Source%20and%20Dummy/TYPO3%20${PORTVERSION}
 
@@ -48,7 +48,7 @@ USE_PHP+=	gd
 .endif
 
 .if defined(WITH_IMAGICK)
-LIB_DEPENDS+=	MagickWand.4:${PORTSDIR}/graphics/ImageMagick-nox11
+RUN_DEPENDS+=	${LOCALBASE}/bin/convert:${PORTSDIR}/graphics/ImageMagick
 .endif
 
 .if defined(WITH_MBSTRING)

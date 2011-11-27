@@ -6,13 +6,16 @@
 #
 
 PORTNAME=	Catalyst-Authentication-Store-DBIx-Class
-PORTVERSION=	0.1501
+PORTVERSION=	0.1502
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	oleg@mamontov.net
 COMMENT=	A storage class for Catalyst Authentication using DBIx::Class
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
 
 BUILD_DEPENDS=	p5-Catalyst-Model-DBIC-Schema>=0.18:${PORTSDIR}/www/p5-Catalyst-Model-DBIC-Schema \
 		p5-Catalyst-Plugin-Authentication>=0.10008:${PORTSDIR}/www/p5-Catalyst-Plugin-Authentication \
@@ -22,10 +25,7 @@ BUILD_DEPENDS=	p5-Catalyst-Model-DBIC-Schema>=0.18:${PORTSDIR}/www/p5-Catalyst-M
 		p5-Moose>=0:${PORTSDIR}/devel/p5-Moose \
 		p5-Try-Tiny>=0:${PORTSDIR}/lang/p5-Try-Tiny \
 		p5-namespace-autoclean>=0:${PORTSDIR}/devel/p5-namespace-autoclean
-RUN_DEPENDS=	${BUILD_DEPENDS}
-
-LICENSE_COMB=	dual
-LICENSE=	ART20 GPLv1
+RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 PERL_CONFIGURE=	yes
 

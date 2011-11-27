@@ -1,9 +1,9 @@
-@comment $FreeBSD: ports/net/libfixbuf/pkg-plist,v 1.4 2010/09/28 00:27:18 lx Exp $
+@comment $FreeBSD: ports/net/libfixbuf/pkg-plist,v 1.5 2011/06/05 18:23:34 lx Exp $
 include/fixbuf/autoinc.h
 include/fixbuf/public.h
 include/fixbuf/private.h
-lib/libfixbuf-1.0.1.so.8
-lib/libfixbuf-1.0.1.so
+lib/libfixbuf-1.0.2.so.8
+lib/libfixbuf-1.0.2.so
 lib/libfixbuf.so
 lib/libfixbuf.la
 lib/libfixbuf.a

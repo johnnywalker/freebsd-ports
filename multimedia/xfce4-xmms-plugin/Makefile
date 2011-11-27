@@ -13,8 +13,8 @@ MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=/src/panel-plugins/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	XFce 4 xmms control plugin for xfce4-panel
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce4 XMMS control plugin for xfce4-panel
 
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes

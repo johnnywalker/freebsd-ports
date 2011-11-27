@@ -7,16 +7,12 @@
 #
 
 PORTNAME=	hydra
-PORTVERSION=	6.5
-PORTREVISION=	1
+PORTVERSION=	7.1
 CATEGORIES=	security
 MASTER_SITES=	http://freeworld.thc.org/releases/
 EXTRACT_SUFX=	-src.tar.gz
 
-PATCH_SITES=	http://freeworld.thc.org/thc-hydra/
-PATCHFILES=	hydra-6.5-fix.diff
-
-MAINTAINER=	cvs-src@yandex.ru
+MAINTAINER=	rm@FreeBSD.org
 COMMENT=	Brute force attack utility working on multiple network services
 
 LICENSE=	GPLv3
@@ -32,6 +28,7 @@ GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_OPENSSL=	yes
 WANT_GNOME=	yes
+MAKE_JOBS_SAFE=	yes
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}-src
 
 MAN1=		hydra.1 pw-inspector.1
@@ -48,6 +45,7 @@ LIB_DEPENDS+=	fbclient.2:${PORTSDIR}/databases/firebird20-client
 .endif
 .if defined(WITH_SSH)
 LIB_DEPENDS+=	ssh.4:${PORTSDIR}/security/libssh
+CFLAGS+=	-I${LOCALBASE}/include
 .endif
 .if defined(WITH_SVN)
 LIB_DEPENDS+=	svn_client-1:${PORTSDIR}/devel/subversion
@@ -62,6 +60,7 @@ CONFIGURE_ARGS+=	--disable-xhydra
 .endif
 
 post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e 's|CC = gcc||; \
 		s|-O2|${CFLAGS}|; s|md4\..||g' \
 		${WRKSRC}/Makefile.am

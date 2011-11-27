@@ -54,6 +54,13 @@ LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .include <bsd.port.pre.mk>
 
+.if ${ARCH} == "i386"
+CFLAGS=	-O0
+.endif
+.if ${ARCH} == "powerpc" && ${OSVERSION} > 900000
+BROKEN=		Does not build on powerpc-9
+.endif
+
 .if !defined(WITHOUT_GTK2) && defined(WITHOUT_SDL)
 IGNORE=		GTK+2 player needs SDL
 .endif # GTK2/SDL
@@ -70,6 +77,7 @@ _HAVE_GTK=	true
 .if defined(WITHOUT_SDL)
 CONFIGURE_ENV+=	ac_cv_path_SDL_CONFIG=no
 PLIST_SUB+=	SDL:="@comment "
+CONFIGURE_ARGS+=	--without-libsdl
 .else
 USE_SDL+=	gfx sdl
 PLIST_SUB+=	SDL:=""

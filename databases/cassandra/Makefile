@@ -6,7 +6,8 @@
 #
 
 PORTNAME=	cassandra
-PORTVERSION=	0.8.5
+PORTVERSION=	1.0.2
+PORTREVISION=	1
 CATEGORIES=	databases java
 MASTER_SITES=	${MASTER_SITE_APACHE}
 MASTER_SITE_SUBDIR=	cassandra/${PORTVERSION}
@@ -18,16 +19,43 @@ COMMENT=	Open source distributed database management system
 
 LICENSE=	ASL
 
-JAVA_VERSION=	1.6+
+JAVA_VERSION=	1.6
+JAVA_VENDOR=	openjdk
 NO_BUILD=	yes
+REINPLACE_ARGS=	-i ''
 USE_JAVA=	yes
 USE_RC_SUBR=	cassandra
-REINPLACE_ARGS=	-i ''
 
-CONFIGS=	access.properties cassandra-topology.properties cassandra.yaml \
-		log4j-server.properties log4j-tools.properties passwd.properties
-SCRIPTS=	cassandra cassandra-cli json2sstable nodetool sstable2json \
-		sstablekeys sstableloader
+CONFIGS=	cassandra-topology.properties \
+		cassandra.yaml \
+		log4j-server.properties \
+		log4j-tools.properties
+SCRIPTS=	cassandra \
+		cassandra-cli \
+		json2sstable \
+		nodetool \
+		sstable2json \
+		sstablekeys \
+		sstableloader
+
+OPTIONS=	MX4J "Enable HTTP interface for JMX" Off \
+		JNA  "Use JNA native access" Off
+SUB_FILES=	repaircluster
+
+.include <bsd.port.options.mk>
+
+.if defined(WITH_MX4J)
+RUN_DEPENDS+=	${JAVAJARDIR}/mx4j-tools.jar:${PORTSDIR}/java/mx4j
+PLIST_SUB+=	MX4J=""
+.else
+PLIST_SUB+=	MX4J="@comment "
+.endif
+.if defined(WITH_JNA)
+RUN_DEPENDS+=	${JAVAJARDIR}/jna.jar:${PORTSDIR}/devel/jna
+PLIST_SUB+=	JNA=""
+.else
+PLIST_SUB+=	JNA="@comment "
+.endif
 
 post-extract:
 	@${RM} ${WRKSRC}/bin/*.bat ${WRKSRC}/bin/stop-server
@@ -35,18 +63,33 @@ post-extract:
 	@${MV} ${WRKSRC}/conf/${i} ${WRKSRC}/conf/${i}.sample
 .endfor
 
-do-patch:
-	@${REINPLACE_CMD} -e 's|/usr/share/cassandra|${DATADIR}/bin|' ${WRKSRC}/bin/cassandra-cli ${WRKSRC}/bin/nodetool
-	@${REINPLACE_CMD} -e 's|\`dirname \$$\0\`/..|${DATADIR}|' ${WRKSRC}/bin/cassandra.in.sh
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/share/cassandra|${DATADIR}/bin|' \
+		${WRKSRC}/bin/cassandra-cli \
+		${WRKSRC}/bin/nodetool \
+		${WRKSRC}/bin/sstableloader
+	@${REINPLACE_CMD} -e 's|\`dirname \$$\0\`/..|${DATADIR}|' \
+		${WRKSRC}/bin/cassandra.in.sh
+	@${RM} -f ${WRKSRC}/conf/*.orig
 
 do-install:
 	@${MKDIR} ${DATADIR}
 	@cd ${WRKSRC}/ && ${COPYTREE_SHARE} . ${DATADIR}
-	@cd ${DATADIR}/bin/ && ${CHMOD} u+x ${SCRIPTS}
+	@cd ${DATADIR}/bin/ && ${CHMOD} ${BINMODE} ${SCRIPTS}
+	@${INSTALL_SCRIPT} ${WRKDIR}/repaircluster ${DATADIR}/bin
 	@${LN} -s ${DATADIR}/bin/cassandra-cli ${PREFIX}/bin/cassandra-cli
 	@${LN} -s ${DATADIR}/bin/nodetool ${PREFIX}/bin/nodetool
+	@${LN} -s ${DATADIR}/bin/sstableloader ${PREFIX}/bin/sstableloader
+	@${LN} -s ${DATADIR}/bin/repaircluster ${PREFIX}/bin/repaircluster
+.ifdef (WITH_MX4J)
+	@${LN} -s ${LOCALBASE}/share/java/classes/mx4j-tools.jar ${DATADIR}/lib/mx4j-tools.jar
+.endif
+.ifdef (WITH_JNA)
+	@${LN} -s ${LOCALBASE}/share/java/classes/jna.jar ${DATADIR}/lib/jna.jar
+	@${LN} -s ${LOCALBASE}/share/java/classes/jna-platform.jar ${DATADIR}/lib/jna-platform.jar
+.endif
 
 post-install:
-	@PKG_PREFIX=${PREFIX} ${SH} ${PKGINSTALL} ${PKGNAME} POST-INSTALL
+	@PKG_PREFIX="${PREFIX}" ${SH} ${PKGINSTALL} ${PKGNAME} POST-INSTALL
 
 .include <bsd.port.mk>

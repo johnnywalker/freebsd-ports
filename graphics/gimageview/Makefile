@@ -27,11 +27,11 @@ OPTIONS=	SPLASH "Show splash on startup" on \
 		NLS "Build with gettext support" on \
 		LIBMNG "Build with libmng support" on \
 		LIBWMF "Build with libwmf support" on \
-		LIBRSVG "Build with librsvg support" off \
 		LIBRSVG2 "Build with librsvg-2 support" on \
 		LIBEXIF "Build with libexif support" on \
 		MPLAYER "Build with Mplayer support" on \
-		LIBXINE "Build with Xine support" off
+		LIBXINE "Build with Xine support" off \
+		IMLIB "Build with imlib instead of gdk-pixbuf" off 
 
 USE_GNOME=	gtk20
 USE_XORG=	xinerama ice
@@ -52,10 +52,9 @@ CONFIGURE_ARGS+=	--disable-nls
 PLIST_SUB+=	NLS="@comment "
 .endif
 
-.if ${HAVE_GNOME:Mimlib}!=""
+.if defined(WITH_IMLIB)
 USE_GNOME+=	imlib
 PKGNAMESUFFIX=	-imlib
-WITH_IMLIB=	yes
 CONFIGURE_ARGS+=	--disable-gdk-pixbuf
 .endif
 
@@ -75,15 +74,8 @@ CONFIGURE_ARGS+=	--without-libwmf
 PLIST_SUB+=	WITH_LIBWMF="@comment "
 .endif
 
-.if defined(WITH_LIBRSVG)
-LIB_DEPENDS+=	rsvg.1:${PORTSDIR}/graphics/librsvg
-.endif
-
-.if !defined(WITHOUT_LIBRSVG2) && !defined(WITH_LIBRSVG)
+.if !defined(WITHOUT_LIBRSVG2)
 LIB_DEPENDS+=	rsvg-2.2:${PORTSDIR}/graphics/librsvg2
-.endif
-
-.if defined(WITH_LIBRSVG) || !defined(WITHOUT_LIBRSVG2)
 PLIST_SUB+=	WITH_LIBRSVG=""
 .else
 CONFIGURE_ARGS+=	--without-librsvg

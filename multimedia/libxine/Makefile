@@ -7,7 +7,7 @@
 
 PORTNAME=	xine
 PORTVERSION=	1.1.19
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	multimedia ipv6
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-lib/${PORTVERSION}
 PKGNAMEPREFIX=	lib
@@ -102,6 +102,12 @@ PATCH_DIST_ARGS=	-d ${WRKSRC} -p1 --forward --quiet
 DEBUG_FLAGS=	-g -O1
 .endif
 
+# Check for forced -O0 (or no -O)
+.if ${CFLAGS:M-O0} == "-O0" || (${CFLAGS:M-O} == "" && \
+	${CFLAGS:M-O[1-9a-z]*} == "")
+IGNORE=		only builds with -O1 or higher, check CFLAGS
+.endif
+
 .if !defined(WITHOUT_NLS)
 USE_GETTEXT=	yes
 PLIST_SUB+=	NLS=""
@@ -190,7 +196,7 @@ CONFIGURE_ARGS+=	--disable-aalib --disable-aalibtest
 .endif
 
 .if defined(WITH_IMAGEMAGICK)
-LIB_DEPENDS+=	MagickWand.4:${PORTSDIR}/graphics/ImageMagick
+LIB_DEPENDS+=	MagickWand.5:${PORTSDIR}/graphics/ImageMagick
 PLIST_SUB+=	WITH_IMAGEMAGICK=""
 .else
 PLIST_SUB+=	WITH_IMAGEMAGICK="@comment "

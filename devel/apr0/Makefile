@@ -6,7 +6,6 @@
 
 PORTNAME=	apr
 PORTVERSION=	${APR_VERSION}.${APU_VERSION}
-PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_APACHE}
 MASTER_SITE_SUBDIR=	apr
@@ -16,6 +15,9 @@ MAINTAINER=	apache@FreeBSD.org
 COMMENT=	Apache Portability Library
 
 LIB_DEPENDS=	expat.6:${PORTSDIR}/textproc/expat2
+
+DEPRECATED= will be unsupported by ASF when 2.4.0 is released, migrate to devel/apr1 now
+EXPIRATION_DATE=    2012-02-01
 
 MAKE_JOBS_SAFE=	yes
 
@@ -27,7 +29,7 @@ OPTIONS=	THREADS "Enable Threads in apr"				on  \
 		NDBM	"Enable NDBM support in apr-util"		off \
 		DEVRANDOM "Use /dev/random or compatible in apr"	on
 
-APR_VERSION=	0.9.19
+APR_VERSION=	0.9.20
 APU_VERSION=	0.9.19
 
 NO_LATEST_LINK=	yes
@@ -119,6 +121,8 @@ post-patch:
 	${REINPLACE_CMD} -e 's,-lpthread,${PTHREAD_LIBS},g' \
 		${APR_WRKDIR}/build/apr_threads.m4 ${APR_WRKDIR}/build/apr_hints.m4 \
 		${APU_WRKDIR}/build/apu-conf.m4
+	${REINPLACE_CMD} -e 's,void main(void),int main(void),'\
+		${APR_WRKDIR}/build/apr_network.m4
 
 run-autotools::
 	cd ${APR_WRKDIR} ; \

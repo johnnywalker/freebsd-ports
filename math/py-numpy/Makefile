@@ -7,6 +7,7 @@
 
 PORTNAME=	numpy
 PORTVERSION=	1.5.1
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	math python
 MASTER_SITES=	http://docs.scipy.org/doc/${DISTNAME:C/\..$/.x/}/:doc \
@@ -54,7 +55,7 @@ DISTFILES+=	${FP_ARCH}/fenv.c?p=203441:fp ${FP_ARCH}/fenv.h?p=203441:fp
 .if defined(WITH_ATLAS)
 LIB_DEPENDS+=	atlas.2:${PORTSDIR}/math/atlas
 .if !exists(${LOCALBASE}/lib/libalapack.a)
-IGNORE=	atlas needs to be built with WITH_STATICLIB for numpy to function properly
+IGNORE=	atlas needs to be built with WITH_STATIC for numpy to function properly
 .endif
 .else
 LIB_DEPENDS+=	lapack.4:${PORTSDIR}/math/lapack \
@@ -91,7 +92,7 @@ pre-configure:
 .ifdef WITH_ATLAS
 	@${REINPLACE_CMD} -e "s+%%GCCLIBDIR%%+$$(${GCCLIBDIR_CMDS})+" \
 	    -e "s+%%LOCALBASE%%+${LOCALBASE}+g" \
-	    -e "s+%%ATLASLIBS%%+alapack_r, f77blas_r, cblas_r, atlas_r+" \
+	    -e "s+%%ATLASLIBS%%+alapack, f77blas, cblas, atlas+" \
 		${WRKSRC}/site.cfg
 .else
 	@${REINPLACE_CMD} -e "s+%%GCCLIBDIR%%+$$(${GCCLIBDIR_CMDS})+" \

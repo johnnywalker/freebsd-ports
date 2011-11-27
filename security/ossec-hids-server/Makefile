@@ -6,22 +6,21 @@
 #
 
 PORTNAME=	ossec-hids
-PORTVERSION=	2.5.1
-PORTREVISION=	1
+PORTVERSION=	2.6
+PORTREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	http://www.ossec.net/files/ \
 		http://www.ossec.net/files/old/
 PKGNAMESUFFIX=	-server
 
-MAINTAINER=	valerio.daelli@gmail.com
+MAINTAINER=	glarkin@FreeBSD.org
 COMMENT?=	A security tool to monitor and check logs and intrusions
 
 USE_RC_SUBR=	ossec-hids
 
-.if defined(WITH_DB)
-USE_MYSQL=	yes
-USE_PGSQL=	yes
-USE_BDB=	yes
+.if !defined(CLIENT_ONLY)
+OPTIONS=	MYSQL "Enable MySQL support" off \
+		PGSQL "Enable PostgreSQL support" off
 .endif
 
 SUB_LIST=	PORTNAME=${PORTNAME}
@@ -31,13 +30,28 @@ PORTDOCS=	BUGS CONFIG CONTRIBUTORS INSTALL LICENSE README
 
 .include <bsd.port.pre.mk>
 
+.if !defined(CLIENT_ONLY)
+.if defined(WITH_MYSQL)
+WITH_DB=	yes
+USE_MYSQL=	yes
+.endif
+
+.if defined(WITH_PGSQL)
+WITH_DB=	yes
+USE_PGSQL=	yes
+.endif
+.endif
+
 .if defined(CLIENT_ONLY)
+SUB_LIST+=	PRECMD=:
 PKGNAMESUFFIX=	-client
 CONFLICTS=	ossec-hids-server-[0-9]* ossec-hids-local-[0-9]*
 .elif defined(LOCAL_ONLY)
+SUB_LIST+=	PRECMD=ossechids_start_precmd
 PKGNAMESUFFIX=	-local
 CONFLICTS=	ossec-hids-client-[0-9]* ossec-hids-server-[0-9]*
 .else
+SUB_LIST+=	PRECMD=ossechids_start_precmd
 CONFLICTS=	ossec-hids-client-[0-9]* ossec-hids-local-[0-9]*
 .endif
 
@@ -90,7 +104,7 @@ post-install:
 
 .if !defined(NOPORTDOCS)
 	@${MKDIR} ${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${DOCSDIR}
+	@cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${DOCSDIR}
 .endif
 
 	@${CAT} ${PKGMESSAGE}

@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	qgis
-PORTVERSION=	1.7.0
-PORTREVISION=	2
+PORTVERSION=	1.7.2
 CATEGORIES=	graphics geography
 MASTER_SITES=	http://qgis.org/downloads/ \
 		http://download.osgeo.org/qgis/src/
@@ -27,7 +26,6 @@ USE_BISON=	build
 USE_CMAKE=	yes
 USE_QT_VER=	4
 USE_SQLITE=	yes
-CMAKE_USE_PTHREAD=	yes
 QT_COMPONENTS=	gui svg xml network sql designer linguist_build \
 		qmake_build moc_build rcc_build uic_build
 
@@ -47,7 +45,7 @@ BROKEN=		does not compile on 7.X
 .endif
 
 .if defined(WITH_GRASS)
-CMAKE_ARGS+=	-DWITH_GRASS:BOOL=TRUE
+CMAKE_ARGS+=	-DWITH_GRASS:BOOL=TRUE -DGRASS_PREFIX=${LOCALBASE}/grass-6.4.1
 RUN_DEPENDS+=	${LOCALBASE}/lib/gdalplugins/gdal_GRASS.so:${PORTSDIR}/graphics/gdal-grass
 .else
 CMAKE_ARGS+=	-DWITH_GRASS:BOOL=FALSE

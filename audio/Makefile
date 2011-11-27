@@ -119,6 +119,7 @@
     SUBDIR += darkice
     SUBDIR += dcd
     SUBDIR += deadbeef
+    SUBDIR += deadbeef-mpris-plugin
     SUBDIR += decibel-audio-player
     SUBDIR += dekagen
     SUBDIR += denemo
@@ -190,13 +191,13 @@
     SUBDIR += fpc-oggvorbis
     SUBDIR += fpc-openal
     SUBDIR += fpc-sndfile
+    SUBDIR += fplib
     SUBDIR += freealut
     SUBDIR += freedesktop-sound-theme
     SUBDIR += freepats
     SUBDIR += freeswitch-music
     SUBDIR += freeswitch-sounds
     SUBDIR += funktrackergold
-    SUBDIR += gambas2-gb-sdl-sound
     SUBDIR += gbemol
     SUBDIR += gbsplay
     SUBDIR += gdam
@@ -206,7 +207,6 @@
     SUBDIR += gimmix
     SUBDIR += gkrellmms
     SUBDIR += gkrellmms2
-    SUBDIR += gkrellmss
     SUBDIR += gkrellmss2
     SUBDIR += gkrellmvolume
     SUBDIR += gkrellmvolume2
@@ -229,7 +229,6 @@
     SUBDIR += gmpc-mserver
     SUBDIR += gmpc-shout
     SUBDIR += gmpc-wikipedia
-    SUBDIR += gnapster
     SUBDIR += gnome-audio
     SUBDIR += gnome-media
     SUBDIR += gnomoradio
@@ -398,6 +397,7 @@
     SUBDIR += libumidi
     SUBDIR += libvorbis
     SUBDIR += libworkman
+    SUBDIR += lingot
     SUBDIR += linux-alsa-lib
     SUBDIR += linux-arts
     SUBDIR += linux-esound
@@ -429,7 +429,6 @@
     SUBDIR += linux-neroaaccodec
     SUBDIR += linux-openal
     SUBDIR += linux-sdl_mixer
-    SUBDIR += linux-shoutcast
     SUBDIR += linuxsampler
     SUBDIR += liquidsoap
     SUBDIR += listener
@@ -453,7 +452,6 @@
     SUBDIR += mctoolame-encoder
     SUBDIR += mehdiaplayer
     SUBDIR += mhwaveedit
-    SUBDIR += midimountain
     SUBDIR += midipp
     SUBDIR += mikmod
     SUBDIR += milkytracker
@@ -471,7 +469,6 @@
     SUBDIR += mp3asm
     SUBDIR += mp3blaster
     SUBDIR += mp3burn
-    SUBDIR += mp3butler
     SUBDIR += mp3c
     SUBDIR += mp3check
     SUBDIR += mp3ck
@@ -500,7 +497,6 @@
     SUBDIR += mpg123.el
     SUBDIR += mpg321
     SUBDIR += mpiosh
-    SUBDIR += mt-daapd
     SUBDIR += muine
     SUBDIR += mumble
     SUBDIR += murmur
@@ -528,8 +524,8 @@
     SUBDIR += opencore-amr
     SUBDIR += openspc
     SUBDIR += optimfrog
-    SUBDIR += orpheus
     SUBDIR += osalp
+    SUBDIR += osd-lyrics
     SUBDIR += osdmixer
     SUBDIR += oss
     SUBDIR += p5-Audio
@@ -557,10 +553,8 @@
     SUBDIR += p5-MPEG-ID3v2Tag
     SUBDIR += p5-Music-Audioscrobbler-MPD
     SUBDIR += p5-Music-Audioscrobbler-Submit
-    SUBDIR += p5-MusicBrainz-Client
     SUBDIR += p5-MusicBrainz-DiscID
     SUBDIR += p5-MusicBrainz-Queries
-    SUBDIR += p5-MusicBrainz-TRM
     SUBDIR += p5-Net-DAAP-Client
     SUBDIR += p5-Net-DAAP-DMAP
     SUBDIR += p5-Net-FreeDB
@@ -674,7 +668,6 @@
     SUBDIR += shntool
     SUBDIR += shorten
     SUBDIR += shout
-    SUBDIR += shoutcast
     SUBDIR += sidplay
     SUBDIR += sidplay2
     SUBDIR += sidplayer
@@ -788,6 +781,7 @@
     SUBDIR += wsoundprefs
     SUBDIR += wsoundserver
     SUBDIR += wxguitar
+    SUBDIR += x11amp
     SUBDIR += xanalyser
     SUBDIR += xcd
     SUBDIR += xcdplayer

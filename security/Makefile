@@ -25,6 +25,7 @@
     SUBDIR += apache-xml-security-c
     SUBDIR += apg
     SUBDIR += arirang
+    SUBDIR += arm
     SUBDIR += arpCounterattack
     SUBDIR += authforce
     SUBDIR += autossh
@@ -56,7 +57,6 @@
     SUBDIR += calife-devel
     SUBDIR += ccrypt
     SUBDIR += ccsrch
-    SUBDIR += cfs
     SUBDIR += cfv
     SUBDIR += chaosreader
     SUBDIR += checkpassword
@@ -73,6 +73,7 @@
     SUBDIR += clamassassin
     SUBDIR += clamav
     SUBDIR += clamav-devel
+    SUBDIR += clamav-milter
     SUBDIR += clamav-unofficial-sigs
     SUBDIR += clamcour
     SUBDIR += clamd-stream-client
@@ -119,7 +120,6 @@
     SUBDIR += duo
     SUBDIR += easypg
     SUBDIR += engine_pkcs11
-    SUBDIR += execwrap
     SUBDIR += expiretable
     SUBDIR += f-prot
     SUBDIR += fakebo
@@ -152,7 +152,6 @@
     SUBDIR += fwlogwatch
     SUBDIR += fwtk
     SUBDIR += gag
-    SUBDIR += gambas2-gb-crypt
     SUBDIR += gcipher
     SUBDIR += gnome-gpg
     SUBDIR += gnome-keyring
@@ -237,7 +236,6 @@
     SUBDIR += libbf
     SUBDIR += libecc
     SUBDIR += libfprint
-    SUBDIR += libfwbuilder-devel
     SUBDIR += libgcrypt
     SUBDIR += libgnome-keyring
     SUBDIR += libgnomesu
@@ -250,7 +248,6 @@
     SUBDIR += libntlm
     SUBDIR += libotr
     SUBDIR += libp11
-    SUBDIR += libparanoia
     SUBDIR += libprelude
     SUBDIR += libpreludedb
     SUBDIR += libpwstor
@@ -295,6 +292,7 @@
     SUBDIR += monkeysphere
     SUBDIR += mosref
     SUBDIR += mussh
+    SUBDIR += nacl
     SUBDIR += nbaudit
     SUBDIR += ncrack
     SUBDIR += ncrypt
@@ -308,6 +306,7 @@
     SUBDIR += nmap
     SUBDIR += nmapsi4
     SUBDIR += nss
+    SUBDIR += oath-toolkit
     SUBDIR += ocaml-cryptgps
     SUBDIR += ocaml-cryptokit
     SUBDIR += ocaml-ssl
@@ -321,7 +320,6 @@
     SUBDIR += openct
     SUBDIR += openfwtk
     SUBDIR += openpgpsdk
-    SUBDIR += opensaml
     SUBDIR += opensaml2
     SUBDIR += opensc
     SUBDIR += openscep
@@ -351,6 +349,7 @@
     SUBDIR += outguess
     SUBDIR += p11-kit
     SUBDIR += p5-Apache-Htpasswd
+    SUBDIR += p5-App-Genpass
     SUBDIR += p5-Auth-YubikeyDecrypter
     SUBDIR += p5-AuthCAS
     SUBDIR += p5-Authen-Bitcard
@@ -508,7 +507,6 @@
     SUBDIR += p5-Digest-SV1
     SUBDIR += p5-Digest-Tiger
     SUBDIR += p5-Digest-Whirlpool
-    SUBDIR += p5-Email-Obfuscate
     SUBDIR += p5-File-Scan
     SUBDIR += p5-File-Scan-ClamAV
     SUBDIR += p5-Filter-CBC
@@ -524,10 +522,12 @@
     SUBDIR += p5-Mcrypt
     SUBDIR += p5-Module-Signature
     SUBDIR += p5-Net-Daemon-SSL
+    SUBDIR += p5-Net-OpenID-Common
     SUBDIR += p5-Net-OpenID-JanRain
     SUBDIR += p5-Net-OpenID-Server
     SUBDIR += p5-Net-Radius-Server
     SUBDIR += p5-Net-SAML
+    SUBDIR += p5-Net-SSL-ExpireDate
     SUBDIR += p5-Net-SSLeay
     SUBDIR += p5-Net-Server-Mail-ESMTP-AUTH
     SUBDIR += p5-Net-SinFP
@@ -571,7 +571,9 @@
     SUBDIR += pam_google_authenticator
     SUBDIR += pam_helper
     SUBDIR += pam_jail
+    SUBDIR += pam_kde
     SUBDIR += pam_krb5
+    SUBDIR += pam_krb5-rh
     SUBDIR += pam_ldap
     SUBDIR += pam_mkhomedir
     SUBDIR += pam_p11
@@ -627,7 +629,6 @@
     SUBDIR += pecl-tcpwrap
     SUBDIR += pft
     SUBDIR += pgp
-    SUBDIR += pgp6
     SUBDIR += pgpdump
     SUBDIR += pgpgpg
     SUBDIR += pgpin
@@ -683,7 +684,9 @@
     SUBDIR += pwman
     SUBDIR += pwman3
     SUBDIR += pxytest
+    SUBDIR += py-AccessControl
     SUBDIR += py-PF
+    SUBDIR += py-RestrictedPython
     SUBDIR += py-bcrypt
     SUBDIR += py-cerealizer
     SUBDIR += py-clamav
@@ -693,6 +696,8 @@
     SUBDIR += py-fchksum
     SUBDIR += py-gnupg
     SUBDIR += py-gnutls
+    SUBDIR += py-htpasswd
+    SUBDIR += py-kerberos
     SUBDIR += py-keyring
     SUBDIR += py-m2crypto
     SUBDIR += py-mcrypt
@@ -716,6 +721,8 @@
     SUBDIR += py-twofish
     SUBDIR += py-xmlsec
     SUBDIR += py-yara
+    SUBDIR += py-zope.password
+    SUBDIR += py-zope.security
     SUBDIR += qca-cyrus-sasl
     SUBDIR += qca-gnupg
     SUBDIR += qca-ossl
@@ -794,7 +801,6 @@
     SUBDIR += snoopy
     SUBDIR += snort
     SUBDIR += snort-rep
-    SUBDIR += snort_inline
     SUBDIR += snortreport
     SUBDIR += snortsam
     SUBDIR += snortsms
@@ -825,6 +831,7 @@
     SUBDIR += sslscan
     SUBDIR += sslsniffer
     SUBDIR += sslwrap
+    SUBDIR += sssd
     SUBDIR += ssss
     SUBDIR += sst
     SUBDIR += starttls

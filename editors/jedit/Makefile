@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	jedit
-PORTVERSION=	4.4.1
+PORTVERSION=	4.4.2
 PORTEPOCH=	1
 CATEGORIES=	editors java
 MASTER_SITES=	SF
@@ -14,7 +14,7 @@ DISTNAME=	${PORTNAME}${PORTVERSION}install
 EXTRACT_SUFX=	.jar
 EXTRACT_ONLY=
 
-MAINTAINER=	ports@freebsd.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Powerful programmer\'s text editor written in Java
 
 RUN_DEPENDS=	java:${PORTSDIR}/java/javavmwrapper

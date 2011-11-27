@@ -7,13 +7,14 @@
 
 PORTNAME=	xfce4-taskmanager
 PORTVERSION=	1.0.0
+PORTREVISION=	1
 CATEGORIES=	x11 xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/apps/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	A task manager for XFCE
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	A task manager for Xfce
 
 LIB_DEPENDS=	cairo.2:${PORTSDIR}/graphics/cairo \
 	wnck-1.22:${PORTSDIR}/x11-toolkits/libwnck
@@ -25,10 +26,6 @@ USE_GMAKE=	yes
 USE_GNOME=	gtk20 desktopfileutils intltool intlhack pkgconfig
 
 .include <bsd.port.pre.mk>
-
-.if ${OSVERSION} >= 900000
-BROKEN=		does not compile on FreeBSD 9.X
-.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|prefix)/$$(DATADIRNAME)|datadir)|' \

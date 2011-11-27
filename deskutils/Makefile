@@ -18,7 +18,6 @@
     SUBDIR += blogtk
     SUBDIR += bmp-docklet
     SUBDIR += bookreader
-    SUBDIR += buoh
     SUBDIR += cairo-dock
     SUBDIR += cairo-dock-plugins
     SUBDIR += cal
@@ -76,7 +75,6 @@
     SUBDIR += gdesklets
     SUBDIR += gdesklets-recentlyused
     SUBDIR += gdesklets-starterbar
-    SUBDIR += gemcal
     SUBDIR += genius
     SUBDIR += gimmie
     SUBDIR += gkrellm-reminder2
@@ -148,6 +146,7 @@
     SUBDIR += kooldock
     SUBDIR += krefty
     SUBDIR += krss
+    SUBDIR += kruler
     SUBDIR += ksmoothdock
     SUBDIR += ksshaskpass
     SUBDIR += ktagebuch
@@ -163,10 +162,7 @@
     SUBDIR += libopensync-plugin-synce
     SUBDIR += libopensync-plugin-synce-devel
     SUBDIR += libopensync-plugin-synce-legacy
-    SUBDIR += libopensync-plugin-syncml
     SUBDIR += libopensync-plugin-vformat-devel
-    SUBDIR += lightning
-    SUBDIR += lightning-thunderbird
     SUBDIR += ljcharm
     SUBDIR += ljclive
     SUBDIR += ljit
@@ -176,7 +172,6 @@
     SUBDIR += mencal
     SUBDIR += menumaker
     SUBDIR += metabar
-    SUBDIR += mhc
     SUBDIR += moregroupware
     SUBDIR += mrundlg
     SUBDIR += msynctool
@@ -199,7 +194,6 @@
     SUBDIR += openproj
     SUBDIR += orage
     SUBDIR += org-mode.el
-    SUBDIR += org-mode.el6
     SUBDIR += osmo
     SUBDIR += p5-Data-ICal
     SUBDIR += p5-Goo
@@ -220,6 +214,7 @@
     SUBDIR += plasma-applet-cwp
     SUBDIR += plasma-applet-daisy
     SUBDIR += plasma-applet-fancytasks
+    SUBDIR += plasma-applet-icontasks
     SUBDIR += plasma-applet-panelspacer
     SUBDIR += plasma-applet-playwolf
     SUBDIR += plasma-applet-serverstatuswidget
@@ -303,6 +298,7 @@
     SUBDIR += xmdiary
     SUBDIR += xneur
     SUBDIR += xpad
+    SUBDIR += xpad-current
     SUBDIR += xpostit
     SUBDIR += xpostitPlus
     SUBDIR += xrolo

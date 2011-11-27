@@ -1,40 +1,19 @@
---- content/browser/zygote_main_linux.cc.orig	2011-06-24 11:30:33.000000000 +0300
-+++ content/browser/zygote_main_linux.cc	2011-06-26 21:25:52.734780676 +0300
-@@ -58,7 +58,7 @@
- #endif
- 
- #if defined(ARCH_CPU_X86_FAMILY) && !defined(CHROMIUM_SELINUX) && \
--    !defined(__clang__)
-+    !defined(__clang__) && !defined(OS_FREEBSD)
- // The seccomp sandbox is enabled on all ia32 and x86-64 processor as long as
- // we aren't using SELinux or clang.
- #define SECCOMP_SANDBOX
-@@ -181,6 +181,11 @@
-         case ZygoteHost::kCmdGetSandboxStatus:
-           HandleGetSandboxStatus(fd, pickle, iter);
-           return false;
-+#if defined(OS_FREEBSD)
-+        case ZygoteHost::kCmdEnd:
-+          _exit(0);
-+          return false;
-+#endif
-         default:
-           NOTREACHED();
-           break;
-@@ -667,7 +672,7 @@
- 
-     SkiaFontConfigSetImplementation(
-         new FontConfigIPC(kMagicSandboxIPCDescriptor));
--
+--- content/browser/zygote_main_linux.cc.orig	2011-10-07 11:31:44.000000000 +0300
++++ content/browser/zygote_main_linux.cc	2011-10-08 22:11:46.609222627 +0300
+@@ -727,11 +727,16 @@
+     // dumpable.
+     const CommandLine& command_line = *CommandLine::ForCurrentProcess();
+     if (!command_line.HasSwitch(switches::kAllowSandboxDebugging)) {
 +#if !defined(OS_FREEBSD)
-     // Previously, we required that the binary be non-readable. This causes the
-     // kernel to mark the process as non-dumpable at startup. The thinking was
-     // that, although we were putting the renderers into a PID namespace (with
-@@ -693,6 +698,7 @@
+       prctl(PR_SET_DUMPABLE, 0, 0, 0, 0);
+       if (prctl(PR_GET_DUMPABLE, 0, 0, 0, 0)) {
+         LOG(ERROR) << "Failed to set non-dumpable flag";
          return false;
        }
++#else
++      NOTIMPLEMENTED();
++      return false;
++#endif
      }
-+#endif  // !OS_FREEBSD
-   } else if (CommandLine::ForCurrentProcess()->HasSwitch(
-         switches::kEnableSeccompSandbox)) {
-     PreSandboxInit();
+ #if defined(SECCOMP_SANDBOX)
+   } else if (SeccompSandboxEnabled()) {

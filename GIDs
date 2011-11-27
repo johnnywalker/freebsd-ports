@@ -1,6 +1,6 @@
-# $FreeBSD: ports/GIDs,v 1.154 2011/08/23 20:00:52 crees Exp $
+# $FreeBSD: ports/GIDs,v 1.160 2011/10/31 14:24:04 makc Exp $
 # Please keep this file sorted by GID!
-operator:*:5:
+operator:*:5:amanda
 mail:*:6:postfix,clamav
 smmsp:*:25:
 bind:*:53:
@@ -80,6 +80,7 @@ dovecot:*:143:
 dovenull:*:144:
 webcamd:*:145:
 ventrilo:*:146:
+kdm:*:147:
 rbldns:*:153:
 trircd:*:154:
 sfs:*:171:
@@ -94,6 +95,7 @@ icinga:*:183:
 moinmoin:*:192:
 cups:*:193:
 saned:*:194:
+radns:*:195:
 sympa:*:200:
 dspam:*:202:
 yate:*:204:
@@ -138,6 +140,7 @@ ldap:*:389:
 tiarra:*:398:
 uhub:*:411:
 drweb:*:426:
+quasselcore:*:442:
 callweaver:*:444:
 courier:*:465:
 _bbstored:*:505:
@@ -219,4 +222,6 @@ dnrd:*:948:
 zenoss:*:949:
 conquest:*:950:
 openerpd:*:951:
+bitten-slave:*:952:
+_neubot:*:953:
 nobody:*:65534:

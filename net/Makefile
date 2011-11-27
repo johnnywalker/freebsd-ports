@@ -28,15 +28,12 @@
     SUBDIR += asio
     SUBDIR += aslookup
     SUBDIR += asterisk
-    SUBDIR += asterisk-app-ldap
-    SUBDIR += asterisk-app-notify
     SUBDIR += asterisk-oh323
     SUBDIR += asterisk10
     SUBDIR += asterisk14
     SUBDIR += asterisk14-addons
     SUBDIR += asterisk16
     SUBDIR += asterisk16-addons
-    SUBDIR += astfax
     SUBDIR += atmsupport
     SUBDIR += avahi
     SUBDIR += avahi-app
@@ -55,6 +52,7 @@
     SUBDIR += bindtest
     SUBDIR += binkd
     SUBDIR += bird
+    SUBDIR += bird-devel
     SUBDIR += bird6
     SUBDIR += bittwist
     SUBDIR += blam
@@ -164,7 +162,6 @@
     SUBDIR += fsplib
     SUBDIR += ftelnetd
     SUBDIR += g2ipmsg
-    SUBDIR += gambas2-gb-net
     SUBDIR += gatekeeper
     SUBDIR += gateway6
     SUBDIR += get_iplayer
@@ -191,7 +188,6 @@
     SUBDIR += gq
     SUBDIR += grdesktop
     SUBDIR += grsync
-    SUBDIR += gsambad
     SUBDIR += gsk
     SUBDIR += gspoof
     SUBDIR += gssdp
@@ -255,10 +251,6 @@
     SUBDIR += ipw-firmware
     SUBDIR += ipw-firmware-kmod
     SUBDIR += irrd
-    SUBDIR += isc-dhcp3-devel
-    SUBDIR += isc-dhcp31-client
-    SUBDIR += isc-dhcp31-relay
-    SUBDIR += isc-dhcp31-server
     SUBDIR += isc-dhcp41-client
     SUBDIR += isc-dhcp41-relay
     SUBDIR += isc-dhcp41-server
@@ -286,7 +278,6 @@
     SUBDIR += kiax
     SUBDIR += kio-upnp-ms
     SUBDIR += kissd
-    SUBDIR += kmuddy
     SUBDIR += knemo
     SUBDIR += knemo-kde4
     SUBDIR += kojoney
@@ -329,7 +320,6 @@
     SUBDIR += libopennet
     SUBDIR += liboping
     SUBDIR += libosip
-    SUBDIR += libosip2
     SUBDIR += libpcap
     SUBDIR += libpcapnav
     SUBDIR += libproxy
@@ -394,7 +384,6 @@
     SUBDIR += msend
     SUBDIR += mtr
     SUBDIR += mtr-nox11
-    SUBDIR += mudix
     SUBDIR += nakenchat
     SUBDIR += nam
     SUBDIR += nast
@@ -410,7 +399,6 @@
     SUBDIR += net-http
     SUBDIR += net6
     SUBDIR += netatalk
-    SUBDIR += netboot
     SUBDIR += netcat
     SUBDIR += netclasses
     SUBDIR += netdude
@@ -424,6 +412,7 @@
     SUBDIR += netstrain
     SUBDIR += nettest
     SUBDIR += netwib
+    SUBDIR += neubot
     SUBDIR += nfsshell
     SUBDIR += ng_car
     SUBDIR += ng_daphne
@@ -431,8 +420,6 @@
     SUBDIR += ngrep-lib
     SUBDIR += nifmon
     SUBDIR += nload
-    SUBDIR += nocatauth-gateway
-    SUBDIR += nocatauth-server
     SUBDIR += nocatsplash
     SUBDIR += nos-ttb
     SUBDIR += nph
@@ -486,8 +473,11 @@
     SUBDIR += ossp-sa
     SUBDIR += p5-AddressBook
     SUBDIR += p5-Amazon-SQS-Simple
+    SUBDIR += p5-AnyEvent-MPRPC
+    SUBDIR += p5-AnyEvent-RabbitMQ
     SUBDIR += p5-AnyEvent-Twitter
     SUBDIR += p5-AnyEvent-Twitter-Stream
+    SUBDIR += p5-AnyMQ-AMQP
     SUBDIR += p5-Apache2-SOAP
     SUBDIR += p5-BBS-Client
     SUBDIR += p5-BBS-UserInfo
@@ -513,8 +503,10 @@
     SUBDIR += p5-Google-SAML-Request
     SUBDIR += p5-Google-SAML-Response
     SUBDIR += p5-Gopher-Server
+    SUBDIR += p5-Growl-GNTP
     SUBDIR += p5-IO-Interface
     SUBDIR += p5-IO-Socket-INET6
+    SUBDIR += p5-IO-Socket-IP
     SUBDIR += p5-IO-Socket-Multicast
     SUBDIR += p5-IO-Socket-Multicast6
     SUBDIR += p5-IP-Anonymous
@@ -523,6 +515,7 @@
     SUBDIR += p5-JavaScript-RPC
     SUBDIR += p5-Jifty-Plugin-Authentication-Ldap
     SUBDIR += p5-Net
+    SUBDIR += p5-Net-AMQP
     SUBDIR += p5-Net-ARP
     SUBDIR += p5-Net-Address-Ethernet
     SUBDIR += p5-Net-Address-IPv4-Local
@@ -540,6 +533,7 @@
     SUBDIR += p5-Net-Blogger
     SUBDIR += p5-Net-CIDR-Lite
     SUBDIR += p5-Net-CIDR-MobileJP
+    SUBDIR += p5-Net-CLI-Interact
     SUBDIR += p5-Net-CSTA
     SUBDIR += p5-Net-CascadeCopy
     SUBDIR += p5-Net-Cassandra
@@ -608,7 +602,6 @@
     SUBDIR += p5-Net-Nessus-XMLRPC
     SUBDIR += p5-Net-OAuth
     SUBDIR += p5-Net-OAuth-Simple
-    SUBDIR += p5-Net-OpenDHT
     SUBDIR += p5-Net-OpenID-Consumer
     SUBDIR += p5-Net-OpenSSH
     SUBDIR += p5-Net-Packet
@@ -649,6 +642,7 @@
     SUBDIR += p5-Net-Server
     SUBDIR += p5-Net-Server-Coro
     SUBDIR += p5-Net-Services
+    SUBDIR += p5-Net-Subnet
     SUBDIR += p5-Net-Subnets
     SUBDIR += p5-Net-TCLink
     SUBDIR += p5-Net-TcpDumpLog
@@ -680,7 +674,6 @@
     SUBDIR += p5-NetAddr-IP-Count
     SUBDIR += p5-NetPacket
     SUBDIR += p5-OAI-Harvester
-    SUBDIR += p5-OAuth-Lite
     SUBDIR += p5-OurNet-BBS
     SUBDIR += p5-OurNet-BBSAgent
     SUBDIR += p5-POE-Component-Client-Ident
@@ -747,6 +740,7 @@
     SUBDIR += p5-XPC
     SUBDIR += p5-ZConf
     SUBDIR += p5-ZConf-Bookmarks
+    SUBDIR += p5-ZeroMQ
     SUBDIR += p5-perl-ldap
     SUBDIR += panoptis
     SUBDIR += paris-traceroute
@@ -862,6 +856,7 @@
     SUBDIR += py-iplib
     SUBDIR += py-kombu
     SUBDIR += py-ldap2
+    SUBDIR += py-ldaptor
     SUBDIR += py-libcloud
     SUBDIR += py-libdnet
     SUBDIR += py-libnet
@@ -888,8 +883,8 @@
     SUBDIR += py-soapy
     SUBDIR += py-spreadmodule
     SUBDIR += py-suds
-    SUBDIR += py-timeoutsocket
     SUBDIR += py-tofu
+    SUBDIR += py-tweepy
     SUBDIR += py-twistedPair
     SUBDIR += py-twitter
     SUBDIR += py-txamqp
@@ -907,6 +902,7 @@
     SUBDIR += qoauth
     SUBDIR += qt4-network
     SUBDIR += quagga
+    SUBDIR += quagga-re
     SUBDIR += queso
     SUBDIR += quoted
     SUBDIR += rabbitmq
@@ -917,6 +913,7 @@
     SUBDIR += radiusclient
     SUBDIR += radiusd-cistron
     SUBDIR += radreport
+    SUBDIR += radsecproxy
     SUBDIR += radvd
     SUBDIR += raggle
     SUBDIR += rdesktop
@@ -957,6 +954,8 @@
     SUBDIR += ruby-net-geoip
     SUBDIR += ruby-tcpsocketpipe
     SUBDIR += ruby-tserver
+    SUBDIR += rubygem-amq-client
+    SUBDIR += rubygem-amq-protocol
     SUBDIR += rubygem-amqp
     SUBDIR += rubygem-amqp-utils
     SUBDIR += rubygem-bunny
@@ -967,6 +966,7 @@
     SUBDIR += rubygem-net-ldap
     SUBDIR += rubygem-net-netrc
     SUBDIR += rubygem-oauth
+    SUBDIR += rubygem-oauth2
     SUBDIR += rubygem-open-uri-cached
     SUBDIR += rubygem-openid
     SUBDIR += rubygem-rightaws
@@ -976,10 +976,12 @@
     SUBDIR += rubygem-rightslicehost
     SUBDIR += rubygem-rubytter
     SUBDIR += rubygem-simple_oauth
+    SUBDIR += rubygem-stompserver
     SUBDIR += rubygem-tweetstream
     SUBDIR += rubygem-twitter
     SUBDIR += rubygem-twitter-stream
     SUBDIR += rubygem-twitter4r
+    SUBDIR += rubygem-uri-redis
     SUBDIR += rubygem-whois
     SUBDIR += rubygem-yadis
     SUBDIR += rude
@@ -989,6 +991,7 @@
     SUBDIR += samba-smbclient
     SUBDIR += samba34
     SUBDIR += samba35
+    SUBDIR += samba36
     SUBDIR += samba4-devel
     SUBDIR += samba4wins
     SUBDIR += sbd
@@ -1100,7 +1103,6 @@
     SUBDIR += tn5250j
     SUBDIR += toonel
     SUBDIR += torsocks
-    SUBDIR += tptest
     SUBDIR += traceroute
     SUBDIR += traff
     SUBDIR += trafshow

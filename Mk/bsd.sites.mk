@@ -20,7 +20,7 @@
 #
 # Note: all entries should terminate with a slash.
 #
-# $FreeBSD: ports/Mk/bsd.sites.mk,v 1.547 2011/09/11 14:43:59 crees Exp $
+# $FreeBSD: ports/Mk/bsd.sites.mk,v 1.550 2011/10/26 14:34:02 cs Exp $
 #
 
 # Where to put distfiles that don't have any other master site
@@ -902,7 +902,6 @@ MASTER_SITE_OSSP+= \
 .if !defined(IGNORE_MASTER_SITE_PACKETSTORM)
 MASTER_SITE_PACKETSTORM+= \
 	http://dl.packetstormsecurity.net/%SUBDIR%/ \
-	http://packetstorm.austin2600.net/%SUBDIR%/ \
 	http://packetstorm.codar.com.br/%SUBDIR%/ \
 	http://packetstorm.crazydog.pt/%SUBDIR%/ \
 	http://packetstorm.igor.onlinedirect.bg/%SUBDIR%/ \
@@ -1164,6 +1163,38 @@ MASTER_SITE_SOURCEWARE+= \
 	ftp://ftp.funet.fi/pub/mirrors/sources.redhat.com/pub/%SUBDIR%/
 .endif
 
+.if !defined(IGNORE_MASTER_SITE_SUDO)
+MASTER_SITE_SUDO+=	\
+	http://www.sudo.ws/sudo/dist/ \
+	http://ftp.arcane-networks.fr/pub/mirrors/sudo/ \
+	http://sudo.p8ra.de/sudo/dist/ \
+	http://sudo.cybermirror.org/ \
+	http://sudo-ftp.basemirror.de/ \
+	http://core.ring.gr.jp/archives/misc/sudo/ \
+	http://www.ring.gr.jp/archives/misc/sudo/ \
+	http://ftp.twaren.net/Unix/Security/Sudo/ \
+	ftp://ftp.sudo.ws/pub/sudo/ \
+	ftp://plier.ucar.edu/pub/sudo/ \
+	ftp://obsd.isc.org/pub/sudo/ \
+	ftp://ftp.uwsg.indiana.edu/pub/security/sudo/ \
+	ftp://ftp.tuwien.ac.at/utils/admin-tools/sudo/ \
+	ftp://sunsite.ualberta.ca/pub/Mirror/sudo/ \
+	ftp://ftp.csc.cuhk.edu.hk/pub/packages/unix-tools/sudo/ \
+	ftp://zoot.tele.dk/pub/sudo/ \
+	ftp://ftp.in2p3.fr/pub/sudo/ \
+	ftp://ftp.arcane-networks.fr/pub/mirrors/sudo/ \
+	ftp://ftp.usbm.de/pub/sudo/ \
+	ftp://ftp.cs.tu-berlin.de/pub/misc/sudo/ \
+	ftp://ftp.informatik.uni-hamburg.de/pub/os/unix/utils/sudo/ \
+	ftp://ftp.st.ryukoku.ac.jp/pub/security/tool/sudo/ \
+	ftp://ftp.cin.nihon-u.ac.jp/pub/misc/sudo/ \
+	ftp://core.ring.gr.jp/pub/misc/sudo/ \
+	ftp://ftp.ring.gr.jp/pub/misc/sudo/ \
+	ftp://sunsite.icm.edu.pl/packages/sudo/ \
+	ftp://mirror.cdmon.com/pub/sudo/ \
+	ftp://ftp.twaren.net/Unix/Security/Sudo/
+.endif
+
 .if !defined(IGNORE_MASTER_SITE_SUNSITE)
 MASTER_SITE_SUNSITE+=	\
 	http://www.ibiblio.org/pub/Linux/%SUBDIR%/ \
@@ -1300,43 +1331,41 @@ MASTER_SITE_TUCOWS+= \
 .endif
 
 # List:		http://www.vim.org/mirrors.php
-# Updated:	2006-06-13
+# Updated:	2011-09-12
 .if !defined(IGNORE_MASTER_SITE_VIM)
 MASTER_SITE_VIM+= \
-	http://ftp.vim.org/pub/vim/unix/ \
-	http://mirrors.24-7-solutions.net/pub/vim/unix/ \
+	http://ftp.au.vim.org/pub/vim/unix/ \
+	http://ftp.gr.vim.org/pub/vim/unix/ \
+	http://ftp.ie.vim.org/pub/ftp.vim.org/pub/vim/unix/ \
+	http://ftp.ro.vim.org/mirrors/ftp.vim.org/unix/ \
+	http://ftp.stut.edu.tw/vim/unix/ \
 	http://ftp.tw.vim.org/pub/vim/unix/ \
-	http://vim.stu.edu.tw/unix/ \
-	http://gd.tuwien.ac.at/pub/vim/unix/ \
-	http://www.etsimo.uniovi.es/pub/vim/unix/ \
-	http://www.pt.vim.org/pub/vim/unix/ \
-	http://www.pangora.org/vim.org/pub/vim/unix/ \
-	http://www.math.technion.ac.il/pub/vim/unix/ \
-	http://vim.fyxm.net/pub/vim/unix/ \
-	http://zloba.ath.cx/pub/vim/unix/ \
-	http://ftp2.uk.vim.org/sites/ftp.vim.org/pub/vim/unix/ \
+	http://ftp2.pl.vim.org/pub/vim/unix/ \
+	http://ftp2.tw.vim.org/pub/vim/unix/ \
+	http://ftp2.uk.vim.org/pub/vim/unix/ \
+	http://mirror.hostfuss.com/pub/vim/unix/ \
+	http://tweedo.com/mirror/ftp.vim.org/unix/ \
+	http://vim.cybermirror.org/unix/ \
 	http://vim.mirror.fr/unix/ \
-	ftp://ftp.vim.org/pub/vim/unix/ \
-	ftp://ftp2.us.vim.org/pub/vim/unix/ \
-	ftp://ftp9.us.vim.org/pub/vim/unix/ \
+	http://vim.site2nd.org/unix/ \
+	http://ftp.vim.org/pub/vim/unix/ \
 	ftp://ftp.ca.vim.org/pub/vim/unix/ \
-	ftp://ftp.nl.vim.org/pub/vim/unix/ \
+	ftp://ftp.cz.vim.org/vim/unix/ \
 	ftp://ftp.de.vim.org/unix/ \
-	ftp://ftp3.de.vim.org/pub/vim/unix/ \
-	ftp://ftp.uk.vim.org/pub/vim/unix/ \
-	ftp://ftp.ie.vim.org/pub/vim/unix/ \
-	ftp://ftp.at.vim.org/pub/vim/unix/ \
-	ftp://ftp.pt.vim.org/pub/vim/unix/ \
+	ftp://ftp.home.vim.org/pub/vim/unix/ \
 	ftp://ftp.is.vim.org/pub/vim/unix/ \
-	ftp://ftp.il.vim.org/pub/vim/unix/ \
-	ftp://ftp.pl.vim.org/pub/vim/unix/ \
-	ftp://ftp.ro.vim.org/pub/vim/unix/ \
-	ftp://ftp.sk.vim.org/pub/vim/unix/ \
-	ftp://ftp.tw.vim.org/pub/vim/unix/ \
-	ftp://vim.stu.edu.tw/pub/vim/unix/ \
 	ftp://ftp.jp.vim.org/pub/vim/unix/ \
 	ftp://ftp.kr.vim.org/pub/vim/unix/ \
-	ftp://ftp.mirrorservice.org/sites/ftp.vim.org/pub/vim/unix/
+	ftp://ftp.nl.vim.org/pub/vim/unix/ \
+	ftp://ftp.sk.vim.org/pub/vim/unix/ \
+	ftp://ftp.stut.edu.tw/pub/vim/unix/ \
+	ftp://ftp.tw.vim.org/pub/vim/unix/ \
+	ftp://ftp.uk.vim.org/pub/vim/unix/ \
+	ftp://ftp3.de.vim.org/pub/vim/unix/ \
+	ftp://ftp3.nl.vim.org/pub/vim/unix/ \
+	ftp://ftp9.us.vim.org/pub/vim/unix/ \
+	ftp://vim.tsu.ru/pub/vim/unix/ \
+	ftp://ftp.vim.org/pub/vim/unix/
 .endif
 
 .if !defined(IGNORE_MASTER_SITE_WINDOWMAKER)
@@ -1360,27 +1389,27 @@ MASTER_SITE_XCONTRIB+=	\
 
 .if !defined(IGNORE_MASTER_SITE_XEMACS)
 MASTER_SITE_XEMACS+= \
-	ftp://ftp.at.xemacs.org/editors/xemacs/%SUBDIR%/ \
+	http://ftp.it.xemacs.org/%SUBDIR%/ \
+	http://ftp.pt.xemacs.org/%SUBDIR%/ \
+	http://xemacsftp.hkmirror.org/%SUBDIR%/ \
+	http://ftp.dti.ad.jp/pub/unix/editor/xemacs/%SUBDIR%/ \
+	http://ftp.xemacs.org/pub/xemacs/%SUBDIR%/ \
 	ftp://ftp.be.xemacs.org/xemacs/%SUBDIR%/ \
-	ftp://ftp.br.xemacs.org/pub/xemacs/%SUBDIR%/ \
-	ftp://ftp.ca.xemacs.org/pub/Mirror/xemacs/%SUBDIR%/ \
 	ftp://ftp.ch.xemacs.org/mirror/xemacs/%SUBDIR%/ \
 	ftp://ftp.de.xemacs.org/pub/ftp.xemacs.org/tux/xemacs/%SUBDIR%/ \
-	ftp://ftp.dk.xemacs.org/pub/emacs/xemacs/%SUBDIR%/ \
 	ftp://ftp.fi.xemacs.org/pub/mirrors/ftp.xemacs.org/pub/tux/xemacs/%SUBDIR%/ \
 	ftp://ftp.fr.xemacs.org/pub/xemacs/%SUBDIR%/ \
+	ftp://ftp.gr.xemacs.org/mirrors/XEmacs/ftp/%SUBDIR%/ \
+	ftp://ftp.heanet.ie/mirrors/ftp.xemacs.org/%SUBDIR%/ \
 	ftp://ftp.ie.xemacs.org/mirrors/ftp.xemacs.org/pub/xemacs/%SUBDIR%/ \
-	ftp://ftp.it.xemacs.org/unix/packages/XEMACS/%SUBDIR%/ \
-	ftp://ftp.kr.xemacs.org/pub/tools/emacs/xemacs/%SUBDIR%/ \
 	ftp://ftp.no.xemacs.org/pub/xemacs/%SUBDIR%/ \
-	ftp://ftp.pt.xemacs.org/pub/xemacs/%SUBDIR%/ \
-	ftp://ftp.ru.xemacs.org/pub/emacs/xemacs/%SUBDIR%/ \
+	ftp://ftp.pasteur.fr/pub/computing/xemacs/%SUBDIR%/ \
+	ftp://ftp.sa.xemacs.org/pub/xemacs.org/%SUBDIR%/ \
 	ftp://ftp.se.xemacs.org/pub/gnu/xemacs/%SUBDIR%/ \
 	ftp://ftp.tw.xemacs.org/Unix/Editors/XEmacs/%SUBDIR%/ \
 	ftp://ftp.uk.xemacs.org/sites/ftp.xemacs.org/pub/xemacs/%SUBDIR%/ \
-	ftp://ftp.us.xemacs.org/pub/xemacs/%SUBDIR%/ \
+	ftp://ftp.yz.yamagata-u.ac.jp/pub/misc/xemacs/%SUBDIR%/ \
 	ftp://xemacs.xmundo.net/pub/mirrors/xemacs/%SUBDIR%/ \
-	ftp://ftp.dti.ad.jp/pub/unix/editor/xemacs/%SUBDIR%/ \
 	${MASTER_SITE_RINGSERVER:S,%SUBDIR%,text/xemacs/&,}
 .endif
 
@@ -1419,7 +1448,12 @@ MASTER_SITE_KERNEL_ORG+= \
 	http://www.de.kernel.org/pub/%SUBDIR%/ \
 	http://www.it.kernel.org/pub/%SUBDIR%/ \
 	http://www.ru.kernel.org/pub/%SUBDIR%/ \
-	http://www.au.kernel.org/pub/%SUBDIR%/
+	http://www.au.kernel.org/pub/%SUBDIR%/ \
+	http://ftp.ntu.edu.tw/%SUBDIR%/ \
+	http://ftp.sunet.se/pub/Linux/kernel.org/%SUBDIR%/ \
+	http://ftp.yandex.ru/pub/%SUBDIR%/ \
+	http://ftp.heanet.ie/pub/%SUBDIR%/ \
+	http://slackware.cs.utah.edu/pub/kernel.org/pub/%SUBDIR%/
 .endif
 
 # Macro magic

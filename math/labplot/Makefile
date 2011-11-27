@@ -7,7 +7,7 @@
 
 PORTNAME=	LabPlot
 PORTVERSION=	1.6.0.2
-PORTREVISION=	12
+PORTREVISION=	15
 CATEGORIES=	math kde
 MASTER_SITES=	SF
 
@@ -16,9 +16,9 @@ COMMENT=	LabPlot : Data analysis and visualisation
 
 LIB_DEPENDS=	tiff.4:${PORTSDIR}/graphics/tiff \
 		jasper.4:${PORTSDIR}/graphics/jasper \
-		MagickWand.4:${PORTSDIR}/graphics/ImageMagick \
+		MagickWand.5:${PORTSDIR}/graphics/ImageMagick \
 		gsl.16:${PORTSDIR}/math/gsl \
-		fftw3.5:${PORTSDIR}/math/fftw3 \
+		fftw3:${PORTSDIR}/math/fftw3 \
 		qwtplot3d.0:${PORTSDIR}/math/qwtplot3d \
 		origin.0:${PORTSDIR}/math/liborigin
 
@@ -34,7 +34,7 @@ USE_GETTEXT=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
 LDFLAGS+=	${PTHREAD_LIBS}
 CONFIGURE_ARGS+=--enable-system-qwtplot3d=yes --enable-system-liborigin=yes \
-		--enable-ocaml=no --enable-fftw=no
+		--enable-ocaml=no --enable-fftw=no --enable-KexiDB=no
 
 MAN1=		LabPlot.1 labplot.1
 
@@ -60,7 +60,7 @@ CONFIGURE_ARGS+=--enable-R=no
 .endif
 
 .if defined(WITH_QHULL)
-LIB_DEPENDS+=	qhull.5:${PORTSDIR}/math/qhull
+LIB_DEPENDS+=	qhull.5:${PORTSDIR}/math/qhull5
 CONFIGURE_ARGS+=--enable-qhull=yes
 .else
 CONFIGURE_ARGS+=--enable-qhull=no
@@ -96,13 +96,6 @@ LIB_DEPENDS+=	audiofile.0:${PORTSDIR}/audio/libaudiofile
 CONFIGURE_ARGS+=--enable-audiofile=yes
 .else
 CONFIGURE_ARGS+=--enable-audiofile=no
-.endif
-
-.if defined(WITH_KEXIDB)
-LIB_DEPENDS+=	kexidb.2:${PORTSDIR}/editors/koffice-kde3
-CONFIGURE_ARGS+=--enable-KexiDB=yes
-.else
-CONFIGURE_ARGS+=--enable-KexiDB=no
 .endif
 
 .if defined(WITH_QSA)

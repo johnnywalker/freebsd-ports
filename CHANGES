@@ -10,6 +10,25 @@ in the release notes and/or placed into UPDATING.
 
 All ports committers are allowed to commit to this file.
 
+20110923:
+AUTHOR: amdmi3@FreeBSD.org
+
+  * LDFLAGS is now passed to both the configure and make environments,
+    and should be handled just like CPPFLAGS (see previous entry).
+
+    Summarizing both LDFLAGS and CPPFLAGS changes, where you would
+    have used
+      CONFIGURE_ENV=    CPPFLAGS="-I${LOCALBASE}/include" \
+                        LDFLAGS="-L${LOCALBASE}/lib"
+      MAKE_ENV=         CPPFLAGS="-I${LOCALBASE}/include" \
+                        LDFLAGS="-L${LOCALBASE}/lib"
+    now just use
+      CPPFLAGS+=        "-I${LOCALBASE}/include"
+      LDFLAGS+=         "-L${LOCALBASE}/include"
+
+    Note that it's advised to append these variables (+=) instead
+    of overriding (=) to allow customization by user.
+
 20110320:
 AUTHOR: gerald@FreeBSD.org
 
@@ -1569,4 +1588,4 @@ POSSIBILITY OF SUCH DAMAGE.
 Contact portmgr@FreeBSD.org if you have any questions about your use of
 this document.
 
-$FreeBSD: ports/CHANGES,v 1.100 2010/09/15 18:33:52 ade Exp $
+$FreeBSD: ports/CHANGES,v 1.101 2011/06/06 23:43:58 gerald Exp $

@@ -7,10 +7,11 @@
 #
 
 PORTNAME=	flashplugin
-PORTVERSION=	10.3r183.10
+PORTVERSION=	10.3r183.11
 CATEGORIES=	www multimedia linux
-MASTER_SITES=	http://fpdownload.macromedia.com/get/flashplayer/current/:plugin \
-		ftp://ftp.ipt.ru/pub/download/:suplib
+MASTER_SITES=	http://fpdownload.macromedia.com/get/flashplayer/pdc/${PORTVERSION:C/r/./}/:plugin \
+		ftp://ftp.ipt.ru/pub/download/:suplib \
+		LOCAL/nox:suplib
 PKGNAMEPREFIX=	linux-f10-
 DISTFILES=	install_flash_player_10_linux.tar.gz:plugin \
 		linux-f10-flashsupport-9.0.1.i386.tar.gz:suplib
@@ -33,7 +34,7 @@ WRKSRC=		${WRKDIR}
 USE_NPAPI=	linux-*
 NPAPI_FILES=	libflashplayer.so
 
-CONFLICTS=	linux-flashplugin-7* linux-flashplugin-9* linux-f8-flashplugin10-*
+CONFLICTS=	linux-flashplugin-7* linux-flashplugin-9* linux-f8-flashplugin10-* linux-f10-flashplugin11-*
 
 OPTIONS=	GNOME "include gnome support for .desktop file" Off
 
@@ -42,9 +43,6 @@ OPTIONS=	GNOME "include gnome support for .desktop file" Off
 .ifndef(WITHOUT_GNOME)
 INSTALLS_ICONS=	yes
 USE_GNOME=	desktopfileutils
-PLIST_SUB+=	GNOME=""
-.else
-PLIST_SUB+=	GNOME="@comment "
 .endif
 
 post-patch:

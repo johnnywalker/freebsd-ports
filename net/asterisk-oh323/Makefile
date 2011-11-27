@@ -18,6 +18,7 @@ BUILD_DEPENDS= 	${LOCALBASE}/sbin/asterisk:${PORTSDIR}/net/asterisk14
 LIB_DEPENDS= 	pt_r.1:${PORTSDIR}/devel/pwlib\
 	    	h323_r.1:${PORTSDIR}/net/openh323
 
+ONLY_FOR_ARCHS=	i386 amd64 powerpc
 USE_GMAKE=	yes
 MAKE_ENV=	MKDIR="${MKDIR}" \
 		PWLIBDIR=${LOCALBASE}/share/pwlib \
@@ -29,10 +30,6 @@ MAKE_ENV=	MKDIR="${MKDIR}" \
 
 # XXX: bsd.gcc.mk now defines CPP
 CPP=		"${CXX}"
-
-.if ${ARCH} == "sparc64"
-BROKEN=		Does not compile on sparc64
-.endif
 
 pre-configure:
 	if ${GREP} -sq fixup_codecs ${LOCALBASE}/include/asterisk/channel.h; \

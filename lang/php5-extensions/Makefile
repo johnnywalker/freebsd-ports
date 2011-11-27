@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	php5
-PORTVERSION=	1.5
+PORTVERSION=	1.6
 CATEGORIES=	lang
 MASTER_SITES=	# none
 PKGNAMESUFFIX=	-extensions
@@ -16,11 +16,14 @@ EXTRACT_ONLY=	# none
 MAINTAINER=	ale@FreeBSD.org
 COMMENT=	A "meta-port" to install PHP extensions
 
+USE_PHP=	yes
 DEFAULT_PHP_VER=5
 IGNORE_WITH_PHP=4
 USE_PHP_BUILD=	yes
 
 NO_BUILD=	yes
+
+LATEST_LINK=	${PORTNAME}${PKGNAMESUFFIX}
 
 WITH_CTYPE=	yes
 WITH_DOM=	yes
@@ -30,6 +33,7 @@ WITH_ICONV=	yes
 WITH_JSON=	yes
 WITH_PDO=	yes
 WITH_PDO_SQLITE=yes
+WITH_PHAR=	yes
 WITH_POSIX=	yes
 WITH_SESSION=	yes
 WITH_SIMPLEXML=	yes
@@ -73,6 +77,7 @@ OPTIONS=	BCMATH          "bc style precision math functions" off \
 		PDO             "PHP Data Objects Interface (PDO)" on \
 		PDO_SQLITE      "PDO sqlite driver" on \
 		PGSQL           "PostgreSQL database support" off \
+		PHAR            "phar support" on \
 		POSIX           "POSIX-like functions" on \
 		PSPELL          "pspell support" off \
 		READLINE        "readline support (CLI only)" off \
@@ -101,31 +106,23 @@ OPTIONS=	BCMATH          "bc style precision math functions" off \
 		ZIP             "ZIP support" off \
 		ZLIB            "ZLIB support" off
 
-PORT_DBDIR?=	/var/db/ports
-LATEST_LINK=	${PORTNAME}${PKGNAMESUFFIX}
-OPTIONSFILE?=	${PORT_DBDIR}/${LATEST_LINK}/options
-
-.if exists(${OPTIONSFILE})
-.include "${OPTIONSFILE}"
-.endif
-
 ALL_OPTIONS=	BCMATH BZ2 CALENDAR CTYPE CURL DBA \
 		DOM EXIF FILEINFO FILTER FRIBIDI FTP GD GETTEXT \
 		GMP HASH ICONV IMAP INTERBASE JSON LDAP MBSTRING MCRYPT \
 		MSSQL MYSQL MYSQLI \
-		ODBC OPENSSL PCNTL PDF PDO PDO_SQLITE PGSQL POSIX \
+		ODBC OPENSSL PCNTL PDF PDO PDO_SQLITE PGSQL PHAR POSIX \
 		PSPELL READLINE RECODE SESSION SHMOP SIMPLEXML SNMP SOAP \
 		SOCKETS SQLITE SQLITE3 SYBASE_CT SYSVMSG SYSVSEM SYSVSHM \
 		TIDY TOKENIZER WDDX XML XMLREADER XMLRPC XMLWRITER XSL \
 		YAZ ZIP ZLIB
 
-SEL_OPTIONS=	yes
+.include <bsd.port.options.mk>
+
 .for opt in ${ALL_OPTIONS}
 .	if defined(WITH_${opt}) && !defined(WITHOUT_${opt})
-SEL_OPTIONS+=	${opt:L}
+USE_PHP+=	${opt:L}
 .	endif
 .endfor
-USE_PHP=	${SEL_OPTIONS}
 
 do-install: build
 	@${DO_NADA}

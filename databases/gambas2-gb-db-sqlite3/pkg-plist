@@ -1,6 +1,0 @@
-@comment $FreeBSD: ports/databases/gambas2-gb-db-sqlite3/pkg-plist,v 1.1 2009/05/09 01:17:54 acm Exp $
-lib/gambas2/gb.db.sqlite3.component
-lib/gambas2/gb.db.sqlite3.so.0
-lib/gambas2/gb.db.sqlite3.so
-lib/gambas2/gb.db.sqlite3.la
-@dirrmtry lib/gambas2

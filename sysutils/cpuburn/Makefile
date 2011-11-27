@@ -6,24 +6,24 @@
 #
 
 PORTNAME=	cpuburn
-PORTVERSION=	1.4
+DISTVERSION=	1_4
 CATEGORIES=	sysutils
-MASTER_SITES=	http://pages.sbcglobal.net/redelm/
-DISTNAME=	cpuburn_${PORTVERSION:S/./_/g}
+MASTER_SITES=	http://www.bayofrum.net/dist/${PORTNAME}/ \
+		http://atarininja.org/distfiles/ \
+		${MASTER_SITE_LOCAL}
+MASTER_SITE_SUBDIR=	avg
+DISTNAME=	cpuburn_${DISTVERSION}
 EXTRACT_SUFX=	_tar.gz
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	avg@FreeBSD.org
 COMMENT=	CPU/memory stress testing utilities
-
-DEPRECATED=	No more public distfiles
-EXPIRATION_DATE=	2011-11-01
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 ONLY_FOR_ARCHS=	i386 amd64
 
 PORTDOCS=	README Design
 CPUS=		BX K6 K7 MMX P5 P6
-PLIST_FILES=	${CPUS:C+^+bin/burn+g}
+PLIST_FILES=	${CPUS:S+^+bin/burn+}
 
 do-build:
 .for CPU in ${CPUS}

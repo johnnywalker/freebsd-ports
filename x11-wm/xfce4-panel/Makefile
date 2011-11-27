@@ -6,14 +6,14 @@
 #
 
 PORTNAME=	xfce4-panel
-PORTVERSION=	4.8.5
+PORTVERSION=	4.8.6
 CATEGORIES=	x11-wm xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=src/xfce/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	oliver@FreeBSD.org
-COMMENT=	XFce 4 panel module
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce 4 panel module
 
 LIB_DEPENDS=	wnck-1.22:${PORTSDIR}/x11-toolkits/libwnck \
 		cairo.2:${PORTSDIR}/graphics/cairo \
@@ -32,7 +32,6 @@ USE_PERL5=	yes
 USE_XFCE=	configenv garcon libexo libmenu libutil xfconf
 USE_XORG=	x11 sm
 
-CONFIGURE_ARGS=	--enable-gtk-doc-html=no
 CONFIGURE_ENV+=	ac_cv_prog_AWK="${AWK}"
 
 OPTIONS=	NLS	"Enable Native Language Support" 	on \

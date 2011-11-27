@@ -5,7 +5,7 @@
 # $FreeBSD$
 
 PORTNAME=	blender
-PORTVERSION=	2.59
+PORTVERSION=	2.60a
 CATEGORIES=	graphics games
 MASTER_SITES=	http://download.blender.org/source/ \
 		http://mirror.cs.umn.edu/blender.org/source/ \
@@ -32,7 +32,7 @@ CMAKE_ARGS+=	-DWITH_BUILTIN_GLEW:BOOL=OFF -DWITH_PYTHON_INSTALL:BOOL=OFF
 SUB_FILES=	blender blenderplayer
 MAN1=		blender.1
 
-OUTDIR=		${INSTALL_WRKSRC}/bin/2.59
+OUTDIR=		${INSTALL_WRKSRC}/bin/2.60
 
 LANG=		ar bg ca cs de el es fi fr hr hr_HR it ja ko nl pl pt_BR ro \
 		ru sr sr@Latn sv uk zh_CN
@@ -88,7 +88,7 @@ CMAKE_ARGS+=	-DWITH_CODEC_FFMPEG:BOOL=ON
 .endif
 
 .if defined(WITH_FFTW3)
-LIB_DEPENDS+=	fftw3.5:${PORTSDIR}/math/fftw3
+LIB_DEPENDS+=	fftw3:${PORTSDIR}/math/fftw3
 CMAKE_ARGS+=	-DWITH_FFTW3:BOOL=ON
 .else
 CMAKE_ARGS+=	-DWITH_FFTW3:BOOL=OFF

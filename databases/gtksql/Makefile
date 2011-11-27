@@ -15,6 +15,8 @@ MAINTAINER=	domi@saargate.de
 COMMENT=	Graphical query tool for PostgreSQL and/or MySQL
 
 .if defined(PACKAGE_BUILDING) && !defined(WITH_MYSQL) && !defined(WITH_PGSQL)
+BROKEN=		Needs modification to work with newer MySQL
+EXPIRATION_DATE=	2011-11-30
 WITH_MYSQL=	yes
 .endif
 
@@ -24,8 +26,7 @@ USE_GNOME=	gtk12
 
 .if defined(WITH_MYSQL) || (exists(${LOCALBASE}/lib/mysql/libmysqlclient.a) \
 	&& !defined(WITHOUT_MYSQL))
-HAVE_MYSQL=	yes
-LIB_DEPENDS+=	mysqlclient.10:${PORTSDIR}/databases/mysql323-client
+USE_MYSQL=	yes
 .endif
 .if defined(WITH_PGSQL) || (exists(${LOCALBASE}/lib/libpq.a) \
 	&& !defined(WITHOUT_PGSQL))
@@ -34,7 +35,7 @@ USE_PGSQL=	yes
 .endif
 
 pre-patch:
-.if !defined(HAVE_MYSQL) && !defined(HAVE_PGSQL)
+.if !defined(USE_MYSQL) && !defined(HAVE_PGSQL)
 	@${ECHO} "You must specify which database to use, possible are:"
 	@${ECHO}
 	@${ECHO} "make WITH_MYSQL=yes (for MySQL support)"
@@ -44,7 +45,7 @@ pre-patch:
 .endif
 
 do-configure:
-.if defined(HAVE_MYSQL)
+.if defined(USE_MYSQL)
 	@${REINPLACE_CMD} -e "s/^#MYSQL/MYSQL/g" ${WRKSRC}/Makefile
 .endif
 .if defined(HAVE_PGSQL)

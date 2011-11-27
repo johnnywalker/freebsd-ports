@@ -6,12 +6,12 @@
 #
 
 PORTNAME=	pytest
-PORTVERSION=	2.1.1
+PORTVERSION=	2.2.0
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	cvs-src@yandex.ru
+MAINTAINER=	rm@FreeBSD.org
 COMMENT=	Cross-project testing tool for Python
 
 LICENSE=	MIT
@@ -19,6 +19,7 @@ LICENSE=	MIT
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pylib>=1.4.5:${PORTSDIR}/devel/py-pylib
 
 PLIST_SUB+=	PYTHON_VER=${PYTHON_VER}
+# Python 3 ready
 USE_PYTHON=		yes
 USE_PYDISTUTILS=	easy_install
 USE_ZIP=	yes

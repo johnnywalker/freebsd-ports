@@ -9,8 +9,7 @@
 #
 
 PORTNAME=	sbcl
-PORTVERSION=	1.0.49.0
-PORTREVISION=	0
+PORTVERSION=	1.0.53.0
 PORTEPOCH=	1
 CATEGORIES=	lang lisp
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION:R} \
@@ -20,7 +19,7 @@ MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION:R} \
 #MASTER_SITE_SUBDIR=	sbcl/${PORTVERSION:R}
 DISTNAME=	${PORTNAME}-${PORTVERSION:R}-source${SBCLPATCHLEVEL}
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	bf@FreeBSD.org
 COMMENT=	A Common Lisp development system derived from the CMU CL system
 
 # More platforms are supported, but on Linux.
@@ -45,7 +44,7 @@ INFODIR=	${PREFIX}/${INFO_PATH}
 .if !defined(NOPORTDOCS)
 INFO=	${MANUALS_SRC} sbcl-internals
 MANUALS_SRC=	asdf sbcl
-TEXTDOCS=	BUGS CREDITS COPYING NEWS PRINCIPLES STYLE TLA TODO
+TEXTDOCS=	BUGS CREDITS COPYING NEWS PRINCIPLES TLA TODO
 MANUALS=	${MANUALS_SRC:S,$,.html,g}
 MODULESDOCS=	asdf/README asdf/README.SBCL	\
 		asdf-install/README 		\
@@ -57,7 +56,7 @@ MODULESDOCS=	asdf/README asdf/README.SBCL	\
 		sb-simple-streams/README
 .endif
 
-OSVER_MAJOR=	${OSVERSION:C/([0-9]).*/\1/}
+OSVER_MAJOR=	${OSREL:R}
 NEWBOOTNAME=	${PORTNAME}-${PORTVERSION:R}-${ARCH}-freebsd${OSVER_MAJOR}
 DOC_TARGETS=	info html
 CONTRIB_MODULES=	asdf			\
@@ -88,29 +87,29 @@ WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION:R}
 
 .include <bsd.port.pre.mk>
 
-.if !defined(NOPORTDOCS) || !defined(WITHOUT_PDF) || !defined(WITHOUT_PS)
-BUILD_DEPENDS=	dot:${PORTSDIR}/graphics/graphviz
+.if defined(WITH_THREADS) && ${OSVERSION} > 900027
+BROKEN =	'thread was already on queue' crash with libthr after r216641
 .endif
 
-.if !defined(WITHOUT_PDF)
+.if !defined(NOPORTDOCS) && (defined(WITH_PDF) || defined(WITH_PS))
+BUILD_DEPENDS+=	dot:${PORTSDIR}/graphics/graphviz
+.endif
+
+.if !defined(NOPORTDOCS) && defined(WITH_PDF)
 BUILD_DEPENDS+=	latex:${PORTSDIR}/print/teTeX-base \
 		texi2dvi:${PORTSDIR}/print/texinfo
 DOC_TARGETS+=	pdf
 PLIST_SUB+=	PDF=""
-. if !defined(NOPORTDOCS)
 MANUALS+=	${MANUALS_SRC:S,$,.pdf,g}
-. endif
 .else
 PLIST_SUB+=	PDF="@comment "
 .endif
 
-.if defined(WITH_PS)
+.if !defined(NOPORTDOCS) && defined(WITH_PS)
 BUILD_DEPENDS+=	dvips:${PORTSDIR}/print/dvips
 DOC_TARGETS+=	ps
 PLIST_SUB+=	PS=""
-. if !defined(NOPORTDOCS)
 MANUALS+=	${MANUALS_SRC:S,$,.ps,g}
-. endif
 .else
 PLIST_SUB+=	PS="@comment "
 .endif
@@ -134,7 +133,7 @@ BOOT_VERSION=	1.0.31
 BOOT_ARCH_OS_LIST=	amd64-freebsd8 amd64-freebsd7 amd64-freebsd6 \
 			i386-freebsd8 i386-freebsd7 i386-freebsd6
 . else
-.  if ${OSVER_MAJOR} == 9	# We'll use 8.x bootstrap for now
+.  if ${OSVER_MAJOR} > 8	# We'll use 8.x bootstrap for now
 BOOT_ARCH_OS_LIST=	${ARCH}-freebsd8
 .  else
 BOOT_ARCH_OS_LIST=	${ARCH}-freebsd${OSVER_MAJOR}
@@ -153,10 +152,6 @@ DISTFILES:=	${DISTFILES} ${BOOT_DISTNAME}-binary${EXTRACT_SUFX}:binaries
 LISP_CMD=	"${WRKDIR}/${BOOT_DISTNAME}/src/runtime/sbcl --core ${WRKDIR}/${BOOT_DISTNAME}/output/sbcl.core ${LISP_EXTRA_ARG} --disable-debugger --userinit /dev/null --sysinit /dev/null"
 
 .endif # defined(WITH_SBCL)
-
-.if ${OSVERSION} < 700000
-BROKEN=		does not build on 6.X
-.endif
 
 pre-everything::
 	@${ECHO_MSG}
@@ -197,7 +192,6 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|cc -c|${CC} -c|' \
 		-e 's|ld \$$SO_FLAGS|${LD} \$$SO_FLAGS|' \
 			 ${WRKSRC}/tests/foreign.test.sh
-	@${FIND} ${WRKSRC} \( -name '*.orig' -o -name '*.bak' \) -delete
 .if defined(WITH_THREADS)
 	@${CP} ${FILESDIR}/customize-target-features.lisp ${WRKSRC}
 .endif
@@ -205,6 +199,7 @@ post-patch:
 		${WRKSRC}/doc/internals/Makefile
 
 do-build:
+	@${FIND} ${WRKSRC} \( -name '*.orig' -o -name '*.bak' \) -delete
 	@(cd ${WRKSRC} && ${SETENV} CC="${CC}" INSTALL_ROOT=${PREFIX} \
 		LISP_EXTRA_ARG="${LISP_EXTRA_ARG}" \
 		${SH} make.sh ${LISP_CMD})
@@ -214,9 +209,9 @@ do-build:
 		LISP_EXTRA_ARG="${LISP_EXTRA_ARG}" \
 		${GMAKE} MAKEINFO='makeinfo --no-split' ${DOC_TARGETS})
 	@(cd ${WRKSRC}/doc/internals && ${GMAKE} sbcl-internals.info)
-.endif
-.if !defined(WITHOUT_PDF)
+.if defined(WITH_PDF)
 	@(cd ${WRKSRC}/doc/internals && ${GMAKE} sbcl-internals.pdf)
+.endif
 .endif
 	@${REINPLACE_CMD} -E -e \
 		's|\$$Date\$$|'"`${SETENV} LANG=C /bin/date '+%B %d, %Y'`|g" \
@@ -224,9 +219,6 @@ do-build:
 
 do-install:
 	${MKDIR} ${SBCL_HOME}/
-.if !defined(NOPORTDOCS)
-	${MKDIR} ${DOCSDIR}/
-.endif
 	${INSTALL_PROGRAM} ${WRKSRC}/src/runtime/sbcl ${PREFIX}/bin/
 	${INSTALL_DATA} ${WRKSRC}/output/sbcl.core ${SBCL_HOME}/
 .for MOD in ${CONTRIB_MODULES}
@@ -237,11 +229,12 @@ do-install:
 	    ${WRKSRC}/contrib/${MOD}/${MOD}.asd ${SBCL_HOME}/${MOD}/; fi)
 .endfor
 .if !defined(NOPORTDOCS)
+	${MKDIR} ${DOCSDIR}/
 	${INSTALL_DATA} ${MANUALS_SRC:S,^,${WRKSRC}/doc/manual/,g:S,$,.info,g} \
 	    ${INFODIR}/
 	${INSTALL_DATA} ${WRKSRC}/doc/internals/sbcl-internals.info \
 	    ${INFODIR}/
-.if !defined(WITHOUT_PDF)
+.if defined(WITH_PDF)
 	${INSTALL_DATA} ${WRKSRC}/doc/internals/sbcl-internals.pdf \
 	    ${DOCSDIR}/
 .endif
@@ -256,8 +249,9 @@ do-install:
 	${MKDIR} ${SBCL_HOME}/site-systems
 	@${TOUCH} ${SBCL_HOME}/site-systems/.keep_me
 
-test:	build
-	(cd ${WRKSRC}/tests && ${SETENV} CC="${CC}" LISP_EXTRA_ARG="${LISP_EXTRA_ARG}" ${SH} run-tests.sh)
+check regression-test test: build
+	(cd ${WRKSRC}/tests && ${SETENV} CC="${CC}" \
+	LISP_EXTRA_ARG="${LISP_EXTRA_ARG}" ${SH} run-tests.sh)
 
 bootstrap:
 	${CP} -r ${WRKSRC} ${WRKDIR}/${NEWBOOTNAME}

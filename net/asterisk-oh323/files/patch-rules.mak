@@ -1,5 +1,5 @@
 
-$FreeBSD$
+$FreeBSD: ports/net/asterisk-oh323/files/patch-rules.mak,v 1.2 2008/05/16 17:17:13 sobomax Exp $
 
 --- rules.mak.orig
 +++ rules.mak

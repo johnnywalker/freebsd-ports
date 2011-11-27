@@ -6,35 +6,37 @@
 #
 
 PORTNAME=	duplicity
-PORTVERSION=	0.6.13
+PORTVERSION=	0.6.17
 CATEGORIES=	sysutils
 MASTER_SITES=	http://launchpad.net/duplicity/0.6-series/${PORTVERSION}/+download/
 
-MAINTAINER=	peter.schuller@infidyne.com
-COMMENT=	Untrusted backup using rsync algorithm
+MAINTAINER=	freebsd@beardz.net
+COMMENT=	Backup tool that uses rsync and GnuPG
 
 LIB_DEPENDS=	rsync.1:${PORTSDIR}/net/librsync
 RUN_DEPENDS=	gpg:${PORTSDIR}/security/gnupg \
 		ncftp>=3.2.2:${PORTSDIR}/ftp/ncftp3 \
 		lftp>=3.7.15:${PORTSDIR}/ftp/lftp
 
+OPTIONS=	NLS "National Language Support" on
+
 # fetch claims "Moved temporarily" without this - why? (inspired by deskutils/gtg)
 FETCH_ARGS=	-pRr
 
 CONFLICTS=	duplicity-0.5.* duplicity-devel-[0-9]*
 
-USE_PYTHON=	2.4+
+USE_PYTHON=	2.5+
 USE_PYDISTUTILS=yes
 USE_LDCONFIG=	yes
+
+.include "bsd.port.options.mk"
 
 .if !defined(WITHOUT_NLS)
 USE_GETTEXT=	yes
 PLIST_SUB+=	NLS=""
 .else
 PLIST_SUB+=	NLS="@comment "
-.endif
 
-.if defined(WITHOUT_NLS)
 post-patch:
 	@${REINPLACE_CMD} -e '54,63d' \
 		${WRKSRC}/setup.py
@@ -42,14 +44,13 @@ post-patch:
 
 MAN1=		duplicity.1 rdiffdir.1
 
-DOCFILES=	CHANGELOG \
-		COPYING \
-		REPO-README \
-		LOG-README \
+DOCFILES=	COPYING \
 		README \
-		tarfile-LICENSE
-
-.include <bsd.port.pre.mk>
+		README-REPO \
+		README-LOG \
+		tarfile-LICENSE \
+		tarfile-CHANGES \
+		CHANGELOG
 
 post-install:
 .if !defined(NOPORTDOCS)
@@ -59,4 +60,4 @@ post-install:
 .endfor
 .endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

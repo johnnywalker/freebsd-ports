@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	kadu
-PORTVERSION=	0.10.0
+PORTVERSION=	0.10.1
 PORTEPOCH=	1
 CATEGORIES=	polish net-im
 MASTER_SITES=	http://download.kadu.im/stable/:kadu \
@@ -25,6 +25,7 @@ BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 LIB_DEPENDS=	enchant.1:${PORTSDIR}/textproc/enchant \
 		gadu.3:${PORTSDIR}/polish/libgadu \
 		idn.17:${PORTSDIR}/dns/libidn \
+		mpdclient.2:${PORTSDIR}/audio/libmpdclient \
 		qca.2:${PORTSDIR}/devel/qca \
 		sndfile.1:${PORTSDIR}/audio/libsndfile
 RUN_DEPENDS=	qca-ossl>=2.0.0.b3:${PORTSDIR}/security/qca-ossl
@@ -40,12 +41,11 @@ USE_CMAKE=	yes
 USE_XORG=	xscrnsaver
 CMAKE_ARGS=	-DKADU_VERSION:STRING="${DISTVERSION}" -DWITH_ENCHANT=ON
 # Setting KADU_VERSION disables git invocation
-CMAKE_USE_PTHREAD=yes
 MAKE_JOBS_SAFE=	yes
 
 USE_QT_VER=	4
-QT_COMPONENTS=	gui dbus network script webkit xml qmake_build \
-		linguist_build moc_build rcc_build uic_build \
+QT_COMPONENTS=	dbus gui network script scripttools webkit xml \
+		linguist_build moc_build qmake_build rcc_build uic_build \
 		imageformats_run sql-sqlite3_run
 WANT_GNOME=	yes
 INSTALLS_ICONS=	yes

@@ -1,4 +1,4 @@
-# $FreeBSD: ports/devel/pear/bsd.pear.mk,v 1.17 2011/07/07 16:50:46 mm Exp $
+# $FreeBSD: ports/devel/pear/bsd.pear.mk,v 1.18 2011/07/10 22:16:06 mm Exp $
 
 # Common code for pear- ports.
 
@@ -193,7 +193,7 @@ do-autogenerate-plist: patch
 	@cd ${WRKDIR}/inst/${PREFIX} && ${FIND} . -type f | ${SORT} \
 	| ${CUT} -c 3- >> ${PLIST}
 	@DIRS=`cd ${WRKDIR}/inst/${PREFIX} && ${FIND} . -type d | ${SORT} -r | \
-	${CUT} -c 3-`; \
+	${CUT} -c 3- | ${SED} -e 's,\\$$,\\\\$$,g'`; \
 	for d in $${DIRS}; do ${ECHO_CMD} "@dirrmtry $${d}" >> ${PLIST}; done
 	@${ECHO_CMD} "@dirrm ${LPKGREGDIR}" >> ${PLIST}
 	@${ECHO_CMD} "@dirrmtry ${LPKGREGDIR:H}" >> ${PLIST}

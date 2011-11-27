@@ -1,6 +1,6 @@
 #!/bin/sh
 #-
-# Copyright (c) 2007 Dag-Erling Coïdan Smørgrav
+# Copyright (c) 2007 Dag-Erling SmÃ¸rgrav
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -25,7 +25,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 #
-# $FreeBSD: ports/devel/autoconf-wrapper/files/autotools-wrapper.sh,v 1.3 2007/11/09 14:47:27 des Exp $
+# $FreeBSD: ports/devel/autoconf-wrapper/files/autotools-wrapper.sh,v 1.4 2010/12/04 07:31:01 ade Exp $
 #
 
 bindir=%%PREFIX%%/bin

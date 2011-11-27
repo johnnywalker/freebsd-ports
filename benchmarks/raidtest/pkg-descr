@@ -1,4 +1,4 @@
-$FreeBSD$
+$FreeBSD: ports/benchmarks/raidtest/pkg-descr,v 1.2 2004/12/05 04:18:19 obrien Exp $
 
 This utility can be used to test performance of storage devices.
 First, one need to generate file with I/O operations:
@@ -42,5 +42,3 @@ where:
 	-S		sector size of destination device
 	-w		generate/run only WRITE requests
 	file		path to the data file instead of default 'raidtest.data'
-
--- Pawel Jakub Dawidek <pjd@FreeBSD.org>

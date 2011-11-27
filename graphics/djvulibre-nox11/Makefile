@@ -12,7 +12,7 @@ CATEGORIES=	graphics www
 MASTER_SITES=	SF/djvu/DjVuLibre/${PORTVERSION}
 PKGNAMESUFFIX=	-nox11
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	bf@FreeBSD.org
 COMMENT=	DjVu base libraries and utilities
 
 LICENSE=	GPLv2
@@ -29,8 +29,7 @@ CONFIGURE_ENV=	JPEG_CFLAGS="-I${LOCALBASE}/include" \
 		TIFF_LIBS="-L${LOCALBASE}/lib -ltiff" \
 		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		PTHREAD_LIBS="${PTHREAD_LIBS}" \
-		LOCALBASE="${LOCALBASE}" \
-		CXX="${CXX}"
+		LOCALBASE="${LOCALBASE}"
 CONFIGURE_ARGS=	--enable-threads=pthread --enable-shared
 USE_LDCONFIG=	yes
 

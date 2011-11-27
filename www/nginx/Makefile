@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	nginx
-PORTVERSION=	1.0.6
+PORTVERSION=	1.0.10
 PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	www
@@ -33,6 +33,7 @@ OPTIONS=	DEBUG			"Enable nginx debugging" off \
 		HTTP_GEOIP_MODULE	"Enable http_geoip module" off \
 		HTTP_GZIP_STATIC_MODULE "Enable http_gzip_static module" off \
 		HTTP_IMAGE_FILTER_MODULE "Enable http_image_filter module" off \
+		HTTP_MP4_MODULE		"Enable http_mp4 module" off \
 		HTTP_PERL_MODULE	"Enable http_perl module" off \
 		HTTP_RANDOM_INDEX_MODULE "Enable http_random_index module" off \
 		HTTP_REALIP_MODULE	"Enable http_realip module" off \
@@ -84,6 +85,7 @@ OPTIONS=	DEBUG			"Enable nginx debugging" off \
 		SUPERVISORD_MODULE	"3rd party supervisord module" off \
 		SYSLOG_SUPPORT		"3rd party syslog support" off \
 		UDPLOG_MODULE		"3rd party udplog (syslog) module" off \
+		XRID_HEADER_MODULE	"3rd party x-rid header module" off \
 		XSS_MODULE		"3rd party xss module" off
 
 WANT_GNOME=	yes
@@ -198,7 +200,7 @@ CONFIGURE_ARGS+=--without-http-cache
 .endif
 
 .if defined(WITH_CACHE_PURGE_MODULE)
-NGINX_CACHE_PURGE_MODULE_VERSION=	1.3
+NGINX_CACHE_PURGE_MODULE_VERSION=	1.4
 MASTER_SITES+=	http://labs.frickle.com/files/:cache_purge
 DISTFILES+=	ngx_cache_purge-${NGINX_CACHE_PURGE_MODULE_VERSION}.tar.gz:cache_purge
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/ngx_cache_purge-${NGINX_CACHE_PURGE_MODULE_VERSION}
@@ -244,7 +246,7 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/ngx-fancyindex-${NGINX_FANCYINDEX_MODULE_
 .endif
 
 .if defined(WITH_HTTP_GUNZIP_FILTER)
-NGINX_GUNZIP_FILTER_MODULE_VERSION=	0.3
+NGINX_GUNZIP_FILTER_MODULE_VERSION=	0.4
 MASTER_SITES+=	http://mdounin.ru/files/:gunzipfilter
 DISTFILES+=	ngx_http_gunzip_filter_module-${NGINX_GUNZIP_FILTER_MODULE_VERSION}.tar.gz:gunzipfilter
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/ngx_http_gunzip_filter_module-${NGINX_GUNZIP_FILTER_MODULE_VERSION}
@@ -266,6 +268,14 @@ CONFIGURE_ARGS+=--with-http_gzip_static_module
 .if defined(WITH_HTTP_IMAGE_FILTER_MODULE)
 LIB_DEPENDS+=	gd.4:${PORTSDIR}/graphics/gd
 CONFIGURE_ARGS+=--with-http_image_filter_module
+.endif
+
+.if defined(WITH_HTTP_MP4_MODULE) && defined(WITH_HTTP_MP4_H264_MODULE)
+IGNORE=	http_mp4 and third-party http_mp4_h264 modules are incompatible. Please select one
+.endif
+
+.if defined(WITH_HTTP_MP4_MODULE)
+CONFIGURE_ARGS+=--with-http_mp4_module
 .endif
 
 .if defined(WITH_HTTP_MOGILEFS_MODULE)
@@ -312,7 +322,7 @@ CONFIGURE_ARGS+=--with-http_realip_module
 .endif
 
 .if defined(WITH_HTTP_REDIS_MODULE)
-NGINX_REDIS_MODULE_VERSION=	0.3.4
+NGINX_REDIS_MODULE_VERSION=	0.3.5
 MASTER_SITES+=	${MASTER_SITE_LOCAL:S/$/:redis/}
 MASTER_SITE_SUBDIR+=	osa/:redis
 DISTFILES+=	ngx_http_redis-${NGINX_REDIS_MODULE_VERSION}.tar.gz:redis
@@ -383,7 +393,7 @@ EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ngx_http_upstream.h
 .endif
 
 .if defined(WITH_HTTP_UPSTREAM_KEEPALIVE)
-NGINX_UPSTREAM_KEEPALIVE_VERSION=	0.4
+NGINX_UPSTREAM_KEEPALIVE_VERSION=	0.7
 MASTER_SITES+=	http://mdounin.ru/files/:upstream
 DISTFILES+=	ngx_http_upstream_keepalive-${NGINX_UPSTREAM_KEEPALIVE_VERSION}.tar.gz:upstream
 CONFIGURE_ARGS+=--add-module=${WRKDIR}/ngx_http_upstream_keepalive-${NGINX_UPSTREAM_KEEPALIVE_VERSION}
@@ -532,6 +542,14 @@ CONFIGURE_ARGS+=--add-module=${WRKDIR}/nginx_udplog_module-${NGINX_UDPLOG_MODULE
 EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-ngx_http_udplog_module.c
 .endif
 
+.if defined(WITH_XRID_HEADER_MODULE)
+GIT_XRID_MODULE_VERSION=        0daa3cc
+FETCH_ARGS=	-pRr
+MASTER_SITES+=	https://github.com/gabor/nginx-x-rid-header/tarball/master/:xrid
+DISTFILES+=	gabor-nginx-x-rid-header-${GIT_XRID_MODULE_VERSION}.tar.gz:xrid
+CONFIGURE_ARGS+=--add-module=${WRKDIR}/gabor-nginx-x-rid-header-${GIT_XRID_MODULE_VERSION}
+.endif
+
 .if defined(WITH_XSS_MODULE)
 NGINX_XSS_MODULE_VERSION=	0.03rc3
 GIT_XSS_MODULE_VERSION=	0-g8618dd3
@@ -677,13 +695,13 @@ do-install:
 .endif
 
 .if defined(WITH_HTTP_MODULE) && defined(WITH_HTTP_PERL_MODULE)
-	${MKDIR} ${SITE_PERL}/${PERL_ARCH}/auto/nginx
+	${MKDIR} ${PREFIX}/${SITE_PERL_REL}/${PERL_ARCH}/auto/nginx
 	${INSTALL_PROGRAM} ${WRKSRC}/objs/src/http/modules/perl/blib/arch/auto/nginx/nginx.so \
-		${SITE_PERL}/${PERL_ARCH}/auto/nginx
+		${PREFIX}/${SITE_PERL_REL}/${PERL_ARCH}/auto/nginx
 	${INSTALL_DATA} ${WRKSRC}/objs/src/http/modules/perl/blib/arch/auto/nginx/nginx.bs \
-		${SITE_PERL}/${PERL_ARCH}/auto/nginx
+		${PREFIX}/${SITE_PERL_REL}/${PERL_ARCH}/auto/nginx
 	${INSTALL_DATA} ${WRKSRC}/objs/src/http/modules/perl/blib/lib/nginx.pm \
-		${SITE_PERL}/${PERL_ARCH}/
+		${PREFIX}/${SITE_PERL_REL}/${PERL_ARCH}/
 .endif
 
 post-install:

@@ -13,11 +13,16 @@ MASTER_SITES=	http://code.call-cc.org/releases/${PORTVERSION}/
 MAINTAINER=	vmagerya@gmail.com
 COMMENT=	A Scheme-to-C compiler
 
+MAKE_JOBS_SAFE=	yes
+
 USE_GMAKE=	yes
 MAKEFILE=	GNUmakefile
 USE_LDCONFIG=	yes
 MAKE_ARGS+=	PLATFORM=bsd PREFIX=${PREFIX} \
 		TOPMANDIR=${PREFIX}/man ARCH=${NEW_ARCH} \
+		C_COMPILER="${CC}" \
+		CXX_COMPILER="${CXX}" \
+		LIBRARIAN="${AR}" \
 		C_COMPILER_OPTIMIZATION_OPTIONS="${CFLAGS}"
 
 NEW_ARCH=	${ARCH:S/i386/x86/:S/amd64/x86-64/}
@@ -32,6 +37,8 @@ MAKE_ARGS+=	HACKED_APPLY=
 .endif
 
 post-patch:
+	@${REINPLACE_CMD} '/^%.so:/s|$$| lib$$(PROGRAM_PREFIX)chicken$$(PROGRAM_SUFFIX)$$(SO)|' \
+		${WRKSRC}/rules.make
 	@${REINPLACE_CMD} \
 		's|^DOCDIR = .*$$|DOCDIR = ${DOCSDIR}|' \
 		${WRKSRC}/defaults.make

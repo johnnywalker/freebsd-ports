@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# $FreeBSD: ports/net/isc-dhcp41-server/files/isc-dhcpd.in,v 1.3 2011/02/14 02:21:27 wxs Exp $
+# $FreeBSD: ports/net/isc-dhcp41-server/files/isc-dhcpd.in,v 1.4 2011/07/07 18:58:24 dougb Exp $
 #
 # PROVIDE: dhcpd
 # REQUIRE: DAEMON
@@ -295,15 +295,6 @@ check_chroot ()
 			if eval "[ -z \"\${${name}_rootdir}\" ]"; then
 				err 1 "${name}_rootdir must be set" \
 				      "if ${name}_chroot_enable is enabled"
-			fi
-			if test `uname -r | cut -c 1` -le 6; then
-				if checkyesno ${name}_devfs_enable &&
-				   ! ( type mount_devfs ) > /dev/null 2>&1;
-				then
-					warn "${name}_devfs_enable disabled" \
-					     "-- not available"
-					eval "${name}_devfs_enable=NO"
-				fi
 			fi
 		else
 			eval "${name}_devfs_enable=NO"

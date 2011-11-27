@@ -1,5 +1,5 @@
 
-$FreeBSD$
+$FreeBSD: ports/net/asterisk14/files/patch-main::utils.c,v 1.7 2009/08/02 19:34:54 mezz Exp $
 
 --- main/utils.c.orig
 +++ main/utils.c

@@ -5,11 +5,11 @@
 # $FreeBSD$
 
 PORTNAME=	robots
-PORTVERSION=	0.10.0
+PORTVERSION=	0.10.1
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	niels@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	A simple library to parse robots.txt files
 
 USE_RUBY=	yes

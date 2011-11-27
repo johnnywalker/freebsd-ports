@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	denemo
-PORTVERSION=	0.9.0
+PORTVERSION=	0.9.2
 PORTREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	GNU
@@ -16,10 +16,11 @@ COMMENT=	Graphical score editor
 
 BUILD_DEPENDS=	portaudio>=19:${PORTSDIR}/audio/portaudio2
 LIB_DEPENDS=	aubio.3:${PORTSDIR}/audio/aubio \
-		fluidsynth.4:${PORTSDIR}/audio/fluidsynth \
+		fluidsynth.1:${PORTSDIR}/audio/fluidsynth \
 		jack.0:${PORTSDIR}/audio/jack \
 		guile.21:${PORTSDIR}/lang/guile \
-		fftw3.5:${PORTSDIR}/math/fftw3
+		fftw3:${PORTSDIR}/math/fftw3 \
+		smf.0:${PORTSDIR}/audio/libsmf
 RUN_DEPENDS=	portaudio>=19:${PORTSDIR}/audio/portaudio2
 
 OPTIONS+=	LILYPOND "Install LilyPond (Printing)" off
@@ -54,12 +55,12 @@ PLIST_SUB+=		NLS=""
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|m4 doc actions|m4 actions| ; \
-		 s|fonts examples templates|fonts templates|' ${WRKSRC}/Makefile.in
+		 s|examples templates|templates|' \
+		 -e "/\/examples/d"  ${WRKSRC}/Makefile.in
 	@${REINPLACE_CMD} -e '/<malloc.h>/d' ${WRKSRC}/ltmain.sh
 
 post-install:
 	@${LN} -sf ${DOCSDIR}/manual ${DATADIR}/manual
-	@${LN} -sf ${EXAMPLESDIR} ${DATADIR}/examples
 .if !defined(NOPORTDOCS)
 	@${MKDIR} ${DOCSDIR}
 .for i in AUTHORS ChangeLog NEWS README

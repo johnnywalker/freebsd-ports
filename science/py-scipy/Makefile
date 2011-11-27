@@ -7,7 +7,7 @@
 
 PORTNAME=	scipy
 PORTVERSION=	0.8.0
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	science python
 MASTER_SITES=	SF
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -17,7 +17,8 @@ COMMENT=	Scientific tools for Python
 
 BUILD_DEPENDS+=	${PYNUMPY} \
 		${LOCALBASE}/lib/libdjbfft.a:${PORTSDIR}/math/djbfft
-LIB_DEPENDS=	fftw3.5:${PORTSDIR}/math/fftw3
+LIB_DEPENDS=	fftw3:${PORTSDIR}/math/fftw3
+RUN_DEPENDS=	${PYNUMPY}
 
 LATEST_LINK=	py-${PORTNAME}
 OPTIONSFILE=	${PORT_DBDIR}/py-numpy/options
@@ -40,7 +41,7 @@ BROKEN=	ldexpf is missing See http://lists.freebsd.org/pipermail/freebsd-amd64/2
 .if defined(WITH_ATLAS)
 LIB_DEPENDS+=	atlas.2:${PORTSDIR}/math/atlas
 .if !exists(${LOCALBASE}/lib/libalapack.a)
-IGNORE=		atlas needs to be built with WITH_STATICLIB for scipy to function properly
+IGNORE=		atlas needs to be built with WITH_STATIC for scipy to function properly
 .endif
 .else
 LIB_DEPENDS+=	lapack.4:${PORTSDIR}/math/lapack \

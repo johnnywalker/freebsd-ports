@@ -5,14 +5,14 @@
 # $FreeBSD$
 
 PORTNAME=	dm-devise
-PORTVERSION=	1.4.0
+PORTVERSION=	1.5.0
 CATEGORIES=	databases rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	zi@FreeBSD.org
+MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Adds DataMapper support to devise
 
-RUN_DEPENDS=	rubygem-devise>=1.3.0:${PORTSDIR}/devel/rubygem-devise \
+RUN_DEPENDS=	rubygem-devise>=1.3:${PORTSDIR}/devel/rubygem-devise \
 		rubygem-dm-core>=1.0.2:${PORTSDIR}/databases/rubygem-dm-core \
 		rubygem-dm-migrations>=1.0.2:${PORTSDIR}/databases/rubygem-dm-migrations \
 		rubygem-dm-rails>=1.0.3:${PORTSDIR}/databases/rubygem-dm-rails \

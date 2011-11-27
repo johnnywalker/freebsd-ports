@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	eiskaltdcpp-qt
-PORTVERSION=	2.1.1
+PORTVERSION=	2.2.4
 CATEGORIES=	net-p2p
 MASTER_SITES=	GOOGLE_CODE
 DISTNAME=	eiskaltdcpp-${DISTVERSION}
@@ -14,15 +14,18 @@ DISTNAME=	eiskaltdcpp-${DISTVERSION}
 MAINTAINER=	gelraen.ua@gmail.com
 COMMENT=	EiskaltDC++ Direct Connect client Qt GUI
 
+LICENSE=	GPLv3
+
 RUN_DEPENDS=	${LOCALBASE}/share/eiskaltdcpp/keep_me:${PORTSDIR}/net-p2p/eiskaltdcpp-data
 
-LIB_DEPENDS+=	eiskaltdcpp:${PORTSDIR}/net-p2p/eiskaltdcpp-lib
+LIB_DEPENDS+=	eiskaltdcpp:${PORTSDIR}/net-p2p/eiskaltdcpp-lib \
+		execinfo:${PORTSDIR}/devel/libexecinfo
 CMAKE_ARGS+=	-DBUILD_LIB:BOOL=OFF
 
 PROJECTHOST=	eiskaltdc
 
-USE_BZIP2=	yes
-USE_GCC=	4.2+
+USE_XZ=		yes
+USE_GCC=	4.4+
 USE_GETTEXT=	yes
 USE_CMAKE=	yes
 USE_OPENSSL=	yes
@@ -35,6 +38,8 @@ OPTIONS=	ASPELL		"Build with aspell support" off \
 		FREE_SPACE	"Free space bar in status panel"	on \
 		DBUS_NOTIFY	"DBus notification support"	on \
 		QTSCRIPT	"QtScript support"	off \
+		QML	"Qt Declarative ui support" off \
+		SQLITE	"SQLite support (experimental)" off \
 		MINIUPNP	"UPnP support"	on
 
 USE_QT_VER=	4
@@ -45,6 +50,7 @@ CMAKE_ARGS+=	-DUSE_GTK:BOOL=OFF
 CMAKE_ARGS+=	-DEISKALTDCPP_INCLUDE_DIR:STRING="${LOCALBASE}/include/eiskaltdcpp"
 CMAKE_ARGS+=	-DCREATE_MO:BOOL=OFF
 CMAKE_ARGS+=	-DCMAKE_LIBRARY_PATH:PATH="${LOCALBASE}/lib:${PREFIX}/lib"
+CMAKE_ARGS+=	-DCMAKE_SKIP_RPATH:BOOL=ON
 
 BUILD_WRKSRC=	${WRKSRC}/${PORTNAME}
 INSTALL_WRKSRC=	${WRKSRC}/${PORTNAME}
@@ -74,10 +80,25 @@ CMAKE_ARGS+=	-DDBUS_NOTIFY:BOOL=OFF
 .if defined(WITH_QTSCRIPT)
 CMAKE_ARGS+=	-DUSE_JS:BOOL=ON
 QT_COMPONENTS+=	script
+RUN_DEPENDS+=	${LOCALBASE}/lib/qt4/plugins/script/libqtscript_core.so:${PORTSDIR}/devel/qtscriptgenerator
 PLIST_SUB+=	QTSCRIPT=""
 .else
 CMAKE_ARGS+=	-DUSE_JS:BOOL=OFF
 PLIST_SUB+=	QTSCRIPT="@comment "
+.endif
+
+.if defined(WITH_QML)
+CMAKE_ARGS+=	-DUSE_QT_QML:BOOL=ON
+QT_COMPONENTS+=	declarative
+.else
+CMAKE_ARGS+=	-DUSE_QT_QML:BOOL=OFF
+.endif
+
+.if defined(WITH_SQLITE) && !defined(WITHOUT_SQLITE)
+CMAKE_ARGS+=	-DUSE_QT_SQLITE:BOOL=ON
+QT_COMPONENTS+=	sql-sqlite3
+.else
+CMAKE_ARGS+=	-DUSE_QT_SQLITE:BOOL=OFF
 .endif
 
 .if defined(WITH_MINIUPNP)
@@ -87,8 +108,10 @@ CMAKE_ARGS+=	-DUSE_MINIUPNP:BOOL=ON -DLOCAL_MINIUPNP:BOOL=OFF
 CMAKE_ARGS+=	-DUSE_MINIUPNP:BOOL=OFF
 .endif
 
+.include <bsd.port.pre.mk>
+
 .if ${OSVERSION} < 700024
 USE_OPENSSL_PORT=yes
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	Data-MessagePack
-PORTVERSION=	0.36
+PORTVERSION=	0.38
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -16,6 +16,8 @@ COMMENT=	Perl extension for MessagePack
 
 PERL_CONFIGURE=	yes
 CONFIGURE_ARGS=	--xs
+
+MAKE_JOBS_UNSAFE=	yes
 
 MAN3=	Data::MessagePack.3 \
 	Data::MessagePack::PP.3 \

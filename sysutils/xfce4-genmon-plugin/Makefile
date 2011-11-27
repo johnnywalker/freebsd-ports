@@ -7,13 +7,14 @@
 
 PORTNAME=	xfce4-genmon-plugin
 PORTVERSION=	3.3.0
+PORTREVISION=	1
 CATEGORIES=	sysutils xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/panel-plugins/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	Generic Monitor XFce4 panel plugin
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Generic Monitor Xfce4 panel plugin
 
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes

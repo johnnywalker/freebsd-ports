@@ -38,7 +38,6 @@
     SUBDIR += etoile-wildmenus
     SUBDIR += fluxbox-tenr-styles-pack
     SUBDIR += fvwm-themes
-    SUBDIR += geramik
     SUBDIR += gnome-backgrounds
     SUBDIR += gnome-bluecurve-theme
     SUBDIR += gnome-icons
@@ -147,6 +146,7 @@
     SUBDIR += kde4-style-nitrogen
     SUBDIR += kde4-style-polyester
     SUBDIR += kde4-style-skulpture
+    SUBDIR += kde4-wallpapers
     SUBDIR += kde4-windeco-crystal
     SUBDIR += kde4-windeco-dekorator
     SUBDIR += kde4-windeco-nitrogen

@@ -1,6 +1,5 @@
-@comment $FreeBSD$
+@comment $FreeBSD: ports/sysutils/cpupowerd/pkg-plist,v 1.1 2008/11/23 13:43:09 miwi Exp $
 sbin/cpupowerd
-%%CREATELOAD%%bin/createload.sh
 %%PORTDOCS%%%%DOCSDIR%%/CHANGELOG
 %%PORTDOCS%%%%DOCSDIR%%/COPYING
 %%PORTDOCS%%%%DOCSDIR%%/README

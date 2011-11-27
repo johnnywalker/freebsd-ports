@@ -21,10 +21,4 @@ USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
 
-.include <bsd.port.pre.mk>
-
-.if ${OSVERSION} < 700000
-LDFLAGS+=	-lpthread
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

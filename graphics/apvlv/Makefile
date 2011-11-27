@@ -6,20 +6,38 @@
 #
 
 PORTNAME=	apvlv
-PORTVERSION=	0.0.9.8
-PORTREVISION=	2
+PORTVERSION=	0.1.2
+PORTREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	GOOGLE_CODE
+MASTER_SITES=	http://cloud.github.com/downloads/naihe2010/apvlv/
+DISTNAME=	${PORTNAME}-${PORTVERSION}-Source
 
-MAINTAINER=	ports@FreeBSD.org
-COMMENT=	Apvlv is a PDF Viewer Under Linux and its behaviour like Vim
+MAINTAINER=	xors@imap.cc
+COMMENT=	Apvlv is a PDF/DJVU Viewer and its behaviour like Vim
 
-LIB_DEPENDS=	poppler-glib.6:${PORTSDIR}/graphics/poppler-gtk
+LICENSE=	GPLv2
 
-GNU_CONFIGURE=	yes
-USE_GMAKE=	yes
-CONFIGURE_ARGS=	--with-sysconfdir=${PREFIX}/etc
+LIB_DEPENDS=	poppler-glib.8:${PORTSDIR}/graphics/poppler-glib
+
+USE_GNOME=	gtk20
+USE_CMAKE=	yes
+MAKE_JOBS_SAFE=	yes
+CMAKE_ARGS+=	-DSYSCONFDIR=${PREFIX}/etc \
+		-DMANDIR=${MANPREFIX}/man \
+		-DDOCDIR=${DOCSDIR} \
+		-DAPVLV_WITH_UMD=OFF
 
 MAN1=		apvlv.1
+
+OPTIONS=	DJVU	"Enable DJVU support"	off
+
+.include <bsd.port.options.mk>
+
+.if defined(WITHOUT_DJVU)
+CMAKE_ARGS+=	-DAPVLV_WITH_DJVU=OFF
+.else
+CMAKE_ARGS+=	-DAPVLV_WITH_DJVU=ON
+LIB_DEPENDS+=	djvulibre.24:${PORTSDIR}/graphics/djvulibre-nox11
+.endif
 
 .include <bsd.port.mk>

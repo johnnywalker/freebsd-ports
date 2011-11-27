@@ -6,29 +6,26 @@
 #
 
 PORTNAME=	ninix-aya
-PORTVERSION=	4.2.6
+PORTVERSION=	4.3.2
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP}
-MASTER_SITE_SUBDIR=	ninix-aya/53177
-DISTNAME=	ninix-aya-${PORTVERSION}
+MASTER_SITE_SUBDIR=	ninix-aya/53772
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	umeno@rr.iij4u.or.jp
 COMMENT=	Ninix-aya is a compatible with desktop mascot program "Ukagaka"
 
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
 LIB_DEPENDS=	png:${PORTSDIR}/graphics/png
 RUN_DEPENDS=	unzip:${PORTSDIR}/archivers/unzip \
-		${PYTHON_SITELIBDIR}/gtk-2.0/gtk/__init__.py:${PORTSDIR}/x11-toolkits/py-gtk2 \
 		${PYTHON_SITELIBDIR}/chardet/__init__.py:${PORTSDIR}/textproc/py-chardet \
-		${PYTHON_SITELIBDIR}/numpy:${PORTSDIR}/math/py-numpy \
+		${PYNUMPY} \
 		${PYTHON_SITELIBDIR}/pygst.py:${PORTSDIR}/multimedia/py-gstreamer
 
-PYVERSION=	${PYTHON_VERSION:S/^python//}
-.if defined(PYTHON_VERSION) && ${PYVERSION:S/.//} < 24
-RUN_DEPENDS+=	${PYTHON_SITELIBDIR}/japanese.pth:${PORTSDIR}/japanese/pycodec
-.endif # defined(PYVERSION) && ${PYVERSION:S/.//} < 24
-
 USE_PYTHON=	yes
+USE_GNOME=	pygtk2
 USE_GMAKE=	yes
 
 .include <bsd.port.pre.mk>

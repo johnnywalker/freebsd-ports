@@ -85,7 +85,6 @@
     SUBDIR += clutter
     SUBDIR += clutter-box2d
     SUBDIR += clutter-gtk
-    SUBDIR += clutter-qt
     SUBDIR += comical
     SUBDIR += comix
     SUBDIR += commons-utilities
@@ -133,6 +132,7 @@
     SUBDIR += edje
     SUBDIR += edje_viewer
     SUBDIR += electriceyes
+    SUBDIR += electrix
     SUBDIR += enblend
     SUBDIR += enfle
     SUBDIR += eog
@@ -180,7 +180,6 @@
     SUBDIR += fig2sxd
     SUBDIR += figurine
     SUBDIR += flam3
-    SUBDIR += flashplayer
     SUBDIR += flasm
     SUBDIR += fli2gif
     SUBDIR += flip
@@ -222,10 +221,6 @@
     SUBDIR += fv
     SUBDIR += fyre
     SUBDIR += g2
-    SUBDIR += gambas2-gb-gtk-svg
-    SUBDIR += gambas2-gb-image
-    SUBDIR += gambas2-gb-opengl
-    SUBDIR += gambas2-gb-pdf
     SUBDIR += gauche-gl
     SUBDIR += gcolor
     SUBDIR += gcolor2
@@ -251,7 +246,6 @@
     SUBDIR += gifmerge
     SUBDIR += gifsicle
     SUBDIR += giftool
-    SUBDIR += giftrans
     SUBDIR += gimageview
     SUBDIR += gimmage
     SUBDIR += gimp
@@ -267,7 +261,6 @@
     SUBDIR += gimp-resynthesizer
     SUBDIR += gimp-save-for-web
     SUBDIR += gimpfx-foundry
-    SUBDIR += gimpshop
     SUBDIR += giram
     SUBDIR += gkrellkam
     SUBDIR += gkrellkam2
@@ -284,7 +277,6 @@
     SUBDIR += gltt
     SUBDIR += gmt
     SUBDIR += gnash
-    SUBDIR += gnash-devel
     SUBDIR += gnofract4d
     SUBDIR += gnomecanvas
     SUBDIR += gnomeiconedit
@@ -327,10 +319,10 @@
     SUBDIR += gtkam
     SUBDIR += gtkdps
     SUBDIR += gtkgraph
-    SUBDIR += gtksee
     SUBDIR += gts
     SUBDIR += guilib
     SUBDIR += gwenview
+    SUBDIR += gwenview-kde4
     SUBDIR += gx
     SUBDIR += hobbes-icons-xpm
     SUBDIR += hppsmtools
@@ -394,13 +386,18 @@
     SUBDIR += jumpgis-postgis
     SUBDIR += k3d
     SUBDIR += kalbum
-    SUBDIR += kallery
     SUBDIR += kamera
+    SUBDIR += kamera-kde4
     SUBDIR += kbarcode
+    SUBDIR += kcolorchooser
     SUBDIR += kcoloredit
     SUBDIR += kdc2tiff
     SUBDIR += kdegraphics3
     SUBDIR += kdegraphics4
+    SUBDIR += kdegraphics4-mobipocket
+    SUBDIR += kdegraphics4-strigi-analyzer
+    SUBDIR += kdegraphics4-svgpart
+    SUBDIR += kdegraphics4-thumbnailers
     SUBDIR += kgraphviewer
     SUBDIR += kiconedit
     SUBDIR += kipi-plugins
@@ -409,11 +406,14 @@
     SUBDIR += kix-kmod
     SUBDIR += klatexformula
     SUBDIR += kludge3d
+    SUBDIR += kolourpaint
     SUBDIR += kooka
     SUBDIR += kphotoalbum
     SUBDIR += kphotoalbum-kde4
     SUBDIR += kpovmodeler
     SUBDIR += kradview
+    SUBDIR += ksaneplugin
+    SUBDIR += ksnapshot
     SUBDIR += kudu
     SUBDIR += kuickshow
     SUBDIR += kuickshow-kde4
@@ -433,7 +433,6 @@
     SUBDIR += libGLU
     SUBDIR += libGLw
     SUBDIR += libafterimage
-    SUBDIR += libart
     SUBDIR += libart_lgpl
     SUBDIR += libaux
     SUBDIR += libboard
@@ -445,7 +444,6 @@
     SUBDIR += libemf
     SUBDIR += libexif
     SUBDIR += libexif-gtk
-    SUBDIR += libflash
     SUBDIR += libfpx
     SUBDIR += libgeotiff
     SUBDIR += libgfx
@@ -464,9 +462,13 @@
     SUBDIR += libiptcdata
     SUBDIR += libjpeg-turbo
     SUBDIR += libkdcraw
+    SUBDIR += libkdcraw-kde4
     SUBDIR += libkexif
     SUBDIR += libkexiv2
+    SUBDIR += libkexiv2-kde4
     SUBDIR += libkipi
+    SUBDIR += libkipi-kde4
+    SUBDIR += libksane
     SUBDIR += liblqr-1
     SUBDIR += liblug
     SUBDIR += libmng
@@ -481,7 +483,6 @@
     SUBDIR += libqglviewer
     SUBDIR += libqrencode
     SUBDIR += libraw
-    SUBDIR += librsvg
     SUBDIR += librsvg2
     SUBDIR += libspiro
     SUBDIR += libsvg
@@ -491,10 +492,10 @@
     SUBDIR += libvisual04
     SUBDIR += libvisual04-plugins
     SUBDIR += libwmf
+    SUBDIR += libwmf-nox11
     SUBDIR += libwpg
     SUBDIR += libwpg01
     SUBDIR += libx3dtk
-    SUBDIR += lightspark-devel
     SUBDIR += linplasma
     SUBDIR += linux-XnViewMP
     SUBDIR += linux-ac3d
@@ -567,8 +568,10 @@
     SUBDIR += ocaml-lablgl
     SUBDIR += ocrad
     SUBDIR += ocre
+    SUBDIR += ocrfeeder
     SUBDIR += ocropus
     SUBDIR += ogre3d
+    SUBDIR += okular
     SUBDIR += openclipart
     SUBDIR += opencsg
     SUBDIR += opencv
@@ -625,6 +628,7 @@
     SUBDIR += p5-GraphViz
     SUBDIR += p5-GraphViz-Data-Structure
     SUBDIR += p5-GraphViz-Traverse
+    SUBDIR += p5-GraphViz2
     SUBDIR += p5-Graphics-Color
     SUBDIR += p5-Graphics-ColorNames
     SUBDIR += p5-Graphics-ColorNames-WWW
@@ -632,6 +636,7 @@
     SUBDIR += p5-Graphics-Primitive
     SUBDIR += p5-Graphics-Primitive-Driver-Cairo
     SUBDIR += p5-Image-Base
+    SUBDIR += p5-Image-Base-SVG
     SUBDIR += p5-Image-Caa
     SUBDIR += p5-Image-Compare
     SUBDIR += p5-Image-ExifTool
@@ -648,6 +653,7 @@
     SUBDIR += p5-Image-MetaData-JPEG
     SUBDIR += p5-Image-PBMlib
     SUBDIR += p5-Image-Pngslimmer
+    SUBDIR += p5-Image-Scale
     SUBDIR += p5-Image-Size
     SUBDIR += p5-Image-Size-FillFullSelect
     SUBDIR += p5-Imager
@@ -658,6 +664,7 @@
     SUBDIR += p5-Imlib2
     SUBDIR += p5-Layout-Manager
     SUBDIR += p5-OpenGL
+    SUBDIR += p5-PGPLOT
     SUBDIR += p5-SVG-DOM2
     SUBDIR += p5-SVG-Graph
     SUBDIR += p5-SVG-Metadata
@@ -670,7 +677,6 @@
     SUBDIR += p5-VCG
     SUBDIR += p5-Visio
     SUBDIR += p5-chart
-    SUBDIR += p5-clutter
     SUBDIR += p5-ming
     SUBDIR += panoglview
     SUBDIR += panomatic
@@ -694,7 +700,6 @@
     SUBDIR += pfscalibration
     SUBDIR += pfstmo
     SUBDIR += pfstools
-    SUBDIR += pgperl
     SUBDIR += pgplot
     SUBDIR += pho
     SUBDIR += photoclip
@@ -739,8 +744,7 @@
     SUBDIR += podofo
     SUBDIR += poppler
     SUBDIR += poppler-data
-    SUBDIR += poppler-gtk
-    SUBDIR += poppler-qt
+    SUBDIR += poppler-glib
     SUBDIR += poppler-qt4
     SUBDIR += poppler-utils
     SUBDIR += popplerkit
@@ -757,6 +761,7 @@
     SUBDIR += pqiv
     SUBDIR += preview
     SUBDIR += price
+    SUBDIR += prison
     SUBDIR += processing
     SUBDIR += proj
     SUBDIR += projectm-libvisual
@@ -770,7 +775,6 @@
     SUBDIR += py-amanith
     SUBDIR += py-blockdiag
     SUBDIR += py-cairo
-    SUBDIR += py-cgkit
     SUBDIR += py-chart
     SUBDIR += py-clutter
     SUBDIR += py-clutter-gtk
@@ -796,6 +800,7 @@
     SUBDIR += py-openexr
     SUBDIR += py-opengl
     SUBDIR += py-paint
+    SUBDIR += py-png
     SUBDIR += py-poppler
     SUBDIR += py-pycha
     SUBDIR += py-pydot
@@ -804,6 +809,7 @@
     SUBDIR += py-pyproj
     SUBDIR += py-qt4-svg
     SUBDIR += py-rabbyt
+    SUBDIR += py-sane
     SUBDIR += py-seqdiag
     SUBDIR += py-sorl-thumbnail
     SUBDIR += py-soya3d
@@ -855,6 +861,7 @@
     SUBDIR += ruby-svg
     SUBDIR += ruby-tgif
     SUBDIR += rubygem-captcha
+    SUBDIR += rubygem-chunky_png
     SUBDIR += rubygem-dragonfly
     SUBDIR += rubygem-exifr
     SUBDIR += rubygem-ezprint
@@ -867,6 +874,7 @@
     SUBDIR += rubygem-objectdetect
     SUBDIR += rubygem-opengl
     SUBDIR += rubygem-pdfkit
+    SUBDIR += rubygem-png
     SUBDIR += rubygem-railroad
     SUBDIR += rubygem-scruffy
     SUBDIR += rubygem-turing
@@ -930,15 +938,16 @@
     SUBDIR += tiff
     SUBDIR += tiff2png
     SUBDIR += tifmerge
+    SUBDIR += tilecache
     SUBDIR += timeless
     SUBDIR += tintfu
+    SUBDIR += tinyows
     SUBDIR += tkpng
     SUBDIR += togl
     SUBDIR += tonicpoint-viewer
     SUBDIR += truevision
     SUBDIR += tulip
     SUBDIR += tumble
-    SUBDIR += tumbler
     SUBDIR += uDrawGraph
     SUBDIR += ufraw
     SUBDIR += uniconvertor
@@ -958,7 +967,6 @@
     SUBDIR += webp
     SUBDIR += whirlgif
     SUBDIR += white_dune
-    SUBDIR += wildmagic
     SUBDIR += wings
     SUBDIR += wings-devel
     SUBDIR += wmgrabimage
@@ -995,13 +1003,11 @@
     SUBDIR += xmms-jess
     SUBDIR += xmms-nebulus
     SUBDIR += xmms-paranormal
-    SUBDIR += xmms-plazma
     SUBDIR += xmms-scivi
     SUBDIR += xmms-vumeter
     SUBDIR += xmms-waterfall
     SUBDIR += xmorph
     SUBDIR += xmountains
-    SUBDIR += xmrm
     SUBDIR += xnview
     SUBDIR += xoris
     SUBDIR += xournal

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	postfix
-PORTVERSION=	2.7.6
+PORTVERSION=	2.7.7
 PORTEPOCH=	1
 CATEGORIES=	mail ipv6
 MASTER_SITES=	ftp://ftp.porcupine.org/mirrors/postfix-release/official/ \
@@ -20,7 +20,7 @@ DIST_SUBDIR=	${PORTNAME}
 MAINTAINER=	sahil@FreeBSD.org
 COMMENT=	A secure alternative to widely-used Sendmail
 
-VDAVERSION=	2.7.2
+VDAVERSION=	2.7.6
 CONFLICTS=	courier-0.* postfix-1.* postfix-2.[0-689].* postfix-base-2.[0-689].* \
 		postfix-current-2.* postfix-current-base-2.* sendmail-8.* \
 		sendmail+*-8.* smail-3.* zmailer-2.*
@@ -47,13 +47,13 @@ OPTIONS=	PCRE		"Perl Compatible Regular Expressions"			on \
 		SASL2		"Cyrus SASLv2 (Simple Auth. and Sec. Layer)"		${STATUS_SASL2} \
 		DOVECOT		"Dovecot 1.x SASL authentication method"		off \
 		DOVECOT2	"Dovecot 2.x SASL authentication method"		off \
-		SASLKRB5	"If your SASL req. Kerberos5 select this option"	${STATUS_SASLKRB5} \
-		SASLKMIT	"If your SASL req. MIT Kerberos5 select this option"	${STATUS_SASLKRB5MIT} \
+		SASLKRB5	"If your SASL req. Kerberos5, select this"		${STATUS_SASLKRB5} \
+		SASLKMIT	"If your SASL req. MIT Kerberos5, select this"		${STATUS_SASLKRB5MIT} \
 		TLS		"Enable SSL and TLS support"				${STATUS_TLS} \
-		BDB		"Berkeley DB (choose version with WITH_BDB_VER)"	${STATUS_BDB} \
-		MYSQL		"MySQL maps (choose version with WITH_MYSQL_VER)"	${STATUS_MySQL} \
-		PGSQL		"PostgreSQL maps (choose with DEFAULT_PGSQL_VER)"	${STATUS_PgSQL} \
-		OPENLDAP	"OpenLDAP maps (choose ver. with WITH_OPENLDAP_VER)"	${STATUS_OpenLDAP} \
+		BDB		"Berkeley DB (uses WITH_BDB_VER)"			${STATUS_BDB} \
+		MYSQL		"MySQL maps (uses WITH_MYSQL_VER)"			${STATUS_MySQL} \
+		PGSQL		"PostgreSQL maps (uses DEFAULT_PGSQL_VER)"		${STATUS_PgSQL} \
+		OPENLDAP	"OpenLDAP maps (uses WITH_OPENLDAP_VER)"		${STATUS_OpenLDAP} \
 		CDB		"CDB maps lookups"					${STATUS_CDB} \
 		NIS		"NIS maps lookups"					${STATUS_NIS} \
 		VDA		"VDA (Virtual Delivery Agent 32Bit)"			${STATUS_VDA} \
@@ -218,7 +218,7 @@ _REQUIRE+=		ypserv
 
 .if defined(WITH_VDA)
 PATCH_SITES+=		http://vda.sourceforge.net/VDA/:vda
-PATCHFILES+=		postfix-vda-${VDAVERSION}.patch:vda
+PATCHFILES+=		postfix-vda-v10-${VDAVERSION}.patch:vda
 PATCH_DIST_STRIP=	-p1
 PLIST_SUB+=		VDA=""
 .else

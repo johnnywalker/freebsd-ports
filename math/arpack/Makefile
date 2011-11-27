@@ -7,7 +7,7 @@
 
 PORTNAME=	arpack
 PORTVERSION=	96
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	math
 MASTER_SITES=	http://www.caam.rice.edu/software/ARPACK/SRC/
 DISTFILES=	${PORTNAME}${PORTVERSION}.tar.gz patch.tar.gz
@@ -20,6 +20,7 @@ EXTRACT_ONLY=	${PORTNAME}${PORTVERSION}.tar.gz
 MAINTAINER=	bf@FreeBSD.org
 COMMENT=	Argand Library: large eigenvalue subroutines (serial version)
 
+FFLAGS+=	-ffixed-line-length-none
 LDFLAGS+=	-L${LOCALBASE}/lib
 USE_FORTRAN=	yes
 USE_LDCONFIG=	yes
@@ -70,7 +71,7 @@ SYMTESTS=	ssdrv1 ssdrv2 ssdrv3 ssdrv4 ssdrv5 ssdrv6 \
 
 .include <bsd.port.pre.mk>
 
-.if exists(${LOCALBASE}/lib/libatlas_r.so)
+.if exists(${LOCALBASE}/lib/libatlas.so)
 WITH_BLAS?=	atlas
 .else
 WITH_BLAS?=	reference
@@ -78,7 +79,7 @@ WITH_BLAS?=	reference
 
 .if ${WITH_BLAS} == atlas
 LIB_DEPENDS+=		atlas.2:${PORTSDIR}/math/atlas
-BLAS?=			-lf77blas -latlas
+BLAS?=			-lf77blas
 .else
 LIB_DEPENDS+=		blas.2:${PORTSDIR}/math/blas
 BLAS?=			-lblas
@@ -120,11 +121,16 @@ post-patch:
 			printf  "%s\t%s\t%s%s\n%s\t%s\t%s%s\n", "#define", \
 			toupper($$i), "ARPACK_", toupper($$i), "#define", $$i, \
 			"ARPACK_", toupper($$i) \
-			> "${WRKDIR}/arpack_compat_f.h" ; \
-			printf "%s%s%s\n", $$i, " arpack_", $$i \
-			> "${WRKDIR}/rename" } } ; \
+			> "${WRKDIR}/arpack_compat_f.h" } } ; \
 		END { print "\n#endif" >  "${WRKDIR}/arpack_compat_c.h" ; \
 		print "\n#endif" >  "${WRKDIR}/arpack_compat_f.h" }' -
+
+pre-build:
+	@${ECHO_CMD} "Renaming LAPACK functions ..."
+	@for f in `${FIND} ${WRKDIR} -type f -mindepth 2 -name '*.f'` ; do \
+		${MV} $${f} $${f}.unproc ; \
+		${CPP} -C -I${WRKDIR} -imacros arpack_compat_f.h -traditional-cpp \
+			$${f}.unproc $${f} ; done
 
 do-build:
 	@cd ${WRKSRC} ; ${SETENV} ${MAKE_ENV} \
@@ -140,10 +146,8 @@ do-build:
 do-install:
 	@${INSTALL_DATA} ${FILESDIR}/arpack.h ${WRKDIR}/arpack_compat_c.h \
 		${WRKDIR}/arpack_compat_f.h ${PREFIX}/include
-.for lib in /libarpack.a _SHARED/libarpack.so.1
-	@${OBJCOPY} --redefine-syms ${WRKDIR}/rename ${WRKSRC}${lib}
-	@${INSTALL_DATA} ${WRKSRC}${lib} ${PREFIX}/lib
-.endfor
+	@${INSTALL_DATA} ${WRKSRC}/libarpack.a ${PREFIX}/lib
+	@${INSTALL_DATA} ${WRKSRC}_SHARED/libarpack.so.1 ${PREFIX}/lib
 	@${LN} -sf libarpack.so.1 ${PREFIX}/lib/libarpack.so
 .if !defined(NOPORTDOCS)
 	@${MKDIR} ${DOCSDIR}

@@ -1,0 +1,11 @@
+--- cnf/bin/afnix-setup.orig
++++ cnf/bin/afnix-setup
+@@ -310,7 +310,7 @@ do
+     --altdir=*)    altdir="$argopt";;
+     --sdkdir)      preopt=sdkdir;;
+     --sdkdir=*)    sdkdir="$argopt";;
+-    --compiler)    preopt=compiler;;
++    --compiler)    preopt=ccname;;
+     --compiler=*)  ccname="$argopt";;
+     --proctype)    preopt=proctype;;
+     --proctype=*)  proctype="$argopt";;

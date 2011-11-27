@@ -1,6 +1,0 @@
-@comment $FreeBSD: ports/databases/gambas2-gb-db-mysql/pkg-plist,v 1.1 2009/05/09 01:13:41 acm Exp $
-lib/gambas2/gb.db.mysql.component
-lib/gambas2/gb.db.mysql.so.0
-lib/gambas2/gb.db.mysql.so
-lib/gambas2/gb.db.mysql.la
-@dirrmtry lib/gambas2

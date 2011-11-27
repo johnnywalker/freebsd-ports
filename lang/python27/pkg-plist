@@ -883,7 +883,7 @@ lib/lib%%PYTHON_VERSION%%.so.1
 %%PYTHON_LIBDIR%%/lib-dynload/fcntl.so
 %%PYTHON_LIBDIR%%/lib-dynload/future_builtins.so
 %%PYTHON_LIBDIR%%/lib-dynload/grp.so
-%%X86_ONLY%%%%PYTHON_LIBDIR%%/lib-dynload/imageop.so
+%%32BIT_ONLY%%%%PYTHON_LIBDIR%%/lib-dynload/imageop.so
 %%PYTHON_LIBDIR%%/lib-dynload/itertools.so
 %%PYTHON_LIBDIR%%/lib-dynload/math.so
 %%PYTHON_LIBDIR%%/lib-dynload/mmap.so
@@ -986,6 +986,8 @@ lib/lib%%PYTHON_VERSION%%.so.1
 %%PYTHON_LIBDIR%%/plat-freebsd8/regen
 %%PYTHON_LIBDIR%%/plat-freebsd9/IN.py
 %%PYTHON_LIBDIR%%/plat-freebsd9/regen
+%%PYTHON_LIBDIR%%/plat-freebsd10/IN.py
+%%PYTHON_LIBDIR%%/plat-freebsd10/regen
 %%PYTHON_LIBDIR%%/platform.py
 %%PYTHON_LIBDIR%%/plistlib.py
 %%PYTHON_LIBDIR%%/popen2.py
@@ -2367,6 +2369,7 @@ lib/libpython2.7.a
 @dirrm %%PYTHON_LIBDIR%%/sqlite3
 @dirrm %%PYTHON_LIBDIR%%/site-packages
 @dirrm %%PYTHON_LIBDIR%%/pydoc_data
+@dirrm %%PYTHON_LIBDIR%%/plat-freebsd10
 @dirrm %%PYTHON_LIBDIR%%/plat-freebsd9
 @dirrm %%PYTHON_LIBDIR%%/plat-freebsd8
 @dirrm %%PYTHON_LIBDIR%%/plat-freebsd7

@@ -6,13 +6,14 @@
 #
 
 PORTNAME=	xfce4-session
-PORTVERSION=	4.8.1
+PORTVERSION=	4.8.2
+PORTREVISION=	2
 CATEGORIES=	x11-wm xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/xfce/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	oliver@FreeBSD.org
+MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	Session manager for the Xfce 4 desktop environment
 
 BUILD_DEPENDS=	iceauth:${PORTSDIR}/x11/iceauth

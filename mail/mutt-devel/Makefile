@@ -115,14 +115,14 @@
 # If you want to enable debugging capabilities define:
 #  WITH_MUTT_DEBUG
 #
-# If you do not want to install the manpages mbox.5 and mdf.8 (because that
+# If you do not want to install the manpages mbox.5 and mmdf.5 (because that
 # conflicts with other ports which installed these:
 #  WITHOUT_MUTT_MAILBOX_MANPAGES
 #
 
 PORTNAME=	mutt-devel
 PORTVERSION=	1.5.21
-PORTREVISION?=	2
+PORTREVISION?=	3
 CATEGORIES+=	mail ipv6
 .if defined(WITH_MUTT_NNTP)
 CATEGORIES+=	news
@@ -154,7 +154,8 @@ PATCH_SITES+=	http://www.mutt.org.ua/download/mutt-${VVV_PATCH_VERSION}/:vvv \
 MAINTAINER?=	udo.schweigert@siemens.com
 COMMENT?=	The Mongrel of Mail User Agents (development version)
 
-CONFLICTS=	mutt-[0-9]*
+CONFLICTS?=	ja-mutt-[0-9]* ja-mutt-devel-[0-9]* mutt-[0-9]* mutt-devel-lite-[0-9]* mutt-lite-[0-9]* zh-mutt-devel-[0-9]*
+
 DIST_SUBDIR=	mutt
 DOCSDIR?=	${PREFIX}/share/doc/mutt
 EXAMPLESDIR?=	${PREFIX}/share/examples/mutt
@@ -189,14 +190,14 @@ OPTIONS=	MUTT_ASPELL			"Enable aspell support"		off \
 		MUTT_IMAP_HEADER_CACHE		"Enable imap header cache"	off \
 		MUTT_ISPELL			"Enable ispell support"		off \
 		MUTT_LOCALES_FIX		"Enable locales fix"		off \
-		MUTT_MAILBOX_MANPAGES		"Install mbox.5/mdf.8 manpages"	on  \
+		MUTT_MAILBOX_MANPAGES		"Install mbox.5/mmdf.5 manpages"	on  \
 		MUTT_MAILDIR_HEADER_CACHE	"Enable maildir header cache"	off \
 		MUTT_MAILDIR_MTIME_PATCH	"Enable Maildir mtime patch"	off \
 		MUTT_MBOX_HOOK_PATCH		"Enable enhanced mbox-hook"	off \
 		MUTT_NCURSES			"Enable ncurses support"	on \
 		MUTT_NCURSES_PORT		"Use ncurses from port"		off \
 		MUTT_NNTP			"Enable news reader"		off \
-		MUTT_PARENT_CHILD_MATCH		"Enable parent/child match"	off \
+		MUTT_PARENT_CHILD_MATCH_PATCH	"Enable parent/child match"	off \
 		MUTT_QUOTE_PATCH		"Enable extended quoting"	on  \
 		MUTT_REVERSE_REPLY_PATCH	"Enable reverse_reply"		off \
 		MUTT_SGMLFORMAT			"Enable sgml support"		on  \
@@ -206,7 +207,7 @@ OPTIONS=	MUTT_ASPELL			"Enable aspell support"		off \
 		MUTT_SMIME_OUTLOOK_COMPAT	"SMIME outlook compatible"	on \
 		MUTT_SMTP			"Enable SMTP relay support"	off \
 		MUTT_TRASH_PATCH		"Enable trash folder support"	off \
-		MUTT_XML			"Use XML tools for documentation"		on 
+		MUTT_XML			"Use XML tools for docu"	on
 .endif
 
 PLIST=		${WRKDIR}/PLIST
@@ -337,7 +338,7 @@ post-patch::
 	@${PATCH} ${PATCH_ARGS} < ${PATCHDIR}/extra-patch-smime-outlook
 .endif
 .if defined(WITH_MUTT_SIGNATURE_MENU)
-IGNORE=	The WITH_MUTT_SIGNATURE_MENU does not work at the moment
+IGNORE=	the WITH_MUTT_SIGNATURE_MENU does not work at the moment
 XML_NEEDED=	yes
 post-patch::
 	@${PATCH} ${PATCH_ARGS} -p1 < ${PATCHDIR}/extra-patch-signature-menu
@@ -452,7 +453,7 @@ post-patch::
 	@${PATCH} ${PATCH_ARGS} -p1 < ${PATCHDIR}/extra-patch-ifdef
 .endif
 .if defined(WITH_MUTT_MBOX_HOOK_PATCH)
-IGNORE=	The WITH_MUTT_MBOX_HOOK_PATCH does not work at the moment
+IGNORE=	the WITH_MUTT_MBOX_HOOK_PATCH does not work at the moment
 #PATCHFILES+=	p0-patch-${DW_MBOX_PATCH_VERSION}.dw.mbox-hook.1:dw
 .endif
 .if defined(WITH_MUTT_SIDEBAR_PATCH)

@@ -11,8 +11,8 @@ PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://asm.sourceforge.net/asmutils/
 
-MAINTAINER=	danfe@FreeBSD.org
-COMMENT=	A set of UNIX utilities written in x86 assembly language
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	A set of Unix utilities written in x86 assembly language
 
 LICENSE=	GPLv2
 
@@ -21,6 +21,7 @@ ONLY_FOR_ARCHS=	i386
 BUILD_DEPENDS=	nasm:${PORTSDIR}/devel/nasm
 
 USE_GMAKE=	yes
+MAKE_ARGS=	OS=${OPSYS:U} KERNEL=${OSREL:S/.//g}
 
 # This will play merry hell with portlint(1)
 BINS=		bonus/asmutils basename cal cat chmod chown chroot cmp cp \
@@ -45,7 +46,6 @@ PLIST_DIRS=	bin/asmutils lib/asmutils
 PORTDOCS=	*
 
 post-patch:
-	@${REINPLACE_CMD} -e 's,%%KERNEL%%,${OSREL:S/.//g},g' ${WRKSRC}/MCONFIG
 	@${REINPLACE_CMD} -e 's,^static ,,' ${WRKSRC}/lib/libm.c
 
 # Stripping binaries will break installation
@@ -53,11 +53,11 @@ STRIP=	#
 
 do-install:
 	@${MKDIR} ${PREFIX}/bin/asmutils ${PREFIX}/lib/asmutils
-.for B in ${BINS}
-	${INSTALL_PROGRAM} ${WRKSRC}/src/${B} ${PREFIX}/bin/asmutils
+.for bin in ${BINS}
+	${INSTALL_PROGRAM} ${WRKSRC}/src/${bin} ${PREFIX}/bin/asmutils
 .endfor
-.for L in ${LIBS}
-	${INSTALL_PROGRAM} ${WRKSRC}/lib/${L} ${PREFIX}/lib/asmutils
+.for lib in ${LIBS}
+	${INSTALL_PROGRAM} ${WRKSRC}/lib/${lib} ${PREFIX}/lib/asmutils
 .endfor
 	(cd ${PREFIX}/bin/asmutils && \
 		${LN} -sf uname arch && \

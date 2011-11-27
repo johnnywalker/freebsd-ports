@@ -6,8 +6,8 @@
 #
 
 PORTNAME?=	postgresql
-DISTVERSION?=	8.4.8
-PORTREVISION?=	1
+DISTVERSION?=	8.4.9
+PORTREVISION?=	3
 CATEGORIES?=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL}
 MASTER_SITE_SUBDIR=	source/v${DISTVERSION}
@@ -27,6 +27,7 @@ DIST_SUBDIR=	postgresql
 UNIQUENAME?=	${PORTNAME}84
 LATEST_LINK?=	${PKGNAMEPREFIX}${UNIQUENAME}${PKGNAMESUFFIX}
 
+PKGINSTALL?=	${PKGDIR}/pkg-install${PKGNAMESUFFIX}
 USE_BZIP2=	YES
 USE_GMAKE=	YES
 GNU_CONFIGURE=	YES
@@ -36,7 +37,7 @@ GNU_CONFIGURE=	YES
 .endif
 
 PG_USER?=	pgsql
-PG_GROUP?=	pgsql
+PG_GROUP?=	${PG_USER}
 PG_UID?=	70
 
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -60,7 +61,13 @@ INSTALL_DIRS?=	${BUILD_DIRS}
 SERVER_ONLY=	yes
 USE_RC_SUBR=	postgresql
 USE_PGSQL=	yes
-WANT_PGSQL_VER=	${PORTVERSION:C/([0-9][0-9]*)\.([0-9][0-9]*).*/\1\2/g}
+WANT_PGSQL_VER=	${DISTVERSION:C/([0-9][0-9]*)\.([0-9][0-9]*).*/\1\2/g}
+USERS=		${PG_USER}
+. if ${USERS} != "pgsql"
+UID_FILES+=     ${WRKDIR}/pguid
+GID_FILES+=     ${WRKDIR}/pggid
+. endif
+GROUPS=		${PG_GROUP}
 SUB_FILES+=	502.pgsql
 .endif
 
@@ -72,18 +79,6 @@ OPTIONS=	NLS "Use internationalized messages" on
 MAKE_ENV=	PATH=${PREFIX}/bin:${PATH}
 CONFIGURE_ENV+=	PATH=${PREFIX}/bin:${PATH}
 .endif
-
-# Cannot check this with standard OPTION due to a catch-22.
-# USE_OPENSSL must precede bsd.port.pre.mk, but then we don't know
-# what OPTIONS are set.
-#
-# If you *don't* want SSL, set WITHOUT_SSL=YES when making
-.if !defined(WITHOUT_SSL)
-USE_OPENSSL=	yes
-CONFIGURE_ARGS+=--with-openssl
-.endif
-
-.include <bsd.port.pre.mk>
 
 .if !defined(SLAVE_ONLY)
 OPTIONS+=	PAM "Build with PAM support (server only)" off
@@ -102,7 +97,17 @@ OPTIONS+=	ICU	"Use ICU for unicode collation (server)" off
 # See http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/76999 for more info
 # (requires dump/restore if modified.)
 OPTIONS+=	INTDATE "Builds with 64-bit date/time type (server)" on
+OPTIONS+=	SSL "Build with OpenSSL support" on
+.endif # !SLAVE_ONLY
 
+.include <bsd.port.options.mk>
+
+.if !defined(WITHOUT_SSL)
+USE_OPENSSL=	yes
+CONFIGURE_ARGS+=--with-openssl
+.endif
+
+.if !defined(SLAVE_ONLY)
 .  if (defined(SERVER_ONLY) && defined(WITH_ICU)) || make(makesum)
 USE_AUTOTOOLS=	autoconf
 CONFIGURE_ARGS+=--with-icu
@@ -111,7 +116,11 @@ PATCHFILES+=	pg-840-icu-2009-09-15.diff.gz:icu
 LIB_DEPENDS+=	icudata.48:${PORTSDIR}/devel/icu
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-icu4
 .  endif
+.endif # !SLAVE_ONLY
 
+.include <bsd.port.pre.mk>
+
+.if !defined(SLAVE_ONLY)
 PATCH_DIST_STRIP=-p1
 
 .  if defined(WITH_PAM)
@@ -161,8 +170,12 @@ INSTALL_TARGET=	install-strip
 
 .if defined(WITH_GSSAPI)
 CONFIGURE_ARGS+=--with-gssapi
-.if ${OSVERSION} >= 900000
-BROKEN=		does not link on FreeBSD 9.X
+.if !defined(WITH_MIT_KRB5) && !defined(WITH_HEIMDAL_KRB5)
+# Kerberos libraries will pull the proper GSSAPI library
+# via linker dependencies, but otherwise we must specify
+# it explicitely: ld --as-needed is used for compilation,
+# so configure's -lgssapi_krb5 won't go.
+LDFLAGS+=	-lgssapi
 .endif
 .else
 CONFIGURE_ARGS+=--without-gssapi
@@ -256,9 +269,14 @@ MAN7=		abort.7 alter_aggregate.7 alter_conversion.7 alter_database.7 \
 		savepoint.7 values.7 with.7
 .endif
 
+PLIST_SUB+=	PG_USER=$(PG_USER)
+SUB_LIST+=	PG_GROUP=$(PG_GROUP) \
+		PG_USER=$(PG_USER) \
+		PG_UID=$(PG_UID)
+
 .if defined(SERVER_ONLY)
 pre-everything::
-	@${SH} ${FILESDIR}/pkg-install${PKGNAMESUFFIX}.in ${PORTNAME} BACKUPWARNING
+	@${SH} ${PKGINSTALL} ${PORTNAME} PRE-INSTALL
 .endif
 
 .if !defined(NO_BUILD)
@@ -280,21 +298,10 @@ do-build:
 SUB_FILES+=	pkg-message${PKGNAMESUFFIX}
 PKGMESSAGE=	${WRKSRC}/pkg-message${PKGNAMESUFFIX}
 .  endif
-
 .  if exists(${FILESDIR}/pkg-install${PKGNAMESUFFIX}.in)
-SUB_FILES+=     pkg-install${PKGNAMESUFFIX}
-SUB_LIST=	PG_GROUP=$(PG_GROUP) \
-		PG_USER=$(PG_USER) \
-		PG_UID=$(PG_UID)
+SUB_FILES+=	pkg-install${PKGNAMESUFFIX}
 PLIST_SUB+=	PG_USER=$(PG_USER)
-PKGINSTALL=	${WRKDIR}/pkg-install${PKGNAMESUFFIX}
 .  endif
-
-.endif
-
-.if defined(SERVER_ONLY)
-pre-su-install:
-	@ ${SETENV} PKG_PREFIX=${PREFIX} ${SH} ${PKGINSTALL} ${PORTNAME} PRE-INSTALL
 .endif
 
 .if !defined(NO_BUILD)
@@ -304,6 +311,12 @@ post-patch:
 	@${REINPLACE_CMD} -E -e \
 		"s|^(m4_if.*)2.6[0-9](.*Autoconf version )2.6[0-9]|\1${AUTOCONF_VERSION}\2${AUTOCONF_VERSION}|g" \
 		${WRKSRC}/configure.in
+.  endif
+
+.  if defined(SERVER_ONLY) && (${PG_USER} != "pgsql")
+pre-install:
+	@${SED} -n s,pgsql,${PG_USER},gp ${PORTSDIR}/UIDs > ${WRKDIR}/pguid
+	@${SED} -n s,pgsql,${PG_GROUP},gp ${PORTSDIR}/GIDs > ${WRKDIR}/pggid
 .  endif
 
 do-install:

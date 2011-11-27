@@ -1,4 +1,4 @@
-# $FreeBSD: ports/UIDs,v 1.174 2011/09/01 17:50:06 beech Exp $
+# $FreeBSD: ports/UIDs,v 1.181 2011/10/31 14:24:04 makc Exp $
 # Please keep this file sorted by UID!
 operator:*:2:5::0:0:System &:/:/usr/sbin/nologin
 smmsp:*:25:25::0:0:Sendmail Submission User:/var/spool/clientmqueue:/usr/sbin/nologin
@@ -80,13 +80,14 @@ dhcpd:*:136:136::0:0:ISC DHCP daemon:/nonexistent:/usr/sbin/nologin
 mpd:*:137:137::0:0:MusicPD pseudo-user:/usr/local/var/mpd:/usr/sbin/nologin
 wolfpack:*:138:138::0:0:Wolfpack Empire Server:/usr/local/share/wolfpack:/usr/sbin/nologin
 shellinabox:*:139:139::0:0:Shell In A Box:/nonexistent:/usr/sbin/nologin
-amanda:*:140:140::0:0:Amanda Daemon:/nonexistent:/usr/sbin/nologin
+amanda:*:140:140::0:0:Amanda Daemon:/var/db/amanda:/usr/sbin/nologin
 cricket:*:141:80::0:0:Cricket Monitoring User:/usr/local/cricket:/usr/sbin/nologin
 ladvd:*:142:142::0:0:Ladvd User:/var/empty:/usr/sbin/nologin
 dovecot:*:143:143::0:0:Dovecot User:/var/empty:/usr/sbin/nologin
 dovenull:*:144:144::0:0:Dovecot login User:/var/empty:/usr/sbin/nologin
 webcamd:*:145:145::0:0:Webcamd user:/var/empty:/usr/sbin/nologin
 ventrilo:*:146:146::0:0:& server:/usr/local/ventrilo-server:/usr/sbin/nologin
+kdm:*:147:147::0:0:KDE Display Manager:/nonexistent:/usr/sbin/nologin
 rbldns:*:153:153::0:0:rbldnsd pseudo-user:/nonexistent:/usr/sbin/nologin
 trircd:*:154:154::0:0:& user:/usr/local/etc/tr-ircd:/usr/sbin/nologin
 sfs:*:171:171::0:0:Self-Certifying File System:/nonexistent:/usr/sbin/nologin
@@ -100,6 +101,7 @@ icinga:*:183:183::0:0:Icinga pseudo-user:/var/spool/icinga:/usr/sbin/nologin
 moinmoin:*:192:192::0:0:MoinMoin User:/nonexistent:/usr/sbin/nologin
 cups:*:193:193::0:0:Cups Owner:/nonexistent:/usr/sbin/nologin
 saned:*:194:194::0:0:SANE Scanner Daemon:/nonexistent:/bin/sh
+radns:*:195:195::0:0:radns user:/nonexistent:/sbin/nologin
 sympa:*:200:200::0:0:Sympa Owner:/nonexistent:/usr/sbin/nologin
 privoxy:*:201:201::0:0:Privoxy proxy user:/nonexistent:/usr/sbin/nologin
 dspam:*:202:202::0:0:Dspam:/nonexistent:/usr/sbin/nologin
@@ -145,6 +147,7 @@ ldap:*:389:389::0:0:OpenLDAP Server:/nonexistent:/usr/sbin/nologin
 tiarra:*:398:398::0:0:Tiarra IRC Proxy:/nonexistent:/usr/sbin/nologin
 uhub:*:411:411::0:0:uHub ADC Daemon:/nonexistent:/usr/sbin/nologin
 drweb:*:426:426::0:0:Dr.Web Mail Scanner:/nonexistent:/usr/sbin/nologin
+quasselcore:*:442:442::0:0:Quassel IRC User:/nonexistent:/usr/sbin/nologin
 callweaver:*:444:444::0:0:Callweaver account:/var/lib/callweaver:/usr/sbin/nologin
 courier:*:465:465::0:0:Courier Mail Server:/nonexistent:/usr/sbin/nologin
 _bbstored:*:505:505::0:0:Box Backup Store Daemon:/nonexistent:/usr/sbin/nologin
@@ -169,7 +172,7 @@ assp:*:587:587::0:0:ASSP Anti-Spam Proxy:/var/db/assp:/usr/sbin/nologin
 _xsi:*:600:600::0:0:XMLSysInfo User:/nonexistent:/usr/sbin/nologin
 _tss:*:601:601:daemon:0:0:TrouSerS user:/var/empty:/usr/sbin/nologin
 _pkcs11:*:602:602:daemon:0:0:opencryptoki user:/var/empty:/usr/sbin/nologin
-freeswitch:*:610:610::0:0:Freeswitch user:/nonexistant:/usr/sbin/nologin
+freeswitch:*:610:610::0:0:Freeswitch user:/nonexistent:/usr/sbin/nologin
 _pla:*:636:80::0:0:phpLDAPAdmin Owner:/nonexistent:/usr/sbin/nologin
 monkeysphere:*:641:641::0:0:Monkeysphere User:/var/monkeysphere:/usr/local/bin/bash
 aox:*:666:666::0:0:Archiveopteryx user:/nonexistent:/usr/sbin/nologin
@@ -222,4 +225,6 @@ sybase:*:946:946::0:0:& user:/usr/local/sybase-ase:/usr/sbin/nologin
 dnrd:*:948:948::0:0:& user:/nonexistent:/usr/sbin/nologin
 zenoss:*:949:949::0:0:& user:/usr/local/zenoss:/bin/sh
 openerpd:*:951:951::0:0:Openerpd user:/nonexistent:/sbin/nologin
+bitten-slave:*:952:952:daemon:0:0:Bitten slave user:/var/lib/bitten-slave:/sbin/nologin
+_neubot:*:953:953::0:0:neubot daemon:/nonexistent:/sbin/nologin
 nobody:*:65534:65534::0:0:Unprivileged user:/nonexistent:/usr/sbin/nologin

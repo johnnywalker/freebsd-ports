@@ -1,5 +1,5 @@
 # ex:ts=8
-# Ports collection makefile for:	GDB 7.1
+# Ports collection makefile for:	GDB 7.3.x
 # Date created:				16 November 2010
 # Whom:					Steven Kreuzer <skreuzer@FreeBSD.org>
 #
@@ -7,14 +7,14 @@
 #
 
 PORTNAME=	gdb
-PORTVERSION=	7.2
-PORTREVISION=	4
+PORTVERSION=	7.3.1
+PORTREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=   ${MASTER_SITE_GNU:S,$,:gdb,}
+MASTER_SITES=	${MASTER_SITE_GNU:S,$,:gdb,}
 MASTER_SITE_SUBDIR=gdb/:gdb
 DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}:gdb
 
-MAINTAINER=	skreuzer@FreeBSD.org
+MAINTAINER=	luca.pizzamiglio@gmail.com
 COMMENT=	GNU GDB of newer version than comes with the system
 
 LICENSE=	GPLv3
@@ -42,7 +42,8 @@ ONLY_FOR_ARCHS=	i386 amd64	# untested elsewhere, might work
 
 OPTIONS=	DEBUG "Build with debugging symbols" off \
 		EXPAT "Enable XML parsing for metadata" off \
-		PYTHON "Enable Python support" off
+		PYTHON "Enable Python support" off \
+		THREAD "Enable Thread support" on
 
 .include <bsd.port.options.mk>
 
@@ -58,15 +59,15 @@ CFLAGS+=	-g
 
 .if defined(WITH_EXPAT)
 LIB_DEPENDS+=	expat.6:${PORTSDIR}/textproc/expat2
-CONFIGURE_ARGS+= --with-expat=yes
+CONFIGURE_ARGS+=	--with-expat=yes
 .else
-CONFIGURE_ARGS+= --without-expat
+CONFIGURE_ARGS+=	--without-expat
 .endif
 
 .if defined(WITH_PYTHON)
-CONFIGURE_ARGS+= --with-python=${PYTHON_CMD}
+CONFIGURE_ARGS+=	--with-python=${PYTHON_CMD}
 .else
-CONFIGURE_ARGS+= --without-python
+CONFIGURE_ARGS+=	--without-python
 .endif
 
 # XXX: add OSVERSION check after readline is removed from base
@@ -83,7 +84,9 @@ CONFIGURE_TARGET=	x86_64-portbld-freebsd${OSREL}
 post-patch:
 	@${REINPLACE_CMD} -e 's/$$/ [GDB v${PORTVERSION} for FreeBSD]/' \
 		${WRKSRC}/gdb/version.in
-	@${CP} ${FILESDIR}/fbsd-threads.c ${WRKSRC}/gdb
+.if !defined(WITHOUT_THREAD)
+	@${CP} ${FILESDIR}/fbsd-threads.c ${WRKSRC}/gdb/
+.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/gdb/gdb ${PREFIX}/bin/gdb${VER}

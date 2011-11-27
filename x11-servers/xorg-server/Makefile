@@ -7,7 +7,7 @@
 
 PORTNAME=	xorg-server
 PORTVERSION=	1.7.7
-PORTREVISION=	2
+PORTREVISION=	3
 PORTEPOCH=	1
 CATEGORIES=	x11-servers
 MASTER_SITES=	http://xorg.freedesktop.org/releases/individual/xserver/
@@ -17,7 +17,6 @@ MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X.Org X server and related programs
 
 LIB_DEPENDS=	drm:${PORTSDIR}/graphics/libdrm
-
 RUN_DEPENDS=	${LOCALBASE}/share/X11/xkb/rules/base.xml:${PORTSDIR}/x11/xkeyboard-config
 
 XORG_CAT=	xserver

@@ -1,6 +1,0 @@
-@comment $FreeBSD: ports/databases/gambas2-gb-db-odbc/pkg-plist,v 1.1 2009/05/09 01:15:11 acm Exp $
-lib/gambas2/gb.db.odbc.component
-lib/gambas2/gb.db.odbc.so.0
-lib/gambas2/gb.db.odbc.so
-lib/gambas2/gb.db.odbc.la
-@dirrmtry lib/gambas2

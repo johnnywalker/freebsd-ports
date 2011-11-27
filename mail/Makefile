@@ -11,6 +11,7 @@
     SUBDIR += alpine
     SUBDIR += altermime
     SUBDIR += althea
+    SUBDIR += amavis-logwatch
     SUBDIR += annoyance-filter
     SUBDIR += anomy-sanitizer
     SUBDIR += antivirus-milter
@@ -92,7 +93,6 @@
     SUBDIR += demime
     SUBDIR += dk-milter
     SUBDIR += dkfilter
-    SUBDIR += dkim-milter
     SUBDIR += dkimproxy
     SUBDIR += dma
     SUBDIR += dovecot
@@ -117,7 +117,6 @@
     SUBDIR += emil
     SUBDIR += enigmail
     SUBDIR += enigmail-seamonkey
-    SUBDIR += enigmail-seamonkey2
     SUBDIR += enigmail-thunderbird
     SUBDIR += enigmail-thunderbird3
     SUBDIR += enma
@@ -156,9 +155,7 @@
     SUBDIR += firemime
     SUBDIR += firepay
     SUBDIR += firetray
-    SUBDIR += freepops
     SUBDIR += ftrack
-    SUBDIR += gambas2-gb-net-smtp
     SUBDIR += gbuffy
     SUBDIR += gensig
     SUBDIR += getlive
@@ -210,10 +207,8 @@
     SUBDIR += isbg
     SUBDIR += isoqlog
     SUBDIR += isync
-    SUBDIR += itraxp
     SUBDIR += james
     SUBDIR += jamlib
-    SUBDIR += jboss-mailservices
     SUBDIR += jmba
     SUBDIR += junkfilter
     SUBDIR += kavmilter
@@ -257,8 +252,8 @@
     SUBDIR += mailman
     SUBDIR += mailmgr
     SUBDIR += mailscanner
-    SUBDIR += mailscanner-mrtg
     SUBDIR += mailsync
+    SUBDIR += mailtray
     SUBDIR += mailx
     SUBDIR += mairix
     SUBDIR += majordomo
@@ -416,7 +411,6 @@
     SUBDIR += p5-Mail-POP3Client
     SUBDIR += p5-Mail-Procmail
     SUBDIR += p5-Mail-Procmailrc
-    SUBDIR += p5-Mail-QuoteWrap
     SUBDIR += p5-Mail-RBL
     SUBDIR += p5-Mail-RFC822-Address
     SUBDIR += p5-Mail-SPF
@@ -534,6 +528,8 @@
     SUBDIR += prom-wl
     SUBDIR += pronto
     SUBDIR += proxsmtp
+    SUBDIR += py-Products.MailHost
+    SUBDIR += py-Products.SecureMailHost
     SUBDIR += py-apolicy
     SUBDIR += py-cyruslib
     SUBDIR += py-email
@@ -544,6 +540,7 @@
     SUBDIR += py-spf
     SUBDIR += py-turbomail
     SUBDIR += py-twistedMail
+    SUBDIR += py-zope.sendmail
     SUBDIR += pymsgauth
     SUBDIR += pysieved
     SUBDIR += pyzor
@@ -598,16 +595,19 @@
     SUBDIR += rmilter
     SUBDIR += roundcube
     SUBDIR += roundcube-air
+    SUBDIR += roundcube-contextmenu
     SUBDIR += roundcube-groupvice
     SUBDIR += roundcube-mobilecube
     SUBDIR += roundcube-mvision2
     SUBDIR += roundcube-sieverules
+    SUBDIR += roundcube-thunderbird_labels
     SUBDIR += roundcube-umich
     SUBDIR += rspamd
     SUBDIR += rss2email
     SUBDIR += ruby-rfilter
     SUBDIR += ruby-rmail
     SUBDIR += rubygem-actionmailer
+    SUBDIR += rubygem-larch
     SUBDIR += rubygem-mail
     SUBDIR += rubygem-mailfactory
     SUBDIR += rubygem-pony
@@ -651,6 +651,7 @@
     SUBDIR += spambnc
     SUBDIR += spamcup
     SUBDIR += spamd
+    SUBDIR += spamdb-curses
     SUBDIR += spamdyke
     SUBDIR += spamguard
     SUBDIR += spamilter
@@ -764,6 +765,5 @@
     SUBDIR += xpi-dispmua
     SUBDIR += zabit
     SUBDIR += zmailer
-    SUBDIR += zms
 
 .include <bsd.port.subdir.mk>

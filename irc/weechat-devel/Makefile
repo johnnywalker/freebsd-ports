@@ -6,11 +6,11 @@
 #
 
 PORTNAME=	weechat
-PORTVERSION=	20110915
+PORTVERSION=	20111023
 CATEGORIES=	irc
 MASTER_SITES=	http://perturb.me.uk/distfiles/
 PKGNAMESUFFIX=	-devel
-DISTNAME=	weechat-devel-8bcf8255261eae8940054518368b49a011b0eefc
+DISTNAME=	weechat-devel-71bef80ce2c6dfc944972fcc93b3db46fcffb283
 
 MAINTAINER=	freebsd@beardz.net
 COMMENT=	A lightweight and user friendly ncurse based IRC client
@@ -24,24 +24,23 @@ USE_LDCONFIG=	yes
 USE_NCURSES=	yes
 WITH_NCURSES_BASE=	yes
 USE_CMAKE=	yes
-CMAKE_USE_PTHREAD=	yes
 CFLAGS+=	-I${LOCALBASE}/include -L${LOCALBASE}/lib
 WANT_PERL=	yes
 
-OPTIONS=	RUBY		"Ruby scripting support."	Off	\
-		PYTHON		"Python scripting support."	Off	\
-		PERL		"Perl scripting support."	Off	\
-		TCL		"TCL scripting support."	Off	\
-		LUA		"Lua scripting support."	Off	\
-		CHARSET		"Charset support."		On	\
-		BACKTRACE	"Backtraces."			On	\
-		DEBUG		"Debugging."			On	\
-		ASPELL		"Spell checking."		Off	\
-		GNUTLS		"GNU TLS."			Off	\
-		NLS		"NLS support."			On	\
-		DOCUMENTATION	"Build documentation."		Off
+OPTIONS=	RUBY		"Ruby scripting support"	Off	\
+		PYTHON		"Python scripting support"	Off	\
+		PERL		"Perl scripting support"	Off	\
+		TCL		"TCL scripting support"		Off	\
+		LUA		"Lua scripting support"		Off	\
+		CHARSET		"Charset support"		On	\
+		BACKTRACE	"Backtraces"			On	\
+		DEBUG		"Debugging"			On	\
+		ASPELL		"Spell checking"		Off	\
+		GNUTLS		"GNU TLS"			Off	\
+		NLS		"NLS support"			On	\
+		DOCUMENTATION	"Build documentation"		Off
 
-WRKSRC=	${WRKDIR}/${PORTNAME}-8bcf825
+WRKSRC=	${WRKDIR}/${PORTNAME}-71bef80
 
 .include <bsd.port.options.mk>
 

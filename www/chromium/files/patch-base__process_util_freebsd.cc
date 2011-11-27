@@ -1,6 +1,6 @@
---- /dev/null	2011-03-21 20:44:00.000000000 +0200
-+++ base/process_util_freebsd.cc	2011-03-21 20:47:32.701912810 +0200
-@@ -0,0 +1,314 @@
+--- base/process_util_freebsd.cc.orig	2011-10-08 23:30:09.938179749 +0300
++++ base/process_util_freebsd.cc	2011-10-09 14:30:52.108006527 +0300
+@@ -0,0 +1,323 @@
 +// Copyright (c) 2009 The Chromium Authors. All rights reserved.
 +// Use of this source code is governed by a BSD-style license that can be
 +// found in the LICENSE file.
@@ -311,7 +311,16 @@
 +}
 +
 +void EnableTerminationOnOutOfMemory() {
++  DLOG(WARNING) << "Not feasible.";
++}
++
++void EnableTerminationOnHeapCorruption() {                                      
++  // Nothing to do.                                       
++} 
++
++bool AdjustOOMScore(ProcessId process, int score) {
 +  NOTIMPLEMENTED();
-+  return;
++  return false;
 +}
-+}
++
++} // namespace base

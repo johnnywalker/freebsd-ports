@@ -9,14 +9,13 @@ PORTNAME=	mkcmd
 PORTVERSION=	8.14
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.physics.purdue.edu/pub/pundits/ \
-		ftp://archive.progeny.com/pundits/
+		http://www.komquats.com/distfiles/ \
+		http://people.freebsd.org/~cy/distfiles/
+
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Command-line parser and manual page generator
-
-DEPRECATED=     Upstream disapear and distfile is no more available
-EXPIRATION_DATE=        2011-05-01
 
 BUILD_DEPENDS=	makeme:${PORTSDIR}/devel/msrc0
 

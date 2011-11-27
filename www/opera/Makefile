@@ -26,14 +26,13 @@ LIB_DEPENDS=	freetype.9:${PORTSDIR}/print/freetype2 \
 BUILD_DEPENDS=	${LOCALBASE}/bin/update-mime-database:${PORTSDIR}/misc/shared-mime-info
 RUN_DEPENDS=	${LOCALBASE}/bin/update-mime-database:${PORTSDIR}/misc/shared-mime-info
 
-OPERA_VER?=	11.51
-OPERA_BUILD?=	1087
+OPERA_VER?=	11.52
+OPERA_BUILD?=	1100
 MASTER_SITES_VER_PATH=	unix/${OPERA_VER:S/.//}
 
 USE_XZ=		yes
 USE_XORG=	x11 xext sm ice xft xrender
 USE_GNOME=	desktopfileutils
-INSTALLS_ICONS=	yes
 
 MAN1=		opera.1 opera-widget-manager.1
 MANCOMPRESSED=	yes
@@ -57,6 +56,7 @@ USE_GSTREAMER+=	vorbis ogg theora vp8 good
 
 .if defined(WITH_GTK)
 USE_GNOME+=	gtk20
+INSTALLS_ICONS=	yes
 .endif
 
 .if defined(WITH_KDE4)

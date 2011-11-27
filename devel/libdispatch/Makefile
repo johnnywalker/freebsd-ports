@@ -10,7 +10,7 @@ PORTVERSION=	210
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.SpringDaemons.com/soft/
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Grand Central Dispatch API support library
 
 USE_AUTOTOOLS=	aclocal autoconf
@@ -83,14 +83,22 @@ post-configure:
 IGNORE=	is not supported on this OS version
 .endif
 
+.if ${OSVERSION} > 900000
+.if ${ARCH} == "powerpc
+BROKEN=		Does not configure on powerpc-9
+.elif ${ARCH} == "sparc64
+BROKEN=		Does not link on sparc64-9
+.endif
+.endif
+
 .if !defined(WITHOUT_CLANG)
 . if ${OSVERSION} < 900024
-BUILD_DEPENDS+=	clang:${PORTSDIR}/devel/llvm-devel \
+BUILD_DEPENDS+=	clang:${PORTSDIR}/lang/clang-devel \
 		${LOCALBASE}/lib/libBlocksRuntime.so:${PORTSDIR}/devel/compiler-rt
-RUN_DEPENDS+=	clang:${PORTSDIR}/devel/llvm-devel \
+RUN_DEPENDS+=	clang:${PORTSDIR}/lang/clang-devel \
 		${LOCALBASE}/lib/libBlocksRuntime.so:${PORTSDIR}/devel/compiler-rt
 CONFIGURE_ARGS+=	--with-blocks-runtime=${LOCALBASE}/lib
-CONFIGURE_ENV+=	CC="${LOCALBASE}/clang"
+CONFIGURE_ENV+=	CC="${LOCALBASE}/bin/clang" CPPFLAGS="-I${LOCALBASE}/include"
 . else
 CONFIGURE_ARGS+=	--with-blocks-runtime=/usr/lib
 CONFIGURE_ENV+=	CC="/usr/bin/clang"

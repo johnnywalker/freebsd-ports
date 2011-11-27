@@ -1,6 +1,0 @@
-@comment $FreeBSD: ports/databases/gambas2-gb-db-firebird/pkg-plist,v 1.1 2009/05/09 01:12:23 acm Exp $
-lib/gambas2/gb.db.firebird.component
-lib/gambas2/gb.db.firebird.so.0
-lib/gambas2/gb.db.firebird.so
-lib/gambas2/gb.db.firebird.la
-@dirrmtry lib/gambas2

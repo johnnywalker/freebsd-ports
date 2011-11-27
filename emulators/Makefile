@@ -25,6 +25,7 @@
     SUBDIR += dboxfe
     SUBDIR += desmume
     SUBDIR += dgen-sdl
+    SUBDIR += dolphin-emu-devel
     SUBDIR += dosbox
     SUBDIR += doscmd
     SUBDIR += dtcyber
@@ -61,6 +62,7 @@
     SUBDIR += ia64sim
     SUBDIR += ines
     SUBDIR += its
+    SUBDIR += joytran
     SUBDIR += jzintv
     SUBDIR += klh10
     SUBDIR += kqemu-kmod
@@ -159,6 +161,7 @@
     SUBDIR += vgb-bin
     SUBDIR += vgba-bin
     SUBDIR += vice
+    SUBDIR += virtio-kmod
     SUBDIR += virtualbox-ose
     SUBDIR += virtualbox-ose-additions
     SUBDIR += virtualbox-ose-kmod

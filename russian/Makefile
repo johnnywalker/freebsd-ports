@@ -4,13 +4,10 @@
     COMMENT = Russian support
 
     SUBDIR += MT
-    SUBDIR += apache13
-    SUBDIR += apache13-modssl
     SUBDIR += artwiz-ru
     SUBDIR += aspell
     SUBDIR += bugzilla-ru
     SUBDIR += bugzilla3-ru
-    SUBDIR += cyrproxy
     SUBDIR += d1489
     SUBDIR += eric4
     SUBDIR += fortune-bashorgru

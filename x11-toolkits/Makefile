@@ -33,8 +33,6 @@
     SUBDIR += gal
     SUBDIR += gal2
     SUBDIR += gal2-reference
-    SUBDIR += gambas2-gb-gtk
-    SUBDIR += gambas2-gb-qt
     SUBDIR += gdl
     SUBDIR += gigi
     SUBDIR += gnocl
@@ -93,7 +91,6 @@
     SUBDIR += irrlicht
     SUBDIR += itk
     SUBDIR += iwidgets
-    SUBDIR += jdic
     SUBDIR += lesstif
     SUBDIR += libXaw
     SUBDIR += libXmu
@@ -162,9 +159,11 @@
     SUBDIR += p5-Pango
     SUBDIR += p5-Prima
     SUBDIR += p5-Tk
+    SUBDIR += p5-Tk-Action
     SUBDIR += p5-Tk-Autoscroll
     SUBDIR += p5-Tk-ColourChooser
     SUBDIR += p5-Tk-Contrib
+    SUBDIR += p5-Tk-CursorControl
     SUBDIR += p5-Tk-DKW
     SUBDIR += p5-Tk-Date
     SUBDIR += p5-Tk-DynaTabFrame
@@ -175,9 +174,13 @@
     SUBDIR += p5-Tk-Getopt
     SUBDIR += p5-Tk-HistEntry
     SUBDIR += p5-Tk-JComboBox
+    SUBDIR += p5-Tk-Role-Dialog
+    SUBDIR += p5-Tk-Role-HasWidgets
     SUBDIR += p5-Tk-ResizeButton
     SUBDIR += p5-Tk-Splashscreen
+    SUBDIR += p5-Tk-Sugar
     SUBDIR += p5-Tk-TableMatrix
+    SUBDIR += p5-Tk-ToolBar
     SUBDIR += p5-Wx
     SUBDIR += p5-Wx-Perl-ProcessStream
     SUBDIR += pango
@@ -200,7 +203,6 @@
     SUBDIR += py-gtkglext
     SUBDIR += py-gtksourceview
     SUBDIR += py-gui
-    SUBDIR += py-kde
     SUBDIR += py-kiwi
     SUBDIR += py-pyqwt
     SUBDIR += py-qt
@@ -226,7 +228,6 @@
     SUBDIR += qt33
     SUBDIR += qt4-gui
     SUBDIR += qt4pas
-    SUBDIR += qtpixmap
     SUBDIR += qwt4
     SUBDIR += qwt5
     SUBDIR += qwt5-designerplugin

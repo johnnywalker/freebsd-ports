@@ -22,7 +22,6 @@ LIB_DEPENDS=	samplerate.1:${PORTSDIR}/audio/libsamplerate \
 GNU_CONFIGURE=	yes
 USE_GETTEXT=	yes
 USE_GMAKE=	yes
-USE_GCC=	4.5+
 USE_LDCONFIG=	yes
 USE_BZIP2=	yes
 USE_ICONV=	yes
@@ -337,5 +336,13 @@ PLIST_SUB+=	VFS_ZIP="@comment "
 PLIST_SUB+=	VFS_ZIP=""
 LIB_DEPENDS+=	zip.3:${PORTSDIR}/archivers/libzip
 .endif
+
+post-patch:
+# Do not link to libsupc++ which may be PIC-unsafe (breaks 64-bit arches)
+	@${REINPLACE_CMD} -e 's, -lsupc++,,' \
+		${WRKSRC}/plugins/adplug/Makefile.in \
+		${WRKSRC}/plugins/gme/Makefile.in \
+		${WRKSRC}/plugins/sid/Makefile.in \
+		${WRKSRC}/plugins/supereq/Makefile.in
 
 .include <bsd.port.mk>

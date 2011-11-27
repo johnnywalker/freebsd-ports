@@ -13,7 +13,7 @@ CATEGORIES=	devel
 MASTER_SITES=	http://omake.metaprl.org/downloads/
 DISTNAME=	omake-0.9.8.5-3
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A flexible build system
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
@@ -33,6 +33,10 @@ INFO=		omake-doc
 LIB_DEPENDS+=	readline.6:${PORTSDIR}/devel/readline
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
+.endif
+
+.if ${ARCH} == "powerpc"
+BROKEN=		Does not build on powerpc
 .endif
 
 post-patch:

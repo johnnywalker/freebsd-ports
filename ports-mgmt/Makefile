@@ -28,6 +28,7 @@
     SUBDIR += pbi-manager
     SUBDIR += pib
     SUBDIR += pkg-orphan
+    SUBDIR += pkg-plist
     SUBDIR += pkg_add_it
     SUBDIR += pkg_cleanup
     SUBDIR += pkg_cutleaves
@@ -64,6 +65,7 @@
     SUBDIR += portshaker-config
     SUBDIR += portsopt
     SUBDIR += porttools
+    SUBDIR += porttree
     SUBDIR += portupdate-scan
     SUBDIR += portupgrade
     SUBDIR += portupgrade-devel

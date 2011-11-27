@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	gegl
-PORTVERSION=	0.1.6
-PORTREVISION=	1
+PORTVERSION=	0.1.8
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.gimp.org/pub/gegl/0.1/
 
@@ -39,18 +38,18 @@ NOPORTDOCS=	yes
 USE_GNOME=	gtk20 glib20 pkgconfig gnomehack
 USE_BZIP2=	yes
 USE_GMAKE=	yes
-USE_RUBY=	yes
-RUBY_NO_RUN_DEPENDS=	yes
 USE_LDCONFIG=	${PREFIX}/lib/gegl-0.1
 GNU_CONFIGURE=	yes
+CONFIGURE_ARGS+=--without-vala
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -lexecinfo
 
-GEGL_MINOR=	105
+GEGL_MINOR=	107
 PLIST_SUB+=	GEGL_MINOR="${GEGL_MINOR}"
 
-EXAMPLES=	2geglbuffer gegl-paint geglbuffer-add-image \
-		geglbuffer-clock hello-world hello-world-video
+EXAMPLES=	2geglbuffer csugar float-lookup \
+		gegl-convert gegl-slicer geglbuffer-add-image \
+		geglbuffer-clock hello-world-video hello-world
 
 .include <bsd.port.options.mk>
 
@@ -177,7 +176,7 @@ CONFIGURE_ARGS+=	--disable-docs
 
 post-patch:
 .if defined(NOPORTDOCS)
-	${REINPLACE_CMD} -e '11,13d' ${WRKSRC}/Makefile.am
+	${REINPLACE_CMD} -e '10s|\\||; 11,13d' ${WRKSRC}/Makefile.am
 .endif
 	${REINPLACE_CMD} -e 's|-T||' ${WRKSRC}/docs/Makefile.am ${WRKSRC}/docs/Makefile.in
 	${REINPLACE_CMD} -e 's|\(lua\)\(5\.1\)|\1-\2|g' ${WRKSRC}/configure

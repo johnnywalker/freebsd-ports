@@ -7,7 +7,7 @@
 
 PORTNAME=	mp3plot
 DISTVERSION=	0.6.0
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	audio
 MASTER_SITES=	http://p.outlyer.net/mp3plot/files/
 
@@ -33,10 +33,6 @@ LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
 .include <bsd.port.pre.mk>
 
-.if ${OSVERSION} < 700000
-BROKEN=		does not compile
-.endif
-
 .if defined(WITHOUT_GD)
 CONFIGURE_ARGS+=	--disable-gd
 .else
@@ -44,7 +40,7 @@ LIB_DEPENDS+=	gd.4:${PORTSDIR}/graphics/gd
 .endif
 
 .if defined(WITH_IMAGEMAGICK)
-LIB_DEPENDS+=	Magick++.4:${PORTSDIR}/graphics/ImageMagick
+LIB_DEPENDS+=	Magick++.5:${PORTSDIR}/graphics/ImageMagick
 .else
 CONFIGURE_ARGS+=	--disable-magick
 .endif

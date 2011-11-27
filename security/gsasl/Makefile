@@ -36,7 +36,7 @@ USE_GETTEXT=	yes
 PLIST_SUB+=	NLS=""
 .endif
 
-CPPFLAGS+=	-I/usr/include -I${LOCALBASE}/include
+CPPFLAGS+=	-nostdinc -I/usr/include -I${LOCALBASE}/include
 LDFLAGS+=	-L/usr/lib -L${LOCALBASE}/lib
 
 post-patch:

@@ -47,6 +47,7 @@
     SUBDIR += calc
     SUBDIR += calcoo
     SUBDIR += calctool
+    SUBDIR += cantor
     SUBDIR += ccmath
     SUBDIR += cgal
     SUBDIR += chaco
@@ -66,6 +67,7 @@
     SUBDIR += dislin
     SUBDIR += djbfft
     SUBDIR += drgeo
+    SUBDIR += dynare
     SUBDIR += e
     SUBDIR += edenmath
     SUBDIR += eigen
@@ -81,11 +83,13 @@
     SUBDIR += facile
     SUBDIR += fann
     SUBDIR += fbm
+    SUBDIR += fflas-ffpack
     SUBDIR += fftw
     SUBDIR += fftw-float
     SUBDIR += fftw3
     SUBDIR += fftw3-float
     SUBDIR += fftw3-long
+    SUBDIR += fftw3-quad
     SUBDIR += fityk
     SUBDIR += fpc-fftw
     SUBDIR += fpc-gmp
@@ -107,6 +111,7 @@
     SUBDIR += gexpr
     SUBDIR += ggobi
     SUBDIR += giacxcas
+    SUBDIR += givaro
     SUBDIR += glgraph
     SUBDIR += glpk
     SUBDIR += gmm++
@@ -159,7 +164,11 @@
     SUBDIR += jtransforms
     SUBDIR += jts
     SUBDIR += k3dsurf
+    SUBDIR += kalgebra
     SUBDIR += kash3
+    SUBDIR += kbruch
+    SUBDIR += kig
+    SUBDIR += kmplot
     SUBDIR += koctave
     SUBDIR += kseg
     SUBDIR += labplot
@@ -178,6 +187,7 @@
     SUBDIR += liblbfgs
     SUBDIR += libmath++
     SUBDIR += libneural
+    SUBDIR += libocas
     SUBDIR += liborigin
     SUBDIR += libqalculate
     SUBDIR += libranlip
@@ -212,14 +222,12 @@
     SUBDIR += mtrxmath
     SUBDIR += mumps
     SUBDIR += mumps-mpich
-    SUBDIR += mupad
     SUBDIR += muparser
     SUBDIR += naturalmath
     SUBDIR += nauty
     SUBDIR += ndiff
     SUBDIR += newmat
     SUBDIR += ngraph
-    SUBDIR += nsc2ke
     SUBDIR += ntl
     SUBDIR += numdiff
     SUBDIR += nyh-hoc
@@ -252,6 +260,7 @@
     SUBDIR += octave-forge-ga
     SUBDIR += octave-forge-general
     SUBDIR += octave-forge-generate_html
+    SUBDIR += octave-forge-geometry
     SUBDIR += octave-forge-gnuplot
     SUBDIR += octave-forge-gsl
     SUBDIR += octave-forge-ident
@@ -262,6 +271,7 @@
     SUBDIR += octave-forge-irsa
     SUBDIR += octave-forge-linear-algebra
     SUBDIR += octave-forge-mapping
+    SUBDIR += octave-forge-mechanics
     SUBDIR += octave-forge-miscellaneous
     SUBDIR += octave-forge-missing-functions
     SUBDIR += octave-forge-msh
@@ -472,6 +482,7 @@
     SUBDIR += prng
     SUBDIR += proofgeneral
     SUBDIR += pspp
+    SUBDIR += pure-rational
     SUBDIR += py-apgl
     SUBDIR += py-basemap
     SUBDIR += py-basemap-data
@@ -496,6 +507,7 @@
     SUBDIR += py-probstat
     SUBDIR += py-pybloom
     SUBDIR += py-pymc
+    SUBDIR += py-roman
     SUBDIR += py-scientific
     SUBDIR += py-svgmath
     SUBDIR += py-symeig
@@ -503,6 +515,7 @@
     SUBDIR += qalculate
     SUBDIR += qd
     SUBDIR += qhull
+    SUBDIR += qhull5
     SUBDIR += qrupdate
     SUBDIR += qtiplot
     SUBDIR += qtiplot-doc
@@ -515,6 +528,7 @@
     SUBDIR += rkward
     SUBDIR += rkward-kde4
     SUBDIR += rngstreams
+    SUBDIR += rocs
     SUBDIR += ros-geometry
     SUBDIR += rpcalc
     SUBDIR += rpy
@@ -560,6 +574,7 @@
     SUBDIR += tomsfastmath
     SUBDIR += topaz
     SUBDIR += triangle
+    SUBDIR += trlan
     SUBDIR += truthtable
     SUBDIR += tvmet
     SUBDIR += umatrix

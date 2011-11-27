@@ -52,7 +52,6 @@
     SUBDIR += dvts
     SUBDIR += emotion
     SUBDIR += emovix
-    SUBDIR += enjoympeg
     SUBDIR += etoile-babbler
     SUBDIR += etoile-mediakit
     SUBDIR += etoile-multimediakit
@@ -66,7 +65,6 @@
     SUBDIR += fpc-dts
     SUBDIR += fpc-matroska
     SUBDIR += freevo
-    SUBDIR += fxtv
     SUBDIR += gaupol
     SUBDIR += gavl
     SUBDIR += gcap
@@ -162,6 +160,8 @@
     SUBDIR += libmpeg3
     SUBDIR += libquicktime
     SUBDIR += libquicktime-lame
+    SUBDIR += libquvi
+    SUBDIR += libquvi-scripts
     SUBDIR += libtheora
     SUBDIR += libtuner
     SUBDIR += libv4l
@@ -195,6 +195,7 @@
     SUBDIR += miro
     SUBDIR += mjpegtools
     SUBDIR += mkclean
+    SUBDIR += mkvalidator
     SUBDIR += mkvtoolnix
     SUBDIR += mkxvcd
     SUBDIR += mlt
@@ -218,7 +219,6 @@
     SUBDIR += mplayer-fonts
     SUBDIR += mplayer-skins
     SUBDIR += mplayerxp
-    SUBDIR += mplex
     SUBDIR += msdl
     SUBDIR += mxflib
     SUBDIR += mythplugin-mythvideo
@@ -243,8 +243,8 @@
     SUBDIR += p5-GStreamer
     SUBDIR += p5-MP4-Info
     SUBDIR += p5-Net-UPnP
-    SUBDIR += p5-RIFF-Info
     SUBDIR += p5-Subtitles
+    SUBDIR += p5-Umph-Prompt
     SUBDIR += p5-Video-Info
     SUBDIR += p5-Video-OpenQuicktime
     SUBDIR += phonon

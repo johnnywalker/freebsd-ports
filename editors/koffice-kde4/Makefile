@@ -7,7 +7,7 @@
 
 PORTNAME=	koffice
 PORTVERSION=	2.3.3
-PORTREVISION=	3
+PORTREVISION=	6
 CATEGORIES=	editors kde
 MASTER_SITES=	${MASTER_SITE_KDE}
 MASTER_SITE_SUBDIR=	${KOFFICE2_BRANCH}/${PORTNAME}-${PORTVERSION}/
@@ -26,7 +26,7 @@ LIB_DEPENDS=	boost_thread.4:${PORTSDIR}/devel/boost-libs \
 		IlmImf.6:${PORTSDIR}/graphics/OpenEXR \
 		exiv2.10:${PORTSDIR}/graphics/exiv2 \
 		jpeg.11:${PORTSDIR}/graphics/jpeg \
-		kdcraw.9:${PORTSDIR}/graphics/kdegraphics4 \
+		kdcraw.20:${PORTSDIR}/graphics/libkdcraw-kde4 \
 		lcms2.2:${PORTSDIR}/graphics/lcms2 \
 		wpg-0.2:${PORTSDIR}/graphics/libwpg \
 		png.6:${PORTSDIR}/graphics/png \
@@ -36,8 +36,9 @@ LIB_DEPENDS=	boost_thread.4:${PORTSDIR}/devel/boost-libs \
 		freetype.9:${PORTSDIR}/print/freetype2 \
 		qimageblitz.4:${PORTSDIR}/x11/qimageblitz \
 		fontconfig.1:${PORTSDIR}/x11-fonts/fontconfig \
-		fftw3.5:${PORTSDIR}/math/fftw3 \
-		dcmdata.3:${PORTSDIR}/devel/dcmtk
+		fftw3:${PORTSDIR}/math/fftw3 \
+		dcmdata.3:${PORTSDIR}/devel/dcmtk \
+		okularcore.1:${PORTSDIR}/graphics/okular
 RUN_DEPENDS=	${LOCALBASE}/lib/libpqxx.a:${PORTSDIR}/databases/postgresql-libpqxx30
 
 CONFLICTS=	calligra-[0-9]*
@@ -62,7 +63,6 @@ LDFLAGS+=	"-L${LOCALBASE}/lib"
 
 OPTIONS+=	GTL	"Color transformations in Krita" off
 OPTIONS+=	SYBASE	"SyBase support in Kexi" off
-OPTIONS+=	XBASE	"XBase support in Kexi" off
 
 .include <bsd.port.options.mk>
 
@@ -92,13 +92,6 @@ LIB_DEPENDS+=	sybdb.5:${PORTSDIR}/databases/freetds
 PLIST_SUB+=	SYBASE=""
 .else
 PLIST_SUB+=	SYBASE="@comment "
-.endif
-
-.if defined(WITH_XBASE) || exists (${LOCALBASE}/lib/libxbase-2.0.so)
-LIB_DEPENDS+=	xbase-2.0.0:${PORTSDIR}/databases/xbase
-PLIST_SUB+=	XBASE=""
-.else
-PLIST_SUB+=	XBASE="@comment "
 .endif
 
 post-patch:

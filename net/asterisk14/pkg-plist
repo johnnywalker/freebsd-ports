@@ -462,10 +462,10 @@ share/asterisk/moh/macroform-robot_dity.wav
 share/asterisk/moh/macroform-the_simplicity.wav
 share/asterisk/moh/manolo_camp-morning_coffee.wav
 share/asterisk/moh/reno_project-system.wav
-share/asterisk/sounds/.asterisk-core-sounds-en-gsm-1.4.19
-share/asterisk/sounds/CHANGES-asterisk-core-en-1.4.19
-share/asterisk/sounds/CREDITS-asterisk-core-en-1.4.19
-share/asterisk/sounds/LICENSE-asterisk-core-en-1.4.19
+share/asterisk/sounds/.asterisk-core-sounds-en-gsm-1.4.20
+share/asterisk/sounds/CHANGES-asterisk-core-en-1.4.20
+share/asterisk/sounds/CREDITS-asterisk-core-en-1.4.20
+share/asterisk/sounds/LICENSE-asterisk-core-en-1.4.20
 share/asterisk/sounds/agent-alreadyon.gsm
 share/asterisk/sounds/agent-incorrect.gsm
 share/asterisk/sounds/agent-loggedoff.gsm
@@ -929,6 +929,7 @@ share/asterisk/static-http/prototype.js
 @dirrm share/asterisk/sounds/fr
 @dirrm share/asterisk/sounds/followme
 @dirrm share/asterisk/sounds/es
+@dirrm share/asterisk/sounds/en_AU
 @dirrm share/asterisk/sounds/digits
 @dirrm share/asterisk/sounds/dictate
 @dirrm share/asterisk/sounds

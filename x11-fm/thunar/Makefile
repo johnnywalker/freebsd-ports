@@ -6,15 +6,14 @@
 #
 
 PORTNAME=	Thunar
-PORTVERSION=	1.2.2
-PORTREVISION=	2
+PORTVERSION=	1.2.3
 CATEGORIES=	x11-fm xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/xfce/${PORTNAME:L}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	oliver@FreeBSD.org
-COMMENT=	XFce 4 file manager
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce 4 file manager
 
 LIB_DEPENDS=	tumbler-1.0:${PORTSDIR}/deskutils/xfce4-tumbler
 

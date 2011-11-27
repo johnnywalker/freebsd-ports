@@ -6,16 +6,11 @@
 #
 
 PORTNAME=	links
-DISTVERSION=	2.2
-PORTREVISION=	7
+DISTVERSION=	2.3
 PORTEPOCH=	1
+PORTREVISION=	2
 CATEGORIES?=	www
 MASTER_SITES=	http://links.twibright.com/download/
-
-PATCH_SITES=	ftp://ftp.linux.ee/pub/gentoo/distfiles/distfiles/ \
-		ftp://ftp.osuosl.org/pub/blfs/conglomeration/links/ \
-		ftp://ftp.ntua.gr/pub/linux/gentoo/distfiles/
-PATCH_DIST_STRIP=-p1
 
 MAINTAINER?=	demon@FreeBSD.org
 COMMENT=	Lynx-like text WWW browser
@@ -35,7 +30,7 @@ OPTIONS=	SVGALIB "non-X11 graphics support" off \
 		DIRECTFB "directfb driver support" off \
 		IPV6 "IPv6 support" off \
 		X11 "X11 graphics support" on \
-		UTF8 "With gentoo utf-8 patch" on \
+		UTF8 "With UTF-8 support" on \
 		TRANS "Hack for background transparency" off
 
 .include <bsd.port.options.mk>
@@ -66,7 +61,8 @@ CONFIGURE_ARGS+=	--without-directfb
 .if defined(WITH_IPV6)
 USE_AUTOTOOLS+=	autoconf
 PATCH_SITES+=	http://xpisar.wz.cz/links-ipv6/:ipv6
-PATCHFILES+=	links-2.2-ipv6-2.diff:ipv6
+PATCHFILES+=	links-2.3-ipv6-2.diff.gz:ipv6
+PATCH_DIST_STRIP=	-p1
 .endif
 
 .if !defined(WITHOUT_X11)
@@ -83,10 +79,8 @@ PLIST_FILES+=	share/pixmaps/links.xpm
 CONFIGURE_ARGS+=	--without-x
 .endif
 
-.if defined(WITH_UTF8)
-PATCHFILES+=	links-2.1pre33-utf8.diff.bz2
-pre-configure:
-		pwd && cd ${WRKSRC}/intl && ./gen-intl && ./synclang && cd ..
+.if defined(WITHOUT_UTF8)
+CONFIGURE_ARGS+=	--disable-utf8
 .endif
 
 .if defined(WITH_TRANS)
@@ -98,6 +92,8 @@ PLIST_FILES+=	bin/links
 
 post-patch:
 	@${REINPLACE_CMD} -e "s!/etc/!${PREFIX}/etc/!" ${WRKSRC}/os_dep.h
+#replace a deprecated indirect selection with png_jumpbuf()
+	@${REINPLACE_CMD} -e 's!png_ptr->jmpbuf!png_jmpbuf(png_ptr)!' ${WRKSRC}/png.c
 
 .if !defined(WITHOUT_X11)
 post-install:

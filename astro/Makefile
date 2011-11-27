@@ -9,7 +9,6 @@
     SUBDIR += astrometry
     SUBDIR += boinc-astropulse
     SUBDIR += boinc-einsteinathome
-    SUBDIR += boinc-milkyway
     SUBDIR += boinc-setiathome-enhanced
     SUBDIR += celestia
     SUBDIR += celestia-gnome
@@ -21,7 +20,6 @@
     SUBDIR += fowsr
     SUBDIR += foxtrotgps
     SUBDIR += gkrellmoon2
-    SUBDIR += gkrellsun
     SUBDIR += glunarclock
     SUBDIR += gmapcatcher
     SUBDIR += google-earth
@@ -34,6 +32,7 @@
     SUBDIR += gpxloggerd
     SUBDIR += jday
     SUBDIR += josm
+    SUBDIR += kstars
     SUBDIR += libgal
     SUBDIR += libnova
     SUBDIR += libroadnav
@@ -104,7 +103,6 @@
     SUBDIR += viking
     SUBDIR += wcslib
     SUBDIR += weather
-    SUBDIR += weatherget
     SUBDIR += weatherspect
     SUBDIR += wmglobe
     SUBDIR += wmjupiter
@@ -119,7 +117,6 @@
     SUBDIR += xmoontool
     SUBDIR += xphoon
     SUBDIR += xplanet
-    SUBDIR += xrmap
     SUBDIR += xtide
     SUBDIR += xworld
 

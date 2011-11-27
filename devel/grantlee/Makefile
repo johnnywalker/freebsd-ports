@@ -5,10 +5,10 @@
 # $FreeBSD$
 
 PORTNAME=	grantlee
-PORTVERSION=	0.1.8
+DISTVERSION=	0.2.0
 CATEGORIES=	devel
-MASTER_SITES=	http://www.loegria.net/${PORTNAME}/ \
-		http://downloads.${PORTNAME}.org/
+MASTER_SITES=	http://downloads.${PORTNAME}.org/ \
+		http://www.loegria.net/${PORTNAME}/
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	String template engine for Qt4
@@ -18,10 +18,11 @@ LICENSE_FILE=	${WRKSRC}/COPYING.LIB
 
 USE_CMAKE=	yes
 USE_QT_VER=	4
-QT_COMPONENTS=	corelib gui network webkit sql phonon \
-		qmake_build moc_build rcc_build uic_build
-CMAKE_OUTSOURCE=	yes
+USE_LDCONFIG=	yes
+QT_COMPONENTS=	corelib gui script \
+		qmake_build moc_build rcc_build uic_build qtestlib_build
 CMAKE_ARGS+=	-DBUILD_TESTS:BOOL=FALSE
+CMAKE_OUTSOURCE=	yes
 MAKE_JOBS_UNSAFE=	yes
 
 OPTIONS=	DOCS "Install API documentation" off

@@ -7,7 +7,7 @@
 # Please send all suggested changes to the maintainer instead of committing
 # them to CVS yourself.
 #
-# $FreeBSD: ports/Mk/bsd.php.mk,v 1.64 2011/04/15 14:52:14 ale Exp $
+# $FreeBSD: ports/Mk/bsd.php.mk,v 1.65 2011/07/05 11:59:45 sunpoet Exp $
 #
 # Adding 'USE_PHP=yes' to a port includes this Makefile after bsd.ports.pre.mk.
 # If the port requires a predefined set of PHP extensions, they can be
@@ -250,7 +250,7 @@ _USE_PHP_ALL=	apc bcmath bitset bz2 calendar ctype curl dba \
 _USE_PHP_VER4=	${_USE_PHP_ALL} crack dbase dbx dio domxml filepro mcal mcve \
 		mhash ncurses oracle overload pfpro xslt yp
 _USE_PHP_VER5=	${_USE_PHP_ALL} dom filter mysqli pdo \
-		pdo_mysql pdo_pgsql pdo_sqlite \
+		pdo_mysql pdo_pgsql pdo_sqlite phar \
 		simplexml soap spl sqlite sqlite3 tidy xmlreader xmlwriter xsl
 _USE_PHP_VER52=	${_USE_PHP_ALL} dbase ncurses dom filter ming mysqli oci8 \
 		pdo pdo_mysql pdo_sqlite simplexml soap spl sqlite tidy \
@@ -307,6 +307,7 @@ pdo_pgsql_DEPENDS=	databases/php${PHP_VER}-pdo_pgsql
 pdo_sqlite_DEPENDS=	databases/php${PHP_VER}-pdo_sqlite
 pfpro_DEPENDS=	finance/php${PHP_VER}-pfpro
 pgsql_DEPENDS=	databases/php${PHP_VER}-pgsql
+phar_DEPENDS=	archivers/php${PHP_VER}-phar
 posix_DEPENDS=	sysutils/php${PHP_VER}-posix
 pspell_DEPENDS=	textproc/php${PHP_VER}-pspell
 radius_DEPENDS=	net/pecl-radius

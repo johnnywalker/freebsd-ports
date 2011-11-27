@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	libgit2
-PORTVERSION=	0.14.0
+PORTVERSION=	0.15.0
 CATEGORIES=	devel
 MASTER_SITES=	http://cloud.github.com/downloads/libgit2/libgit2/
 
@@ -17,7 +17,6 @@ LICENSE=	GPLv2
 
 USE_LDCONFIG=	yes
 USE_CMAKE=	yes
-CMAKE_USE_PTHREAD=	yes
 
 MAKE_JOBS_SAFE=	yes
 
@@ -26,5 +25,8 @@ MAKE_JOBS_SAFE=	yes
 .if ${ARCH} == "sparc64"
 BROKEN=		Does not install on sparc64: thread-local storage not supported
 .endif
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|/pkgconfig|/../libdata/pkgconfig|" ${WRKSRC}/CMakeLists.txt
 
 .include <bsd.port.post.mk>

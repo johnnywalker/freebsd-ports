@@ -7,7 +7,7 @@
 
 PORTNAME=	dmd
 PKGNAMESUFFIX=	2
-PORTVERSION=	2.055
+PORTVERSION=	2.056
 CATEGORIES=	lang
 MASTER_SITES=	http://ftp.digitalmars.com/
 DISTNAME=	dmd.${PORTVERSION}
@@ -37,6 +37,13 @@ LICENSE_PERMS_DMD=	no-dist-mirror no-dist-sell no-pkg-mirror no-pkg-sell auto-ac
 
 .if ${OSVERSION} < 800000
 BROKEN=		does not compile
+.endif
+
+NOT_FOR_ARCHS=		powerpc
+NOT_FOR_ARCHS_REASON=	not yet ported to this architecture
+
+.if ${ARCH} == "sparc64"
+BROKEN=		Does not install on sparc64: divide-by-zero error
 .endif
 
 .if ${ARCH} == "amd64"

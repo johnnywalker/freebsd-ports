@@ -7,6 +7,7 @@
 
 PORTNAME=	postgrey
 PORTVERSION=	1.34
+PORTREVISION=	3
 CATEGORIES=	mail
 MASTER_SITES=	http://postgrey.schweikert.ch/pub/ \
 		http://postgrey.schweikert.ch/pub/old/
@@ -35,6 +36,9 @@ PGY_USERID?=	225
 PGY_GROUPNAME?=	${PGY_USERNAME}
 PGY_GROUPID?=	${PGY_USERID}
 PGY_DIR?=	/var/db/postgrey
+
+USERS=		${PGY_USERNAME}
+GROUPS=		${PGY_GROUPNAME}
 MAN1=		${PORTNAME}.1 policy-test.1 postgreyreport.1
 
 post-patch:
@@ -42,10 +46,8 @@ post-patch:
 	@${REINPLACE_CMD} -e 's#/etc/postfix#${PREFIX}&#' ${WRKSRC}/postgrey ${WRKSRC}/postgrey_whitelist_*
 	@${REINPLACE_CMD} -e 's#/var/spool/postfix/postgrey#${PGY_DIR}#' ${WRKSRC}/postgrey ${WRKSRC}/contrib/postgreyreport
 
-pre-install:
-	@${SH} ${PKGINSTALL} ${PKGNAME} PRE-INSTALL
-
 do-install:
+	@${SH} ${PKGINSTALL} ${PKGNAME} PRE-INSTALL
 	@${POD2MAN} ${WRKSRC}/${PORTNAME} ${WRKSRC}/${PORTNAME}.1
 	@${POD2MAN} ${WRKSRC}/policy-test ${WRKSRC}/policy-test.1
 	@${POD2MAN} ${WRKSRC}/contrib/postgreyreport ${WRKSRC}/postgreyreport.1

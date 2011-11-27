@@ -15,16 +15,17 @@ MASTER_SITES=   http://www.firestuff.org/projects/ \
 DISTNAME=	fireprofile
 EXTRACT_SUFX=   -0.1.2.tar.gz
 
-MAINTAINER=     dean@odyssey.apana.org.au
+MAINTAINER=     ports@FreeBSD.org
 COMMENT=	Library to help profiling where programs are using MySQL
+
+BROKEN=		Needs modification to work with newer MySQL
+EXPIRATION_DATE=	2011-11-30
 
 MAN3=		libfireprofile.3
 PLIST_FILES=	lib/libfireprofile.so.0 lib/libfireprofile.so
 
 USE_LDCONFIG=	yes
 USE_MYSQL=	yes
-DEFAULT_MYSQL_VER=	323
-WANT_MYSQL_VER=	323
 
 post-install:
 		$(LN) ${PREFIX}/lib/libfireprofile.so ${PREFIX}/lib/libfireprofile.so.0

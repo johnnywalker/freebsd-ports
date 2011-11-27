@@ -7,7 +7,7 @@
 #
 
 PORTNAME=	fastdb
-PORTVERSION=	3.66
+PORTVERSION=	3.70
 CATEGORIES=	databases
 MASTER_SITES=	SF
 
@@ -35,11 +35,6 @@ post-install:
 .if !defined(NOPORTDOCS)
 	@${MKDIR} ${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/FastDB.htm ${DOCSDIR}
-.endif
-
-post-patch:
-.if ${OSVERSION} < 601105
-	${REINPLACE_CMD} -e 's|^#define HAVE_GETHOSTBYNAME_R||' ${WRKSRC}/inc/config.h
 .endif
 
 .include <bsd.port.post.mk>

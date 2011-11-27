@@ -1,5 +1,5 @@
 
-$FreeBSD$
+$FreeBSD: ports/net/asterisk14/files/patch-channels_h323_Makefile.in,v 1.2 2009/08/02 19:34:54 mezz Exp $
 
 --- channels/h323/Makefile.in
 +++ channels/h323/Makefile.in

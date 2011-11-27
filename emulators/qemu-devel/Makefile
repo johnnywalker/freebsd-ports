@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	qemu
-PORTVERSION=	0.15.0
-PORTREVISION=	1
+PORTVERSION=	0.15.1
 CATEGORIES=	emulators
 MASTER_SITES=	SAVANNAH:release \
 		http://wiki.qemu.org/download/:release \
@@ -26,8 +25,6 @@ COMMENT=	QEMU CPU Emulator - development version
 
 HAS_CONFIGURE=	yes
 USE_GMAKE=	yes
-USE_PYTHON=	yes
-USE_GNOME=	glib20
 USE_PERL5_BUILD=	yes
 PATCH_STRIP=	-p1
 MAKE_ENV+=	BSD_MAKE="${MAKE}"
@@ -42,6 +39,9 @@ OPTIONS=	SAMBA "samba dependency (for -smb)" Off \
 		OPENGL "OpenGL dependency" On \
 		GNUTLS "gnutls dependency (vnc encryption)" On \
 		SASL "cyrus-sasl dependency (vnc encryption)" On \
+		JPEG "jpeg dependency (vnc lossy compression)" On \
+		PNG "png dependency (vnc compression)" On \
+		GA "glib20 dependency (guest agent)" On \
 		CURL "libcurl dependency (remote images)" On \
 		CDROM_DMA "IDE CDROM DMA" On \
 		PCAP "pcap dependency (networking with bpf)" On \
@@ -51,12 +51,10 @@ OPTIONS=	SAMBA "samba dependency (for -smb)" Off \
 		ADD_AUDIO "Emulate more audio hardware (experimental!)" Off \
 		ALL_TARGETS "Also build bsd-user targets (for testing)" Off
 
-.include <bsd.port.pre.mk>
+.include <bsd.port.options.mk>
 
 CONFIGURE_ARGS+=	--extra-ldflags=-L${LOCALBASE}/lib
 PORTDOCS=	docs qemu-doc.html qemu-tech.html
-LIB_DEPENDS+=	jpeg:${PORTSDIR}/graphics/jpeg \
-		png.6:${PORTSDIR}/graphics/png
 
 .if defined(WITHOUT_ALL_TARGETS)
 CONFIGURE_ARGS+=	--disable-bsd-user
@@ -85,7 +83,8 @@ CFLAGS:=	${CFLAGS:C/-fno-tree-vrp//}
 CONFIGURE_ARGS+=	--prefix=${PREFIX} --cc=${CC} --enable-docs \
 	--disable-linux-user --disable-linux-aio \
 	--disable-darwin-user --disable-kvm --disable-xen \
-	--extra-cflags=-DSMBD_COMMAND=\\\"${LOCALBASE}/sbin/smbd\\\"\ -I${WRKSRC}\ -I${LOCALBASE}/include\ -DPREFIX=\\\"${PREFIX}\\\"
+	--smbd=${LOCALBASE}/sbin/smbd \
+	--extra-cflags=-I${WRKSRC}\ -I${LOCALBASE}/include\ -DPREFIX=\\\"${PREFIX}\\\"
 
 .if defined(WITHOUT_SDL)
 CONFIGURE_ARGS+=	--disable-sdl
@@ -103,6 +102,27 @@ LIB_DEPENDS+=	gnutls:${PORTSDIR}/security/gnutls
 CONFIGURE_ARGS+=	--disable-vnc-sasl
 .else
 LIB_DEPENDS+=	sasl2:${PORTSDIR}/security/cyrus-sasl2
+.endif
+
+.if defined(WITHOUT_JPEG)
+CONFIGURE_ARGS+=	--disable-vnc-jpeg
+.else
+LIB_DEPENDS+=	jpeg:${PORTSDIR}/graphics/jpeg
+.endif
+
+.if defined(WITHOUT_PNG)
+CONFIGURE_ARGS+=	--disable-vnc-png
+.else
+LIB_DEPENDS+=	png.6:${PORTSDIR}/graphics/png
+.endif
+
+.if defined(WITHOUT_GA)
+CONFIGURE_ARGS+=	--disable-guest-agent --python="${NONEXISTENT}"
+PLIST_SUB+=	GA="@comment "
+.else
+USE_PYTHON_BUILD=	yes
+USE_GNOME+=	glib20
+PLIST_SUB+=	GA=""
 .endif
 
 .if defined(WITHOUT_CURL)
@@ -140,9 +160,13 @@ RUN_DEPENDS+=	${LOCALBASE}/share/qemu/seabios-devel.bin:${PORTSDIR}/emulators/se
 .endif
 
 .if defined(NOPORTDOCS)
-MAKE_ARGS+=	NOPORTDOCS=${NOPORTDOCS}
+MAKE_ARGS+=	NOPORTDOCS=1
 .else
 BUILD_DEPENDS+=	texi2html:${PORTSDIR}/textproc/texi2html
+.endif
+
+.if !defined(STRIP) || ${STRIP} == ""
+CONFIGURE_ARGS+=--disable-strip
 .endif
 
 .if ${ARCH} == "amd64"
@@ -157,7 +181,7 @@ MAKE_ARGS+=	ARCH=ppc
 CONFIGURE_ARGS+= --sparc_cpu=v9
 .endif
 
-.if ${OSVERSION} < 900033 && ${ARCH} == "amd64"
+.if ${OSVERSION} < 900033
 BUILD_DEPENDS+=	${LOCALBASE}/bin/as:${PORTSDIR}/devel/binutils
 CONFIGURE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
 MAKE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
@@ -193,7 +217,7 @@ post-configure:
 .endif
 
 post-build:
-	@(cd ${WRKDIR}/sgabios-read-only && ${GMAKE})
+	@${MAKE_ENV} ${GMAKE} -C${WRKDIR}/sgabios-read-only
 
 post-install:
 .if !defined(NOPORTDOCS)
@@ -210,4 +234,4 @@ post-install:
 	fi
 	@${CAT} ${PKGMESSAGE}
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

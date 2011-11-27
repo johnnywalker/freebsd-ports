@@ -1,4 +1,4 @@
-@comment $FreeBSD: ports/net-mgmt/zabbix-server/pkg-plist.frontend,v 1.4 2010/08/23 20:15:43 decke Exp $
+@comment $FreeBSD: ports/net-mgmt/zabbix-server/pkg-plist.frontend,v 1.5 2011/04/22 15:07:36 flo Exp $
 %%WWWDIR%%/acknow.php
 %%WWWDIR%%/actionconf.php
 %%WWWDIR%%/api/.htaccess
@@ -19,6 +19,7 @@
 %%WWWDIR%%/api/classes/class.chostgroup.php
 %%WWWDIR%%/api/classes/class.cimage.php
 %%WWWDIR%%/api/classes/class.citem.php
+%%WWWDIR%%/api/classes/class.citemkey.php
 %%WWWDIR%%/api/classes/class.cmaintenance.php
 %%WWWDIR%%/api/classes/class.cmap.php
 %%WWWDIR%%/api/classes/class.cmediatype.php

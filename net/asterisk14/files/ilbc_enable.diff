@@ -1,5 +1,5 @@
 
-$FreeBSD$
+$FreeBSD: ports/net/asterisk14/files/ilbc_enable.diff,v 1.3 2009/08/02 19:34:54 mezz Exp $
 
 --- menuselect-tree
 +++ menuselect-tree

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	grep
-PORTVERSION=	20110912
+PORTVERSION=	20111002
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 MASTER_SITE_SUBDIR=	gabor
@@ -35,8 +35,7 @@ MLINKS=		grep.1 bzegrep.1 \
 MAKE_ENV+=	BINDIR="${PREFIX}/bin" \
 		MANDIR="${MANPREFIX}/man/man" \
 		CATDIR="${MANPREFIX}/man/man" \
-		NLSDIR="${PREFIX}/share/nls" \
-		MK_BSD_GREP="yes"
+		NLSDIR="${PREFIX}/share/nls"
 
 OPTIONS=	NLS		"Compile with NLS support"		on \
 		GNU_COMPAT	"Use GNU regex library (recommended)"	on
@@ -48,6 +47,8 @@ CONFLICTS=	gnugrep-*
 .if !(${OSVERSION} >= 900012 || (${OSVERSION} < 900000 && ${OSVERSION} >= 800505))
 LIB_DEPENDS+=	lzma.5:${PORTSDIR}/archivers/xz
 CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+BROKEN=		overwrites files installed by dependency
 .endif
 
 .if defined(WITHOUT_NLS)

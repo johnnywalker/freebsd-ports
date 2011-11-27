@@ -36,7 +36,6 @@ CONFIGURE_ARGS=	--with-boost=${LOCALBASE} --with-libevent=${LOCALBASE} \
 		--enable-shared --enable-static --with-zlib
 CONFIGURE_ENV+=	${MAKE_ENV}
 
-# For Erlang support, use devel/erlang-thrift.
 # For Perl support, use devel/p5-Thrift.
 # For Python support, use devel/py-thrift.
 # For Ruby support, use devel/ruby-thrift.
@@ -57,8 +56,8 @@ CONFIGURE_ARGS+=	\
 
 .include <bsd.port.pre.mk>
 
-.if ${ARCH} == "sparc64"
-BROKEN=		Does not compile on sparc64
+.if ${ARCH} == "ia64" || ${ARCH} == "powerpc" || ${ARCH} == "sparc64"
+BROKEN=		Does not compile on ia64, powerpc, or sparc64
 .endif
 
 post-patch:

@@ -85,4 +85,8 @@ post-patch:
 		s,@FLTK_(C|CXX)FLAGS@,-I${LOCALBASE}/include,; \
 		s|-lpthread|${PTHREAD_LIBS}|g'
 
+	@${FIND} ${WRKSRC} -type f -name "*.C" -o -name "*.cpp" -o -name "*.h" | ${XARGS} \
+	   ${REINPLACE_CMD} -e '/^#include <FL/s|.h>$$|.H>|; /^#include "FL/s|.h"$$|.H"|; \
+	   s|fl_file_chooser.H|Fl_File_Chooser.H|g'
+
 .include <bsd.port.post.mk>

@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $FreeBSD: ports/net/nss-pam-ldapd/files/nslcd.in,v 1.4 2010/07/15 22:51:59 timur Exp $
+# $FreeBSD: ports/net/nss-pam-ldapd/files/nslcd.in,v 1.5 2011/09/15 12:59:49 sem Exp $
 #
 # PROVIDE: nslcd
 # REQUIRE: ldconfig resolv
@@ -21,7 +21,7 @@ rcvar=$(set_rcvar)
 start_postcmd="nslcd_poststart"
 
 nslcd_poststart () {
-       until $(/usr/local/sbin/nslcd -c); do
+       until $(%%PREFIX%%/sbin/${name} -c); do
                echo " Waiting for nslcd to start"
                sleep 1
        done

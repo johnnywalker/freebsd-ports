@@ -6,12 +6,9 @@
 #
 
 PORTNAME=	moodle
-PORTVERSION=	1.9.13
+PORTVERSION=	1.9.14
 CATEGORIES=	www
-MASTER_SITES=	http://download.moodle.org/stable19/ \
-		http://download2.moodle.org/stable19/ \
-		http://download3.moodle.org/stable19/ \
-		http://download4.moodle.org/stable19/
+MASTER_SITES=	SF/moodle/Moodle/stable19/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	jmrueda@diatel.upm.es

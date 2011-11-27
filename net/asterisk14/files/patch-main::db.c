@@ -1,5 +1,5 @@
 
-$FreeBSD$
+$FreeBSD: ports/net/asterisk14/files/patch-main::db.c,v 1.2 2009/08/02 19:34:54 mezz Exp $
 
 --- main/db.c.orig	Fri Jan 13 11:05:32 2006
 +++ main/db.c	Fri Jan 13 11:06:55 2006

@@ -7,7 +7,7 @@
 
 PORTNAME=	wspr
 PORTVERSION=	2.00
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	comms hamradio
 MASTER_SITES=	http://www.physics.princeton.edu/pulsar/K1JT/
 MASTER_SITES=	${MASTER_SITE_LOCAL}
@@ -25,6 +25,8 @@ LIB_DEPENDS=	hamlib:${PORTSDIR}/comms/hamlib \
 BUILD_DEPENDS=	${PYTHON_SITELIBDIR}/scipy:${PORTSDIR}/science/py-scipy \
 		${LOCALBASE}/lib/portaudio2/libportaudio.so:${PORTSDIR}/audio/portaudio2 \
 		${PYNUMPY}
+
+BROKEN=		does not build
 
 ALL_TARGET=	build
 EXTRACT_SUFX=	.tgz

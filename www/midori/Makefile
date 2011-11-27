@@ -7,20 +7,20 @@
 #
 
 PORTNAME=	midori
-PORTVERSION=	0.4.0
+PORTVERSION=	0.4.2
 CATEGORIES=	www xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/apps/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	kwm@FreeBSD.org
+MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	Lightweight web browser using WebKit browser engine
 
+BUILD_DEPENDS=	rsvg-convert:${PORTSDIR}/graphics/librsvg2 \
+		valac:${PORTSDIR}/lang/vala
 LIB_DEPENDS=	webkitgtk-1.0.0:${PORTSDIR}/www/webkit-gtk2 \
 		sqlite3.8:${PORTSDIR}/databases/sqlite3 \
 		notify.4:${PORTSDIR}/devel/libnotify
-BUILD_DEPENDS=	rsvg-convert:${PORTSDIR}/graphics/librsvg2 \
-		valac:${PORTSDIR}/lang/vala
 RUN_DEPENDS=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_root_nss
 
 LICENSE=	LGPL21
@@ -31,6 +31,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS+=--enable-libnotify \
 		--enable-addons \
 		--enable-docs \
+		--disable-gtk3 \
 		--jobs=${MAKE_JOBS_NUMBER}
 
 MAKE_JOBS_SAFE=	yes
@@ -45,7 +46,8 @@ USE_LDCONFIG=	yes
 USE_GETTEXT=	yes
 .endif
 
-PLIST_SUB=	VERSION="${PORTVERSION:R}"
+PLIST_SUB=	VERSION="${PORTVERSION:R}" \
+	PORTVERSION="${PORTVERSION}"
 
 OPTIONS=	NLS "Enable Native Language support" on \
 		APIDOCS "Build api documentation" off \

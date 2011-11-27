@@ -37,12 +37,10 @@
     SUBDIR += gale
     SUBDIR += gicq
     SUBDIR += gloox
-    SUBDIR += gossip
     SUBDIR += grouch
     SUBDIR += gtkyahoo
     SUBDIR += gyach
     SUBDIR += icb
-    SUBDIR += ickle
     SUBDIR += icmpchat
     SUBDIR += icqlib
     SUBDIR += imcom
@@ -65,7 +63,6 @@
     SUBDIR += kopete
     SUBDIR += kpopup
     SUBDIR += libicq
-    SUBDIR += libicq2000
     SUBDIR += libjingle
     SUBDIR += libmsn
     SUBDIR += libnice
@@ -83,10 +80,10 @@
     SUBDIR += mcabber
     SUBDIR += meanwhile
     SUBDIR += mercury
+    SUBDIR += mikutter
     SUBDIR += msn-proxy
     SUBDIR += mu-conference
     SUBDIR += naim
-    SUBDIR += newsbot
     SUBDIR += openfetion
     SUBDIR += openfire
     SUBDIR += openfire-devel
@@ -113,6 +110,7 @@
     SUBDIR += pebrot
     SUBDIR += pecl-stomp
     SUBDIR += pidgin
+    SUBDIR += pidgin-audacious-remote
     SUBDIR += pidgin-birthday-reminder
     SUBDIR += pidgin-bs
     SUBDIR += pidgin-facebookchat

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	aria2
-PORTVERSION=	1.12.0
+PORTVERSION=	1.13.0
 CATEGORIES=	www
 MASTER_SITES=	SF/${PORTNAME}/stable/${PORTNAME}-${PORTVERSION}
 
@@ -57,6 +57,10 @@ MAN1=		aria2c.1
 OPTIONS=	SQLITE "Support for Firefox cookies" Off
 
 .include <bsd.port.pre.mk>
+
+.if ${ARCH} == "powerpc" && ${OSVERSION} > 900000
+BROKEN=		Does not install on powerpc-9
+.endif
 
 .if defined(WITH_SQLITE)
 CONFIGURE_ARGS+=	--with-sqlite3

@@ -29,6 +29,7 @@
     SUBDIR += aspell-without-dicten
     SUBDIR += ast-aspell
     SUBDIR += atom
+    SUBDIR += ats-contrib-parcomb
     SUBDIR += augeas
     SUBDIR += az-aspell
     SUBDIR += bar
@@ -172,6 +173,7 @@
     SUBDIR += exslt
     SUBDIR += ezxml
     SUBDIR += fa-aspell
+    SUBDIR += fex
     SUBDIR += ffe
     SUBDIR += fi-aspell
     SUBDIR += filepp
@@ -189,7 +191,6 @@
     SUBDIR += freegrep
     SUBDIR += fy-aspell
     SUBDIR += ga-aspell
-    SUBDIR += gambas2-gb-xml
     SUBDIR += gastex
     SUBDIR += gd-aspell
     SUBDIR += gdict
@@ -318,7 +319,6 @@
     SUBDIR += jalingo
     SUBDIR += jarnal
     SUBDIR += java2html
-    SUBDIR += javacc
     SUBDIR += jaxup
     SUBDIR += jdictionary
     SUBDIR += jdictionary-int-eng
@@ -435,6 +435,7 @@
     SUBDIR += ms-aspell
     SUBDIR += msort
     SUBDIR += mt-aspell
+    SUBDIR += multimarkdown
     SUBDIR += muse
     SUBDIR += mxml
     SUBDIR += mythes
@@ -494,10 +495,10 @@
     SUBDIR += p5-DocSet
     SUBDIR += p5-EBook-Tools
     SUBDIR += p5-Excel-Template
+    SUBDIR += p5-Excel-Writer-XLSX
     SUBDIR += p5-File-Inplace
     SUBDIR += p5-Filter-Simple
     SUBDIR += p5-FormValidator-Lite
-    SUBDIR += p5-FormValidator-Simple
     SUBDIR += p5-Games-Dissociate
     SUBDIR += p5-Geo-Parse-OSM
     SUBDIR += p5-Getopt-Lucid
@@ -511,6 +512,7 @@
     SUBDIR += p5-HTML-Format
     SUBDIR += p5-HTML-FormatText-WithLinks
     SUBDIR += p5-HTML-Fraction
+    SUBDIR += p5-HTML-HTML5-Entities
     SUBDIR += p5-HTML-HTML5-Parser
     SUBDIR += p5-HTML-HTMLDoc
     SUBDIR += p5-HTML-Packer
@@ -585,6 +587,7 @@
     SUBDIR += p5-Makefile-DOM
     SUBDIR += p5-Makefile-Parser
     SUBDIR += p5-Markapl
+    SUBDIR += p5-Marpa-HTML
     SUBDIR += p5-MathML-Entities
     SUBDIR += p5-Net-IDN-Encode
     SUBDIR += p5-Net-YASA
@@ -636,6 +639,7 @@
     SUBDIR += p5-Pod-Escapes
     SUBDIR += p5-Pod-Eventual
     SUBDIR += p5-Pod-HtmlEasy
+    SUBDIR += p5-Pod-Markdown
     SUBDIR += p5-Pod-POM
     SUBDIR += p5-Pod-POM-View-HTML-Filter
     SUBDIR += p5-Pod-Parser
@@ -672,6 +676,7 @@
     SUBDIR += p5-SGMLSpm
     SUBDIR += p5-SQL-Tokenizer
     SUBDIR += p5-SVG
+    SUBDIR += p5-SVG-Parser
     SUBDIR += p5-Search-Estraier
     SUBDIR += p5-Search-Odeum
     SUBDIR += p5-Search-Saryer
@@ -681,6 +686,8 @@
     SUBDIR += p5-Sort-ArbBiLex
     SUBDIR += p5-Sort-Fields
     SUBDIR += p5-Sort-Naturally
+    SUBDIR += p5-Sphinx-Config
+    SUBDIR += p5-Sphinx-Manager
     SUBDIR += p5-Sphinx-Search
     SUBDIR += p5-Spork
     SUBDIR += p5-Spreadsheet-ParseExcel
@@ -788,6 +795,7 @@
     SUBDIR += p5-Text-Ngram
     SUBDIR += p5-Text-Ngrams
     SUBDIR += p5-Text-Original
+    SUBDIR += p5-Text-Padding
     SUBDIR += p5-Text-ParagraphDiff
     SUBDIR += p5-Text-ParseWords
     SUBDIR += p5-Text-Patch
@@ -827,6 +835,7 @@
     SUBDIR += p5-Text-Xslate
     SUBDIR += p5-Text-vCard
     SUBDIR += p5-Time-Human
+    SUBDIR += p5-Tk-Pod
     SUBDIR += p5-Tk-XMLViewer
     SUBDIR += p5-Tree-Nary
     SUBDIR += p5-Tree-Suffix
@@ -835,6 +844,7 @@
     SUBDIR += p5-UML-State
     SUBDIR += p5-URI-Find
     SUBDIR += p5-Unicode-CheckUTF8
+    SUBDIR += p5-Unicode-Collate
     SUBDIR += p5-Unicode-EastAsianWidth
     SUBDIR += p5-Unicode-Escape
     SUBDIR += p5-Unicode-LineBreak
@@ -905,9 +915,10 @@
     SUBDIR += p5-XML-Handler-Trees
     SUBDIR += p5-XML-Handler-YAWriter
     SUBDIR += p5-XML-Hash-LX
-    SUBDIR += p5-XML-LibRSVG
     SUBDIR += p5-XML-LibXML
+    SUBDIR += p5-XML-LibXML-Cache
     SUBDIR += p5-XML-LibXML-Iterator
+    SUBDIR += p5-XML-LibXML-PrettyPrint
     SUBDIR += p5-XML-LibXML-SAX-ChunkParser
     SUBDIR += p5-XML-LibXML-Simple
     SUBDIR += p5-XML-LibXSLT
@@ -1088,8 +1099,8 @@
     SUBDIR += py-feedparser
     SUBDIR += py-genshi
     SUBDIR += py-genshi-devel
+    SUBDIR += py-gettext
     SUBDIR += py-html2text
-    SUBDIR += py-hyperestraier
     SUBDIR += py-hyperestraier-python
     SUBDIR += py-jaxml
     SUBDIR += py-libtre
@@ -1101,6 +1112,7 @@
     SUBDIR += py-markdown
     SUBDIR += py-markdown2
     SUBDIR += py-paragrep
+    SUBDIR += py-pss
     SUBDIR += py-pygments
     SUBDIR += py-pyx12
     SUBDIR += py-qt4-xml
@@ -1125,6 +1137,8 @@
     SUBDIR += py-xmltools
     SUBDIR += py-xmltv
     SUBDIR += py-zope.i18nmessageid
+    SUBDIR += py-zope.structuredtext
+    SUBDIR += py-zope.tal
     SUBDIR += py-zpt
     SUBDIR += py2html
     SUBDIR += pybook
@@ -1140,6 +1154,7 @@
     SUBDIR += queequeg
     SUBDIR += rand
     SUBDIR += raptor
+    SUBDIR += raptor2
     SUBDIR += rarian
     SUBDIR += rasqal
     SUBDIR += rast
@@ -1200,8 +1215,10 @@
     SUBDIR += ruby-xmlscan
     SUBDIR += ruby-xmlscan-old
     SUBDIR += ruby-xslt
+    SUBDIR += rubygem-albino
     SUBDIR += rubygem-augeas
     SUBDIR += rubygem-coderay
+    SUBDIR += rubygem-compass
     SUBDIR += rubygem-diff-lcs
     SUBDIR += rubygem-ezamar
     SUBDIR += rubygem-ferret
@@ -1210,6 +1227,8 @@
     SUBDIR += rubygem-htmlentities
     SUBDIR += rubygem-htmltools
     SUBDIR += rubygem-ini
+    SUBDIR += rubygem-itextomml
+    SUBDIR += rubygem-kramdown
     SUBDIR += rubygem-kwalify
     SUBDIR += rubygem-linguistics
     SUBDIR += rubygem-liquid
@@ -1221,7 +1240,9 @@
     SUBDIR += rubygem-rak
     SUBDIR += rubygem-rchardet
     SUBDIR += rubygem-rdiscount
+    SUBDIR += rubygem-sanitize
     SUBDIR += rubygem-sass
+    SUBDIR += rubygem-sass-rails
     SUBDIR += rubygem-sax-machine
     SUBDIR += rubygem-spreadsheet
     SUBDIR += rubygem-syntax
@@ -1230,6 +1251,7 @@
     SUBDIR += rubygem-tidy
     SUBDIR += rubygem-xml-simple
     SUBDIR += rubygem-xslt
+    SUBDIR += rubygem-yard
     SUBDIR += rw-aspell
     SUBDIR += rxp
     SUBDIR += s5
@@ -1316,15 +1338,11 @@
     SUBDIR += ta-aspell
     SUBDIR += tclExpat
     SUBDIR += tdhkit
-    SUBDIR += tdtd.el
     SUBDIR += te-aspell
     SUBDIR += te-hunspell
     SUBDIR += teckit
     SUBDIR += tei-guidelines-p3
-    SUBDIR += tei-guidelines-p4
-    SUBDIR += tei-lite
     SUBDIR += tei-p3
-    SUBDIR += tei-p4
     SUBDIR += tet-aspell
     SUBDIR += tex2im
     SUBDIR += texi2db

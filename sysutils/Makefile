@@ -12,6 +12,7 @@
     SUBDIR += abck
     SUBDIR += abgx360
     SUBDIR += abgx360gui
+    SUBDIR += acpi_call
     SUBDIR += adtool
     SUBDIR += afbinit
     SUBDIR += afflib
@@ -99,7 +100,6 @@
     SUBDIR += cdrtools-devel
     SUBDIR += cfengine
     SUBDIR += cfengine3
-    SUBDIR += cfvers
     SUBDIR += chgrep
     SUBDIR += ciso
     SUBDIR += ck4up
@@ -183,7 +183,6 @@
     SUBDIR += dump9660
     SUBDIR += dupfind
     SUBDIR += duplicity
-    SUBDIR += duplicity-devel
     SUBDIR += duplicity05
     SUBDIR += duply
     SUBDIR += dupmerge
@@ -240,6 +239,7 @@
     SUBDIR += fonteditfs
     SUBDIR += foremost
     SUBDIR += fortunelock
+    SUBDIR += fpart
     SUBDIR += fpc-syslog
     SUBDIR += fpc-users
     SUBDIR += fpc-utmp
@@ -260,6 +260,7 @@
     SUBDIR += fusefs-cryptofs
     SUBDIR += fusefs-curlftpfs
     SUBDIR += fusefs-encfs
+    SUBDIR += fusefs-ext4fuse
     SUBDIR += fusefs-funionfs
     SUBDIR += fusefs-fur
     SUBDIR += fusefs-fusexmp_fh
@@ -267,6 +268,7 @@
     SUBDIR += fusefs-gstfs
     SUBDIR += fusefs-gunzip
     SUBDIR += fusefs-httpfs
+    SUBDIR += fusefs-ifuse
     SUBDIR += fusefs-kmod
     SUBDIR += fusefs-libs
     SUBDIR += fusefs-mhddfs
@@ -379,6 +381,7 @@
     SUBDIR += jailctl
     SUBDIR += jailer
     SUBDIR += jailme
+    SUBDIR += jailrc
     SUBDIR += jailuser
     SUBDIR += jailutils
     SUBDIR += javaservicewrapper
@@ -454,6 +457,7 @@
     SUBDIR += logmon
     SUBDIR += logrotate
     SUBDIR += logserial
+    SUBDIR += logstalgia
     SUBDIR += logtool
     SUBDIR += logwatch
     SUBDIR += lookat
@@ -473,6 +477,7 @@
     SUBDIR += massadmin
     SUBDIR += mbmon
     SUBDIR += mcollective
+    SUBDIR += mcelog
     SUBDIR += mcron
     SUBDIR += mcweject
     SUBDIR += mdcp
@@ -570,6 +575,7 @@
     SUBDIR += p5-MogileFS-Client
     SUBDIR += p5-MogileFS-Server
     SUBDIR += p5-MogileFS-Utils
+    SUBDIR += p5-Monitor-Simple
     SUBDIR += p5-Plugtools
     SUBDIR += p5-Plugtools-Plugins-HomeOU
     SUBDIR += p5-Probe-Perl
@@ -596,6 +602,7 @@
     SUBDIR += p5-SyslogScan
     SUBDIR += p5-Tail-Stat
     SUBDIR += p5-Tie-Syslog
+    SUBDIR += p5-Ubic
     SUBDIR += p5-Unix-ConfigFile
     SUBDIR += p5-Unix-Lsof
     SUBDIR += p5-Unix-Mknod
@@ -692,6 +699,7 @@
     SUBDIR += qlogtools
     SUBDIR += qpxtool
     SUBDIR += quicksynergy
+    SUBDIR += qzeitgeist
     SUBDIR += radeontool
     SUBDIR += radmind
     SUBDIR += raincoat
@@ -718,23 +726,8 @@
     SUBDIR += rsnapshot
     SUBDIR += rsyncbackup
     SUBDIR += rsyncmanager
-    SUBDIR += rsyslog3
-    SUBDIR += rsyslog3-dbi
-    SUBDIR += rsyslog3-gssapi
-    SUBDIR += rsyslog3-mysql
-    SUBDIR += rsyslog3-pgsql
-    SUBDIR += rsyslog3-relp
     SUBDIR += rsyslog4
     SUBDIR += rsyslog4-dbi
-    SUBDIR += rsyslog4-devel
-    SUBDIR += rsyslog4-devel-dbi
-    SUBDIR += rsyslog4-devel-gnutls
-    SUBDIR += rsyslog4-devel-gssapi
-    SUBDIR += rsyslog4-devel-mysql
-    SUBDIR += rsyslog4-devel-pgsql
-    SUBDIR += rsyslog4-devel-relp
-    SUBDIR += rsyslog4-devel-rfc3195
-    SUBDIR += rsyslog4-devel-snmp
     SUBDIR += rsyslog4-gnutls
     SUBDIR += rsyslog4-gssapi
     SUBDIR += rsyslog4-mysql
@@ -766,7 +759,11 @@
     SUBDIR += rubygem-capistrano
     SUBDIR += rubygem-capistrano-ext
     SUBDIR += rubygem-chef
+    SUBDIR += rubygem-fssm
     SUBDIR += rubygem-god
+    SUBDIR += rubygem-guard
+    SUBDIR += rubygem-guard-livereload
+    SUBDIR += rubygem-guard-rspec
     SUBDIR += rubygem-log4r
     SUBDIR += rubygem-murder
     SUBDIR += rubygem-ohai
@@ -846,9 +843,8 @@
     SUBDIR += sysinfo
     SUBDIR += syslinux
     SUBDIR += syslog-ng
+    SUBDIR += syslog-ng-devel
     SUBDIR += syslog-ng2
-    SUBDIR += syslog-ng3
-    SUBDIR += syslog-ng3-devel
     SUBDIR += syslogger
     SUBDIR += system-tools-backends
     SUBDIR += sysupdate
@@ -938,9 +934,9 @@
     SUBDIR += weedit
     SUBDIR += whatpix
     SUBDIR += whowatch
+    SUBDIR += wiimms
     SUBDIR += wmapm
     SUBDIR += wmapmload
-    SUBDIR += wmbattery
     SUBDIR += wmbluecpu
     SUBDIR += wmbsdbatt
     SUBDIR += wmcpuload
@@ -971,7 +967,6 @@
     SUBDIR += xfce4-genmon-plugin
     SUBDIR += xfce4-minicmd-plugin
     SUBDIR += xfce4-netload-plugin
-    SUBDIR += xfce4-places-plugin
     SUBDIR += xfce4-power-manager
     SUBDIR += xfce4-settings
     SUBDIR += xfce4-systemload-plugin
@@ -980,6 +975,7 @@
     SUBDIR += xfsm
     SUBDIR += xfsprogs
     SUBDIR += xin
+    SUBDIR += xjobs
     SUBDIR += xloadface
     SUBDIR += xlogmaster
     SUBDIR += xmbmon
@@ -991,6 +987,7 @@
     SUBDIR += xsysstats
     SUBDIR += xvidcap
     SUBDIR += yawho
+    SUBDIR += zeitgeist
     SUBDIR += zeroer
     SUBDIR += zetaback
     SUBDIR += zfs-periodic

@@ -1,7 +1,7 @@
 #-*- mode: makefile; tab-width: 4; -*-
 # ex:ts=4
 #
-# $FreeBSD: ports/Mk/bsd.port.mk,v 1.695 2011/09/09 08:10:29 bapt Exp $
+# $FreeBSD: ports/Mk/bsd.port.mk,v 1.698 2011/11/07 12:44:42 pav Exp $
 #	$NetBSD: $
 #
 #	bsd.port.mk - 940820 Jordan K. Hubbard.
@@ -901,6 +901,8 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				  target has not been overwritten).  This message
 #				  will be passed through /usr/bin/fmt before
 #				  being shown to the user.
+#
+# WITHOUT_FBSD10_FIX		  Disable FreeBSD 10.0 autotools workaround.
 #
 # For build and install:
 #
@@ -3657,6 +3659,26 @@ do-patch:
 	fi
 .endif
 
+.if !target(run-autotools-fixup)
+run-autotools-fixup:
+# Work around an issue where FreeBSD 10.0 is detected as FreeBSD 1.x.
+.if ${OSVERSION} >= 1000000 && !defined(WITHOUT_FBSD10_FIX)
+	-@for f in `${FIND} ${WRKSRC} -type f \( -name config.libpath -o \
+		-name config.rpath -o -name configure -o -name libtool.m4 -o \
+		-name ltconfig -o -name libtool -o -name aclocal.m4 -o \
+		-name acinclude.m4 \)` ; do \
+			${SED} -i.fbsd10bak \
+				-e 's|freebsd1\*)|freebsd1.\*)|g' \
+				-e 's|freebsd\[12\]\*)|freebsd[12].*)|g' \
+				-e 's|freebsd\[123\]\*)|freebsd[123].*)|g' \
+				-e 's|freebsd\[\[12\]\]\*)|freebsd[[12]].*)|g' \
+				-e 's|freebsd\[\[123\]\]\*)|freebsd[[123]].*)|g' \
+					$${f} ; \
+			${TOUCH} ${TOUCH_FLAGS} -mr $${f}.fbsd10bak $${f} ; \
+		done
+.endif
+.endif
+
 .if !target(configure-autotools)
 configure-autotools:
 	@${DO_NADA}
@@ -4264,7 +4286,7 @@ _PATCH_DEP=		extract
 _PATCH_SEQ=		ask-license patch-message patch-depends patch-dos2unix pre-patch \
 				pre-patch-script do-patch post-patch post-patch-script
 _CONFIGURE_DEP=	patch
-_CONFIGURE_SEQ=	build-depends lib-depends configure-message \
+_CONFIGURE_SEQ=	build-depends lib-depends configure-message run-autotools-fixup \
 				configure-autotools pre-configure pre-configure-script \
 				run-autotools do-configure post-configure post-configure-script
 _BUILD_DEP=		configure
@@ -5294,7 +5316,7 @@ FETCH_LIST?=	for i in $$deps; do \
 .if !target(fetch-required)
 fetch-required: fetch
 .if defined(NO_DEPENDS)
-	@${ECHO_MSG} "===> NO_DEPENDS is set, not fetching any distfiles for ${PKG_NAME}"
+	@${ECHO_MSG} "===> NO_DEPENDS is set, not fetching any other distfiles for ${PKGNAME}"
 .else
 	@${ECHO_MSG} "===> Fetching all required distfiles for ${PKGNAME} and dependencies"
 .for deptype in EXTRACT PATCH FETCH BUILD RUN

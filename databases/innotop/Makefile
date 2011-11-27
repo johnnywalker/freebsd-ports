@@ -7,6 +7,7 @@
 
 PORTNAME=	innotop
 PORTVERSION=	1.8.0
+PORTREVISION=	2
 CATEGORIES=	databases
 MASTER_SITES=	GOOGLE_CODE
 
@@ -16,9 +17,14 @@ COMMENT=	A MySQL and InnoDB monitoring program
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-RUN_DEPENDS=	${SITE_PERL}/${PERL_ARCH}/Term/ReadKey.pm:${PORTSDIR}/devel/p5-Term-ReadKey \
-		${SITE_PERL}/${PERL_ARCH}/DBD/mysql.pm:${PORTSDIR}/databases/p5-DBD-mysql \
-		${SITE_PERL}/${PERL_ARCH}/Data/Dumper.pm:${PORTSDIR}/devel/p5-Data-Dumper
+USE_MYSQL=	yes
+
+BUILD_DEPENDS=	p5-DBD-mysql${MYSQL_VER}>=1:${PORTSDIR}/databases/p5-DBD-mysql${MYSQL_VER} \
+		p5-DBI>=1.130:${PORTSDIR}/databases/p5-DBI \
+		p5-Term-ReadKey>=2.10:${PORTSDIR}/devel/p5-Term-ReadKey
+RUN_DEPENDS=	p5-DBD-mysql${MYSQL_VER}>=1:${PORTSDIR}/databases/p5-DBD-mysql${MYSQL_VER} \
+		p5-DBI>=1.130:${PORTSDIR}/databases/p5-DBI \
+		p5-Term-ReadKey>=2.10:${PORTSDIR}/devel/p5-Term-ReadKey
 
 PERL_CONFIGURE=	yes
 

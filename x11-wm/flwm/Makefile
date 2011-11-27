@@ -20,6 +20,8 @@ LIB_DEPENDS=	fltk.1:${PORTSDIR}/x11-toolkits/fltk
 USE_XORG=	x11 xt
 GNU_CONFIGURE=	yes
 
+CFLAGS+=	-DFL_LIBRARY
+
 MAN1=		flwm.1
 PLIST_FILES=	bin/flwm
 

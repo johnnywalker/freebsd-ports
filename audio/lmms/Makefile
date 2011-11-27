@@ -7,7 +7,7 @@
 
 PORTNAME=	lmms
 PORTVERSION=	0.4.6
-PORTREVISION=	2
+PORTREVISION=	4
 PORTEPOCH=	1
 CATEGORIES=	audio
 MASTER_SITES=	SF
@@ -17,11 +17,11 @@ COMMENT=	An all-in-one sequencer, drum machine, sampler and more
 
 BUILD_DEPENDS=	${LOCALBASE}/include/ladspa.h:${PORTSDIR}/audio/ladspa
 LIB_DEPENDS=	FLAC.10:${PORTSDIR}/audio/flac \
-		fluidsynth.4:${PORTSDIR}/audio/fluidsynth \
+		fluidsynth.1:${PORTSDIR}/audio/fluidsynth \
 		samplerate.1:${PORTSDIR}/audio/libsamplerate \
 		sndfile.1:${PORTSDIR}/audio/libsndfile \
 		vorbis.4:${PORTSDIR}/audio/libvorbis \
-		fftw3f.5:${PORTSDIR}/math/fftw3-float
+		fftw3f:${PORTSDIR}/math/fftw3-float
 RUN_DEPENDS:=	${BUILD_DEPENDS} \
 		${LOCALBASE}/share/ladspa/rdf/caps.rdf:${PORTSDIR}/audio/caps-plugins \
 		${LOCALBASE}/lib/ladspa/cmt.so:${PORTSDIR}/audio/cmt \
@@ -39,7 +39,6 @@ USE_QT_VER=	4
 QT_COMPONENTS=	corelib gui xml moc_build uic_build rcc_build \
 		qmake_build
 USE_CMAKE=	yes
-CMAKE_USE_PTHREAD=	yes
 CMAKE_ARGS=	-DWANT_ALSA:BOOL=OFF \
 		-DWANT_CALF:BOOL=OFF \
 		-DWANT_CAPS:BOOL=OFF \

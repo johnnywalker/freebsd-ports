@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-#	$FreeBSD$
+#	$FreeBSD: ports/ports-mgmt/pkg_jail/files/pkg_jail,v 1.2 2010/06/24 15:59:13 dinoex Exp $
 #
 . /etc/rc.subr
 #
@@ -114,6 +114,7 @@ pkg_jail_create_devfs()
 		pkg_jail_create_dev_rules
 		mount -t devfs dev ${jail_devdir}
 		devfs -m ${jail_devdir} ruleset ${pkg_jail_rule}
+		devfs -m ${jail_devdir} rule applyset
 	fi
 	if test ! -L "${jail_devdir}/console"
 	then

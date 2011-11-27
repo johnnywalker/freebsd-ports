@@ -1,5 +1,5 @@
 #!/bin/sh
-# $FreeBSD: ports/mail/postgrey/files/postgrey.in,v 1.4 2010/03/27 00:13:22 dougb Exp $
+# $FreeBSD: ports/mail/postgrey/files/postgrey.in,v 1.6 2011/11/09 09:15:33 mm Exp $
 #
 
 # PROVIDE: postgrey

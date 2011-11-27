@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	vlc
-DISTVERSION=	1.1.11
-PORTREVISION=	1
+DISTVERSION=	1.1.12
 PORTEPOCH=	3
 CATEGORIES=	multimedia audio ipv6 net www
 MASTER_SITES=	http://download.videolan.org/pub/videolan/${PORTNAME}/${DISTVERSION}/ \
@@ -69,7 +68,7 @@ OPTIONS=	A52 "A52 DVD audio decoder" On \
 		REALAUDIO "Real Audio(R) support" On \
 		REMOTEOSD "Remote OSD support" On \
 		RUNROOT "Enable running as root" Off \
-		SAMBA "SAMBA Access module" On \
+		SAMBA "SAMBA Access module" Off \
 		SCHROED "Enable Schroedinger decoder" Off \
 		SDL "SDL video output" On \
 		SHOUT "Shout2 support" Off \
@@ -215,8 +214,14 @@ CONFIGURE_ARGS+=--enable-altivec # VLC's config script doesn't know to do this
 # User tunables
 
 # Define these to override
+# FreeBSD 9.x uses CAM devices
+.if (${OSVERSION} > 900037)
+WITH_CDROM_DEVICE?=/dev/cd0
+WITH_DVD_DEVICE?=/dev/cd0
+.else
 WITH_CDROM_DEVICE?=/dev/acd0
 WITH_DVD_DEVICE?=/dev/acd0
+.endif
 
 # If you change this value, the dependancy will not be recorded
 .if !defined(WITH_VLC_DEFAULT_FONT)
@@ -321,7 +326,7 @@ CONFIGURE_ARGS+=--enable-flac
 .endif
 
 .if defined(WITH_FLUID)
-LIB_DEPENDS+=	fluidsynth.4:${PORTSDIR}/audio/fluidsynth
+LIB_DEPENDS+=	fluidsynth.1:${PORTSDIR}/audio/fluidsynth
 CONFIGURE_ARGS+=--enable-fluidsynth
 .else
 CONFIGURE_ARGS+=--disable-fluidsynth
@@ -410,7 +415,7 @@ CONFIGURE_ARGS+=--enable-mad --with-mad=${LOCALBASE}
 .if defined(WITHOUT_MATROSKA)
 CONFIGURE_ARGS+=--disable-mkv
 .else
-LIB_DEPENDS+=	matroska.4:${PORTSDIR}/multimedia/libmatroska
+LIB_DEPENDS+=	matroska.5:${PORTSDIR}/multimedia/libmatroska
 CONFIGURE_ARGS+=--enable-mkv
 .endif
 
@@ -466,12 +471,12 @@ CFLAGS+=-O3 -ffast-math -fomit-frame-pointer
 CONFIGURE_ARGS+=--enable-optimizations
 .endif
 
-.if !defined(WITHOUT_OGG)
-LIB_DEPENDS+=	ogg.7:${PORTSDIR}/audio/libogg
-CONFIGURE_ARGS+=--enable-ogg
-.else
+.if defined(WITHOUT_OGG)
 CONFIGURE_ARGS+=--disable-ogg
 WITHOUT_VORBIS=	yes
+.else
+LIB_DEPENDS+=	ogg.7:${PORTSDIR}/audio/libogg
+CONFIGURE_ARGS+=--enable-ogg
 .endif
 
 .if defined(WITH_OPENGL)
@@ -539,7 +544,7 @@ CONFIGURE_ARGS+=--enable-remoteosd
 CONFIGURE_ARGS+=--enable-run-as-root
 .endif
 
-.if !defined(WITHOUT_SAMBA)
+.if defined(WITH_SAMBA)
 LIB_DEPENDS+=	smbclient.0:${PORTSDIR}/net/samba-libsmbclient
 CONFIGURE_ARGS+=--enable-smb
 .else
@@ -681,7 +686,7 @@ CONFIGURE_ARGS+=--with-x
 
 .if defined(WITH_X264)
 CONFIGURE_ARGS+=--enable-x264
-LIB_DEPENDS+=	x264.115:${PORTSDIR}/multimedia/x264
+LIB_DEPENDS+=	x264.116:${PORTSDIR}/multimedia/x264
 .else
 CONFIGURE_ARGS+=--disable-x264
 .endif

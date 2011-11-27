@@ -13,8 +13,8 @@ MASTER_SITE_SUBDIR=/src/apps/xfce4-screenshooter/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 DISTNAME=	xfce4-screenshooter-${PORTVERSION}
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	Desktop Screenshot plugin for xfce
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Desktop Screenshot plugin for Xfce
 
 LIB_DEPENDS=	soup-2.4.1:${PORTSDIR}/devel/libsoup
 

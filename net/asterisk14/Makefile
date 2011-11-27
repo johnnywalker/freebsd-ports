@@ -6,14 +6,13 @@
 #
 
 PORTNAME=	asterisk
-PORTVERSION=	1.4.37
-PORTREVISION=	2
+PORTVERSION=	1.4.42
 CATEGORIES=	net
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/
 PKGNAMESUFFIX=	14
 
-MAINTAINER=	sobomax@FreeBSD.org
+MAINTAINER=	bamby@sippysoft.com
 COMMENT=	An Open Source PBX and telephony toolkit
 
 BUILD_DEPENDS=	mpg123:${PORTSDIR}/audio/mpg123
@@ -88,6 +87,7 @@ CONFIGURE_ARGS+=	--with-dahdi
 BUILD_DEPENDS+=	libpri>=1.4.10:${PORTSDIR}/misc/libpri \
 		${LOCALBASE}/include/dahdi/user.h:${PORTSDIR}/misc/dahdi
 LIB_DEPENDS+=	pri.1:${PORTSDIR}/misc/libpri
+RUN_DEPENDS+=	${LOCALBASE}/lib/dahdi/dahdi.ko:${PORTSDIR}/misc/dahdi-kmod
 .endif
 
 #
@@ -145,7 +145,7 @@ CONFIGURE_ARGS+= --without-netsnmp
 .else
 PLIST_SUB+=	WITH_SNMP=""
 CONFIGURE_ARGS+= --with-netsnmp
-LIB_DEPENDS+=	netsnmp.30:${PORTSDIR}/net-mgmt/net-snmp
+LIB_DEPENDS+=	netsnmp:${PORTSDIR}/net-mgmt/net-snmp
 .endif
 
 .if !defined(WITH_JABBER)
@@ -174,7 +174,7 @@ EXTRA_PATCHES+=	${PATCHDIR}/ilbc_enable.diff
 .endif
 
 .if defined(WITH_CODEC_PATCH)
-PATCHFILES=	asterisk-1.4.37-codec-negotiation-20101130.diff.gz
+PATCHFILES=	asterisk-1.4.42-codec-negotiation-20111017.diff.gz
 PATCH_SITES=	${MASTER_SITE_LOCAL}
 PATCH_SITE_SUBDIR=	fjoe/
 EXTRA_PATCHES+=	${PATCHDIR}/codecnego-patch-Makefile

@@ -38,6 +38,10 @@ MAN1+=		blackbox.1
 PORTDOCS+=	AUTHORS COMPLIANCE ChangeLog README RELNOTES TODO
 .endif
 
+post-patch:
+# Fix the build with libX11 > 1.40
+	@${REINPLACE_CMD} -e 's/_XUTIL_H_/_X11&/' ${WRKSRC}/lib/Util.hh
+
 post-install:
 .if defined(WITH_TOOLS_ONLY)
 	@${REINPLACE_CMD} -E '/[^s]\/blackbox|bstyleconvert|lib|include/d' \

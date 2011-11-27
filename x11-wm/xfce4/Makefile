@@ -12,8 +12,8 @@ MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	oliver@FreeBSD.org
-COMMENT=	The "meta-port" for the XFce 4 desktop environment
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	The "meta-port" for the Xfce 4 desktop environment
 
 OPTIONS=	ICONS		"Install a full icon theme"		on  \
 		ORAGE		"Install the Xfce calendar application"	on  \

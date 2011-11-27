@@ -6,7 +6,8 @@
 #
 
 PORTNAME=	octave-forge
-PORTVERSION=	20110912
+PORTVERSION=	20110927
+PORTREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	#none
 DISTFILES=	#none
@@ -38,6 +39,7 @@ OPTIONS=	\
 	FPL "Install package: fpl" On \
 	FUZZY_LOGIC_TOOLKIT "Install package: fuzzy-logic-toolkit" On \
 	GA "Install package: ga" On \
+	GEOMETRY "Install package: geometry" On \
 	GENERAL "Install package: general" On \
 	GENERATE_HTML "Install package: generate_html" On \
 	GNUPLOT "Install package: gnuplot" On \
@@ -50,6 +52,7 @@ OPTIONS=	\
 	IRSA "Install package: irsa" On \
 	LINEAR_ALGEBRA "Install package: linear-algebra" On \
 	MAPPING "Install package: mapping" On \
+	MECHANICS "Install package: mechanics" On \
 	MISCELLANEOUS "Install package: miscellaneous" On \
 	MISSING_FUNCTIONS "Install package: missing-functions" On \
 	MSH "Install package: msh" On \
@@ -165,6 +168,9 @@ RUN_DEPENDS+=	${TARBALLS_DIR}/fuzzy-logic-toolkit.tar.gz:${PORTSDIR}/math/octave
 .if defined(WITH_GA)
 RUN_DEPENDS+=	${TARBALLS_DIR}/ga.tar.gz:${PORTSDIR}/math/octave-forge-ga
 .endif
+.if defined(WITH_GEOMETRY)
+RUN_DEPENDS+=	${TARBALLS_DIR}/geometry.tar.gz:${PORTSDIR}/math/octave-forge-geometry
+.endif
 .if defined(WITH_GENERAL)
 RUN_DEPENDS+=	${TARBALLS_DIR}/general.tar.gz:${PORTSDIR}/math/octave-forge-general
 .endif
@@ -200,6 +206,9 @@ RUN_DEPENDS+=	${TARBALLS_DIR}/linear-algebra.tar.gz:${PORTSDIR}/math/octave-forg
 .endif
 .if defined(WITH_MAPPING)
 RUN_DEPENDS+=	${TARBALLS_DIR}/mapping.tar.gz:${PORTSDIR}/math/octave-forge-mapping
+.endif
+.if defined(WITH_MECHANICS)
+RUN_DEPENDS+=	${TARBALLS_DIR}/mechanics.tar.gz:${PORTSDIR}/math/octave-forge-mechanics
 .endif
 .if defined(WITH_MISCELLANEOUS)
 RUN_DEPENDS+=	${TARBALLS_DIR}/miscellaneous.tar.gz:${PORTSDIR}/math/octave-forge-miscellaneous

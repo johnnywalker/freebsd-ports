@@ -61,15 +61,12 @@
     SUBDIR += evilvte
     SUBDIR += fbdesk
     SUBDIR += fbpanel
-    SUBDIR += fbsd-icons
     SUBDIR += fireflies
     SUBDIR += fixesproto
     SUBDIR += florence
     SUBDIR += fluxbg
     SUBDIR += fpc-x11
     SUBDIR += fstobdf
-    SUBDIR += gambas2-gb-desktop
-    SUBDIR += gambas2-gb-qt-kde
     SUBDIR += gcb
     SUBDIR += gdesklets-tasklist
     SUBDIR += gdkxft
@@ -124,10 +121,10 @@
     SUBDIR += kde-lite
     SUBDIR += kde3
     SUBDIR += kde4
+    SUBDIR += kde4-baseapps
+    SUBDIR += kde4-runtime
+    SUBDIR += kde4-workspace
     SUBDIR += kdebase3
-    SUBDIR += kdebase4
-    SUBDIR += kdebase4-runtime
-    SUBDIR += kdebase4-workspace
     SUBDIR += kdelibs3
     SUBDIR += kdelibs3-nocups
     SUBDIR += kdelibs4
@@ -135,6 +132,8 @@
     SUBDIR += keyboardcast
     SUBDIR += keylaunch
     SUBDIR += keynav
+    SUBDIR += kgamma
+    SUBDIR += konsole
     SUBDIR += libICE
     SUBDIR += libSM
     SUBDIR += libX11
@@ -194,6 +193,7 @@
     SUBDIR += lxmenu-data
     SUBDIR += lxpanel
     SUBDIR += menu-cache
+    SUBDIR += metisse
     SUBDIR += mgapdesk
     SUBDIR += mkcomposecache
     SUBDIR += mlterm

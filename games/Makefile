@@ -65,7 +65,6 @@
     SUBDIR += bass
     SUBDIR += bastet
     SUBDIR += battalion
-    SUBDIR += battleball
     SUBDIR += battletanks
     SUBDIR += belooted
     SUBDIR += biloba
@@ -74,6 +73,7 @@
     SUBDIR += bitefusion
     SUBDIR += blackjack
     SUBDIR += blackshadeselite
+    SUBDIR += blinken
     SUBDIR += blinkensisters
     SUBDIR += blobby
     SUBDIR += bloboats
@@ -84,7 +84,6 @@
     SUBDIR += bloodfrontier
     SUBDIR += blue
     SUBDIR += bogged
-    SUBDIR += bomb
     SUBDIR += bomberclone
     SUBDIR += bomberinstinct
     SUBDIR += bombermaze
@@ -344,7 +343,6 @@
     SUBDIR += grubinvaders
     SUBDIR += gshisen
     SUBDIR += gtetrinet
-    SUBDIR += gtkabale
     SUBDIR += gtkatlantic
     SUBDIR += gtkballs
     SUBDIR += gtklife
@@ -401,7 +399,9 @@
     SUBDIR += jvgs
     SUBDIR += jzip
     SUBDIR += kaid
+    SUBDIR += kajongg
     SUBDIR += kamikaze
+    SUBDIR += kanagram
     SUBDIR += kanatest
     SUBDIR += kardsgt
     SUBDIR += kartofel
@@ -411,6 +411,7 @@
     SUBDIR += kdegames4
     SUBDIR += kevedit
     SUBDIR += kfreerings
+    SUBDIR += khangman
     SUBDIR += kiki
     SUBDIR += kimboot
     SUBDIR += klavaro
@@ -425,7 +426,6 @@
     SUBDIR += kpicframer
     SUBDIR += kpictorial
     SUBDIR += kpuzzle
-    SUBDIR += kslide
     SUBDIR += ksudoku
     SUBDIR += ktritoc
     SUBDIR += kuklomenos
@@ -441,7 +441,6 @@
     SUBDIR += legesmotus
     SUBDIR += lexter
     SUBDIR += lgeneral
-    SUBDIR += lgeneral-data
     SUBDIR += lianliankan
     SUBDIR += libdungeonmaker
     SUBDIR += libfov
@@ -462,7 +461,6 @@
     SUBDIR += linux-enemyterritory-etpro
     SUBDIR += linux-enemyterritory-etpub
     SUBDIR += linux-enemyterritory-fortress
-    SUBDIR += linux-enemyterritory-jaymod
     SUBDIR += linux-enemyterritory-omni-bot
     SUBDIR += linux-enemyterritory-omni-bot-0660
     SUBDIR += linux-enemyterritory-shrub
@@ -536,6 +534,7 @@
     SUBDIR += moon-buggy
     SUBDIR += moonlander
     SUBDIR += moria
+    SUBDIR += motogt
     SUBDIR += mt_dolphin_ia
     SUBDIR += mt_gtk_client
     SUBDIR += mtaserver
@@ -587,7 +586,6 @@
     SUBDIR += numptyphysics-npcomplete
     SUBDIR += nwndata
     SUBDIR += odamex
-    SUBDIR += oilwar
     SUBDIR += oldrunner
     SUBDIR += omega
     SUBDIR += oneko
@@ -618,6 +616,7 @@
     SUBDIR += outerspace
     SUBDIR += p5-Acme-GuessNumber
     SUBDIR += p5-Algorithm-Pair-Best
+    SUBDIR += p5-Algorithm-Pair-Best2
     SUBDIR += p5-Algorithm-Pair-Swiss
     SUBDIR += p5-Baseball-Sabermetrics
     SUBDIR += p5-Games-Alak
@@ -642,13 +641,7 @@
     SUBDIR += pentix
     SUBDIR += pets
     SUBDIR += phalanx
-    SUBDIR += phpua-bf
-    SUBDIR += phpua-cod
-    SUBDIR += phpua-engine
-    SUBDIR += phpua-hl
-    SUBDIR += phpua-q3
-    SUBDIR += phpua-ut
-    SUBDIR += phpua-ut2003
+    SUBDIR += phlipple
     SUBDIR += pinball
     SUBDIR += pinedit
     SUBDIR += pingus
@@ -705,7 +698,6 @@
     SUBDIR += qccx
     SUBDIR += qgo
     SUBDIR += qix
-    SUBDIR += qkmj
     SUBDIR += qmars
     SUBDIR += qnetchess
     SUBDIR += qnetwalk
@@ -730,7 +722,6 @@
     SUBDIR += quake2-source
     SUBDIR += quake2-xatrix
     SUBDIR += quake2-zaero
-    SUBDIR += quake2forge
     SUBDIR += quake2lnx
     SUBDIR += quake2max
     SUBDIR += quake3
@@ -750,7 +741,6 @@
     SUBDIR += quit
     SUBDIR += qwdtools
     SUBDIR += r1q2
-    SUBDIR += race
     SUBDIR += railroad-rampage
     SUBDIR += redeclipse
     SUBDIR += reminiscence
@@ -833,8 +823,6 @@
     SUBDIR += stransball2
     SUBDIR += stratagus
     SUBDIR += stroq
-    SUBDIR += stvef-paks
-    SUBDIR += stvef-server
     SUBDIR += sudoku
     SUBDIR += sudoku_solver
     SUBDIR += sudsol
@@ -866,7 +854,6 @@
     SUBDIR += tksol
     SUBDIR += tmw
     SUBDIR += tomatoes
-    SUBDIR += tome
     SUBDIR += toppler
     SUBDIR += torcs
     SUBDIR += tornado
@@ -910,7 +897,6 @@
     SUBDIR += umark
     SUBDIR += unnethack
     SUBDIR += untahris
-    SUBDIR += uox3
     SUBDIR += uqm
     SUBDIR += urbanterror-data
     SUBDIR += utserver
@@ -927,7 +913,6 @@
     SUBDIR += vitetris
     SUBDIR += volleyball
     SUBDIR += vor
-    SUBDIR += vultures-claw
     SUBDIR += vultures-eye
     SUBDIR += wanderer
     SUBDIR += wargus
@@ -958,7 +943,7 @@
     SUBDIR += xarchon
     SUBDIR += xasteroids
     SUBDIR += xataxx
-    SUBDIR += xbaby
+    SUBDIR += xbat
     SUBDIR += xbattle
     SUBDIR += xbill
     SUBDIR += xbl
@@ -1031,7 +1016,6 @@
     SUBDIR += xpanex
     SUBDIR += xpat2
     SUBDIR += xpenguins
-    SUBDIR += xphotohunter
     SUBDIR += xpilot
     SUBDIR += xpilot-ng-client
     SUBDIR += xpilot-ng-server
@@ -1054,6 +1038,8 @@
     SUBDIR += xsc
     SUBDIR += xscavenger
     SUBDIR += xscorch
+    SUBDIR += xscrabble
+    SUBDIR += xshisen
     SUBDIR += xshogi
     SUBDIR += xskat
     SUBDIR += xskewb
@@ -1074,7 +1060,6 @@
     SUBDIR += xvmahjongg
     SUBDIR += xvmines
     SUBDIR += xwelltris
-    SUBDIR += xword
     SUBDIR += xwordpy
     SUBDIR += xworm
     SUBDIR += xye

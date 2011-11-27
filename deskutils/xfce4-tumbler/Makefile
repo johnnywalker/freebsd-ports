@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	tumbler
-PORTVERSION=	0.1.21
+PORTVERSION=	0.1.22
 PORTREVISION=	1
 CATEGORIES=	deskutils xfce
 MASTER_SITES=	${MASTER_SITE_XFCE}
@@ -14,7 +14,7 @@ MASTER_SITE_SUBDIR=	src/xfce/${PORTNAME}/${PORTVERSION:R}
 PKGNAMEPREFIX=	xfce4-
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	oliver@FreeBSD.org
+MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	Thumbnail service for Xfce desktop
 
 LIB_DEPENDS=	png.6:${PORTSDIR}/graphics/png \
@@ -38,7 +38,8 @@ OPTIONS=	NLS "Enable Native Language Support" on \
 		FONTS "Enable fonts plugin thumbnailer" on \
 		JPEG "Enable JPEG and EXIF plugin thumbnailer" on \
 		FFMPEG "Enable FFMPEG plugin thumbnailer" off \
-		POPPLER "Enable PDF/PS plugin thumbnailer" on
+		POPPLER "Enable PDF/PS plugin thumbnailer" on \
+		GSTREAMER "Enable videos plugin thumbnailer" on
 
 .include <bsd.port.pre.mk>
 
@@ -96,12 +97,21 @@ PLIST_SUB+=	FFMPEG="@comment "
 .endif
 
 .if !defined(WITHOUT_POPPLER)
-LIB_DEPENDS+=	poppler-glib.6:${PORTSDIR}/graphics/poppler-gtk
+LIB_DEPENDS+=	poppler-glib.8:${PORTSDIR}/graphics/poppler-glib
 CONFIGURE_ARGS+=--enable-poppler-thumbnailer
 PLIST_SUB+=	POPPLER=""
 .else
 CONFIGURE_ARGS+=--disable-poppler-thumbnailer
 PLIST_SUB+=	POPPLER="@comment "
+.endif
+
+.if !defined(WITHOUT_GSTREAMER)
+USE_GSTREAMER=	yes
+CONFIGURE_ARGS+=--enable-gstreamer-thumbnailer
+PLIST_SUB+=	GSTREAMER=""
+.else
+CONFIGURE_ARGS+=--disable-gstreamer-thumbnailer
+PLIST_SUB+=	GSTREAMER="@comment "
 .endif
 
 .include <bsd.port.post.mk>

@@ -45,10 +45,6 @@ LUA_COMPS=	lua
 
 .include <bsd.port.pre.mk>
 
-.if ${OSVERSION} < 700000
-BROKEN=	does not build on 6.x
-.endif
-
 .if ${PKGNAMESUFFIX} == 51
 CONFLICTS=	mysql-workbench-oss52*
 .endif
@@ -62,7 +58,7 @@ CONFIGURE_ENV=	GNOME2_DIR="${LOCALBASE}" LUA_LIBS="-llua"
 
 USE_MYSQL=	client
 DEFAULT_MYSQL_VER=	51
-IGNORE_WITH_MYSQL=	323 40 41 55
+IGNORE_WITH_MYSQL=	41 55
 
 .if defined(WITH_PYTHON)
 CONFIGURE_ARGS+=	--enable-python-modules

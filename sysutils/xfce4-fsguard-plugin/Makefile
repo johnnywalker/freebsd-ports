@@ -13,8 +13,8 @@ MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=	src/panel-plugins/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	XFce4 panel plugin to check a mountpoint for free disk space
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce4 panel plugin to check a mountpoint for free disk space
 
 GNU_CONFIGURE=	yes
 USE_BZIP2=	yes

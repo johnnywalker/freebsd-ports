@@ -14,8 +14,8 @@ DISTNAME=	xfwm4-themes-${PORTVERSION}
 DIST_SUBDIR=	xfce4
 
 MASTER_SITE_SUBDIR=xfce/4.6.0/src
-MAINTAINER=	oliver@FreeBSD.org
-COMMENT=	XFce 4 window decoration themes for xfwm4
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce 4 window decoration themes for xfwm4
 
 GNU_CONFIGURE=	yes
 INSTALLS_ICONS=	yes

@@ -12,7 +12,7 @@ CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	gforth
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Fast and portable Forth system
 
 GNU_CONFIGURE=	yes
@@ -48,14 +48,8 @@ PORTDOCS=	*
 BUILD_DEPENDS=	${LOCALBASE}/include/avcall.h:${PORTSDIR}/devel/ffcall
 .endif
 
-.if ${OSVERSION} < 700000
-BROKEN=		Does not compile on ports build cluster
-.endif
-
-.if ${OSVERSION} >= 700042
 .if ${ARCH} == "amd64" || ${ARCH} == "sparc64"
 BROKEN=		Does not compile
-.endif
 .endif
 
 .if ${ARCH} == i386 || ${ARCH} == "powerpc"

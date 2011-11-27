@@ -14,7 +14,7 @@
 #
 # Examples:
 #   USE_GCC=	4.2+		# port requires GCC 4.2 or later.
-#   USE_GCC=	4.5			# port requires GCC 4.5.
+#   USE_GCC=	4.7			# port requires GCC 4.7.
 #
 # If your port needs a Fortran compiler, please specify that with the
 # USE_FORTRAN= knob.  Here is the list of options for that knob:
@@ -29,14 +29,14 @@
 # If you are wondering what your port exactly does, use "make test-gcc"
 # to see some debugging.
 #
-# $FreeBSD: ports/Mk/bsd.gcc.mk,v 1.55 2011/09/10 12:10:37 gerald Exp $
+# $FreeBSD: ports/Mk/bsd.gcc.mk,v 1.61 2011/10/30 20:58:22 gerald Exp $
 #
 
 GCC_Include_MAINTAINER=		gerald@FreeBSD.org
 
 # All GCC versions supported by the ports framework.  Keep them in
 # ascending order and in sync with the table below. 
-GCCVERSIONS=	030402 040200 040400 040500 040600 040700
+GCCVERSIONS=	030402 040200 040400 040600 040700
 
 # The first field if the OSVERSION in which it appeared in the base.
 # The second field is the OSVERSION in which it disappeared from the base.
@@ -44,12 +44,13 @@ GCCVERSIONS=	030402 040200 040400 040500 040600 040700
 GCCVERSION_030402=	502126  700042 3.4
 GCCVERSION_040200=	700042 9999999 4.2
 GCCVERSION_040400=	     0       0 4.4
-GCCVERSION_040500=	     0       0 4.5
 GCCVERSION_040600=	     0       0 4.6
 GCCVERSION_040700=	     0       0 4.7
 
-#
-# No configurable parts below this.
+GCC_DEFAULT_VERSION=	4.6
+GCC_DEFAULT_V=	${GCC_DEFAULT_VERSION:S/.//}
+
+# No configurable parts below this. ####################################
 #
 
 # Extract the fields from GCCVERSION_...
@@ -73,9 +74,9 @@ _GCCVERSION_${v}_V=	${j}
 
 # The default case, with a current lang/gcc port.
 . if ${USE_FORTRAN} == yes
-_USE_GCC:=	4.6
-FC:=	gfortran46
-F77:=	gfortran46
+_USE_GCC:=	${GCC_DEFAULT_VERSION}
+FC:=	gfortran${GCC_DEFAULT_V}
+F77:=	gfortran${GCC_DEFAULT_V}
 
 # Intel Fortran compiler from lang/ifc.
 . elif ${USE_FORTRAN} == ifort
@@ -100,7 +101,12 @@ MAKE_ENV+=		F77="${F77}" FC="${FC}" FFLAGS="${FFLAGS}"
 
 .if defined(USE_GCC)
 
-# See if we can use a later version
+# GCC 4.5 got disconnected 2011-11-12, take care of any uses.
+.if ${USE_GCC} == "4.5+"
+USE_GCC=	4.6+
+.endif
+
+# See if we can use a later version or exclusively the one specified.
 _USE_GCC:=	${USE_GCC:S/+//}
 .if ${USE_GCC} != ${_USE_GCC}
 _GCC_ORLATER:=	true
@@ -158,10 +164,13 @@ _GCC_MIN2:=	true
 _GCC_FOUND:=	${_GCCVERSION_${v}_V}
 .  endif
 . endfor
-.endif
-.if defined(_GCC_FOUND)
-_USE_GCC:=${_GCC_FOUND}
-.endif
+
+. if defined(_GCC_FOUND)
+_USE_GCC:=	${_GCC_FOUND}
+. elif ${_USE_GCC} < ${GCC_DEFAULT_VERSION}
+_USE_GCC:=	${GCC_DEFAULT_VERSION}
+. endif
+.endif # defined(_GCC_ORLATER)
 
 .endif # defined(USE_GCC)
 
@@ -182,6 +191,11 @@ CPP:=			cpp${V}
 .   if ${_USE_GCC} != 3.4
 CFLAGS+=		-Wl,-rpath=${LOCALBASE}/lib/${_GCC_BUILD_DEPENDS}
 LDFLAGS+=		-Wl,-rpath=${LOCALBASE}/lib/${_GCC_BUILD_DEPENDS}
+.    if defined (USE_FORTRAN)
+.    if ${USE_FORTRAN} == yes
+FFLAGS+=		-Wl,-rpath=${LOCALBASE}/lib/${_GCC_BUILD_DEPENDS}
+.    endif
+.    endif
 .   endif
 .  endif
 . endif

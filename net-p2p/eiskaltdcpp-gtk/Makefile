@@ -6,8 +6,7 @@
 #
 
 PORTNAME=	eiskaltdcpp-gtk
-PORTVERSION=	2.1.1
-PORTREVISION=	1
+PORTVERSION=	2.2.4
 CATEGORIES=	net-p2p
 MASTER_SITES=	GOOGLE_CODE
 DISTNAME=	eiskaltdcpp-${DISTVERSION}
@@ -15,14 +14,16 @@ DISTNAME=	eiskaltdcpp-${DISTVERSION}
 MAINTAINER=	gelraen.ua@gmail.com
 COMMENT=	EiskaltDC++ Direct Connect client GTK GUI
 
+LICENSE=	GPLv3
+
 RUN_DEPENDS=	${LOCALBASE}/share/eiskaltdcpp/keep_me:${PORTSDIR}/net-p2p/eiskaltdcpp-data
 LIB_DEPENDS=	eiskaltdcpp:${PORTSDIR}/net-p2p/eiskaltdcpp-lib
 
 CMAKE_ARGS+=	-DBUILD_LIB:BOOL=OFF
 PROJECTHOST=	eiskaltdc
 
-USE_BZIP2=	yes
-USE_GCC=	4.2+
+USE_XZ=		yes
+USE_GCC=	4.4+
 USE_CMAKE=	yes
 USE_GETTEXT=	yes
 USE_OPENSSL=	yes
@@ -35,16 +36,15 @@ OPTIONS=	MINIUPNP	"UPnP support"	on \
 		LIBGNOME2	"Sound notification support"	off \
 		LIBNOTIFY	"Popup notification support"	on
 
-USE_GNOME=	pango gtk20 glib20 libglade2
+USE_GNOME=	pango gtk20 glib20
 
 CMAKE_ARGS+=	-DUSE_QT:BOOL=OFF
 CMAKE_ARGS+=	-DUSE_GTK:BOOL=ON
 CMAKE_ARGS+=	-DEISKALTDCPP_INCLUDE_DIR:STRING="${LOCALBASE}/include/eiskaltdcpp"
-CMAKE_ARGS+=	-DCREATE_MO:BOOL=OFF
+CMAKE_ARGS+=	-DCREATE_MO:BOOL=ON
 CMAKE_ARGS+=	-DCMAKE_LIBRARY_PATH:PATH="${LOCALBASE}/lib:${PREFIX}/lib"
-
-BUILD_WRKSRC=	${WRKSRC}/${PORTNAME}
-INSTALL_WRKSRC=	${WRKSRC}/${PORTNAME}
+CMAKE_ARGS+=	-DCMAKE_SKIP_RPATH:BOOL=ON
+CMAKE_ARGS+=	-DINSTALL_DATA:BOOL=OFF
 
 .include <bsd.port.options.mk>
 

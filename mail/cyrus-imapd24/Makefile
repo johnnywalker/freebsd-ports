@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	cyrus-imapd
-PORTVERSION=	2.4.11
+PORTVERSION=	2.4.12
 #PORTREVISION=	0
 CATEGORIES=	mail ipv6
 MASTER_SITES=	ftp://ftp.cyrusimap.org/cyrus-imapd/
@@ -76,9 +76,8 @@ PLIST_FILES+=	cyrus/bin/compile_sieve
 .endif
 
 .if defined(WITH_AUTOSIEVE)
-BROKEN=		No patch for AUTOSIEVE is available.
 AUTOSIEVE_VERSION=	0.6.0
-PATCHFILES+=	${PORTNAME}-2.4.4-autosieve-${AUTOSIEVE_VERSION}.patch
+PATCHFILES+=	${PORTNAME}-2.4.12-autosieve-${AUTOSIEVE_VERSION}.patch
 .endif
 
 .if defined(WITHOUT_BDB)
@@ -142,7 +141,6 @@ CONFIGURE_ARGS+=--enable-netscapehack
 .endif
 
 .if defined(WITH_DRAC)
-EXTRA_PATCHES+=	${FILESDIR}/extra-patch-configure.in
 .if ${OSVERSION} >= 800037
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-cmulocal::sasl2.m4
 .endif

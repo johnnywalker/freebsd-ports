@@ -13,13 +13,15 @@ MASTER_SITES=	http://www.t3x.org/misc/
 MAINTAINER=	nmh@t3x.org
 COMMENT=	A portable Scheme interpreter with a Unix interface
 
+LIBDIR=		${DATADIR}
+MAKE_ARGS=	${MAKE_ENV}
 WRKSRC=		${WRKDIR}/s9
 
 MAN1=		s9.1
 MANCOMPRESSED=	yes
 
 post-patch:
-	${REINPLACE_CMD} -e "s,PREFIX=.*,PREFIX=${PREFIX}," ${WRKSRC}/Makefile
-	${REINPLACE_CMD} -e "s,LIBDIR=.*,LIBDIR=${DATADIR}," ${WRKSRC}/Makefile
+# Fix parallel (-jX) build: add missing target prerequisite
+	@${REINPLACE_CMD} -e '/^arse-core.image/s,:,: s9,' ${WRKSRC}/Makefile
 
 .include <bsd.port.mk>

@@ -7,7 +7,7 @@
 
 PORTNAME=	epdfview
 PORTVERSION=	0.1.8
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	graphics print gnome
 MASTER_SITES=	http://trac.emma-soft.com/epdfview/chrome/site/releases/ \
 		http://mirror.slitaz.org/sources/packages/e/
@@ -15,10 +15,10 @@ MASTER_SITES=	http://trac.emma-soft.com/epdfview/chrome/site/releases/ \
 MAINTAINER=	sylvio@FreeBSD.org
 COMMENT=	A lightweight PDF document viewer
 
-BUILD_DEPENDS=	cppunit-config:${PORTSDIR}/devel/cppunit
-LIB_DEPENDS=	poppler-glib.6:${PORTSDIR}/graphics/poppler-gtk
-
 LICENSE=	GPLv2
+
+BUILD_DEPENDS=	cppunit-config:${PORTSDIR}/devel/cppunit
+LIB_DEPENDS=	poppler-glib.8:${PORTSDIR}/graphics/poppler-glib
 
 USE_BZIP2=	yes
 GNU_CONFIGURE=	yes
@@ -38,7 +38,7 @@ MAN1=	epdfview.1
 
 .if defined(WITH_CUPS)
 CONFIGURE_ARGS+=--with-cups
-LIB_DEPENDS+=	cups.2:${PORTSDIR}/print/cups-base
+LIB_DEPENDS+=	cups.2:${PORTSDIR}/print/cups-client
 .else
 CONFIGURE_ARGS+=--without-cups
 .endif

@@ -4,7 +4,7 @@
 # Date created:		12 Nov 2005
 # Whom:			Michael Johnson <ahze@FreeBSD.org>
 #
-# $FreeBSD: ports/Mk/bsd.gecko.mk,v 1.38 2011/08/20 00:09:08 flo Exp $
+# $FreeBSD: ports/Mk/bsd.gecko.mk,v 1.46 2011/11/08 17:35:09 beat Exp $
 #
 # 4 column tabs prevent hair loss and tooth decay!
 
@@ -181,9 +181,9 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #                         is given by the maintainer via the port or by the
 #                         user via defined variable try to find the highest
 #                         stable installed version.
-#                         Available values: yes 60+ 36+ 60 36
+#                         Available values: yes 80+ 36+ 80 36
 #                         NOTE:
-#                         default value 60 is used in case of USE_FIREFOX=yes
+#                         default value 80 is used in case of USE_FIREFOX=yes
 #
 # USE_FIREFOX_BUILD       Add buildtime dependency on Firefox.
 #                         Available values: see USE_FIREFOX
@@ -192,9 +192,9 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #                         version is given by the maintainer via the port 
 #                         or by the user via defined variable try to find
 #                         the highest stable installed version.
-#                         Available values: yes 23+ 20+ 23 20
+#                         Available values: yes 25+ 25
 #                         NOTE:
-#                         default value 23 is used in case of USE_SEAMONKEY=yes
+#                         default value 25 is used in case of USE_SEAMONKEY=yes
 #
 # USE_SEAMONKEY_BUILD     Add buildtime dependency on SeaMonkey.
 #                         Available values: see USE_SEAMONKEY
@@ -203,9 +203,9 @@ Gecko_Pre_Include=			bsd.gecko.mk
 #                         version is given by the maintainer via the port 
 #                         or by the user via defined variable try to find 
 #                         the highest stable installed version.
-#                         Available values: yes 60+ 31+ 60 31
+#                         Available values: yes 80+ 31+ 80 31
 #                         NOTE:
-#                         default value 60 is used in case of USE_THUNDERBIRD=yes
+#                         default value 80 is used in case of USE_THUNDERBIRD=yes
 #
 # USE_THUNDERBIRD_BUILD   Add buildtime dependency on Thunderbird.
 #                         Available values: see USE_THUNDERBIRD
@@ -222,13 +222,13 @@ USE_FIREFOX:=				${USE_FIREFOX_BUILD}
 _FIREFOX_BUILD_DEPENDS=		yes
 .endif
 
-_FIREFOX_DEFAULT_VERSION=	60
-_FIREFOX_VERSIONS=			60 36
-_FIREFOX_RANGE_VERSIONS=	60+ 36+
+_FIREFOX_DEFAULT_VERSION=	80
+_FIREFOX_VERSIONS=			80 36
+_FIREFOX_RANGE_VERSIONS=	80+ 36+
 
 # For specifying [36, ..]+
-_FIREFOX_36P=	36 ${_FIREFOX_60P}
-_FIREFOX_60P=	60
+_FIREFOX_36P=	36 ${_FIREFOX_80P}
+_FIREFOX_80P=	80
 
 # Set the default Firefox version and check if USE_FIREFOX=yes was given
 .if ${USE_FIREFOX} == "yes"
@@ -272,7 +272,7 @@ IGNORE=			cannot install: unknown Firefox version: firefox-${USE_FIREFOX:C/([0-9
 .endif
 
 # Dependence lines for different Firefox versions
-60_DEPENDS=		${LOCALBASE}/lib/firefox/firefox:${PORTSDIR}/www/firefox
+80_DEPENDS=		${LOCALBASE}/lib/firefox/firefox:${PORTSDIR}/www/firefox
 36_DEPENDS=		${LOCALBASE}/lib/firefox3/firefox:${PORTSDIR}/www/firefox36
 
 # Add dependencies
@@ -295,13 +295,12 @@ USE_SEAMONKEY:=				${USE_SEAMONKEY_BUILD}
 _SEAMONKEY_BUILD_DEPENDS=	yes
 .endif
 
-_SEAMONKEY_DEFAULT_VERSION=	23
-_SEAMONKEY_VERSIONS=		23 20
-_SEAMONKEY_RANGE_VERSIONS=	23+ 20+
+_SEAMONKEY_DEFAULT_VERSION=	25
+_SEAMONKEY_VERSIONS=		25
+_SEAMONKEY_RANGE_VERSIONS=	25+
 
-# For specifying [23, 20, ..]+
-_SEAMONKEY_23P=	23 ${_SEAMONKEY_20P}
-_SEAMONKEY_20P=	20
+# For specifying [25, 20, ..]+
+_SEAMONKEY_25P=	25
 
 # Set the default SeaMonkey version and check if USE_SEAMONKEY=yes was given
 .if ${USE_SEAMONKEY} == "yes"
@@ -311,8 +310,6 @@ USE_SEAMONKEY=	${_SEAMONKEY_DEFAULT_VERSION}
 # Setting/finding SeaMonkey version we want.
 .if exists(${LOCALBASE}/bin/seamonkey)
 _SEAMONKEY_VER!=	${LOCALBASE}/bin/seamonkey --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/Mozilla SeaMonkey \([0-9]\)\.\([0-9]*\).*/\1\2/'
-.elif exists(${LOCALBASE}/bin/seamonkey2)
-_SEAMONKEY_VER!=	${LOCALBASE}/bin/seamonkey2 --version 2>/dev/null | ${HEAD} -1 | ${SED} -e 's/Mozilla SeaMonkey \([0-9]\)\.\([0-9]*\).*/\1\2/'
 .endif
 
 # Check if installed SeaMonkey version matches the wanted one
@@ -345,8 +342,7 @@ IGNORE=			cannot install: unknown SeaMonkey version: seamonkey-${USE_SEAMONKEY:C
 .endif
 
 # Dependence lines for different SeaMonkey versions
-23_DEPENDS=		${LOCALBASE}/lib/seamonkey/seamonkey:${PORTSDIR}/www/seamonkey
-20_DEPENDS=		${LOCALBASE}/lib/seamonkey2/seamonkey:${PORTSDIR}/www/seamonkey2
+25_DEPENDS=		${LOCALBASE}/lib/seamonkey/seamonkey:${PORTSDIR}/www/seamonkey
 
 # Add dependencies
 .if defined(USE_SEAMONKEY)
@@ -368,13 +364,13 @@ USE_THUNDERBIRD:=			${USE_THUNDERBIRD_BUILD}
 _THUNDERBIRD_BUILD_DEPENDS=		yes
 .endif
 
-_THUNDERBIRD_DEFAULT_VERSION=	60
-_THUNDERBIRD_VERSIONS=			60 31
-_THUNDERBIRD_RANGE_VERSIONS=	60+ 31+
+_THUNDERBIRD_DEFAULT_VERSION=	80
+_THUNDERBIRD_VERSIONS=			80 31
+_THUNDERBIRD_RANGE_VERSIONS=	80+ 31+
 
 # For specifying [31, 30, ..]+
 _THUNDERBIRD_31P=	31 ${_THUNDERBIRD_31P}
-_THUNDERBIRD_60P=	60
+_THUNDERBIRD_80P=	80
 
 # Set the default Thunderbird version and check if USE_THUNDERBIRD=yes was given
 .if ${USE_THUNDERBIRD} == "yes"
@@ -418,7 +414,7 @@ IGNORE=			cannot install: unknown Thunderbird version: thunderbird-${USE_THUNDER
 .endif
 
 # Dependence lines for different Thunderbird versions
-60_DEPENDS=		${LOCALBASE}/lib/thunderbird/thunderbird:${PORTSDIR}/mail/thunderbird
+80_DEPENDS=		${LOCALBASE}/lib/thunderbird/thunderbird:${PORTSDIR}/mail/thunderbird
 31_DEPENDS=		${LOCALBASE}/lib/thunderbird3/thunderbird:${PORTSDIR}/mail/thunderbird3
 
 # Add dependencies
@@ -663,11 +659,12 @@ MOZ_MK_OPTIONS+=	XP_UNIX=1		\
 			PERL=${PERL}
 
 .if defined(WITH_OPTIMIZED_CFLAGS)
+MOZ_OPTIONS+=	--enable-optimize=${WITH_OPTIMIZE}
 CFLAGS:=	${CFLAGS} -O2 -fno-strict-aliasing ${EXTRA_CFLAGS}
 WITH_OPTIMIZE?=	-O2
 .else
+MOZ_OPTIONS+=	--disable-optimize
 CFLAGS:=	${CFLAGS} ${EXTRA_CFLAGS}
-WITH_OPTIMIZE?=
 .endif
 
 .if defined(WITH_SMB)
@@ -687,8 +684,7 @@ MOZ_OPTIONS+=	--enable-strip --enable-install-strip
 MOZ_OPTIONS+=	--enable-debug
 WITH_LOGGING=	yes
 .else
-MOZ_OPTIONS+=	--disable-debug				\
-		--enable-optimize=${WITH_OPTIMIZE}
+MOZ_OPTIONS+=	--disable-debug
 .endif
 
 .if defined(WITH_JAVA) && defined(_WITH_JAVA)

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# $FreeBSD: ports/www/shellinabox/files/shellinaboxd.in,v 1.4 2011/03/07 11:43:17 bapt Exp $
+# $FreeBSD: ports/www/shellinabox/files/shellinaboxd.in,v 1.5 2011/05/15 02:49:16 dougb Exp $
 #
 # Shell in a Box Daemon startup script
 #
@@ -63,5 +63,8 @@ if [ "${shellinaboxd_certfile}" = "" ]; then
 else
 	command_args="$command_args --cert-fd=3 3< ${shellinaboxd_certfile}"
 fi
+
+# avoid unnecessary su(1) initiated by rc.subr
+unset shellinaboxd_user shellinaboxd_group
 
 run_rc_command "$1"

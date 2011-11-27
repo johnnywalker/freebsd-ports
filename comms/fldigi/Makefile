@@ -23,6 +23,8 @@ LIB_DEPENDS=	fltk.1:${PORTSDIR}/x11-toolkits/fltk \
 BUILD_DEPENDS=	asciidoc:${PORTSDIR}/textproc/asciidoc \
 		xsltproc:${PORTSDIR}/textproc/libxslt
 
+BROKEN=		does not compile
+
 GNU_CONFIGURE=	yes
 USE_DOS2UNIX=	yes
 USE_GMAKE=	yes
@@ -40,9 +42,7 @@ OPTIONS=	NATIVE_OPT	"Enable Native Optimizations"		off \
 		HAMLIB		"Support rig control via hamlib"	on \
 
 .include <bsd.port.pre.mk>
-.if ${OSVERSION} < 700000
-USE_GCC=	4.2+
-.endif
+
 .if ${ARCH} == "sparc64"
 BROKEN=		Fails to install
 .endif

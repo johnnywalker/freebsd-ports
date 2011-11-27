@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	gigabase
-PORTVERSION=	3.82
+PORTVERSION=	3.84
 CATEGORIES=	databases
 MASTER_SITES=	http://www.garret.ru/
 
@@ -21,12 +21,4 @@ CPPFLAGS+=	${PTHREAD_CFLAGS}
 LDFLAGS+=	${PTHREAD_LIBS}
 USE_LDCONFIG=	yes
 
-.include <bsd.port.pre.mk>
-
-post-patch:
-.if ${OSVERSION} < 601103
-	@${REINPLACE_CMD} -e \
-		'/GETHOSTBYNAME_R/s|^#define|// #define|g' ${WRKSRC}/config.h
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

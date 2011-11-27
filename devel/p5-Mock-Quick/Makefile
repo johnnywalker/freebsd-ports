@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	Mock-Quick
-PORTVERSION=	1.001
+PORTVERSION=	1.102
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:EXODIST
@@ -24,6 +24,7 @@ MAN3=		Mock::Quick.3 Object::Quick.3 \
 		Mock::Quick::Class.3 \
 		Mock::Quick::Method.3 \
 		Mock::Quick::Object.3 \
+		Mock::Quick::Object::Control.3 \
 		Mock::Quick::Util.3
 
 .include <bsd.port.mk>

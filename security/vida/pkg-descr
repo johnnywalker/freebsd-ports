@@ -13,8 +13,5 @@ Features:
 - dns-hijacking of a dns-spoofed connection over switched LAN (todo)
 - logging to text file
 
-WWW:	http://vidatapipe.sourceforge.net/
-AUTHOR:	<embyte@madlab.it>
-
-	- Michael L. Hostbaek
-	<mich@FreeBSD.org>
+Author: <embyte@madlab.it>
+WWW: http://vidatapipe.sourceforge.net/

@@ -59,7 +59,6 @@
     SUBDIR += enscript-letter
     SUBDIR += enscript-letterdj
     SUBDIR += enscriptfonts
-    SUBDIR += epsmerge
     SUBDIR += epsonepl
     SUBDIR += es-acroread8
     SUBDIR += fi-acroread8
@@ -181,7 +180,6 @@
     SUBDIR += lprps-a4
     SUBDIR += lprps-letter
     SUBDIR += lyx
-    SUBDIR += lyx14
     SUBDIR += lyx16
     SUBDIR += magicfilter
     SUBDIR += makeindex
@@ -204,6 +202,7 @@
     SUBDIR += p5-PDF-Template
     SUBDIR += p5-PDFLib
     SUBDIR += p5-PostScript
+    SUBDIR += p5-PostScript-PPD
     SUBDIR += p5-PostScript-Simple
     SUBDIR += p5-Text-PDF
     SUBDIR += p5-XML-ApacheFOP

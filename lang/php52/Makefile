@@ -7,7 +7,7 @@
 
 PORTNAME=	php52
 PORTVERSION=	5.2.17
-PORTREVISION=	2
+PORTREVISION=	4
 CATEGORIES?=	lang devel www
 MASTER_SITES=	${MASTER_SITE_PHP}
 MASTER_SITE_SUBDIR=	distributions
@@ -15,6 +15,9 @@ DISTNAME=	php-${PORTVERSION}
 
 MAINTAINER=	admin@lissyara.su
 COMMENT=	PHP Scripting Language
+
+DEPRECATED=		PHP 5.2 series is not supported anymore, migrate now
+EXPIRATION_DATE=	2012-03-01
 
 LATEST_LINK=	${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}
 
@@ -48,7 +51,8 @@ OPTIONS=	CLI "Build CLI version" on \
 		FASTCGI "Enable fastcgi support (CGI only)" on \
 		FPM "Enable fastcgi process manager (CGI only)" off \
 		PATHINFO "Enable path-info-check support (CGI only)" on \
-		LINKTHR "Link thread lib (for threaded extensions)" off
+		LINKTHR "Link thread lib (for threaded extensions)" off \
+		BACKPORTS "Enable backported security and bugfix patches" on
 
 CONFLICTS=	php4-4* php5-5.3*
 
@@ -184,6 +188,13 @@ CONFIGURE_ARGS+=--enable-zend-multibyte
 
 .if defined(WITHOUT_IPV6)
 CONFIGURE_ARGS+=--disable-ipv6
+.endif
+
+.if defined(WITH_BACKPORTS)
+PATCHFILES+=	php52-backports-security-20111030.patch
+PATCH_SITES+=	http://php52-backports.googlecode.com/files/
+.else
+FORBIDDEN=	Vulnerable since 2011-01-13, http://portaudit.freebsd.org/3761df02-0f9c-11e0-becc-0022156e8794.html
 .endif
 
 post-patch:

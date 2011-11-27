@@ -8,8 +8,6 @@
     SUBDIR += ares
     SUBDIR += autotrust
     SUBDIR += bind-tools
-    SUBDIR += bind9-sdb-ldap
-    SUBDIR += bind9-sdb-postgresql
     SUBDIR += bind96
     SUBDIR += bind97
     SUBDIR += bind97-sdb
@@ -46,7 +44,6 @@
     SUBDIR += dnswalk
     SUBDIR += dnswall
     SUBDIR += doc
-    SUBDIR += domtools
     SUBDIR += drill
     SUBDIR += dualserver
     SUBDIR += ez-ipupdate
@@ -59,6 +56,7 @@
     SUBDIR += h2n
     SUBDIR += hesiod
     SUBDIR += idnkit
+    SUBDIR += idnkit2
     SUBDIR += inadyn
     SUBDIR += ipcheck
     SUBDIR += ldapdns
@@ -74,7 +72,6 @@
     SUBDIR += mydns-ng
     SUBDIR += noip
     SUBDIR += nsd
-    SUBDIR += nsd2
     SUBDIR += nslint
     SUBDIR += nsping
     SUBDIR += nss_mdns
@@ -130,13 +127,16 @@
     SUBDIR += py-adns
     SUBDIR += py-dns
     SUBDIR += py-dnspython
+    SUBDIR += py-idnkit2
     SUBDIR += py-namebench
     SUBDIR += py-twistedNames
+    SUBDIR += radns
     SUBDIR += rbldnsd
     SUBDIR += rbllookup
     SUBDIR += rbllookup-ng
     SUBDIR += rubygem-dnsruby
     SUBDIR += rubygem-net-dns
+    SUBDIR += rubygem-public_suffix_service
     SUBDIR += scavenge
     SUBDIR += sheerdns
     SUBDIR += skadns

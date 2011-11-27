@@ -1,16 +1,16 @@
-@comment $FreeBSD: ports/net/wide-dhcp/pkg-plist,v 1.8 2000/11/22 02:22:49 obrien Exp $
+@comment $FreeBSD: ports/net-mgmt/wide-dhcp/pkg-plist,v 1.9 2003/04/23 21:27:28 naddy Exp $
 etc/rc.d/wide-dhcps.sh.sample
 sbin/dhcpc
 sbin/dhcpm
-sbin/relay
 sbin/dhcps
+sbin/relay
 %%PORTDOCS%%%%DOCSDIR%%/README
 %%PORTDOCS%%%%DOCSDIR%%/README.jis
 %%PORTDOCS%%%%DOCSDIR%%/intro.dhcp
 %%PORTDOCS%%%%DOCSDIR%%/intro.dhcp.jis
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/dhcpdb.pool
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/dhcpdb.relay
+%%PORTEXAMPLES%%%%EXAMPLESDIR%%/dhcpdb.server
+%%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%
 %%PORTDOCS%%@dirrm %%DOCSDIR%%
-%%EXAMPLESDIR%%/dhcpdb.pool
-%%EXAMPLESDIR%%/dhcpdb.relay
-%%EXAMPLESDIR%%/dhcpdb.server
-@dirrm %%EXAMPLESDIR%%
 @unexec rm -f /var/db/dhcp_cache

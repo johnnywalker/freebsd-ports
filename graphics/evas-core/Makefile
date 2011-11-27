@@ -13,7 +13,7 @@ MASTER_SITES=	http://download.enlightenment.org/releases/ \
 PKGNAMEPREFIX=	evas-
 DISTNAME=	evas-${DISTVERSION}
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A hardware accelerated canvas API (core library)
 
 LIB_DEPENDS=	freetype.9:${PORTSDIR}/print/freetype2
@@ -43,10 +43,10 @@ CONFIGURE_ARGS+=	--disable-fontconfig
 .endif
 
 .if !defined(WITHOUT_FRIBIDI)
-CONFIGURE_ARGS+=	--enable-fribidi 
+CONFIGURE_ARGS+=	--enable-fribidi
 LIB_DEPENDS+=		fribidi.3:${PORTSDIR}/converters/fribidi
 .else
-CONFIGURE_ARGS+=	--disable-fribidi 
+CONFIGURE_ARGS+=	--disable-fribidi
 .endif
 
 .if !defined(WITHOUT_EET)

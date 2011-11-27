@@ -7,7 +7,7 @@
 
 PORTNAME=	wsjt
 PORTVERSION=	7.04
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	comms hamradio
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 MASTER_SITE_SUBDIR=	db
@@ -23,6 +23,8 @@ LIB_DEPENDS=	fftw3f:${PORTSDIR}/math/fftw3-float \
 BUILD_DEPENDS=	${PYTHON_SITELIBDIR}/scipy:${PORTSDIR}/science/py-scipy \
 		${LOCALBASE}/lib/portaudio2/libportaudio.so:${PORTSDIR}/audio/portaudio2 \
 		${PYNUMPY}
+
+BROKEN=		does not build
 
 ALL_TARGET=	build
 USE_BZIP2=	yes

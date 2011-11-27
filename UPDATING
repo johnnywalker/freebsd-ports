@@ -5,6 +5,334 @@ they are unavoidable.
 You should get into the habit of checking this file for changes each time
 you update your ports collection, before attempting any port upgrades.
 
+20111123:
+  AFFECTS: users of net-im/kopete or net-im/libjingle
+  AUTHOR: kde@FreeBSD.org
+
+  kopete and libjingle are now depending on a newer oRTP from
+  linphone-base. To correctly switch to the new port, you need to deinstall
+  ortp prior to the update:
+
+  # pkg_delete -f ortp-\*
+
+20111123:
+  AFFECTS: users of databases/redis
+  AUTHOR: osa@FreeBSD.org
+
+  The redis configuration file, redis.conf, have been changed, some options
+  removed in newer versions (>=2.4).  In some cases, redis-server with
+  older configuration might does not run at startup.
+
+  If you run into startup problems, re-edit configuration file.
+
+20111101:
+  AFFECTS: users of x11/kde4-workspace
+  AUTHOR: kde@FreeBSD.org
+
+  If your KDM fails with the message
+  'X server "/usr/bin/X" cannot be executed'
+  you need to delete its configuration file and restart it:
+
+  # rm /usr/local/kde4/share/config/kdm/kdmrc
+  # service kdm4 restart
+
+20111101:
+  AFFECTS: users of graphics/poppler-gtk
+  AUTHOR: Koop Mast <kwm@FreeBSD.org>
+
+  Poppler was update to 0.18.0, and the gtk slave port was renamed to
+  match the library it installes. Please run the following command to migrate.
+
+  # portmaster -o graphics/poppler-glib poppler-gtk-0.16.7
+
+20111031:
+  AFFECTS: users of textproc/py-creole
+  AUTHOR: Stanislav Svirid <count@211.ru>
+
+  Some API is changed: replace 'parser_kwargs' and 'emitter_kwargs'
+  with separate arguments. More information on new API:
+  http://code.google.com/p/python-creole/wiki/API
+
+20111025:
+  AFFECTS: users of print/flpsed or www/dillo2
+  AUTHOR: bf@FreeBSD.org
+
+  The new versions of flpsed and dillo have switched from
+  x11-toolkits/fltk2 to the new fltk 1.3.0 from x11-toolkits/fltk.
+  Users who have customizations specific to fltk2 may need to consult
+  the fltk 1.3 documents in order to adjust their local settings. For
+  dillo, some commonly-used key bindings have changed, and new
+  configuration options are available: consult dillorc.dist and
+  keysrc.dist for details.
+
+20111019:
+  AFFECTS: users of mail/thunderbird or www/seamonkey with lightning
+           plugin installed.
+  AUTHOR: gecko@FreeBSD.org
+
+  To get an up to date version of lightning you should use the new
+  LIGHTNING option in mail/thunderbird or www/seamonkey. This option
+  is not enabled by default so you have to run "make config" prior
+  to the build. The old deskutils/lightning-thunderbird and
+  deskutils/lightning ports should no longer be used and will be
+  removed very soon.
+
+  Like other XPIs ports, lightning now registers itself as a global
+  extension and doesn't create the XPI to be installed manually.
+  Upgrading users should remove lightning from their profile before
+  installing Thunderbird or SeaMonkey the first time with the new
+  LIGHTNING option enabled.
+
+20111018:
+  AFFECTS: users of mail/postfix-current
+  AUTHOR: Sahil Tandon <sahil@FreeBSD.org>
+
+  The default inet_protocols value is now "all" instead of "ipv4",
+  meaning use both IPv4 and IPv6.  As a compatibility workaround
+  for sites without global IPv6 connectivity, please append
+  "inet_protocols = ipv4" to your main.cf if that parameter is not
+  already set.
+
+  The default smtp_address_preference value is now "any" instead
+  of "ipv6", meaning choose randomly between IPv6 and IPv4. With
+  this the Postfix SMTP client will have more success delivering
+  mail to sites that have problematic IPv6 configurations.
+
+20111016:
+  AFFECTS: users of devel/p5-subversion-freebsd
+  AUTHOR: wxs@FreeBSD.org
+
+  devel/p5-subversion-freebsd has been removed as it is no longer necessary.
+  If you have it installed please run the following to switch to
+  devel/p5-subversion:
+
+  portmaster -o devel/p5-subversion p5-subversion-freebsd
+
+  Please also see the second entry below (20111016) if haven't upgraded
+  subversion yet.
+
+20111016:
+  AFFECTS: users of KDE SC 4
+  AUTHOR: kde@FreeBSD.org
+
+  KDE SC has been updated to 4.7.2. A number of files were moved between
+  packages and several ports were split, thus manual intervention into
+  update procedure is required:
+
+  # pkg_delete -f raptor-1\* kdelibs-4\* kdebase-\*4\* \
+    kdeaccessibility-4\* kdeedu-4\* kdegames-4\* kdegraphics-4\* \
+    kdesdk-4\* kdeutils-4\* konq-plugins-4\* ktts\* nepomukcontroller\* \
+    ruby\*-kdebindings\* kdebindings-smoke\*
+  # pkg_delete -f kdehier4\*
+  # mv /usr/local/kde4/etc/pam.d/* \
+    /usr/local/etc/pam.d/
+  # mv /usr/local/kde4/etc/rc.d/* \
+    /usr/local/etc/rc.d/
+  # mv /usr/local/kde4/share/dbus-1/services/* \
+    /usr/local/share/dbus-1/services/
+  # mv /usr/local/kde4/share/dbus-1/system-services/* \
+    /usr/local/share/dbus-1/system-services/
+  # rmdir /usr/local/kde4/etc/pam.d /usr/local/kde4/etc/rc.d \
+    /usr/local/kde4/share/dbus-1/*services
+  # rm -r /var/tmp/kdecache-*
+  # portmaster misc/kdehier4
+
+  If you have - or plan to install - net/kdenetwork4, also run:
+
+  # portmaster -o net/linphone-base ortp
+
+  Finally:
+
+  # portmaster -a
+
+  Also, remove /usr/local/kde4/etc/rc.d from local_startup in rc.conf(5).
+  Failure to do this will cause all enabled scripts in /usr/local/etc/rc.d
+  to be started twice.
+
+  Remember to check for missing ports, bearing in mind that x11/kdebase4*
+  ports were replaced by x11/kde4-* ones, ktts was replaced by jovie, while
+  konq-plugins-kde4 and nepomukcontroller were removed. Then:
+
+  # portmaster --check-depends
+
+  You're also encouraged to run `pkg_cutleaves` or similar to check for
+  orphaned ports.
+
+  Please, note that `pkg_add -r kde4` will not install Plasma scriptengines
+  and printer utilities by default anymore, and `pkg_add -r kdegames4` will
+  not install Kajongg. This was made to avoid depending by default on
+  kdebindings.
+
+20111016:
+  AFFECTS: users of devel/subversion, devel/subversion-freebsd,
+           devel/p5-subversion, devel/py-subversion,
+           devel/ruby-subversion and java/subversion-java and
+           all dependand ports.
+  AUTHOR: Lev Serebryakov <lev@FreeBSD.org>
+
+  Subversion was updated to version 1.7.0 and port was reworked.
+
+  Now there is no "devel/subversion-freebsd" port. All FreeBSD-specific patches
+  are incorporated into main subversion port as options, which are turned ON by
+  default.
+
+  These options are:
+
+  P4_STYLE_MARKERS -- change conflict markers to P4 style,
+                      established for FreeBSD projects.
+                      This is not mandatory for working with
+                      FreeBSD sources.
+
+  ENHANCED_KEYWORD -- Support for custom keywords, like
+                      $ FreeBSD $ in sources.
+                      This is MANDATORY for working with
+                      FreeBSD sources.
+
+  FREEBSD_TEMPLATE -- Standard FreeBSD commit template.
+                      It is RECOMMENDED for working with
+                      FreeBSD sources.
+
+  Also, subversion 1.7.0 changes the working copy format,
+  and a working copy can not be shared between
+  subversion 1.7.0 and 1.6.x. Please, think twice before
+  upgrading.
+
+  Additional the port "devel/subversion16" was created to
+  support subversion 1.6.x. Subversion 1.7.x and 1.6.x
+  can not be installed simultaneously!
+
+  Binding ports can be built with Subversion 1.7.0 (Default)
+  or with Subversion 1.6.x. To build bindings with subversion 1.6.x
+  you should set variable WITH_SUBVERSION_VER to "16".
+
+  There are several ways to upgrade, depending on what you used
+  before and what you want to get after upgrade.
+
+  (a) You use devel/subversion without FreeBSD patches and, maybe,
+      some bindings. You want fresh'n'new subversion 1.7.0.
+      Please, run:
+
+  # cd /usr/ports/devel/subversion && make config
+  <deselect first three options described above, if you want it>
+  # portupgrade -r devel/subversion
+  or
+  # portmaster -R -r subversion-1.6
+
+  (b) You use devel/subversion-freebsd and, maybe, some
+      bindings. You want fresh'n'new subversion 1.7.0, again
+      with FreeBSD patches.
+      Please, run:
+
+  # cd /usr/ports/devel/subversion && make config
+  <make sure that first three options are selected>
+  # portupgrade -o devel/subversion devel/subversion-freebsd
+  # portupgrade -r devel/subversion
+  or
+  # portmaster -o devel/subversion devel/subversion-freebsd
+  # portmaster -R -r subversion-1.7
+
+  (c) You use devel/subversion without FreeBSD patches and, maybe,
+      some bindings. You want good old subversion 1.6.x, again
+      without again.
+      Please, run:
+
+  # cd /usr/ports/devel/subversion16 && make config
+  <deselect first three options described above, if you want it>
+  # portupgrade -o devel/subversion16 devel/subversion
+  # portupgrade -m "WITH_SUBVERSION_VER=16" -r devel/subversion16
+  or
+  # portmaster -o devel/subversion16 devel/subversion
+  # portmaster -m "WITH_SUBVERSION_VER=16" -R -r subversion-1.6
+
+  (d) You use devel/subversion-freebsd and, maybe, some bindings.
+      You want good old subversion 1.6.x, with FreeBSD patches.
+      Please, run:
+
+  # cd /usr/ports/devel/subversion16 && make config
+  <make sure, that first three options are selected>
+  # portupgrade -o devel/subversion16 devel/subversion-freebsd
+  # portupgrade -m "WITH_SUBVERSION_VER=16" -r devel/subversion16
+  or
+  # portmaster -o devel/subversion16 devel/subversion-freebsd
+  # portmaster -m "WITH_SUBVERSION_VER=16" -R -r subversion-1.6
+
+20111005:
+  AFFECTS: users of lang/erlang
+  AUTHOR: Jimmy Olgeni <olgeni@FreeBSD.org>
+
+  Following the R14B04 upgrade the JAVA, X11, WX and ODBC port
+  options have been set to OFF by default; this will allow to replace
+  lang/erlang-lite with lang/erlang for headless operation in the
+  near future.
+
+  If you need any of these options, run "make config" in lang/erlang
+  before upgrading, or set your make.conf accordingly.
+
+20111003:
+  AFFECTS: users of math/qhull
+  AUTHOR: Stephen Montgomery-Smith <stephen@FreeBSD.org>
+
+  The port math/qhull has been moved to math/qhull5, and math/qhull has been
+  updated to a version that is incompatible with all ports previously using
+  math/qhull.  If you are upgrading a port that has math/qhull as a dependency,
+  please delete the port math/qhull first, so that math/qhull5 is properly
+  made as a dependency.
+
+20110929:
+  AFFECTS: users of net/py-zope.proxy, devel/py-zope.testing and
+           devel/py-zope.interface
+  AUTHOR: Ruslan Mahmatkhanov <cvs-src@yandex.ru>
+
+  Several Zope ports have been renamed for consistency with their
+  upstream distributions. Please run the following commands to update
+  your local installations:
+
+  If you use portmaster run:
+  # portmaster -o devel/py-zope.interface devel/py-zopeInterface
+  # portmaster -o net/py-zope.proxy net/py-zopeproxy
+  # portmaster -o devel/py-zope.testing devel/py-zopetesting
+
+  If you use portupgrade run:
+  # portupgrade -o devel/py-zope.interface devel/py-zopeInterface
+  # portupgrade -o net/py-zope.proxy net/py-zopeproxy
+  # portupgrade -o devel/py-zope.testing devel/py-zopetesting
+
+20110928:
+  AFFECTS: users of 10-current
+  AUTHOR: eadler@FreeBSD.org
+
+  There are known issues installing ports on FreeBSD 10+ due to
+  bogus assumptions by various build scripts. This will not be fixed
+  until 9-RELEASE is released.
+
+  There are two workarounds:
+
+  1) Set UNAME_r=9.9-CURRENT in your environment
+  2) Set REVISION="9.9" in  ${SRCDIR}/sys/conf/newvers.sh
+
+20110928:
+  AFFECTS: users of www/nginx-devel
+  AUTHOR: osa@FreeBSD.ORG
+
+  Note: 1.1.4 release introduces several API changes which may affect
+  third-party modules.
+
+20110925:
+  AFFECTS: users of lang/python*
+  AUTHOR: lwhsu@FreeBSD.org
+
+  The HUGE_STACK_SIZE option has been removed, now Python will use default
+  thread stack size of the system.  If you want to change it, specify it
+  with -DTHREAD_STACK_SIZE=<size> in CFLAGS.
+
+20110925:
+  AFFECTS: users of net/openldap*
+  AUTHOR: ume@FreeBSD.org
+
+  The security/cyrus-sasl2 was updated to 2.1.25.  If the SASL option
+  is enabled (disabled by default), net/openldap* must be recompiled
+  after upgrading cyrus-sasl2.
+
 20110921:
   AFFECTS: users of devel/maven2 and devel/maven3
   AUTHOR: hq@FreeBSD.org
@@ -19,7 +347,7 @@ you update your ports collection, before attempting any port upgrades.
 
   From version 3.0.2 on TV-Browser doesn't include any plugins any longer. You
   are supposed to download the plugins manually, this also means that you need
-  to download the apropriate channel sources plugin for your country. After
+  to download the appropriate channel sources plugin for your country. After
   installing it your prevously configured channels are visible again. To do so,
   select "Tools -> Install / Update Plugins..." and choose the plugins you need.
 
@@ -35,7 +363,7 @@ you update your ports collection, before attempting any port upgrades.
   AFFECTS: users of www/asterisk-stat
   AUTHOR: flo@FreeBSD.org
 
-  asterisk-stat depends on asterisk16 now, you willl need to update asterisk
+  asterisk-stat depends on asterisk16 now, you will need to update asterisk
   and asterisk-addons to 1.6. Instructions on upgrading your configuration
   files are here:
 
@@ -53,8 +381,8 @@ you update your ports collection, before attempting any port upgrades.
   AFFECTS: users of net/p5-SOAP-Lite
   AUTHOR: az@FreeBSD.org
 
-  SOAP::Transport::TCP is not a part of net/p5-SOAP-Lite 
-  distribution since version 0.714. If you need SOAP::Transport::TCP 
+  SOAP::Transport::TCP is not a part of net/p5-SOAP-Lite
+  distribution since version 0.714. If you need SOAP::Transport::TCP
   you should install net/p5-SOAP-Transport-TCP manually.
 
 20110901:
@@ -100,7 +428,7 @@ you update your ports collection, before attempting any port upgrades.
   AFFECTS: users of print/cups-{base,client,image}
   AUTHOR: sahil@FreeBSD.org
 
-  During the update to 1.4.8, the GNUTLS option was changed from ON to 
+  During the update to 1.4.8, the GNUTLS option was changed from ON to
   OFF by default. Because old configuration options are saved, users
   should re-run 'make config' and explicitly deselect the GNUTLS option
   before upgrading.
@@ -5379,4 +5707,4 @@ or
   'nobody' by default.  Make sure any existing configuration files are
   readable by that user.
 
-$FreeBSD: ports/UPDATING,v 1.1143 2011/09/17 19:59:21 lme Exp $
+$FreeBSD: ports/UPDATING,v 1.1171 2011/11/23 11:56:53 osa Exp $

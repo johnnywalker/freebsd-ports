@@ -63,10 +63,6 @@ OPTIONS=	AIRPLAY	"Support output via Airport Express" off \
 
 .include <bsd.port.pre.mk>
 
-.if defined(PACKAGE_BUILDING)
-BROKEN=		fails to build on pointyhat: runaway process
-.endif
-
 .if defined(XMMS2_SLAVE)
 EXCLUDE+=	--without-xmms2d
 
@@ -329,7 +325,7 @@ PLIST_SUB+=	VISUAL="@comment "
 .endif
 
 .if !defined(WITHOUT_VOCODER)
-LIB_DEPENDS+=	fftw3f.5:${PORTSDIR}/math/fftw3-float
+LIB_DEPENDS+=	fftw3f:${PORTSDIR}/math/fftw3-float
 LIB_DEPENDS+=	samplerate.1:${PORTSDIR}/audio/libsamplerate
 PLIST_SUB+=	VOCODER=""
 .else

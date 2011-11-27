@@ -28,7 +28,7 @@ USE_GNOME=	glib20
 USE_KDE4=	automoc4
 USE_QT_VER=	4
 QT_COMPONENTS=	corelib gui \
-		qmake_build moc_build rcc_build uic_build
+		qmake_build moc_build rcc_build uic_build qtestlib_build
 
 PLIST_SUB=	VERSION="${GST_VERSION}"
 

@@ -6,10 +6,10 @@
 #
 
 PORTNAME=	pwd_unmkdb
-PORTVERSION=	1.2
+PORTVERSION=	1.3
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.over-yonder.net/~fullermd/projects/pwd_unmkdb/ \
-		http://www.centralmiss.com/~matt/distfiles/
+		http://distfiles.over-yonder.net/pwd_unmkdb/
 
 MAINTAINER=	fullermd@over-yonder.net
 COMMENT=	Recover a master.passwd from the hashed database

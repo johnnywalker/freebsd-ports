@@ -122,6 +122,7 @@ BUILD_DEPENDS+=	zip:${PORTSDIR}/archivers/zip \
 		ant:${PORTSDIR}/devel/apache-ant \
 		${JAVALIBDIR}/junit.jar:${PORTSDIR}/java/junit
 #see #i85469# for gperf
+LIB_DEPENDS+=	rsvg-2.2:${PORTSDIR}/graphics/librsvg2
 
 USE_BISON=	build
 GNU_CONFIGURE=	yes

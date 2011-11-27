@@ -13,13 +13,13 @@ MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=/src/apps/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	xfce@FreeBSD.org
 COMMENT=	A Device manager plugin.
 
 LIB_DEPENDS=	hal.1:${PORTSDIR}/sysutils/hal \
 	dbus-glib-1.2:${PORTSDIR}/devel/dbus-glib
 
-BROKEN=		Does not work with xfce 4.8
+BROKEN=		Does not work with Xfce 4.8
 
 USE_BZIP2=	yes
 USE_GMAKE=	yes

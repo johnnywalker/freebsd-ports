@@ -5,10 +5,11 @@
 # $FreeBSD$
 
 PORTNAME=	tinderbox
-DISTVERSION=	3.4-${SNAP}
-PORTREVISION=	1
+DISTVERSION=	3.4${SNAP}
+PORTEPOCH=	1
 CATEGORIES=	ports-mgmt
-MASTER_SITES=	http://T32.TecNik93.com/FreeBSD/ports/${PORTNAME}/sources/
+MASTER_SITES=	http://tinderbox.marcuscom.com/ \
+		http://T32.TecNik93.com/FreeBSD/ports/${PORTNAME}/sources/
 PKGNAMESUFFIX=	-devel
 DIST_SUBDIR=	${PORTNAME}
 
@@ -19,7 +20,6 @@ CONFLICTS=	tinderbox-[0-9]*
 
 OPTIONS=	PGSQL "With pgsql" Off \
 		MYSQL "With mysql" On \
-		CVSUP "Use cvsup for updates" Off \
 		WEBUI   "Install web interface" On \
 		APACHE "Use Apache for web interface" On \
 		HIAWATHA "Use Hiawatha for web interface" Off \
@@ -28,14 +28,15 @@ OPTIONS=	PGSQL "With pgsql" Off \
 		EMAILS "Support for build failure/completion emails" On \
 		LSOF "For killMountProcesses() when using nullfs" On \
 		LOG_COMPRESS "Support bzip'ing the logs" On \
-		TMPFS "Enable TMPFS extra patch" On \
-		PARALLEL "Enable PARALLEL extra patch" On
+		PARALLEL "Enable PARALLEL extra patch" On \
+		TMPFS "Enable TMPFS extra patch" Off
 
 NO_BUILD=	yes
 WANT_PERL=	yes
 SUB_FILES=	pkg-message
 
-SNAP=		20110101 # 22:28:07 UTC
+SNAP=		.r3
+#SNAP=		-20110101 # 22:28:07 UTC
 
 MAN1=		tc-configCcache.1 tc-configDistfile.1 tc-configGet.1 \
 		tc-configJail.1 tc-configTinderd.1 tc-init.1
@@ -69,12 +70,7 @@ RUN_DEPENDS+=	${LOCALBASE}/share/pear/MDB2/Driver/mysql.php:${PORTSDIR}/database
 USE_PHP+=	mysql
 .endif
 USE_MYSQL=	yes
-IGNORE_WITH_MYSQL=	323 40
-RUN_DEPENDS+=	${SITE_PERL}/${PERL_ARCH}/DBD/mysql.pm:${PORTSDIR}/databases/p5-DBD-mysql${MYSQL_VER:S/323//}
-.endif
-
-.if defined(WITH_CVSUP)
-RUN_DEPENDS+=	cvsup:${PORTSDIR}/net/cvsup-without-gui
+RUN_DEPENDS+=	${SITE_PERL}/${PERL_ARCH}/DBD/mysql.pm:${PORTSDIR}/databases/p5-DBD-mysql${MYSQL_VER}
 .endif
 
 .if !defined(WITHOUT_APACHE) && defined(WITH_WEBUI)

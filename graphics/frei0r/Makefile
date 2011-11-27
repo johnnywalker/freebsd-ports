@@ -106,6 +106,10 @@ do-install:
 . endfor
 .endif #!defined(FREI0R_PLUGINS)
 
+pre-build:
+	@${TOUCH} ${WRKSRC}/aclocal.m4 ${WRKSRC}/Makefile.in \
+		${WRKSRC}/configure ${WRKSRC}/config.h.in
+
 .include <bsd.port.post.mk>
 
 .endif # !defined(BUILDING_FREI0R_METAPORT)

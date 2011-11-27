@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	perlbrew
-PORTVERSION=	0.28
+PORTVERSION=	0.30
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:GUGOD
@@ -16,8 +16,12 @@ DISTNAME=	App-${PORTNAME}-${PORTVERSION}
 MAINTAINER=	ports@c0decafe.net
 COMMENT=	Perl Environment manager
 
-BUILD_DEPENDS=	p5-File-Path-Tiny>=0:${PORTSDIR}/devel/p5-File-Path-Tiny
-RUN_DEPENDS=	p5-File-Path-Tiny>=0:${PORTSDIR}/devel/p5-File-Path-Tiny
+BUILD_DEPENDS=	p5-File-Path-Tiny>=0.1:${PORTSDIR}/devel/p5-File-Path-Tiny \
+		p5-Text-Levenshtein>=0.04:${PORTSDIR}/devel/p5-Text-Levenshtein \
+		p5-local-lib>=1:${PORTSDIR}/devel/p5-local-lib
+RUN_DEPENDS=	p5-File-Path-Tiny>=0.1:${PORTSDIR}/devel/p5-File-Path-Tiny \
+		p5-Text-Levenshtein>=0.04:${PORTSDIR}/devel/p5-Text-Levenshtein \
+		p5-local-lib>=1:${PORTSDIR}/devel/p5-local-lib
 
 TEST_DEPENDS=	p5-IO-All>=0:${PORTSDIR}/devel/p5-IO-All \
 		p5-Path-Class>=0:${PORTSDIR}/devel/p5-Path-Class \
@@ -30,4 +34,10 @@ PERL_CONFIGURE=	yes
 MAN1=		perlbrew.1
 MAN3=		App::perlbrew.3
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} < 501400
+TEST_DEPENDS+=	p5-Test-Simple>=0.98:${PORTSDIR}/devel/p5-Test-Simple
+.endif
+
+.include <bsd.port.post.mk>

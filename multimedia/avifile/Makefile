@@ -19,6 +19,11 @@ COMMENT=	AVI player/converter with numerous codecs, including MPEG-4(DivX ;-))
 BUILD_DEPENDS=	nasm:${PORTSDIR}/devel/nasm
 LIB_DEPENDS=	jpeg:${PORTSDIR}/graphics/jpeg
 
+BROKEN=		does not compile
+
+DEPRECATED=	Broken for an extended period, superseded by other multimedia players
+EXPIRATION_DATE=2011-12-03
+
 USE_SUBMAKE=	yes
 USE_BZIP2=	yes
 USE_GMAKE=	yes
@@ -63,10 +68,6 @@ PLIST_SUB+=	QT="@comment "
 .include <bsd.port.pre.mk>
 
 WITH_OPTIMIZED_CFLAGS=	yes
-
-.if ${OSVERSION} >= 700000
-USE_GCC=	3.4
-.endif
 
 .if ${OSVERSION} >= 900000
 BROKEN=		does not configure on 9.X

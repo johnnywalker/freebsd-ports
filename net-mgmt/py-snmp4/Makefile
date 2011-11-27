@@ -6,24 +6,25 @@
 #
 
 PORTNAME=	snmp4
-PORTVERSION=	4.1.16a
+PORTVERSION=	4.2.1
 CATEGORIES=	net-mgmt python
 MASTER_SITES=	CHEESESHOP \
-		SF/pysnmp/pysnmp-devel/${PORTVERSION}
+		SF/pysnmp/pysnmp/${PORTVERSION}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	pysnmp-${PORTVERSION}
 
 MAINTAINER=	mhjacks@swbell.net
 COMMENT=	SNMP framework for Python
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}asn1>=0:${PORTSDIR}/devel/py-asn1 \
-		${PYTHON_SITELIBDIR}/Crypto/__init__.py:${PORTSDIR}/security/py-pycrypto
-
-CONFLICTS=	py??-snmp-[0-9]* py??-snmp2-[0-9]*
-
 LICENSE=	BSD
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}asn1>=0.0.14:${PORTSDIR}/devel/py-asn1 \
+		${PYTHON_PKGNAMEPREFIX}pycrypto>=2.3:${PORTSDIR}/security/py-pycrypto
+
+CONFLICTS=	py??-snmp2-[0-9]*
+
+# Python3 ready
 USE_PYTHON=	yes
 USE_PYDISTUTILS=	easy_install
 PYDISTUTILS_PKGNAME=	pysnmp

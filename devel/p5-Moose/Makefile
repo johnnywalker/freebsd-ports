@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	Moose
-PORTVERSION=	2.0205
+PORTVERSION=	2.0401
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:DOY
@@ -15,18 +15,20 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	A complete modern object system for Perl 5
 
-LICENSE=	ART20 GPLv1
+LICENSE=	ART10 GPLv1
 LICENSE_COMB=	dual
 
 BUILD_DEPENDS=	\
+	p5-Class-Load>=0.09:${PORTSDIR}/devel/p5-Class-Load \
+	p5-Class-Load-XS>=0.01:${PORTSDIR}/devel/p5-Class-Load-XS \
 	p5-Data-OptList>=0.107:${PORTSDIR}/devel/p5-Data-OptList \
 	p5-Devel-GlobalDestruction>=0:${PORTSDIR}/devel/p5-Devel-GlobalDestruction \
 	p5-Eval-Closure>=0.04:${PORTSDIR}/devel/p5-Eval-Closure \
 	p5-List-MoreUtils>=0.28:${PORTSDIR}/lang/p5-List-MoreUtils \
 	p5-MRO-Compat>=0.05:${PORTSDIR}/devel/p5-MRO-Compat \
 	p5-Package-DeprecationManager>=0.10:${PORTSDIR}/devel/p5-Package-DeprecationManager \
-	p5-Package-Stash>=0.21:${PORTSDIR}/devel/p5-Package-Stash \
-	p5-Package-Stash-XS>=0.18:${PORTSDIR}/devel/p5-Package-Stash-XS \
+	p5-Package-Stash>=0.32:${PORTSDIR}/devel/p5-Package-Stash \
+	p5-Package-Stash-XS>=0.24:${PORTSDIR}/devel/p5-Package-Stash-XS \
 	p5-Params-Util>=1.00:${PORTSDIR}/devel/p5-Params-Util \
 	p5-Sub-Exporter>=0.980:${PORTSDIR}/devel/p5-Sub-Exporter \
 	p5-Sub-Name>=0.05:${PORTSDIR}/devel/p5-Sub-Name \
@@ -35,7 +37,9 @@ BUILD_DEPENDS=	\
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 TEST_DEPENDS=	\
+	p5-Test-Deep>=0:${PORTSDIR}/devel/p5-Test-Deep \
 	p5-Test-Fatal>=0.001:${PORTSDIR}/devel/p5-Test-Fatal \
+	p5-Test-Output>=0:${PORTSDIR}/devel/p5-Test-Output \
 	p5-Test-Requires>=0.05:${PORTSDIR}/devel/p5-Test-Requires
 
 MAKE_JOBS_UNSAFE=	yes

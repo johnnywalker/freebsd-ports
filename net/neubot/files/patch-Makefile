@@ -1,0 +1,11 @@
+--- Makefile.orig	2011-10-25 20:20:56.000000000 +0200
++++ Makefile	2011-11-01 21:08:46.000000000 +0100
+@@ -124,7 +124,7 @@
+ # [2] http://bit.ly/ayYyAR (debian.org)
+ #
+ DESTDIR =
+-SYSCONFDIR = /etc
++SYSCONFDIR = $(PREFIX)/etc
+ LOCALSTATEDIR = /var/neubot
+ PREFIX = /usr/local
+ BINDIR = $(PREFIX)/bin

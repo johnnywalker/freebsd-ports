@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	viking
-PORTVERSION=	1.2.1
+PORTVERSION=	1.2.2
 CATEGORIES=	astro
 MASTER_SITES=	SF
 
@@ -44,7 +44,7 @@ CONFIGURE_ARGS+=	--disable-nls
 PLIST_SUB+=	NLS="@comment "
 .endif
 
-post-patch:	
+post-patch:
 	@${REINPLACE_CMD} -e 's|gps_poll|gps_read|g' ${WRKSRC}/configure
 
 .include <bsd.port.mk>

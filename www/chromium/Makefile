@@ -7,14 +7,12 @@
 
 PORTNAME=	chromium
 DISTVERSIONPREFIX=	courgette-redacted-
-DISTVERSION=	14.0.835.163
-PORTREVISION=	1
+DISTVERSION=	15.0.874.121
 CATEGORIES=	www
 MASTER_SITES=	http://download.goodking.org/downloads/ \
 		ftp://rene-ladan.nl/pub/distfiles/ \
 		http://files.etoilebsd.net/goodking/ \
-                http://distfiles.cybertron.gr/
-
+		http://distfiles.cybertron.gr/
 
 MAINTAINER=	chromium@FreeBSD.org
 COMMENT=	A mostly BSD-licensed web browser based on WebKit and Gtk+
@@ -26,9 +24,8 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex \
 		${LOCALBASE}/bin/gperf:${PORTSDIR}/devel/gperf \
 		bash:${PORTSDIR}/shells/bash \
 		yasm:${PORTSDIR}/devel/yasm \
-		v4l_compat>=1.0.20110603:${PORTSDIR}/multimedia/v4l_compat \
-		nss>=3.12:${PORTSDIR}/security/nss
-# minimal version of nss, LIB_DEPENDS does not enforce this
+		flock:${PORTSDIR}/sysutils/flock \
+		v4l_compat>=1.0.20110603:${PORTSDIR}/multimedia/v4l_compat
 
 LIB_DEPENDS=	execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		cairo.2:${PORTSDIR}/graphics/cairo \
@@ -39,13 +36,9 @@ LIB_DEPENDS=	execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		nss3.1:${PORTSDIR}/security/nss \
 		gnome-keyring.0:${PORTSDIR}/security/libgnome-keyring \
 		cups.2:${PORTSDIR}/print/cups-client \
-		icuuc.48:${PORTSDIR}/devel/icu \
-		icui18n.48:${PORTSDIR}/devel/icu \
-		icudata.48:${PORTSDIR}/devel/icu \
 		event-1.4:${PORTSDIR}/devel/libevent \
 		vpx:${PORTSDIR}/multimedia/libvpx \
 		tcmalloc.2:${PORTSDIR}/devel/google-perftools
-# TODO(gliaskos): We should add --enable-heap-checker on perftools to set linux_use_heapchecker.
 
 RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:${PORTSDIR}/audio/alsa-plugins \
 		${LOCALBASE}/lib/X11/fonts/Droid/fonts.dir:${PORTSDIR}/x11-fonts/droid-fonts-ttf \
@@ -68,7 +61,6 @@ ALL_TARGET=	chrome
 
 # See build/common.gypi for all the available variables.
 GYP_DEFINES+=	use_cups=1 \
-		use_system_icu=1 \
 		use_system_vpx=1 \
 		use_system_yasm=1 \
 		use_system_libxml=1 \
@@ -85,11 +77,14 @@ GYP_DEFINES+=	use_cups=1 \
 
 OPTIONS=	CODECS	"Compile and enable patented codecs like H.264"	on \
 		GCONF	"Use GConf2 for preferences"			on \
-#		CLANG	"Compile Chromium with clang"			off
+		PULSE	"Enable Pulse Audio support"			off \
+		CLANG	"Build Chromium with Clang"			off \
+		GCC46	"Build Chromium with GCC 4.6+"			off \
+		DEBUG	"Compile with debug symbols and verbose output"	off
 
 .include <bsd.port.options.mk>
 
-.if ${OSVERSION} < 900033
+.if ${OSVERSION} < 900033 || defined(WITH_GCC46)
 BUILD_DEPENDS+=	${LOCALBASE}/bin/as:${PORTSDIR}/devel/binutils
 CONFIGURE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
 MAKE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
@@ -103,10 +98,10 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-base__base.gypi-freebsd
 
 .if defined(WITH_CODECS)
 GYP_DEFINES+=	ffmpeg_branding=Chrome
-GYP_DEFINES+=	use_proprietary_codecs=1
+GYP_DEFINES+=	proprietary_codecs=1
 .else
 GYP_DEFINES+=	ffmpeg_branding=Chromium
-GYP_DEFINES+=	use_proprietary_codecs=0
+GYP_DEFINES+=	proprietary_codecs=0
 .endif
 
 .if defined(WITH_GCONF)
@@ -115,25 +110,42 @@ USE_GNOME+=	gconf2
 GYP_DEFINES+=	use_gconf=0
 .endif
 
+.if defined(WITH_PULSEAUDIO)
+LIB_DEPENDS+=	pulse.0:${PORTSDIR}/audio/pulseaudio
+GYP_DEFINES+=	use_pulseaudio=1
+.else
+GYP_DEFINES+=	use_pulseaudio=0
+.endif
+
 .if ! ${MACHINE_CPU:Msse2}
 GYP_DEFINES+=	disable_sse2=1
 .endif
 
+.if defined(WITH_GCC46) && defined(WITH_CLANG)
+IGNORE=	conflicting options (CLANG or GCC46)
+.endif
+
+.if defined(WITH_GCC46)
+USE_GCC?=	4.6+
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-gcc
+.endif
+
 .if defined(WITH_CLANG)
-CC=		/usr/bin/clang
-CXX=		/usr/bin/clang++
-GYP_DEFINES+=   clang=1
+.if ${OSVERSION} < 900033
+BUILD_DEPENDS+=	clang:${PORTSDIR}/lang/clang
+.endif
+CC=		clang
+CXX=		clang++
+GYP_DEFINES+=	clang=1
 .endif
 
 .if !defined(WITH_DEBUG)
 BUILDTYPE=	Release
 .else
+MAKE_ENV+=	V=1
 BUILDTYPE=	Debug
-STRIP=
 .endif
 
-# Override the flock command in make.py
-MAKE_ENV+=	FLOCK=
 MAKE_ENV+=	BUILDTYPE=${BUILDTYPE}
 MAKE_JOBS_SAFE=	yes
 
@@ -158,8 +170,11 @@ post-patch:
 		${WRKSRC}/base/base.gypi \
 		${WRKSRC}/build/common.gypi \
 		${WRKSRC}/third_party/libvpx/libvpx.gyp \
+		${WRKSRC}/third_party/WebKit/Source/WebCore/gyp/WebCore.gyp \
 		${WRKSRC}/third_party/WebKit/Source/WebCore/plugins/PluginDatabase.cpp \
-		${WRKSRC}/v8/tools/gyp/v8.gyp
+		${WRKSRC}/crypto/crypto.gyp \
+		${WRKSRC}/v8/tools/gyp/v8.gyp \
+		${WRKSRC}/v8/build/common.gypi
 	@${REINPLACE_CMD} -e "s|linux|freebsd|" \
 		${WRKSRC}/tools/gyp/pylib/gyp/generator/make.py
 	@${REINPLACE_CMD} -e 's|/usr/bin/gcc|${CC}|' \
@@ -186,7 +201,7 @@ do-install:
 		${WRKSRC}/out/${BUILDTYPE}/resources.pak ${DATADIR}
 	${INSTALL_SCRIPT} ${WRKSRC}/out/${BUILDTYPE}/chrome-wrapper \
 		${WRKSRC}/out/${BUILDTYPE}/xdg-settings ${DATADIR}
-.for f in chrome ffmpegsumo_nolink libffmpegsumo.so mksnapshot protoc
+.for f in chrome libffmpegsumo.so mksnapshot protoc
 	${INSTALL_PROGRAM} ${WRKSRC}/out/${BUILDTYPE}/${f} ${DATADIR}
 .endfor
 	cd ${WRKSRC}/out/${BUILDTYPE} && \

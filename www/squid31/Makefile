@@ -81,7 +81,7 @@ PATCH_SITES=	http://www.squid-cache.org/%SUBDIR%/ \
 		http://www1.jp.squid-cache.org/%SUBDIR%/ \
 		http://www2.tw.squid-cache.org/%SUBDIR%/
 PATCH_SITE_SUBDIR=	Versions/v3/3.1/changesets
-PATCHFILES=	squid-3.1-10373.patch
+PATCHFILES=	#empty
 
 MAINTAINER=	tmseck@web.de
 COMMENT=	HTTP Caching Proxy
@@ -91,7 +91,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 LATEST_LINK=	squid31
 
-SQUID_STABLE_VER=	15
+SQUID_STABLE_VER=	16
 
 CONFLICTS_INSTALL=	squid-2.[0-9].* squid-3.[^1].* cacheboy-[0-9]* lusca-head-[0-9]*
 GNU_CONFIGURE=	yes
@@ -118,6 +118,7 @@ OPTIONS=	SQUID_KERB_AUTH "Install Kerberos authentication helpers" on \
 		SQUID_DELAY_POOLS "Enable delay pools" off \
 		SQUID_SNMP "Enable SNMP support" on \
 		SQUID_SSL "Enable SSL support for reverse proxies" off \
+		SQUID_SSL_CRTD "Enable SSL certificate daemon" off \
 		SQUID_PINGER "Install the icmp helper" off \
 		SQUID_DNS_HELPER "Use the old 'dnsserver' helper" off \
 		SQUID_HTCP "Enable HTCP support" on \
@@ -320,6 +321,10 @@ CONFIGURE_ARGS+=	--enable-ssl \
 			--with-openssl="${OPENSSLBASE}"
 CFLAGS+=	-I${OPENSSLINC}
 LDFLAGS+=	-L${OPENSSLLIB}
+.endif
+.if defined(WITH_SQUID_SSL_CRTD)
+CONFIGURE_ARGS+=	--enable-ssl-crtd
+libexec+=	ssl_crtd
 .endif
 .if defined(WITH_SQUID_PINGER)
 CONFIGURE_ARGS+=	--enable-icmp

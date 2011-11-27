@@ -62,6 +62,7 @@
     SUBDIR += p5-Convert-Binary-C
     SUBDIR += p5-Convert-IBM390
     SUBDIR += p5-Convert-Morse
+    SUBDIR += p5-Convert-NLS_DATE_FORMAT
     SUBDIR += p5-Convert-PEM
     SUBDIR += p5-Convert-Recode
     SUBDIR += p5-Convert-TNEF
@@ -127,7 +128,6 @@
     SUBDIR += php52-recode
     SUBDIR += psiconv
     SUBDIR += py-bsdconv
-    SUBDIR += py-cjkcodecs
     SUBDIR += py-iconv
     SUBDIR += py-iconvcodec
     SUBDIR += py-pisa
@@ -135,6 +135,7 @@
     SUBDIR += py-unidecode
     SUBDIR += rcctools
     SUBDIR += recode
+    SUBDIR += ruby-bsdconv
     SUBDIR += ruby-dump.rb
     SUBDIR += ruby-iconv
     SUBDIR += ruby-lv

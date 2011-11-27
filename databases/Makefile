@@ -52,7 +52,6 @@
     SUBDIR += dbf2mysql
     SUBDIR += dbh
     SUBDIR += dbh10
-    SUBDIR += dbmetrix
     SUBDIR += dbow
     SUBDIR += dbtool
     SUBDIR += dbview
@@ -88,19 +87,12 @@
     SUBDIR += frontbase
     SUBDIR += frontbase-jdbc
     SUBDIR += gadfly
-    SUBDIR += gambas2-gb-db-firebird
-    SUBDIR += gambas2-gb-db-mysql
-    SUBDIR += gambas2-gb-db-odbc
-    SUBDIR += gambas2-gb-db-postgresql
-    SUBDIR += gambas2-gb-db-sqlite2
-    SUBDIR += gambas2-gb-db-sqlite3
     SUBDIR += gbib
     SUBDIR += gdbm
     SUBDIR += gdl2
     SUBDIR += geoserver-mysql-plugin
     SUBDIR += gigabase
     SUBDIR += glom
-    SUBDIR += gnats
     SUBDIR += gnats4
     SUBDIR += gnatsweb4
     SUBDIR += gnome-db
@@ -137,11 +129,12 @@
     SUBDIR += kinterbasdb
     SUBDIR += kmysqladmin
     SUBDIR += knoda
-    SUBDIR += kpogre
     SUBDIR += ksqlanalyzer
     SUBDIR += ksqlshell
     SUBDIR += kumofs
     SUBDIR += kyotocabinet
+    SUBDIR += ldb
+    SUBDIR += leveldb
     SUBDIR += libdbi
     SUBDIR += libdbi-drivers
     SUBDIR += libdrizzle
@@ -185,7 +178,6 @@
     SUBDIR += luasql-postgres
     SUBDIR += luasql-sqlite3
     SUBDIR += ludia
-    SUBDIR += maatkit
     SUBDIR += mantis
     SUBDIR += mariadb-client
     SUBDIR += mariadb-scripts
@@ -209,24 +201,19 @@
     SUBDIR += mylibrary
     SUBDIR += mysql++1
     SUBDIR += mysql++3
+    SUBDIR += mysql-connector-c++
     SUBDIR += mysql-connector-java
     SUBDIR += mysql-connector-odbc
-    SUBDIR += mysql-editor
     SUBDIR += mysql-navigator
     SUBDIR += mysql-proxy
     SUBDIR += mysql-q4m
     SUBDIR += mysql-udf
+    SUBDIR += mysql-udf-preg
     SUBDIR += mysql-workbench51
     SUBDIR += mysql-workbench52
     SUBDIR += mysql-xql
     SUBDIR += mysql2odbc
     SUBDIR += mysql2pgsql
-    SUBDIR += mysql323-client
-    SUBDIR += mysql323-scripts
-    SUBDIR += mysql323-server
-    SUBDIR += mysql40-client
-    SUBDIR += mysql40-scripts
-    SUBDIR += mysql40-server
     SUBDIR += mysql41-client
     SUBDIR += mysql41-scripts
     SUBDIR += mysql41-server
@@ -243,7 +230,6 @@
     SUBDIR += mysqlcppapi
     SUBDIR += mysqldumper
     SUBDIR += mysqlidxchk
-    SUBDIR += mysqlman
     SUBDIR += mysqlreport
     SUBDIR += mysqlsla
     SUBDIR += mysqlsniffer
@@ -253,6 +239,7 @@
     SUBDIR += mywwwatcher
     SUBDIR += nagios-check_postgres_replication
     SUBDIR += namazu2
+    SUBDIR += ocaml-mysql
     SUBDIR += ocaml-pgocaml
     SUBDIR += ocaml-sqlite3
     SUBDIR += openark-kit
@@ -332,7 +319,6 @@
     SUBDIR += p5-DBD-XBase
     SUBDIR += p5-DBD-cego
     SUBDIR += p5-DBD-mysql
-    SUBDIR += p5-DBD-mysql40
     SUBDIR += p5-DBD-mysql41
     SUBDIR += p5-DBD-mysql50
     SUBDIR += p5-DBD-mysql51
@@ -373,7 +359,6 @@
     SUBDIR += p5-DBIx-Class-Tree
     SUBDIR += p5-DBIx-Class-Tree-NestedSet
     SUBDIR += p5-DBIx-Class-UUIDColumns
-    SUBDIR += p5-DBIx-Class-Validation
     SUBDIR += p5-DBIx-Class-WebForm
     SUBDIR += p5-DBIx-Connector
     SUBDIR += p5-DBIx-ContextualFetch
@@ -401,6 +386,7 @@
     SUBDIR += p5-DBIx-Skinny-Mixin-DBHResolver
     SUBDIR += p5-DBIx-Skinny-Pager
     SUBDIR += p5-DBIx-Skinny-Schema-Loader
+    SUBDIR += p5-DBIx-Sunny
     SUBDIR += p5-DBIx-TableHash
     SUBDIR += p5-DBIx-TransactionManager
     SUBDIR += p5-DBIx-Tree
@@ -479,6 +465,7 @@
     SUBDIR += p5-Text-Query-SQL
     SUBDIR += p5-Text-xSV
     SUBDIR += p5-Tie-DBI
+    SUBDIR += p5-Tie-LevelDB
     SUBDIR += p5-Time-Piece-MySQL
     SUBDIR += p5-TokyoCabinet
     SUBDIR += p5-hp200lx-db
@@ -527,6 +514,7 @@
     SUBDIR += pecl-memcache
     SUBDIR += pecl-memcached
     SUBDIR += pecl-mongo
+    SUBDIR += pecl-mysqlnd_ms
     SUBDIR += pecl-rrd
     SUBDIR += pecl-sqlite
     SUBDIR += pecl-tokyo_tyrant
@@ -544,6 +532,7 @@
     SUBDIR += pgpool-II
     SUBDIR += pgpool-II-22
     SUBDIR += pgpool-II-23
+    SUBDIR += pgpool-II-30
     SUBDIR += pgpoolAdmin
     SUBDIR += pgsphere
     SUBDIR += pgtcl
@@ -653,7 +642,6 @@
     SUBDIR += py-PyGreSQL
     SUBDIR += py-PySQLite10
     SUBDIR += py-PySQLite11
-    SUBDIR += py-axiom
     SUBDIR += py-bsddb
     SUBDIR += py-bsddb3
     SUBDIR += py-cdb
@@ -667,6 +655,7 @@
     SUBDIR += py-gdbm
     SUBDIR += py-htsql
     SUBDIR += py-kyotocabinet
+    SUBDIR += py-leveldb
     SUBDIR += py-memcached
     SUBDIR += py-migrate
     SUBDIR += py-mssql
@@ -674,6 +663,7 @@
     SUBDIR += py-oops
     SUBDIR += py-pg8000
     SUBDIR += py-pg_pqueue
+    SUBDIR += py-pickledb
     SUBDIR += py-postgresql
     SUBDIR += py-psycopg
     SUBDIR += py-psycopg2
@@ -695,6 +685,7 @@
     SUBDIR += py-sqlalchemy
     SUBDIR += py-sqlalchemy06
     SUBDIR += py-sqlite3
+    SUBDIR += py-sqlite3dbm
     SUBDIR += py-sqlkit
     SUBDIR += py-sqlobject
     SUBDIR += py-sqlparse
@@ -747,8 +738,6 @@
     SUBDIR += ruby-o_dbm
     SUBDIR += ruby-oci8
     SUBDIR += ruby-odbc
-    SUBDIR += ruby-pg
-    SUBDIR += ruby-postgres
     SUBDIR += ruby-qdbm
     SUBDIR += ruby-rdbc1
     SUBDIR += ruby-sybct
@@ -757,6 +746,7 @@
     SUBDIR += rubygem-activerecord
     SUBDIR += rubygem-activerecord-jdbc-adapter
     SUBDIR += rubygem-activerecord-jdbcmysql-adapter
+    SUBDIR += rubygem-amalgalite
     SUBDIR += rubygem-arel
     SUBDIR += rubygem-bigrecord
     SUBDIR += rubygem-couchrest
@@ -785,12 +775,13 @@
     SUBDIR += rubygem-do_mysql
     SUBDIR += rubygem-do_postgres
     SUBDIR += rubygem-do_sqlite3
+    SUBDIR += rubygem-familia
     SUBDIR += rubygem-jdbc-mysql
     SUBDIR += rubygem-memcache
     SUBDIR += rubygem-memcache-client
     SUBDIR += rubygem-pg
-    SUBDIR += rubygem-postgres
     SUBDIR += rubygem-rbase
+    SUBDIR += rubygem-redis
     SUBDIR += rubygem-rubyrep
     SUBDIR += rubygem-sqlite3
     SUBDIR += rubygem-sqlite3-ruby
@@ -832,10 +823,7 @@
     SUBDIR += wmjsql
     SUBDIR += xapian-bindings
     SUBDIR += xapian-core
-    SUBDIR += xbase
-    SUBDIR += xbsql
     SUBDIR += xmbase-grok
-    SUBDIR += xmysqladmin
     SUBDIR += xtrabackup
     SUBDIR += yasql
     SUBDIR += zodb3

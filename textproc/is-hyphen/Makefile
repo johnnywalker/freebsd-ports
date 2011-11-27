@@ -5,25 +5,29 @@
 # $FreeBSD$
 #
 
-PORTNAME=	is-hyphen
+PORTNAME=	hyphen
 PORTVERSION=	2004.04.15
+PORTREVISION=	1
 CATEGORIES=	textproc
-MASTER_SITES=	http://ftp.osuosl.org/pub/openoffice/contrib/dictionaries/
-DISTNAME=	hyph_is_IS
+MASTER_SITES=	LOCAL/sunpoet/${PORTNAME}/
+PKGNAMEPREFIX=	is-
+DISTNAME=	hyph_is_IS-${PORTVERSION:C/\.//g}
+DIST_SUBDIR=	${PORTNAME}
 
-MAINTAINER=	bapt@FreeBSD.org
+MAINTAINER=	office@FreeBSD.org
 COMMENT=	Icelandic hyphenation rules
 
 LICENSE=	LGPL21
 
 USE_ZIP=	yes
 NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
 
-PLIST_FILES=	share/hyphen/hyph_is_IS.dic
-PLIST_DIRS=	share/hyphen
+PLIST_FILES=	%%DATADIR%%/hyph_is_IS.dic
+PLIST_DIRSTRY=	%%DATADIR%%
 
 do-install:
-	@${MKDIR} ${PREFIX}/share/hyphen
-	@${INSTALL_DATA} ${WRKDIR}/hyph_is_IS.dic ${PREFIX}/share/hyphen
+	${MKDIR} ${DATADIR}/
+	${INSTALL_DATA} ${WRKSRC}/hyph_is_IS.dic ${DATADIR}/
 
 .include <bsd.port.mk>

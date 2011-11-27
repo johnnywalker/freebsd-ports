@@ -3,9 +3,11 @@
 # Whom:                 Li-Wen Hsu <lwhsu@FreeBSD.org>
 #
 # $FreeBSD$
+#
 
 PORTNAME=	python32
 PORTVERSION=	3.2.2
+PORTREVISION=	2
 CATEGORIES=	lang python ipv6
 MASTER_SITES=	${PYTHON_MASTER_SITES}
 MASTER_SITE_SUBDIR=	${PYTHON_MASTER_SITE_SUBDIR}
@@ -40,7 +42,8 @@ EXAMPLESDIR=	${PREFIX}/share/examples/${PYTHON_VERSION}
 DATADIR=	${PREFIX}/share/${PYTHON_VERSION}
 
 PLATFORMS=	plat-freebsd4 plat-freebsd5 plat-freebsd6 \
-		plat-freebsd7 plat-freebsd8 plat-freebsd9
+		plat-freebsd7 plat-freebsd8 plat-freebsd9 \
+		plat-freebsd10
 
 BIN_SCRIPTS=	2to3 idle3 pydoc3
 BIN_FILES=	python python-shared python-config python-shared-config \
@@ -49,7 +52,6 @@ BINLINKS_SUB=	-e 's,(2to3|idle3|pydoc3),\1-${PYTHON_VER},' \
 		-e 's,(python-shared|python),\1${PYTHON_VER},'
 
 OPTIONS=	THREADS "Enable thread support" on \
-		HUGE_STACK_SIZE "Use a larger thread stack" off \
 		UCS4 "Use UCS4 for unicode support" on \
 		PYMALLOC "Use python's internal malloc" on \
 		IPV6 "Enable IPv6 support" on \
@@ -64,18 +66,10 @@ PLIST_SUB+=	IF_DEFAULT=""
 PLIST_SUB+=	IF_DEFAULT="@comment "
 .endif
 
-# workaround for a bug in base curses.h.
-CFLAGS+=	-D__wchar_t=wchar_t
-
 .if !defined(WITHOUT_THREADS)
 PLIST_SUB+=	THREADS=""
 CONFIGURE_ARGS+=	--with-threads
 CFLAGS+=		${PTHREAD_CFLAGS}
-.if defined(WITHOUT_HUGE_STACK_SIZE)
-CFLAGS+=		-DTHREAD_STACK_SIZE=0x20000
-.else
-CFLAGS+=		-DTHREAD_STACK_SIZE=0x100000
-.endif # defined(WITHOUT_HUGE_STACK_SIZE)
 LDFLAGS+=		${PTHREAD_LIBS}
 .else # defined(WITHOUT_THREADS)
 PLIST_SUB+=	THREADS="@comment "
@@ -118,6 +112,8 @@ CONFIGURE_ARGS+=	--with-fpectl
 pre-patch:
 	${CP} -r ${PATCH_WRKSRC}/Lib/plat-freebsd8 \
 		${PATCH_WRKSRC}/Lib/plat-freebsd9
+	${CP} -r ${PATCH_WRKSRC}/Lib/plat-freebsd8 \
+		${PATCH_WRKSRC}/Lib/plat-freebsd10
 	${MKDIR} ${WRKSRC} ${SHARED_WRKSRC}/Modules
 .for script in ${BIN_SCRIPTS}
 	${SED} -e '1s,^.*$$,#!${PREFIX}/bin/${PYTHON_VERSION},' \

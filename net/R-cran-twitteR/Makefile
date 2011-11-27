@@ -6,13 +6,14 @@
 #
 
 PORTNAME=	twitteR
-PORTVERSION=	0.99.9
+PORTVERSION=	0.99.14
 CATEGORIES=	net
-PKGNAMEPREFIX=	R-ran-
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 
 MAINTAINER=	tota@FreeBSD.org
 COMMENT=	R based Twitter client
+
+LICENSE=	ART20
 
 RUN_DEPENDS=	R-cran-RCurl>0:${PORTSDIR}/ftp/R-cran-RCurl \
 		R-cran-RJSONIO>0:${PORTSDIR}/converters/R-cran-RJSONIO \

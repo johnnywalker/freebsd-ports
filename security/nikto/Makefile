@@ -8,13 +8,13 @@
 #
 
 PORTNAME=	nikto
-PORTVERSION=	2.1.3
+PORTVERSION=	2.1.4
 PORTEPOCH=	1
 CATEGORIES=	security www
 MASTER_SITES=	http://www.cirt.net/${PORTNAME}/ \
 		http://www.mirrors.wiretapped.net/security/vulnerability-assessment/${PORTNAME}/
 
-MAINTAINER=	niels@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Web and CGI vulnerability scanner with SSL support
 
 MAN1=		nikto.1

@@ -1,5 +1,5 @@
 
-$FreeBSD$
+$FreeBSD: ports/net/asterisk-oh323/files/patch-asterisk-driver::chan_oh323.c,v 1.7 2009/02/12 07:07:52 sobomax Exp $
 
 --- asterisk-driver/chan_oh323.c.orig
 +++ asterisk-driver/chan_oh323.c

@@ -11,7 +11,7 @@ PORTREVISION=	0
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.SpringDaemons.com/soft/
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	A powerful RAW image processing application
 
 LICENSE=	GPLv3
@@ -58,6 +58,10 @@ CFLAGS+=	-O3 -ffast-math -fexpensive-optimizations \
 CXXFLAGS+=	-O3 -ffast-math -fexpensive-optimizations \
 		-funroll-loops -msse
 .endif
+.endif
+
+.if ${ARCH} == "ia64" || ${ARCH} == "powerpc" || ${ARCH} == "sparc64"
+BROKEN=		Does not compile on ia64, powerpc, or sparc64
 .endif
 
 .if !defined(WITHOUT_OPENMP)

@@ -31,7 +31,6 @@
     SUBDIR += dhex
     SUBDIR += diakonos
     SUBDIR += dkns
-    SUBDIR += doxymacs
     SUBDIR += drjava
     SUBDIR += e3
     SUBDIR += e93
@@ -53,7 +52,6 @@
     SUBDIR += fpc-ide
     SUBDIR += fte
     SUBDIR += fxite
-    SUBDIR += gambas2-ide
     SUBDIR += gate
     SUBDIR += gedit
     SUBDIR += gedit-plugins
@@ -80,6 +78,7 @@
     SUBDIR += joe2
     SUBDIR += jove
     SUBDIR += jupp
+    SUBDIR += kate
     SUBDIR += kate-plugins
     SUBDIR += kile
     SUBDIR += kile-kde4
@@ -195,7 +194,6 @@
     SUBDIR += psgml
     SUBDIR += puff
     SUBDIR += py-room
-    SUBDIR += richtext
     SUBDIR += rospell
     SUBDIR += rox-edit
     SUBDIR += scite

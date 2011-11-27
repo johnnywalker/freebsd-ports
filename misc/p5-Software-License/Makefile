@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	Software-License
-PORTVERSION=	0.103002
+PORTVERSION=	0.103004
 CATEGORIES=	misc perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:RJBS
@@ -15,8 +15,8 @@ PKGNAMEPREFIX=	p5-
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Packages that provide templated software licenses
 
+LICENSE=	ART10 GPLv1
 LICENSE_COMB=	dual
-LICENSE=	ART20 GPLv1
 
 BUILD_DEPENDS=	p5-Data-Section>=0:${PORTSDIR}/devel/p5-Data-Section \
 		p5-Sub-Install>=0:${PORTSDIR}/devel/p5-Sub-Install \

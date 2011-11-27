@@ -12,8 +12,8 @@ MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=/src/panel-plugins/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	A mpc plugin for xfce
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	An MPC plugin for Xfce
 
 LIB_DEPENDS=	mpd.3:${PORTSDIR}/audio/libmpd
 

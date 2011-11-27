@@ -6,15 +6,14 @@
 #
 
 PORTNAME=	asterisk14
-PORTVERSION=	1.4.9
-PORTREVISION=	5
+PORTVERSION=	1.4.13
 CATEGORIES=	net
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/
 PKGNAMESUFFIX=	-addons
 DISTNAME=	asterisk${PKGNAMESUFFIX}-${DISTVERSION}
 
-MAINTAINER=	pneumann@gmail.com
+MAINTAINER=	bamby@sippysoft.com
 COMMENT=	GPL modules for the Asterisk Open Source PBX
 
 BUILD_DEPENDS=	asterisk:${PORTSDIR}/net/asterisk14

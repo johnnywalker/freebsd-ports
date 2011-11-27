@@ -6,13 +6,10 @@
 #
 
 PORTNAME=	git
-PORTVERSION=	1.7.6.1
+PORTVERSION=	1.7.7.4
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_GENTOO} \
-		http://www.glenbarber.us/ports/${CATEGORIES}/${PORTNAME}
-		
-MASTER_SITE_SUBDIR=	software/scm/${PORTNAME} \
-			distfiles
+MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
+PROJECTHOST=	git-core
 DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX} \
 		${PORTNAME}-manpages-${PORTVERSION}${EXTRACT_SUFX}
 # We manually extract the htmldocs.
@@ -117,6 +114,7 @@ MAN1=		git.1 \
 		git-remote-ext.1 \
 		git-remote-fd.1 \
 		git-remote-helpers.1 \
+		git-remote-testgit.1 \
 		git-remote.1 \
 		git-repack.1 \
 		git-replace.1 \
@@ -172,14 +170,14 @@ MAN7=		gitcli.7 \
 		gitdiffcore.7 \
 		gittutorial-2.7 \
 		gitworkflows.7 \
-		gitrevisions.7
+		gitrevisions.7 \
+		gitnamespaces.7
 
 CONFLICTS?=	git-subversion-[0-9]*
 
 SUB_FILES=	pkg-message
 PKGMESSAGE=	${WRKDIR}/pkg-message
 
-USE_BZIP2=	yes
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 CFLAGS+=	-I${LOCALBASE}/include
@@ -195,7 +193,6 @@ CONFIGURE_ARGS=	--enable-pthreads=${PTHREAD_LIBS}
 
 OPTIONS=	GUI "Enable building of GUI tools" off \
 		SVN "Enable required dependencies for SVN tools" off \
-		SVN_FBSD "Use subversion-freebsd dependency (implies SVN)" off \
 		GITWEB "Install gitweb" off \
 		CONTRIB "Install contributed scripts" on \
 		P4 "Enable Perforce support" on \
@@ -277,15 +274,14 @@ PLIST_SUB+=	GUI="@comment "
 MAKE_ARGS+=	NO_TCLTK=yes
 .endif
 
-.ifdef (WITH_SVN) || defined (WITH_SVN_FBSD)
-RUN_DEPENDS+=	${SITE_PERL}/${PERL_ARCH}/Term/ReadKey.pm:${PORTSDIR}/devel/p5-Term-ReadKey
-.ifdef (WITH_SVN_FBSD)
-RUN_DEPENDS+=	svn:${PORTSDIR}/devel/subversion-freebsd \
-		${SITE_PERL}/${PERL_ARCH}/SVN/Core.pm:${PORTSDIR}/devel/p5-subversion-freebsd
-.else
-RUN_DEPENDS+=	svn:${PORTSDIR}/devel/subversion \
+# While this port does not explicity honor WITH_SUBVERSION_VER knob it does
+# depend upon devel/p5-subversion, which does honor that knob. If you want
+# to have git use devel/subversion16 it will be brought in through
+# devel/p5-subversion if you set WITH_SUBVERSION_VER=16. Otherwise
+# devel/subversion will be brought in.
+.ifdef (WITH_SVN)
+RUN_DEPENDS+=	${SITE_PERL}/${PERL_ARCH}/Term/ReadKey.pm:${PORTSDIR}/devel/p5-Term-ReadKey \
 		${SITE_PERL}/${PERL_ARCH}/SVN/Core.pm:${PORTSDIR}/devel/p5-subversion
-.endif
 PLIST_SUB+=	SVN=""
 MAN1+=		git-svn.1
 .else
@@ -370,7 +366,7 @@ post-patch:
 		s/git-cvsserver//' \
 		${WRKSRC}/Makefile
 .endif
-.ifndef (WITH_SVN) && !defined (WITH_SVN_FBSD)
+.ifndef (WITH_SVN)
 	@${REINPLACE_CMD} -e '/git-svn.perl/d' ${WRKSRC}/Makefile
 .endif
 .ifndef (WITH_GITWEB)
@@ -383,10 +379,8 @@ post-build:
 		${WRKSRC}/contrib/p4import/git-p4import.py
 	@${CP} ${WRKSRC}/contrib/p4import/git-p4import.py \
 		${WRKSRC}/contrib/p4import/git-p4import
-.endif
-	@${REINPLACE_CMD} -e 's|#\. /usr/share/doc/git-core/contrib/hooks/post-receive-email|#. ${PREFIX}/share/git-core/contrib/hooks/post-receive-email|' \
-		${WRKSRC}/templates/blt/hooks/post-receive.sample
 	@${FIND} ${WRKSRC} -name "*.bak" -delete
+.endif
 
 post-install:
 	(cd ${WRKDIR}/man1/ && ${COPYTREE_SHARE} \* ${MANPREFIX}/man/man1)

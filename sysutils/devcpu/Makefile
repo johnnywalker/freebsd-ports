@@ -11,7 +11,7 @@ PORTREVISION=	0
 CATEGORIES=	sysutils kld
 MASTER_SITES=	ftp://ftp.SpringDaemons.com/soft/
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Kernel module that provides access to i386 MSRs and cpuid info
 
 RUN_DEPENDS=	${STAMPFILE}:${PORTSDIR}/sysutils/devcpu-data
@@ -31,7 +31,7 @@ MAKE_ENV+=	KMODDIR="${KMODDIR}" BINDIR="${PREFIX}/bin"
 
 STAMPFILE=	${LOCALBASE}/share/${PORTNAME}/.do_not_delete
 
-OPTIONS=	EXTRACTOR "Install Award Bios microcode extracting utility" off 
+OPTIONS=	EXTRACTOR "Install Award Bios microcode extracting utility" off
 
 MAN4=		cpu.4
 MAN8=		cpu_microcode_tool.8

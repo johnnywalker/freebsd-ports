@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	seed7
-DISTVERSION=	05_20110904
+DISTVERSION=	05_20111111
 CATEGORIES=	lang
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${DISTNAME}/
 DISTNAME=	${PORTNAME}_${DISTVERSION}
@@ -39,7 +39,7 @@ post-patch:
 	    ${WRKSRC}/../prg/chk_all.sd7
 
 do-configure:
-	(cd ${WRKSRC} && ${GMAKE} depend)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${GMAKE} depend)
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/../bin/hi ${PREFIX}/bin

@@ -20,7 +20,6 @@
     SUBDIR += another-htmllint
     SUBDIR += anthy
     SUBDIR += asterisk-sounds
-    SUBDIR += asterisk14-sounds
     SUBDIR += asterisk16-sounds
     SUBDIR += aterm
     SUBDIR += awffull
@@ -43,6 +42,7 @@
     SUBDIR += ddskk
     SUBDIR += devil-fpw
     SUBDIR += dvi2dvi
+    SUBDIR += dvi2tty
     SUBDIR += dvipsk
     SUBDIR += e2ps
     SUBDIR += eb
@@ -60,7 +60,6 @@
     SUBDIR += elisa8x8
     SUBDIR += elvis
     SUBDIR += emacs-emcws
-    SUBDIR += epic4
     SUBDIR += epwutil
     SUBDIR += esecanna
     SUBDIR += esecanna-module-vje25
@@ -144,6 +143,7 @@
     SUBDIR += kde4-l10n
     SUBDIR += kdrill
     SUBDIR += kinput2
+    SUBDIR += kiten
     SUBDIR += koffice-i18n
     SUBDIR += koffice-kde4-l10n
     SUBDIR += kon2-14dot
@@ -192,7 +192,6 @@
     SUBDIR += mozc-tool
     SUBDIR += mtools
     SUBDIR += multiskkserv
-    SUBDIR += mutt
     SUBDIR += mutt-devel
     SUBDIR += mypaedia-fpw
     SUBDIR += mypaedia-fpw-package
@@ -222,7 +221,6 @@
     SUBDIR += p5-Encode-EUCJPMS
     SUBDIR += p5-Encode-JP-Emoji
     SUBDIR += p5-Encode-JP-Mobile
-    SUBDIR += p5-FormValidator-Simple-Plugin-Number-Phone-JP
     SUBDIR += p5-HTML-MobileJp
     SUBDIR += p5-Jcode
     SUBDIR += p5-Lingua-JA-Kana
@@ -245,6 +243,7 @@
     SUBDIR += perl5
     SUBDIR += php5-mecab
     SUBDIR += php_doc
+    SUBDIR += plain2
     SUBDIR += plan
     SUBDIR += platex-japanese
     SUBDIR += platex-jsclasses
@@ -290,7 +289,6 @@
     SUBDIR += rubygem-jpmobile
     SUBDIR += rubygem-jpmobile-ipaddresses
     SUBDIR += rubygem-jpmobile-terminfo
-    SUBDIR += rxvt
     SUBDIR += ryaku-fpw
     SUBDIR += scim-anthy
     SUBDIR += scim-canna
@@ -354,6 +352,7 @@
     SUBDIR += webalizer
     SUBDIR += wnn7egg
     SUBDIR += wordnet-fpw
+    SUBDIR += wordpress
     SUBDIR += wwasw-fpw
     SUBDIR += xchat
     SUBDIR += xdtp

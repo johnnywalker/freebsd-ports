@@ -16,7 +16,7 @@ DISTNAME=	apache-maven-${DISTVERSION}-bin
 MAINTAINER=	hq@FreeBSD.org
 COMMENT=	Java project management tool, 2.0 branch
 
-RUN_DEPENDS=	bin/mvn:${PORTSDIR}/devel/maven-wrapper
+RUN_DEPENDS=	mvn:${PORTSDIR}/devel/maven-wrapper
 
 USE_JAVA=	yes
 JAVA_VERSION=	1.5+
@@ -38,6 +38,7 @@ do-install:
 	cd ${WRKSRC} && ${FIND} . -type f -not -path "\./bin/" -exec ${INSTALL_DATA} {} ${DATADIR}/{} \;
 	${INSTALL_DATA} ${WRKSRC}/bin/m2.conf ${DATADIR}/bin/
 	${INSTALL_SCRIPT} ${WRKDIR}/m2.sh ${DATADIR}/bin/mvn
+	${MKDIR} ${PREFIX}/${INSTANCES_DIR}
 	${INSTALL_DATA} ${WRKSRC}/${INSTANCE_FILE} ${PREFIX}/${INSTANCES_DIR}
 
 post-install:

@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	darktable
-PORTVERSION=	0.9.2
+PORTVERSION=	0.9.3
 CATEGORIES=	graphics
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION:R}
 
@@ -32,6 +32,7 @@ MAN1=		${PORTNAME}.1
 OPTIONS=	GCONF	"Enable GConf backend"			off \
 		GPHOTO	"Enable camera support via libgphoto2"	on \
 		FLICKR	"Enable Flickr support via flickcurl"	off \
+		RAWSPEED "Compile with rawspeed backend"	on \
 		SLIDESHOW "Build OpenGL/SDL slideshow viewer"	off \
 		KWALLET	"Enable KWallet support (requires dbus-glib)" off \
 		GKEYRING "Enable GNOME Keyring support"		off \
@@ -68,6 +69,10 @@ PLIST_FILES+=	lib/darktable/plugins/imageio/storage/libflickr.so
 CMAKE_ARGS+=	-DUSE_FLICKR:BOOL=OFF
 .endif
 
+.if !defined(WITH_RAWSPEED)
+CMAKE_ARGS+=	-DDONT_USE_RAWSPEED:BOOL=ON
+.endif
+
 .if defined(WITH_SLIDESHOW)
 USE_GL=		gl
 USE_SDL=	sdl
@@ -95,14 +100,17 @@ CMAKE_ARGS+=	-DUSE_NLS:BOOL=OFF
 .endif
 
 post-patch:
+# FreeBSD 7.X does not have dprintf()
+.if ${OSVERSION} < 800071
+	@${REINPLACE_CMD} -e '80s,APPLE,${OPSYS}, ; /va_start/s,&,,' \
+		${WRKSRC}/src/common/darktable.c
+.endif
 # Do not install useless (to end-user) documentation files
 	@${REINPLACE_CMD} -e '/DOC_FILES/d' ${WRKSRC}/doc/CMakeLists.txt
-# Respect CFLAGS for release builds; also disable -Werror for Unix since
-# unfortunately build fails with it for now
-	@${REINPLACE_CMD} -e '/-O3/s,^,#, ; s,NOT APPLE,& AND NOT UNIX,' \
+# Respect CFLAGS for release builds; remove `-g' from common CFLAGS which
+# are used for release builds as well
+	@${REINPLACE_CMD} -e '/-O3/s,^,#, ; /-msse2/s, -g,,' \
 		${WRKSRC}/src/CMakeLists.txt
-# Remove `-g' from common CFLAGS which are used for release builds as well
-	@${REINPLACE_CMD} -e '/-msse2/s, -g,,' ${WRKSRC}/src/CMakeLists.txt
 # Fix GConf schemas installation prefix
 	@${REINPLACE_CMD} -e 's,/etc/gconf/schemas,.&,' \
 		${WRKSRC}/data/CMakeLists.txt
@@ -111,6 +119,9 @@ post-patch:
 		${WRKSRC}/doc/CMakeLists.txt
 
 post-install:
+.if !defined(WITH_RAWSPEED)
+	@${REINPLACE_CMD} -e '/rawspeed/d' ${TMPPLIST}
+.endif
 .if !defined(WITH_NLS)
 	@${REINPLACE_CMD} -e '/LC_MESSAGES/d' ${TMPPLIST}
 .endif

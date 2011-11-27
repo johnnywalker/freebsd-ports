@@ -7,6 +7,7 @@
 
 PORTNAME=	emacs
 PORTVERSION=	${EMACS_VER}.${EMACS_REV}
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	editors ipv6
 MASTER_SITES=	http://distfiles.pirateparty.in/%SUBDIR%/ \
@@ -26,10 +27,11 @@ CONFLICTS=	emacs-19.* emacs-21.* emacs-22.* emacs-23.* \
 		xemacs-mule-[0-9]* xemacs-devel-mule-[0-9]* \
 		emacs-nox11-[0-9]*
 
-EMACS_VER=	24.0.50
-EMACS_REV=	105651
+EMACS_VER=	24.0.90
+EMACS_REV=	106240
 GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
+USE_NCURSES=	yes
 USE_XZ=		yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -190,7 +192,7 @@ LIB_DEPENDS+=	freetype.9:${PORTSDIR}/print/freetype2
 .if defined(WITHOUT_IMAGEMAGICK)
 CONFIGURE_ARGS+=	--without-imagemagick
 .else
-LIB_DEPENDS+=		MagickCore.4:${PORTSDIR}/graphics/ImageMagick
+LIB_DEPENDS+=		MagickCore.5:${PORTSDIR}/graphics/ImageMagick
 .endif
 
 .if defined(WITHOUT_M17N)

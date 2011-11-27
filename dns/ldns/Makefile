@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	ldns
-PORTVERSION=	1.6.10
+PORTVERSION=	1.6.11
 CATEGORIES=	dns
 MASTER_SITES=	http://www.nlnetlabs.nl/downloads/ldns/ \
 		CRITICAL
@@ -28,7 +28,16 @@ OPTIONS=	DOCS "With documentation" Off \
 		ECDSA "With highly experimental ECDSA support" Off \
 		PYLDNS "Build python bindings" Off
 
-.include <bsd.port.pre.mk>
+.if defined(WITH_PYLDNS)
+USE_PYTHON=	yes
+.include "${PORTSDIR}/Mk/bsd.python.mk"
+CONFIGURE_ARGS+=--with-pyldns
+BUILD_DEPENDS+=	${LOCALBASE}/bin/swig:${PORTSDIR}/devel/swig13
+INSTALL_TARGET+=install-pyldns
+PLIST_SUB+=	PYLDNS=""
+.else
+PLIST_SUB+=	PYLDNS="@comment "
+.endif
 
 ALL_TARGET=	all
 INSTALL_TARGET=	install-lib install-h
@@ -223,24 +232,25 @@ MAN3=	ldns_bget_token.3 ldns_bgetc.3 ldns_bskipcs.3 ldns_buffer.3 \
 	ldns_zone_print.3 ldns_zone_push_rr.3 ldns_zone_push_rr_list.3 \
 	ldns_zone_rr_count.3 ldns_zone_rrs.3 ldns_zone_set_rrs.3 \
 	ldns_zone_set_soa.3 ldns_zone_soa.3 ldns_zone_sort.3
+MAN1+=	ldns-config.1
 .endif
 
 .if defined(WITH_GOST)
 BUILD_DEPENDS+=	openssl>=1.0:${PORTSDIR}/security/openssl
 .else
-NO_GOST=		--disable-gost
-CONFIGURE_ARGS+=	${NO_GOST}
+NO_GOST=	--disable-gost
+CONFIGURE_ARGS+=${NO_GOST}
 .endif
 
 .if defined(WITH_DRILL)
-PLIST_SUB+=		DRILLPROG=""
+PLIST_SUB+=	DRILLPROG=""
 MAN1+=	drill.1
 .else
-PLIST_SUB+=		DRILLPROG="@comment "
+PLIST_SUB+=	DRILLPROG="@comment "
 .endif
 
 .if defined(WITH_EXAMPLES)
-PLIST_SUB+=		EXAMPLES=""
+PLIST_SUB+=	EXAMPLES=""
 NOMANCOMPRESS=	true
 MANCOMPRESSED=	no
 MAN1+=	ldns-chaos.1 ldns-compare-zones.1 ldns-dpa.1 \
@@ -251,27 +261,11 @@ MAN1+=	ldns-chaos.1 ldns-compare-zones.1 ldns-dpa.1 \
 	ldns-verify-zone.1 ldns-version.1 ldns-walk.1 ldns-zcat.1 \
 	ldns-zsplit.1 ldnsd.1 ldns-test-edns.1
 .else
-PLIST_SUB+=		EXAMPLES="@comment "
+PLIST_SUB+=	EXAMPLES="@comment "
 .endif
 
-.if defined(WITH_ECDSA) && ${OSVERSION} > 700000
-CONFIGURE_ARGS+=	--enable-ecdsa
-.endif
-
-.if defined(WITH_PYLDNS)
-USE_PYTHON=		yes
-.include "${PORTSDIR}/Mk/bsd.python.mk"
-CONFIGURE_ARGS+=	--with-pyldns
-BUILD_DEPENDS+=		${LOCALBASE}/bin/swig:${PORTSDIR}/devel/swig13
-INSTALL_TARGET+=	install-pyldns
-PLIST_SUB+=		PYLDNS=""
-.else
-PLIST_SUB+=		PYLDNS="@comment "
-.endif
-
-.if ${OSVERSION} < 700000
-NO_SHA2=		--disable-sha2
-CONFIGURE_ARGS+=	${NO_SHA2}
+.if defined(WITH_ECDSA)
+CONFIGURE_ARGS+=--enable-ecdsa
 .endif
 
 post-configure:
@@ -302,4 +296,4 @@ post-install:
 	@(cd ${WRKSRC}/drill; ${GMAKE} install)
 .endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

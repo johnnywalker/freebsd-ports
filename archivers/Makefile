@@ -29,8 +29,6 @@
     SUBDIR += fpc-unzip
     SUBDIR += freetar
     SUBDIR += freeze
-    SUBDIR += gambas2-gb-compress-bzlib2
-    SUBDIR += gambas2-gb-compress-zlib
     SUBDIR += gcpio
     SUBDIR += grzip
     SUBDIR += gtar
@@ -90,6 +88,8 @@
     SUBDIR += ocaml-zip
     SUBDIR += p5-Archive-Any
     SUBDIR += p5-Archive-Extract
+    SUBDIR += p5-Archive-Extract-Libarchive
+    SUBDIR += p5-Archive-Peek
     SUBDIR += p5-Archive-Rar
     SUBDIR += p5-Archive-SimpleExtractor
     SUBDIR += p5-Archive-Tar
@@ -126,13 +126,13 @@
     SUBDIR += pear-PHP_Archiv
     SUBDIR += pecl-bz2
     SUBDIR += pecl-lzf
-    SUBDIR += pecl-phar
     SUBDIR += pecl-phk
     SUBDIR += pecl-rar
     SUBDIR += pecl-zip
     SUBDIR += php4-bz2
     SUBDIR += php4-zlib
     SUBDIR += php5-bz2
+    SUBDIR += php5-phar
     SUBDIR += php5-zip
     SUBDIR += php5-zlib
     SUBDIR += php52-bz2

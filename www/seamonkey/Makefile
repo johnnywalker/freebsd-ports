@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	seamonkey
-DISTVERSION=	2.3.3
+DISTVERSION=	2.5
 CATEGORIES?=	www ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA_EXTENDED}
 MASTER_SITE_SUBDIR=	seamonkey/releases/${DISTVERSION}/source
@@ -15,7 +15,8 @@ DISTNAME=	seamonkey-${DISTVERSION}.source
 MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	The open source, standards compliant web browser
 
-BUILD_DEPENDS=	nspr>=4.8.7:${PORTSDIR}/devel/nspr
+BUILD_DEPENDS=	nspr>=4.8.7:${PORTSDIR}/devel/nspr \
+		unzip:${PORTSDIR}/archivers/unzip
 LIB_DEPENDS=	execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		event-1.4:${PORTSDIR}/devel/libevent
 
@@ -83,12 +84,13 @@ LIB_DEPENDS+=	glitz.1:${PORTSDIR}/graphics/glitz
 .endif
 
 .if defined(WITHOUT_MAILNEWS)
+EXTRA_PATCHES+=	${FILESDIR}/extra-mailnews-patch-bridge-bridge.mk
 MOZ_OPTIONS+=	--disable-ldap --disable-mailnews
 .else
 # mail and news desired, but not LDAP
 .if defined(WITHOUT_LDAP)
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-bridge-bridge.mk
 MOZ_OPTIONS+=	--disable-ldap --enable-mailnews
-BROKEN=		Does not build
 .else
 MOZ_OPTIONS+=	--enable-ldap --enable-mailnews
 .endif
@@ -116,8 +118,10 @@ BUILD_DEPENDS+=	yasm:${PORTSDIR}/devel/yasm
 MOZ_OPTIONS+=	--enable-calendar
 MOZ_MK_OPTIONS+=	MOZ_CO_PROJECT=calendar
 LIGHTNING_DIR=	share/lightning
-SUB_FILES+=	pkg-message
-PKGMESSAGE=	${WRKDIR}/pkg-message
+XPI_FILE=	${MOZSRC}/dist/xpi-stage/lightning.xpi
+XPI_LIBDIR=	${PREFIX}/lib/xpi
+XPI_ORIG_ID=	{e2fda1a4-762b-4020-b5ad-a41df1933103}
+XPI_ID=		lightning@seamonkey.mozilla.org
 .else
 MOZ_OPTIONS+=	--disable-calendar
 .endif
@@ -163,10 +167,6 @@ pre-install:
 	${ECHO_CMD} share/applications/${MOZILLA}.desktop >> ${PLIST}
 	${ECHO_CMD} "@unexec ${RMDIR} %D/share/applications 2>/dev/null || ${TRUE}" >> ${PLIST}
 	${ECHO_CMD} 'share/pixmaps/${MOZILLA}.png' >> ${PLIST}
-.if defined(WITH_LIGHTNING)
-	@${PRINTF} '%s/lightning-${PORTNAME}.xpi\n@dirrmtry %s\n' \
-		${LIGHTNING_DIR} ${LIGHTNING_DIR} >> ${PLIST}
-.endif
 
 do-install:
 	${MKDIR} ${PREFIX}/share/applications
@@ -176,9 +176,23 @@ do-install:
 
 post-install:
 .if defined(WITH_LIGHTNING)
-	${MKDIR} ${PREFIX}/${LIGHTNING_DIR}
-	${INSTALL_DATA} ${MOZSRC}/dist/xpi-stage/lightning.xpi ${PREFIX}/${LIGHTNING_DIR}/lightning-${PORTNAME}.xpi
-	@${CAT} ${PKGMESSAGE}
+	@${MKDIR} ${XPI_LIBDIR}/${XPI_ID} ${XPI_LIBDIR}/symlinks/seamonkey
+	@(cd ${XPI_LIBDIR}/${XPI_ID}; ${TAR} -xf ${XPI_FILE})
+	@${CHOWN} -R ${SHAREOWN}:${SHAREGRP} ${XPI_LIBDIR}/${XPI_ID}
+	@${REINPLACE_CMD} -i "" "s/${XPI_ORIG_ID}/${XPI_ID}/" ${XPI_LIBDIR}/${XPI_ID}/install.rdf
+	@${CHMOD} -R a+rX,go-w ${XPI_LIBDIR}/${XPI_ID}
+	@${LN} -sf ${XPI_LIBDIR}/${XPI_ID} ${LOCALBASE}/lib/seamonkey/extensions 2>/dev/null || true
+	@${LN} -sf ${XPI_LIBDIR}/${XPI_ID} ${XPI_LIBDIR}/symlinks/seamonkey 2>/dev/null || true
+	@(cd ${XPI_LIBDIR}; ${FIND} ${XPI_ID} -not -type d) | ${SORT} | \
+		${SED} -ne 's,^,lib/xpi/,p' >> ${TMPPLIST}
+	@${ECHO_CMD} 'lib/xpi/symlinks/seamonkey/${XPI_ID}' >> ${TMPPLIST}
+	@${ECHO_CMD} '@exec ${LN} -sf %D/lib/xpi/${XPI_ID} ${LOCALBASE}/lib/seamonkey/extensions 2>/dev/null || true' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec ${RM} -f ${LOCALBASE}/lib/seamonkey/extensions/${XPI_ID}' >> ${TMPPLIST}
+	@(cd ${XPI_LIBDIR}; ${FIND} ${XPI_ID} -type d) | ${SORT} -r | \
+		${SED} -ne 's,^,@dirrm lib/xpi/,p' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec rmdir %D/lib/xpi/symlinks/seamonkey 2>/dev/null || true' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec rmdir %D/lib/xpi/symlinks 2>/dev/null || true' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec rmdir %D/lib/xpi 2>/dev/null || true' >> ${TMPPLIST}
 .endif
 
 .include <bsd.port.post.mk>

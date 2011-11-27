@@ -14,8 +14,11 @@ CATEGORIES=	cad
 MASTER_SITES=	ftp://ftp.cs.man.ac.uk/pub/amulet/gtkwave/2.0/
 DISTNAME=	${PORTNAME}-${PORTVERSION:S/.p/pre/}
 
-MAINTAINER=	stas@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Electronic Waveform Viewer
+
+DEPRECATED=	No more public distfiles, no more upstream
+EXPIRATION_DATE=	2011-12-03
 
 LIB_DEPENDS=	xml2.5:${PORTSDIR}/textproc/libxml2
 

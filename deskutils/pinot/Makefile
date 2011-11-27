@@ -6,16 +6,16 @@
 #
 
 PORTNAME=	pinot
-PORTVERSION=	0.97
-PORTREVISION=	3
+PORTVERSION=	0.98
 CATEGORIES=	deskutils
-MASTER_SITES=	${MASTER_SITE_BERLIOS}
+MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
 #MASTER_SITES=	http://colinf.chez.com/pinot/
 #		http://amra.dyndns.org/
-MASTER_SITE_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	thierry@FreeBSD.org
 COMMENT=	Personal search and metasearch for the Free Desktop
+
+LICENSE=	GPLv2
 
 BUILD_DEPENDS=	update-desktop-database:${PORTSDIR}/devel/desktop-file-utils
 LIB_DEPENDS=	xapian.21:${PORTSDIR}/databases/xapian-core	\
@@ -26,6 +26,7 @@ LIB_DEPENDS=	xapian.21:${PORTSDIR}/databases/xapian-core	\
 		boost_thread.4:${PORTSDIR}/devel/boost-libs	\
 		execinfo.1:${PORTSDIR}/devel/libexecinfo	\
 		exif.12:${PORTSDIR}/graphics/libexif		\
+		exiv2.10:${PORTSDIR}/graphics/exiv2		\
 		gmime-2.4:${PORTSDIR}/mail/gmime24		\
 		tag.1:${PORTSDIR}/audio/taglib			\
 		curl.6:${PORTSDIR}/ftp/curl
@@ -38,7 +39,7 @@ RUN_DEPENDS=	update-mime-database:${PORTSDIR}/misc/shared-mime-info	\
 		unrtf:${PORTSDIR}/textproc/unrtf			\
 		catdvi:${PORTSDIR}/print/catdvi
 
-LICENSE=	GPLv2
+PROJECTHOST=	${PORTNAME}-search
 
 LDFLAGS+=	-L${LOCALBASE}/lib
 GNU_CONFIGURE=	yes
@@ -57,15 +58,22 @@ USE_LDCONFIG=	${PREFIX}/lib/pinot/backends ${PREFIX}/lib/pinot/filters
 CONFIGURE_ARGS+=	--enable-debug=yes
 .endif
 
+.if defined(WITH_CHMLIB)
+CONFIGURE_ARGS+=	--enable-chmlib=yes
+PLIST_SUB+=	CHMLIB=""
+.else
+PLIST_SUB+=	CHMLIB="@comment "
+.endif
+
 INSTALLS_ICONS=	yes
 
-PLIST_SUB=	DESKBAR_MOD="${LDESKBAR_MOD}"
+PLIST_SUB+=	DESKBAR_MOD="${LDESKBAR_MOD}"
 
 MAN1=		pinot-dbus-daemon.1 pinot-index.1 pinot-label.1 pinot-search.1 pinot.1
 
 PORTDOCS=	AUTHORS ChangeLog ChangeLog-dijon INSTALL NEWS README TODO
 
-LM2FIX=		textcat_conf.txt textcat3_conf.txt IndexSearch/Google/Makefile.in
+LM2FIX=		textcat_conf.txt textcat3_conf.txt textcat31_conf.txt
 SHR2FIX=	Core/pinot-search.1 README
 UL2FIX=		Utils/xdgmime/xdgmime.c
 
@@ -77,10 +85,6 @@ DESKBAR_MOD=	${PREFIX}/${LDESKBAR_MOD}
 .if ${OSVERSION} < 700041
 SUB_FILES=	pkg-message
 PKGMESSAGE=	${WRKDIR}/pkg-message
-.endif
-
-.if ${OSVERSION} < 700000
-BROKEN=		does not compile
 .endif
 
 post-extract:

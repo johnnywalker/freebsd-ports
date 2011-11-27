@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	firefox
-DISTVERSION=	6.0.2
+DISTVERSION=	8.0
 PORTEPOCH=	1
 CATEGORIES=	www ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA}
@@ -17,7 +17,8 @@ MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	Web browser based on the browser portion of Mozilla
 
 BUILD_DEPENDS=	nspr>=4.8.8:${PORTSDIR}/devel/nspr \
-		cairo>=1.10.2_1,1:${PORTSDIR}/graphics/cairo
+		cairo>=1.10.2_1,1:${PORTSDIR}/graphics/cairo \
+		unzip:${PORTSDIR}/archivers/unzip
 LIB_DEPENDS=	execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		event-1.4:${PORTSDIR}/devel/libevent
 
@@ -116,7 +117,8 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
 		${WRKSRC}/security/manager/ssl/src/Makefile.in \
 		${WRKSRC}/js/src/config/mkdepend/Makefile.in \
-		${WRKSRC}/js/src/config/config.mk
+		${WRKSRC}/js/src/config/config.mk \
+		${WRKSRC}/xpcom/io/nsAppFileLocationProvider.cpp
 	@${REINPLACE_CMD} -e 's|-lc_r|${PTHREAD_LIBS}|g ; \
 		s|-lpthread|${PTHREAD_LIBS}|g ; \
 		s|echo aout|echo elf|g ; \
@@ -137,6 +139,7 @@ post-configure:
 
 port-pre-install:
 	${ECHO_CMD} 'share/applications/${MOZILLA}.desktop' >> ${PLISTF}
+	${ECHO_CMD} "@exec mkdir -p %D/include/firefox/nss" >> ${PLISTD}
 	${ECHO_CMD} "@dirrmtry share/applications" >> ${PLISTD}
 	${ECHO_CMD} 'share/pixmaps/${FIREFOX_ICON}' >> ${PLISTF}
 

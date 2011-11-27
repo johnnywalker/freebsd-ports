@@ -10,7 +10,11 @@ PKGNAMEPREFIX=	ruby-
 MAINTAINER=	lev@FreeBSD.org
 COMMENT=	Ruby bindings for version control system
 
+.if defined(WITH_SUBVERSION_VER) && ${WITH_SUBVERSION_VER} == 16
+MASTERDIR=	${.CURDIR}/../../devel/subversion16
+.else
 MASTERDIR=	${.CURDIR}/../../devel/subversion
+.endif
 PKGDIR=		${.CURDIR}
 
 CONFIGURE_ENV+=	PTHREAD_LIBS=${PTHREAD_LIBS}

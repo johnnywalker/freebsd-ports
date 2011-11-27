@@ -12,8 +12,10 @@ MASTER_SITES=	${MASTER_SITE_XFCE}
 MASTER_SITE_SUBDIR=/src/panel-plugins/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	miwi@FreeBSD.org
-COMMENT=	XFce 4 weather module for xfce4-panel
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce 4 weather module for xfce4-panel
+
+IGNORE=		free data feed service discontinued
 
 GNU_CONFIGURE=	yes
 INSTALLS_ICONS=	yes

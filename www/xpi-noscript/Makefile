@@ -6,11 +6,11 @@
 #
 
 PORTNAME=	noscript
-PORTVERSION=	2.1.1.2
-DISTVERSIONSUFFIX=	-fx+sm+fn
+PORTVERSION=	2.1.9
+DISTVERSIONSUFFIX=	-sm+fx+fn
 CATEGORIES=	www
 
-MAINTAINER=	miwi@FreeBSD.org
+MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	A security-enhancing Java/JS filtering extension
 
 XPI_ID=		{73a6fe31-595d-460b-a920-fcc0f8843232}

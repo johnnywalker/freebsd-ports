@@ -12,8 +12,8 @@ MASTER_SITES=	${MASTER_SITE_XFCE}
 DISTNAME=	libxfce4ui-${PORTVERSION}
 DIST_SUBDIR=	xfce4
 
-MAINTAINER=	oliver@FreeBSD.org
-COMMENT=	XFce 4 library for a freedesktop.org compliant menu implementation
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Xfce 4 library for a freedesktop.org compliant menu implementation
 
 USE_AUTOTOOLS=	libtool
 GNU_CONFIGURE=	yes

@@ -6,29 +6,15 @@
 #
 
 PORTNAME=	pyblosxom
-PORTVERSION=	1.4.3
+DISTVERSION=	1.5rc3
 CATEGORIES=	www python
-MASTER_SITES=	SF \
-		http://dryice.name/computer/FreeBSD/distfiles/
-
+MASTER_SITES=	http://pyblosxom.bluesock.org/download/
 
 MAINTAINER=	jun-g@daemonfreaks.com
 COMMENT=	A lightweight weblog system
 
-FORBIDDEN=	Vulnerable since 2009-02-11 http://portaudit.freebsd.org/b07f3254-f83a-11dd-85a4-ea653f0746ab.html
-EXPIRATION_DATE=	2011-09-30
-
 USE_PYTHON=	2.5+
-USE_PYDISTUTILS=	yes
-EXAMPLESDIR=	${PREFIX}/share/examples/${PORTNAME}-${PORTVERSION}
-
-post-install:
-.if !defined(NOPORTDOCS)
-	${MKDIR} ${DOCSDIR}
-.for docfile in INSTALL LICENSE README
-	${INSTALL_DATA} ${WRKSRC}/${docfile} ${DOCSDIR}
-.endfor
-.endif
-	@${CAT} ${PKGMESSAGE}
+USE_PYDISTUTILS=	easy_install
+PYDISTUTILS_PKGVERSION=	${DISTVERSION}
 
 .include <bsd.port.mk>

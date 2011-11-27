@@ -6,7 +6,7 @@
 #
 
 PORTNAME=	thunderbird
-DISTVERSION=	6.0.2
+DISTVERSION=	8.0
 CATEGORIES=	mail ipv6
 MASTER_SITES=	${MASTER_SITE_MOZILLA}
 MASTER_SITE_SUBDIR=	${PORTNAME}/releases/${DISTVERSION}/source
@@ -16,7 +16,8 @@ MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	Mozilla Thunderbird is standalone mail and news that stands above
 
 BUILD_DEPENDS=	nspr>=4.8.7:${PORTSDIR}/devel/nspr \
-		cairo>=1.10.2_1,1:${PORTSDIR}/graphics/cairo
+		cairo>=1.10.2_1,1:${PORTSDIR}/graphics/cairo \
+		unzip:${PORTSDIR}/archivers/unzip
 LIB_DEPENDS=	execinfo.1:${PORTSDIR}/devel/libexecinfo \
 		event-1.4:${PORTSDIR}/devel/libevent
 
@@ -55,7 +56,7 @@ PORTNAME_ICON_SRC=	${PREFIX}/lib/${MOZILLA}/chrome/icons/default/default48.png
 SYSTEM_PREFS=	${FAKEDIR}/lib/${PORTNAME}/defaults/pref/${PORTNAME}.js
 MOZ_PIS_SCRIPTS=moz_pis_S50cleanhome
 
-OPTIONS=	LIGHTNING       "Enable calendar extension" off
+OPTIONS=	LIGHTNING	"Enable calendar extension" off
 
 .include <bsd.port.pre.mk>
 
@@ -91,10 +92,12 @@ BUILD_DEPENDS+=	yasm:${PORTSDIR}/devel/yasm
 
 .if defined(WITH_LIGHTNING)
 MOZ_OPTIONS+=	--enable-calendar
-MOZ_MK_OPTIONS+= MOZ_CO_PROJECT=calendar
+MOZ_MK_OPTIONS+=	MOZ_CO_PROJECT=calendar
 LIGHTNING_DIR=	share/lightning
-SUB_FILES+=	pkg-message
-PKGMESSAGE=	${WRKDIR}/pkg-message
+XPI_FILE=	${MOZSRC}/dist/xpi-stage/lightning.xpi
+XPI_LIBDIR=	${PREFIX}/lib/xpi
+XPI_ORIG_ID=	{e2fda1a4-762b-4020-b5ad-a41df1933103}
+XPI_ID=		lightning@thunderbird.mozilla.org
 .else
 MOZ_OPTIONS+=	--disable-calendar
 .endif
@@ -133,19 +136,29 @@ pre-install:
 	@${ECHO_CMD} 'share/applications/${PORTNAME}.desktop' >> ${PLIST}
 	@${ECHO_CMD} 'share/pixmaps/${PORTNAME_ICON}' >> ${PLIST}
 	@${ECHO_CMD} '@dirrmtry share/applications' >> ${PLIST}
-.if defined(WITH_LIGHTNING)
-	@${PRINTF} '%s/lightning-${PORTNAME}.xpi\n@dirrmtry %s\n' \
-		${LIGHTNING_DIR} ${LIGHTNING_DIR} >> ${PLIST}
-.endif
 
 post-install:
 	${MKDIR} ${PREFIX}/share/applications
 	${INSTALL_DATA} ${WRKDIR}/${MOZILLA_EXEC_NAME}.desktop ${PREFIX}/share/applications
 	${LN} -sf ${PORTNAME_ICON_SRC} ${PREFIX}/share/pixmaps/${PORTNAME_ICON}
 .if defined(WITH_LIGHTNING)
-	${MKDIR} ${PREFIX}/${LIGHTNING_DIR}
-	${INSTALL_DATA} ${MOZSRC}/dist/xpi-stage/lightning.xpi ${PREFIX}/${LIGHTNING_DIR}/lightning-${PORTNAME}.xpi
-	@${CAT} ${PKGMESSAGE}
+	@${MKDIR} ${XPI_LIBDIR}/${XPI_ID} ${XPI_LIBDIR}/symlinks/thunderbird
+	@(cd ${XPI_LIBDIR}/${XPI_ID}; ${TAR} -xf ${XPI_FILE})
+	@${CHOWN} -R ${SHAREOWN}:${SHAREGRP} ${XPI_LIBDIR}/${XPI_ID}
+	@${REINPLACE_CMD} -i "" "s/${XPI_ORIG_ID}/${XPI_ID}/" ${XPI_LIBDIR}/${XPI_ID}/install.rdf
+	@${CHMOD} -R a+rX,go-w ${XPI_LIBDIR}/${XPI_ID}
+	@${LN} -sf ${XPI_LIBDIR}/${XPI_ID} ${LOCALBASE}/lib/thunderbird/extensions 2>/dev/null || true
+	@${LN} -sf ${XPI_LIBDIR}/${XPI_ID} ${XPI_LIBDIR}/symlinks/thunderbird 2>/dev/null || true
+	@(cd ${XPI_LIBDIR}; ${FIND} ${XPI_ID} -not -type d) | ${SORT} | \
+		${SED} -ne 's,^,lib/xpi/,p' >> ${TMPPLIST}
+	@${ECHO_CMD} 'lib/xpi/symlinks/thunderbird/${XPI_ID}' >> ${TMPPLIST}
+	@${ECHO_CMD} '@exec ${LN} -sf %D/lib/xpi/${XPI_ID} ${LOCALBASE}/lib/thunderbird/extensions 2>/dev/null || true' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec ${RM} -f ${LOCALBASE}/lib/thunderbird/extensions/${XPI_ID}' >> ${TMPPLIST}
+	@(cd ${XPI_LIBDIR}; ${FIND} ${XPI_ID} -type d) | ${SORT} -r | \
+		${SED} -ne 's,^,@dirrm lib/xpi/,p' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec rmdir %D/lib/xpi/symlinks/thunderbird 2>/dev/null || true' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec rmdir %D/lib/xpi/symlinks 2>/dev/null || true' >> ${TMPPLIST}
+	@${ECHO_CMD} '@unexec rmdir %D/lib/xpi 2>/dev/null || true' >> ${TMPPLIST}
 .endif
 
 .include <bsd.port.post.mk>

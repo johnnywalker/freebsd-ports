@@ -8,7 +8,7 @@
 PORTNAME=		FreeMat
 PORTVERSION=		4.0
 DISTVERSIONSUFFIX=	-Source
-PORTREVISION=		1
+PORTREVISION=		2
 CATEGORIES=		math science
 MASTER_SITES=		SF
 MASTER_SITE_SUBDIR=	freemat/FreeMat4
@@ -46,8 +46,8 @@ SLAVEDIRS=	math/freemat-mpi
 DATADIR+=	${PREFIX}/share/${PORTNAME}-${PORTVERSION}
 
 .if !defined(WITHOUT_FFTW)
-LIB_DEPENDS+=	fftw3.5:${PORTSDIR}/math/fftw3		\
-		fftw3f.5:${PORTSDIR}/math/fftw3-float
+LIB_DEPENDS+=	fftw3:${PORTSDIR}/math/fftw3		\
+		fftw3f:${PORTSDIR}/math/fftw3-float
 .endif
 
 .if !defined(WITHOUT_ARPACK)
@@ -71,13 +71,13 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-libs__libFN__CMakeLists.txt \
 		${FILESDIR}/extra-patch-libs__libFN__FNFun.cpp
 .endif
 
-.if exists(${LOCALBASE}/lib/libatlas_r.so) && !defined(WITH_BLAS)
+.if exists(${LOCALBASE}/lib/libatlas.so) && !defined(WITH_BLAS)
 WITH_ATLAS=	yes
 .endif
 .if defined(WITH_ATLAS)
 LIB_DEPENDS+=	atlas.2:${PORTSDIR}/math/atlas
-BLAS=		-lf77blas -latlas
-LAPACK=		-lalapack
+BLAS=		-lf77blas
+LAPACK=		-lalapack -lcblas
 .else
 LIB_DEPENDS+=	blas.2:${PORTSDIR}/math/blas	\
 		lapack.4:${PORTSDIR}/math/lapack
