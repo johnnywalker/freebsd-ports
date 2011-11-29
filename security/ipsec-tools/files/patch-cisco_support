@@ -1,0 +1,443 @@
+--- src/racoon/handler.c	2011-03-14 12:18:12.000000000 -0500
++++ src/racoon/handler.c	2011-11-27 12:22:26.155138595 -0600
+@@ -382,6 +382,9 @@
+ 		return;
+ 
+ 	/* SA down shell script hook */
++        plog(LLV_DEBUG, LOCATION, NULL, 
++                "Calling script_hook from \"%s\"\n",
++                "delph1");
+ 	script_hook(iph1, SCRIPT_PHASE1_DOWN);
+ 	evt_list_cleanup(&iph1->evt_listeners);
+ 
+--- src/racoon/ipsec_doi.c	2010-12-14 11:57:31.000000000 -0600
++++ src/racoon/ipsec_doi.c	2011-11-27 19:08:18.544028385 -0600
+@@ -38,6 +38,7 @@
+ #include <sys/socket.h>
+ 
+ #include <netinet/in.h>
++#include <arpa/inet.h>
+ 
+ #include PATH_IPSEC_H
+ 
+@@ -80,6 +81,12 @@
+ #include "strnames.h"
+ #include "gcmalloc.h"
+ 
++#ifdef ENABLE_HYBRID
++#include <resolv.h>
++#include "isakmp_xauth.h"
++#include "isakmp_cfg.h"
++#endif
++
+ #ifdef ENABLE_NATT
+ #include "nattraversal.h"
+ #endif
+@@ -3670,6 +3677,8 @@
+ 		ident = vdup(iph1->rmconf->idv);
+ 		break;
+ 	case IDTYPE_KEYID:
++		id_b.proto_id = IPPROTO_UDP;
++		id_b.port = htons(PORT_ISAKMP);
+ 		id_b.type = IPSECDOI_ID_KEY_ID;
+ 		ident = vdup(iph1->rmconf->idv);
+ 		break;
+@@ -3929,6 +3938,11 @@
+ 	struct ph2handle *iph2;
+ {
+ 	struct secpolicy *sp;
++#ifdef ENABLE_HYBRID
++        struct sockaddr_in fake_sin;
++#endif
++        struct sockaddr *src_sa;
++        uint prefixlen;
+ 
+ 	/* check there is phase 2 handler ? */
+ 	sp = getspbyspid(iph2->spid);
+@@ -3938,9 +3952,33 @@
+ 		return -1;
+ 	}
+ 
+-	if (!ipsecdoi_transportmode(iph2->proposal))
+-		iph2->id = ipsecdoi_sockaddr2id((struct sockaddr *)&sp->spidx.src,
+-				sp->spidx.prefs, sp->spidx.ul_proto);
++	if (!ipsecdoi_transportmode(iph2->proposal)) {
++                src_sa = (struct sockaddr *)&sp->spidx.src;
++                prefixlen = sp->spidx.prefs;
++#ifdef ENABLE_HYBRID
++                if (iph2->ph1->mode_cfg) {
++                        unsigned long cb;
++                        struct in_addr addr4;
++                        struct in_addr mask4;
++
++                        addr4 = iph2->ph1->mode_cfg->addr4;
++                        mask4 = iph2->ph1->mode_cfg->mask4;
++                        prefixlen = 0;
++                        for (cb=htonl(mask4.s_addr); cb > 0; cb <<= 1) {
++                            prefixlen++;
++                        }
++                        plog(LLV_DEBUG, LOCATION, NULL,
++                                "Setting source ident (IDci) to %s/%d\n", inet_ntoa(addr4), prefixlen);
++                        bzero((void*)&fake_sin, sizeof(struct sockaddr_in));
++                        fake_sin.sin_len = sizeof(struct sockaddr_in);
++                        fake_sin.sin_family = AF_INET;
++                        fake_sin.sin_addr.s_addr = addr4.s_addr;
++                        src_sa = (struct sockaddr *)&fake_sin;
++                }
++#endif
++		iph2->id = ipsecdoi_sockaddr2id(src_sa,
++				prefixlen, sp->spidx.ul_proto);
++        }
+ 	else if (iph2->sa_src != NULL) {
+ 		/* He have a specific hint indicating that the transport
+ 		 * mode SA will be negotiated using addresses that differ
+@@ -3967,10 +4005,24 @@
+ 		s_ipsecdoi_ident(((struct ipsecdoi_id_b *)iph2->id->v)->type));
+ 
+ 	/* remote side */
+-	if (!ipsecdoi_transportmode(iph2->proposal))
+-		iph2->id_p = ipsecdoi_sockaddr2id((struct sockaddr *)&sp->spidx.dst,
+-				sp->spidx.prefd, sp->spidx.ul_proto);
+-	else if (iph2->sa_dst != NULL) {
++	if (!ipsecdoi_transportmode(iph2->proposal)) {
++#ifdef ENABLE_HYBRID
++                //pass 0.0.0.0/0 for the dst ID so we can handle
++                //multiple subnets
++                        plog(LLV_DEBUG, LOCATION, NULL,
++                                "Setting dest ident (IDcr) to 0.0.0.0/0\n");
++                bzero((void*)&fake_sin, sizeof(struct sockaddr_in));
++                fake_sin.sin_len = sizeof(struct sockaddr_in);
++                fake_sin.sin_family = AF_INET;
++                src_sa = (struct sockaddr *)&fake_sin;
++                prefixlen = 0;
++#else
++                src_sa = (struct sockaddr *)&sp->spidx.dst;
++                prefixlen = sp->spidx.prefd;
++#endif
++		iph2->id_p = ipsecdoi_sockaddr2id(src_sa,
++				prefixlen, sp->spidx.ul_proto);
++        } else if (iph2->sa_dst != NULL) {
+ 		/* See comment above for local side. */
+ 		iph2->id_p = ipsecdoi_sockaddr2id(iph2->sa_dst,
+ 						  IPSECDOI_PREFIX_HOST,
+--- src/racoon/isakmp.c	2011-03-15 08:20:14.000000000 -0500
++++ src/racoon/isakmp.c	2011-11-29 08:19:13.332945225 -0600
+@@ -188,6 +188,7 @@
+ static int etypesw2 __P((int));
+ static int isakmp_ph1resend __P((struct ph1handle *));
+ static int isakmp_ph2resend __P((struct ph2handle *));
++static int isakmp_quick_init __P((struct ph1handle *, vchar_t *));
+ 
+ #ifdef ENABLE_FRAG
+ static int frag_handler(struct ph1handle *,
+@@ -752,6 +753,13 @@
+ #endif
+ 
+ 		isakmp_cfg_r(iph1, msg);
++                if (iph1->mode_cfg->flags & ISAKMP_CFG_GOT_ADDR4) {
++                    if (isakmp_quick_init(iph1, msg) < 0) {
++                        plog(LLV_WARNING, LOCATION, NULL,
++                                "Failed to start Quick mode.\n");
++                        return -1;
++                    }
++                }
+ 		break;
+ #endif
+ 
+@@ -774,6 +782,8 @@
+ 	struct ph1handle *iph1;
+ 	vchar_t *msg;
+ {
++        struct isakmp *isakmp = (struct isakmp *)msg->v;
++        struct ph2handle *iph2 = 0;
+ 	int error;
+ #ifdef ENABLE_STATS
+ 	struct timeval start, end;
+@@ -941,8 +951,18 @@
+ 				break;
+ #endif
+ 			default:
++                                plog(LLV_DEBUG, LOCATION, NULL, 
++                                        "Calling script_hook from \"%s\"\n",
++                                        "ph1_main");
+ 				script_hook(iph1, SCRIPT_PHASE1_UP);
+-				break;
++
++                                /* need to go ahead and initiate Quick mode */
++                                if (isakmp_quick_init(iph1, msg) < 0) {
++                                    plog(LLV_WARNING, LOCATION, NULL,
++                                            "Failed to initiate Quick mode\n"
++                                            );
++                                    return -1;
++                                }
+ 			}
+ 		}
+ 	}
+@@ -1841,6 +1861,9 @@
+ 			"phase1 negotiation failed due to time up. %s\n",
+ 			isakmp_pindex(&iph1->index, iph1->msgid));
+ 		/* XXX is the peer really "dead" here ??? */
++                plog(LLV_DEBUG, LOCATION, NULL, 
++                        "Calling script_hook from \"%s\"\n",
++                        "isakmp_ph1resend");
+ 		script_hook(iph1, SCRIPT_PHASE1_DEAD);
+ 		evt_phase1(iph1, EVT_PHASE1_NO_RESPONSE, NULL);
+ 
+@@ -2066,8 +2089,12 @@
+ 		src, dst, isakmp_pindex(&iph1->index, 0));
+ 
+ 	evt_phase1(iph1, EVT_PHASE1_DOWN, NULL);
+-	if (new_iph1 == NULL && ph1_rekey_enabled(iph1))
++	if (new_iph1 == NULL && ph1_rekey_enabled(iph1)) {
++                plog(LLV_DEBUG, LOCATION, NULL, 
++                        "Calling script_hook from \"%s\"\n",
++                        "isakmp_ph1delete");
+ 		script_hook(iph1, SCRIPT_PHASE1_DEAD);
++        }
+ 
+ 	racoon_free(src);
+ 	racoon_free(dst);
+@@ -2406,6 +2433,98 @@
+ 	return;
+ }
+ 
++int
++isakmp_quick_init(iph1, msg)
++        struct ph1handle *iph1;
++        vchar_t *msg;
++{
++        struct ph2handle *iph2;
++        struct secpolicy *sp_out = NULL, *sp_in = NULL;
++        struct policyindex spidx;
++        struct sockaddr *dst;
++        struct sockaddr *src;
++        struct secasindex saidx;
++
++        dst = dupsaddr(iph1->remote);
++        src = dupsaddr(iph1->local);
++        
++        memcpy(&saidx.src, src, sizeof(saidx.src));
++        memcpy(&saidx.dst, dst, sizeof(saidx.dst));
++        sp_out = getspbysaidx(&saidx);
++        if (sp_out) {
++                plog(LLV_DEBUG, LOCATION, NULL,
++                        "suitable outbound SP found: %s.\n",
++                        spidx2str(&sp_out->spidx));
++        } else {
++                plog(LLV_NOTIFY, LOCATION, NULL,
++                        "no outbound policy found: %s\n",
++                        spidx2str(&spidx));
++                return ENOENT;
++        }
++
++        iph2 = getph2byid(src, dst, sp_out->id);
++        if (iph2 != NULL) {
++                if (iph2->status == PHASE2ST_ESTABLISHED)
++                        return EEXIST;
++//                return 0;
++        }
++
++        /* get inbound policy */
++        memcpy(&saidx.src, dst, sizeof(saidx.src));
++        memcpy(&saidx.dst, src, sizeof(saidx.dst));
++        sp_in = getspbysaidx(&saidx);
++        if (sp_in) {
++                plog(LLV_DEBUG, LOCATION, NULL,
++                        "suitable inbound SP found: %s.\n",
++                        spidx2str(&sp_in->spidx));
++        } else {
++                plog(LLV_NOTIFY, LOCATION, NULL,
++                        "no inbound policy found: %s\n",
++                spidx2str(&spidx));
++                return ENOENT;
++        }
++
++        /* allocate a phase 2 */
++        iph2 = newph2();
++        if (iph2 == NULL) {
++                plog(LLV_ERROR, LOCATION, NULL,
++                        "failed to allocate phase2 entry.\n");
++                return -1;
++        }
++        iph2->side = INITIATOR;
++        iph2->satype = SADB_SATYPE_UNSPEC;
++        iph2->spid = sp_out->id;
++        iph2->seq = pk_getseq();
++        iph2->status = PHASE2ST_STATUS2;
++
++        /* set end addresses of SA */
++        iph2->sa_dst = dupsaddr(dst);
++        iph2->sa_src = dupsaddr(src);
++        iph2->dst = dupsaddr(dst);
++        iph2->src = dupsaddr(src);
++        if (iph2->sa_src == NULL || iph2->sa_dst == NULL ||
++            iph2->dst == NULL || iph2->src == NULL) {
++                delph2(iph2);
++                return -1;
++        }
++        set_port(iph2->dst, 0);
++        set_port(iph2->src, 0);
++
++        if (isakmp_get_sainfo(iph2, sp_out, sp_in) < 0) {
++                delph2(iph2);
++                return -1;
++        }
++
++        insph2(iph2);
++        if (isakmp_post_acquire(iph2, iph1, FALSE) < 0) {
++                remph2(iph2);
++                delph2(iph2);
++                return -1;
++        }
++
++        return 0;
++}
++
+ /* copy variable data into ALLOCATED buffer. */
+ caddr_t
+ isakmp_set_attr_v(buf, type, val, len)
+--- src/racoon/isakmp_cfg.c	2010-09-21 08:14:17.000000000 -0500
++++ src/racoon/isakmp_cfg.c	2011-11-27 14:51:48.234237097 -0600
+@@ -457,6 +457,9 @@
+ 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSASIG_I:
+ 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAENC_I: 
+ 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAREV_I: 
++                        plog(LLV_DEBUG, LOCATION, NULL, 
++                                "Calling script_hook from \"%s\"\n",
++                                "isakmp_cfg_reply");
+ 			script_hook(iph1, SCRIPT_PHASE1_UP);
+ 			break;
+ 		default:
+@@ -639,6 +642,10 @@
+ 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSASIG_R:
+ 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAENC_R: 
+ 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAREV_R: 
++                        plog(LLV_DEBUG, LOCATION, NULL, 
++                                "Calling script_hook from \"%s\"\n",
++                                "isakmp_cfg_request");
++                        
+ 			script_hook(iph1, SCRIPT_PHASE1_UP);
+ 			break;
+ 		default:
+--- src/racoon/isakmp_inf.c	2011-03-15 08:20:14.000000000 -0500
++++ src/racoon/isakmp_inf.c	2011-11-27 12:22:07.380233551 -0600
+@@ -1517,6 +1517,9 @@
+ 			"DPD: remote (ISAKMP-SA spi=%s) seems to be dead.\n",
+ 			isakmp_pindex(&iph1->index, 0));
+ 
++                plog(LLV_DEBUG, LOCATION, NULL, 
++                        "Calling script_hook from \"%s\"\n",
++                        "isakmp_info_send_r_u");
+ 		script_hook(iph1, SCRIPT_PHASE1_DEAD);
+ 		evt_phase1(iph1, EVT_PHASE1_DPD_TIMEOUT, NULL);
+ 		purge_remote(iph1);
+--- src/racoon/isakmp_quick.c	2011-03-14 12:18:13.000000000 -0500
++++ src/racoon/isakmp_quick.c	2011-11-27 15:28:30.082124586 -0600
+@@ -159,6 +159,7 @@
+ 		goto end;
+ 	}
+ 
++        plog(LLV_DEBUG, LOCATION, NULL, "### quick_ilprep ###\n");
+ 	/* send getspi message */
+ 	if (pk_sendgetspi(iph2) < 0)
+ 		goto end;
+--- src/racoon/pfkey.c	2011-03-15 08:20:14.000000000 -0500
++++ src/racoon/pfkey.c	2011-11-27 15:32:56.160013754 -0600
+@@ -898,6 +898,8 @@
+ 	u_int32_t minspi, maxspi;
+ 	u_int8_t natt_type = 0;
+ 	u_int16_t sport = 0, dport = 0;
++        
++        plog(LLV_DEBUG, LOCATION, NULL, "### pk_sendgetspi; proposal: %p ###\n", (void *)iph2->proposal);
+ 
+ 	if (iph2->side == INITIATOR)
+ 		pp = iph2->proposal;
+--- src/racoon/policy.c	2011-03-14 12:18:13.000000000 -0500
++++ src/racoon/policy.c	2011-11-29 08:20:02.201732009 -0600
+@@ -167,6 +167,76 @@
+ #endif
+ 
+ struct secpolicy *
++getspbysaidx(saidx)
++    struct secasindex *saidx;
++{
++        struct secpolicy *p, *ret = NULL;
++        struct ipsecrequest *r;
++
++        plog(LLV_DEBUG, LOCATION, NULL, 
++                "Searching for policy with SA matching:\n");
++        plog(LLV_DEBUG, LOCATION, NULL,
++                "  - src: %s\n",
++                saddr2str((struct sockaddr *)&saidx->src));
++        plog(LLV_DEBUG, LOCATION, NULL,
++                "  - dst: %s\n",
++                saddr2str((struct sockaddr *)&saidx->dst));
++        if (saidx->src.ss_family != AF_INET) {
++            plog(LLV_DEBUG, LOCATION, NULL,
++                    "Socket family type %d unsupported.\n",
++                    saidx->src.ss_family);
++            goto out;
++        }
++        if (saidx->dst.ss_family != AF_INET) {
++            plog(LLV_DEBUG, LOCATION, NULL,
++                    "Socket family type %d unsupported.\n",
++                    saidx->dst.ss_family);
++            goto out;
++        }
++
++        for (p = TAILQ_FIRST(&sptree); p && !ret; p = TAILQ_NEXT(p, chain)) {
++            if (p->policy == IPSEC_POLICY_IPSEC) {
++                for (r = p->req; r && !ret; r = r->next) {
++                    struct sockaddr *s1, *s2;
++                    s1 = (struct sockaddr *)&r->saidx.src;
++                    s2 = (struct sockaddr *)&r->saidx.dst;
++                    plog(LLV_DEBUG, LOCATION, NULL,
++                            "Checking SA:\n");
++                    plog(LLV_DEBUG, LOCATION, NULL,
++                            "  - src: %s\n",
++                            saddr2str(s1));
++                    plog(LLV_DEBUG, LOCATION, NULL,
++                            "  - dst: %s\n",
++                            saddr2str(s2));
++                    if (s1->sa_family != AF_INET || s2->sa_family != AF_INET)
++                        continue;
++                    if (((struct sockaddr_in *)&saidx->src)->sin_addr.s_addr 
++                            != ((struct sockaddr_in *)s1)->sin_addr.s_addr)
++                        continue;
++                    if (((struct sockaddr_in *)&saidx->dst)->sin_addr.s_addr 
++                            != ((struct sockaddr_in *)s2)->sin_addr.s_addr)
++                        continue;
++                    plog(LLV_DEBUG, LOCATION, NULL,
++                            "SA match found:\n");
++                    plog(LLV_DEBUG, LOCATION, NULL,
++                            "  - src: %s\n",
++                            saddr2str(s1));
++                    plog(LLV_DEBUG, LOCATION, NULL,
++                            "  - dst: %s\n",
++                            saddr2str(s2));
++                    plog(LLV_DEBUG, LOCATION, NULL,
++                            "  - SP: %s\n",
++                            spidx2str(&p->spidx));
++
++                    ret = p;
++                }
++            }
++        }
++out:
++        return ret;
++}
++
++struct secpolicy *
+ getspbyspid(spid)
+ 	u_int32_t spid;
+ {
+--- src/racoon/policy.h	2008-12-05 00:02:20.000000000 -0600
++++ src/racoon/policy.h	2011-11-28 20:06:50.365406896 -0600
+@@ -145,6 +145,7 @@
+ struct policyindex;
+ extern struct secpolicy *getsp __P((struct policyindex *));
+ extern struct secpolicy *getsp_r __P((struct policyindex *));
++extern struct secpolicy *getspbysaidx __P((struct secasindex *));
+ struct secpolicy *getspbyspid __P((u_int32_t));
+ extern int cmpspidxstrict __P((struct policyindex *, struct policyindex *));
+ extern int cmpspidxwild __P((struct policyindex *, struct policyindex *));
