@@ -1,0 +1,30 @@
+--- src/racoon/isakmp.c	2011-11-29 10:58:34.108738000 -0600
++++ src/racoon/isakmp.c	2011-11-29 12:23:36.969265429 -0600
+@@ -752,7 +752,15 @@
+ 			return frag_handler(iph1, msg, remote, local);
+ #endif
+ 
++            {
++                isakmp_index idx;
++                memcpy(&idx, &iph1->index, sizeof(idx));
++
+ 		isakmp_cfg_r(iph1, msg);
++                //make sure the ph1 wasn't deleted! (e.g. failed auth)
++                if (getph1byindex(&idx) != iph1)
++                    return -1;
++            }
+                 if (iph1->mode_cfg->flags & ISAKMP_CFG_GOT_ADDR4) {
+                     if (isakmp_quick_init(iph1, msg) < 0) {
+                         plog(LLV_WARNING, LOCATION, NULL,
+--- src/racoon/isakmp_cfg.c	2011-11-29 10:58:34.109739000 -0600
++++ src/racoon/isakmp_cfg.c	2011-11-29 12:08:28.161715539 -0600
+@@ -248,7 +248,8 @@
+ 			struct isakmp_pl_attr *attrpl;
+ 
+ 			attrpl = (struct isakmp_pl_attr *)ph;
+-			isakmp_cfg_attr_r(iph1, packet->msgid, attrpl);
++			if (isakmp_cfg_attr_r(iph1, packet->msgid, attrpl) < 0)
++                            goto out;
+ 
+ 			break;
+ 		}
