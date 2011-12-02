@@ -441,3 +441,65 @@
  struct secpolicy *getspbyspid __P((u_int32_t));
  extern int cmpspidxstrict __P((struct policyindex *, struct policyindex *));
  extern int cmpspidxwild __P((struct policyindex *, struct policyindex *));
+--- src/racoon/isakmp_xauth.c	2011-03-14 10:50:36.000000000 -0500
++++ src/racoon/isakmp_xauth.c	2011-12-01 21:02:48.058507579 -0600
+@@ -117,6 +117,19 @@
+ struct xauth_ldap_config xauth_ldap_config;
+ #endif
+ 
++static void
++xauth_sendreq_stub(p)
++    struct sched *p;
++{
++    struct ph1handle *iph1;
++    struct xauth_state *xst;
++    iph1 = container_of(p, struct ph1handle, sce);
++    xst = &iph1->mode_cfg->xauth;
++    if (xst->status < XAUTHST_OK) {
++        xauth_sendreq(iph1);
++    }
++}
++
+ void 
+ xauth_sendreq(iph1)
+ 	struct ph1handle *iph1;
+@@ -136,9 +149,15 @@
+ 		return;
+ 	}
+ 
+-	if (xst->status != XAUTHST_NOTYET) {
++        if (xst->status < XAUTHST_SCHED) {
++            xst->status = XAUTHST_SCHED;
++            sched_schedule(&iph1->sce, 1, xauth_sendreq_stub);
++        }
++
++
++	if (xst->status > XAUTHST_REQSENT) {
+ 		plog(LLV_ERROR, LOCATION, NULL, 
+-		    "Xauth request whith Xauth state %d\n", xst->status);
++		    "Xauth request with Xauth state %d\n", xst->status);
+ 		return;
+ 	}
+ 
+@@ -180,6 +199,7 @@
+ 
+ 	xst->status = XAUTHST_REQSENT;
+ 
++        sched_schedule(&iph1->sce, 1, xauth_sendreq_stub);
+ 	return;
+ }
+ 
+--- src/racoon/isakmp_xauth.h	2011-03-14 10:50:36.000000000 -0500
++++ src/racoon/isakmp_xauth.h	2011-12-01 20:43:27.463300791 -0600
+@@ -88,8 +88,9 @@
+ 
+ /* status */
+ #define XAUTHST_NOTYET	0
+-#define XAUTHST_REQSENT	1
+-#define XAUTHST_OK	2
++#define XAUTHST_SCHED   1
++#define XAUTHST_REQSENT	2
++#define XAUTHST_OK	3
+ 
+ struct xauth_reply_arg {
+ 	struct sched sc;
